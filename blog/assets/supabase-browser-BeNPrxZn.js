@@ -1,0 +1,1 @@
+import{t as e}from"./vendor~supabase-browser-CH8CalSN.js";export{e as createClient};

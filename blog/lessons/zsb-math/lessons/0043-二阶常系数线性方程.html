@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0043 · 可降阶方程 · 二阶常系数线性方程 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0043">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 9 单元 · 常微分方程 · 课 0043</span>
+  <a href="0042-一阶微分方程.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0043 · 常微分方程</span>
+<h1>可降阶方程 · 二阶常系数线性方程</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0042 一阶微分方程 · 复数初步</span>
+  <span>来源：笔记《常微分方程》§七–§十</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>三类可降阶方程各对上降阶钥匙（连积分 / $p=y'$ / $p\,\dfrac{dp}{dy}$）</li>
+    <li>由<strong>特征方程</strong> $r^{2}+pr+q=0$ 的三类根 1 分钟写出齐次通解</li>
+    <li>为两类非齐次项<strong>正确设特解</strong>（含共振乘 $x^{k}$）</li>
+  </ul>
+</div>
+
+<p>微分方程章的大题终点站：二阶常系数线性方程 $y''+py'+qy=f(x)$。解法是纯模板：<strong>特征方程 → 齐次通解 → 待定特解 → 相加</strong>。模板熟，这就是全卷最稳的大题。</p>
+
+<h2>一、三类可降阶方程</h2>
+
+<table>
+  <tr><th>类型</th><th>钥匙</th><th>说明</th></tr>
+  <tr><td>$y^{(n)}=f(x)$</td><td>连续积分 $n$ 次</td><td>每次补一个常数</td></tr>
+  <tr><td>$F(x,y',y'')=0$（缺 $y$）</td><td>令 $p=y'$，$y''=p'$</td><td>先解 $p(x)$ 的一阶方程，再积 $y'=p$</td></tr>
+  <tr><td>$F(y,y',y'')=0$（缺 $x$）</td><td>令 $p(y)=y'$，$y''=p\dfrac{dp}{dy}$</td><td>链式法则；解出 $p(y)$ 后再分离</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（缺 $y$ 型；本题恰好也缺 $x$）</span>解 $y''=(y')^{2}+1$。（练习 12(6)）</p>
+  <details><summary>先自己降阶，再展开</summary>
+    <p>令 $p=y'$，$y''=p\dfrac{dp}{dy}$：$p\dfrac{dp}{dy}=p^{2}+1$，分离 $\dfrac{p\,dp}{1+p^{2}}=dy$。</p>
+    <p>积分：$\dfrac12\ln(1+p^{2})=y+C$，取 $p=\tan(x+C_1)$（对应 $p' = p^2+1$ 沿 $x$ 解的另一支——两种降阶路径同果）：</p>
+    <p>通解 $$y=-\ln\left|\cos(x+C_1)\right|+C_2$$</p>
+    <p>验算：$y'=\tan(x+C_1)$，$y''=\sec^{2}(x+C_1)=1+\tan^{2}=1+(y')^{2}$ ✓。<strong>缺 $y$ 型的 $y''=p\frac{dp}{dy}$ 不是 $p'$</strong>——链式法则的代价（本题也缺 $x$，走 $p'=p^{2}+1$ 的另一条路同样能到，见笔记详解）。</p>
+  </details>
+</div>
+
+<h2>二、线性方程解的结构（先立规矩）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">结构定理</div>
+  <p style="margin:0.2rem 0">齐次解可叠加：$y_1,y_2$ 是齐次解 ⇒ $C_1y_1+C_2y_2$ 仍是（二阶时线性无关的两解即<strong>齐次通解</strong> $y_c$）。</p>
+  <p style="margin:0.2rem 0"><strong>非齐次通解 = 齐次通解 + 任一特解</strong>：$y=y_c+y_p$（特解不带任意常数）。两个非齐次特解之<strong>差</strong>是齐次解；右端相加时特解可相加。</p>
+</div>
+
+<h2>三、二阶常系数齐次：特征方程法</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背三模板（$y''+py'+qy=0$，特征方程 $r^{2}+pr+q=0$）</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>根的类型</th><th>通解</th></tr>
+    <tr><td>两个不同实根 $r_1\neq r_2$</td><td>$y=C_{1}e^{r_{1}x}+C_{2}e^{r_{2}x}$</td></tr>
+    <tr><td>二重根 $r$</td><td>$y=(C_{1}+C_{2}x)e^{rx}$（<strong>补 $x$</strong>）</td></tr>
+    <tr><td>共轭复根 $\alpha\pm\beta i$</td><td>$y=e^{\alpha x}(C_{1}\cos\beta x+C_{2}\sin\beta x)$</td></tr>
+  </table>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（三模板各来一道）</span>解 $y''-7y'+12y=0$；$4y''-12y'+9y=0$；$y''+2y'+3y=0$。</p>
+  <details><summary>先自己算根，再展开（练习 15 同族）</summary>
+    <p>① $r^{2}-7r+12=(r-3)(r-4)=0$，根 $3,4$：$y=C_1e^{3x}+C_2e^{4x}$。</p>
+    <p>② $4r^{2}-12r+9=0$，$\Delta=144-144=0$，重根 $r=\dfrac32$：$y=(C_1+C_2x)e^{\frac32x}$。</p>
+    <p>③ $r^{2}+2r+3=0$，$\Delta&lt;0$，$r=-1\pm\sqrt2 i$：$y=e^{-x}(C_1\cos\sqrt2 x+C_2\sin\sqrt2 x)$。</p>
+    <p>流程：<strong>写特征方程 → 求根 → 对模板抄答案</strong>，一分钟内收工。</p>
+  </details>
+</div>
+
+<h2>四、二阶常系数非齐次：待定特解</h2>
+
+<div class="keypoint">
+  <div class="kp-title">两类右端的设法（含共振）</div>
+  <p style="margin:0.2rem 0"><strong>① $f(x)=P_m(x)e^{\lambda x}$</strong>：设 $y_p=x^{k}Q_m(x)e^{\lambda x}$——$\lambda$ 不是根 / 单根 / 二重根时 $k=0/1/2$。</p>
+  <p style="margin:0.2rem 0"><strong>② $f(x)=e^{\alpha x}[P\cos\beta x+Q\sin\beta x]$</strong>：设 $y_p=x^{k}e^{\alpha x}[R\cos\beta x+S\sin\beta x]$——$\alpha\pm\beta i$ 是特征根时 $k=1$，否则 $k=0$；<strong>只给正弦也要设余弦</strong>（两项成对）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（夏讲 P61 全流程）</span>解 $y''-5y'+6y=xe^{2x}$。</p>
+  <details><summary>先自己走四步，再展开</summary>
+    <p><strong>① 齐次通解</strong>：$r^{2}-5r+6=0$，$r=2,3$：$y_c=C_1e^{2x}+C_2e^{3x}$。</p>
+    <p><strong>② 设特解</strong>：$\lambda=2$ 是单根 ⇒ $k=1$：$y_p=xe^{2x}(Ax+B)$。</p>
+    <p><strong>③ 代回定系数</strong>：得 $A=-\dfrac12$，$B=-1$。</p>
+    <p><strong>④ 相加</strong>：$$y=C_{1}e^{2x}+C_{2}e^{3x}-e^{2x}\left(\frac{x^{2}}{2}+x\right)$$</p>
+    <p>共振一眼判：右端 $e^{2x}$ 撞上特征根 2 ⇒ 乘 $x$。<strong>"撞根乘 $x$"是本考点全部的灵魂</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（三角右端）</span>解 $y''-y'-2y=\sin3x$。（夏讲 P64）</p>
+  <details><summary>先自己设法，再展开</summary>
+    <p>$y_c=C_1e^{2x}+C_2e^{-x}$（根 $2,-1$）。$\pm3i$ 不是特征根 ⇒ $k=0$，且正弦也要配余弦：$y_p=A\cos3x+B\sin3x$。代回解出 $A=\dfrac{3}{130}$，$B=-\dfrac{11}{130}$。</p>
+    <p>$$y=C_{1}e^{2x}+C_{2}e^{-x}+\frac{3}{130}\cos3x-\frac{11}{130}\sin3x$$</p>
+    <p>设特解写"两项成对"的理由：对 $\sin$ 单独设常导致系数方程缺行、解不出。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">方程 $y''+2y'+y=0$ 的通解是（练习 15(7) 同族）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$C_1e^{x}+C_2e^{-x}$</button>
+    <button data-k="B">$C_1\cos x+C_2\sin x$</button>
+    <button data-k="C">$(C_1+C_2x)e^{-x}$</button>
+    <button data-k="D">$C_1e^{-x}+C_2xe^{x}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">特征方程 $(r+1)^{2}=0$，二重根 $r=-1$ ⇒ $(C_1+C_2x)e^{-x}$。<strong>重根补 $x$</strong>——漏 $x$ 项只有一个任意常数，不构成通解。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">方程 $y''+4y=0$ 的通解是（练习 15(12) 同族）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$C_1\cos2x+C_2\sin2x$</button>
+    <button data-k="B">$(C_1+C_2x)e^{2x}$</button>
+    <button data-k="C">$C_1e^{2x}+C_2e^{-2x}$</button>
+    <button data-k="D">$e^{2x}(C_1\cos x+C_2\sin x)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$r^{2}+4=0$ ⇒ $r=\pm2i$（纯虚根，$\alpha=0,\beta=2$）⇒ $e^{0x}=1$，得 $C_1\cos2x+C_2\sin2x$。C 是 $r=\pm2$ 的样子——虚根与实根差一个 $i$，通解形状完全不同。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$y''-5y'+6y=xe^{2x}$ 中，特解应设为</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y_p=(Ax+B)e^{2x}$</button>
+    <button data-k="B">$y_p=x(Ax+B)e^{2x}$</button>
+    <button data-k="C">$y_p=Ax^{2}e^{2x}$</button>
+    <button data-k="D">$y_p=Axe^{3x}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">右端 $\lambda=2$ 恰为单根 ⇒ 共振乘 $x^{1}$：$x(Ax+B)e^{2x}$。A 没乘 $x$——代回会"两头落空"（左端算出 0）；C 多乘了；D 的指数撞错根。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y''+y' = 0$ 且右端 $f(x)=x$ 时，特解应设为</p>
+  <div class="quiz-opts">
+    <button data-k="A">$Ax+B$</button>
+    <button data-k="B">$Ae^{x}$</button>
+    <button data-k="C">$Ax^{3}$</button>
+    <button data-k="D">$x(Ax+B)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">特征根 $0,-1$：右端 $x=xe^{0x}$ 的 $\lambda=0$ 是单根 ⇒ 共振乘 $x$：$x(Ax+B)=Ax^{2}+Bx$。<strong>常数右端也是 $e^{0x}$</strong>——$\lambda=0$ 撞根的隐性情形，最易漏。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">设 $y_1,y_2,y_3$ 是 $L[y]=f(x)$ 的三个特解，且 $y_1-y_3$、$y_2-y_3$ 线性无关，则 $L[y]=f(x)$ 的通解可写成</p>
+  <div class="quiz-opts">
+    <button data-k="A">$C_1y_1+C_2y_2+(1-C_1-C_2)y_3$</button>
+    <button data-k="B">$C_1y_1+C_2y_2+C_3y_3$（三个常数）</button>
+    <button data-k="C">$y_1+y_2+y_3$</button>
+    <button data-k="D">$C(y_1-y_2)+y_3$ 之外无其他形式</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">在题设的线性无关条件下，$y_1-y_3$、$y_2-y_3$ 构成对应二阶齐次方程的解基；通解 = 齐次通解 + $y_3$，整理即 A（夏讲 P50 选择题）。若缺少线性无关条件，三个特解可能重复或差解相关，A 不一定覆盖全部通解。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>特征根三模板：<strong>重根补 $x$</strong>、复根写实函数 $e^{\alpha x}(\cos\beta x,\sin\beta x)$</li>
+    <li>非齐次特解<strong>不带任意常数</strong>；最终通解 $y=y_c+y_p$</li>
+    <li>设特解先查共振：<strong>$\lambda$ 撞特征根就乘 $x^{k}$</strong>（单根 $k=1$、重根 $k=2$）</li>
+    <li>三角右端两项成对设；常数右端视作 $\lambda=0$ 查共振</li>
+    <li>缺 $y$ 型令 $p=y'$、$y''=p'$；缺 $x$ 型令 $p(y)=y'$、$y''=p\dfrac{dp}{dy}$——两把钥匙别插错锁</li>
+    <li>解完<strong>代回原方程</strong>验算（本单元最便宜的满分保险）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写特征方程三类根对应的齐次通解模板。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">异根：$C_1e^{r_1x}+C_2e^{r_2x}$；重根：$(C_1+C_2x)e^{rx}$；复根 $\alpha\pm\beta i$：$e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">非齐次大题四步是什么？两类右端的特解设法与共振规则各是什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">①齐次通解 $y_c$ → ②按右端设 $y_p$（$P_me^{\lambda x}$ 型乘 $x^k$，三角型成对设）→ ③代回定系数 → ④$y=y_c+y_p$。共振：$\lambda$（或 $\alpha\pm\beta i$）是单根乘 $x$、重根乘 $x^{2}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 9 单元（0042–0043）收官，全部 11 个知识单元讲完！</strong>接下来第 10 单元进入真题混编实战——前面所有回忆卡开始进入"混测轮"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《常微分方程》§七–§十（含冬练练习 12–16 与夏讲 P61/P64 详解）</li>
+    <li>讲义：《常微分方程》冬练 PDF（可降阶 P14–P15、高阶线性 P16–P18）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："共振为什么乘 $x$（直观理解）"、"$y''=1+(y')^{2}$ 完整再走一遍"、"再出 10 道'设特解'专项题限时 10 分钟"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0042-一阶微分方程.html" class="prev"><span class="dir">← 上一课</span>0042 一阶微分方程</a>
+  <a href="0044-真题混编一二.html" class="next"><span class="dir">下一课 →</span>0044 真题混编 Ⅰ</a>
+</nav>
+</main>
+</body>
+</html>

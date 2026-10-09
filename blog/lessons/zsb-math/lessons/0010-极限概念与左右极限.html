@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0010 · 极限概念与左右极限 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0010">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0010</span>
+  <a href="0009-一次与二次函数.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0010 · 极限与连续</span>
+<h1>极限概念与左右极限</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0007 基本初等函数图像库实战</span>
+  <span>来源：笔记《极限与连续》§一</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写两大<strong>充要条件</strong>：$x\to\infty$ 与 $x\to x_0$ 的极限存在 ⟺ 左右（两侧）极限存在且相等</li>
+    <li>脱口而出必背走向表：$e^x$、$\arctan x$、$\dfrac{|x|}{x}$、$\dfrac1x$ 的各方向极限</li>
+    <li>遇到<strong>分段函数分段点</strong>、$e^{1/x}$、$\arctan\dfrac1x$ 自动"左算一次、右算一次"</li>
+  </ul>
+</div>
+
+<p>从本课起进入<strong>考试第一章大题来源</strong>。极限的所有计算技巧（后面七课）都建立在"极限是什么、什么时候存在"上——这课就是把地基打牢，并背下第一张"秒答表"。</p>
+
+<h2>一、六种极限过程与两大充要条件</h2>
+
+<table>
+  <tr><th>过程</th><th>含义</th><th>记法</th></tr>
+  <tr><td>$x\to+\infty$ / $x\to-\infty$</td><td>沿正 / 负方向无限远离原点</td><td>$\lim\limits_{x\to\pm\infty}f(x)=a$</td></tr>
+  <tr><td>$x\to\infty$</td><td>$|x|\to+\infty$（两侧一起）</td><td>$\lim\limits_{x\to\infty}f(x)=a$</td></tr>
+  <tr><td>$x\to x_0^-$ / $x\to x_0^+$</td><td>从 $x_0$ 左 / 右侧接近（左 / 右极限）</td><td>$\lim\limits_{x\to x_0^\pm}f(x)=a$</td></tr>
+  <tr><td>$x\to x_0$</td><td>在 $x_0$ 的<strong>去心邻域</strong>内接近</td><td>$\lim\limits_{x\to x_0}f(x)=a$</td></tr>
+</table>
+
+<div class="keypoint">
+  <div class="kp-title">必背：两大充要条件</div>
+  <p style="margin:0.2rem 0">$$\lim_{x\to\infty}f(x)=a\iff\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=a$$</p>
+  <p style="margin:0.2rem 0">$$\lim_{x\to x_0}f(x)=a\iff\lim_{x\to x_0^-}f(x)=\lim_{x\to x_0^+}f(x)=a$$</p>
+  <p style="margin:0.2rem 0">一句话：<strong>整体极限存在 ⟺ 两侧都存在且相等</strong>。极限存在叫<strong>收敛</strong>，不存在叫<strong>发散</strong>——发散分两种：<strong>无穷</strong>与<strong>振荡</strong>。</p>
+</div>
+
+<p>注意"$x\to x_0$"关心的是 $x_0$ <strong>附近</strong>的行为，与 $f(x_0)$ 处有没有定义、等于几<strong>完全无关</strong>（去心邻域的含义）。这个观念后面"可去间断点"全靠它。</p>
+
+<h2>二、必背走向表：这些极限要形成条件反射</h2>
+
+<table>
+  <tr><th>极限</th><th>结果</th><th>理由</th></tr>
+  <tr><td>$\lim\limits_{x\to+\infty}\dfrac1x$ 与 $\lim\limits_{x\to\infty}\dfrac1x$</td><td>$0$、$0$</td><td>倒数趋势，两侧同为 0</td></tr>
+  <tr><td>$\lim\limits_{x\to-\infty}e^{x}$</td><td>$0$</td><td>图象左端贴死 $x$ 轴</td></tr>
+  <tr><td>$\lim\limits_{x\to+\infty}e^{x}$</td><td>$+\infty$（发散·无穷）</td><td>指数爆炸</td></tr>
+  <tr><td><strong>$\lim\limits_{x\to\infty}e^{x}$</strong></td><td><strong>不存在</strong></td><td>左 $\to0$、右 $\to+\infty$，两侧不等</td></tr>
+  <tr><td>$\lim\limits_{x\to-\infty}\arctan x$ / $+\infty$ 方向</td><td>$-\dfrac{\pi}{2}$ / $\dfrac{\pi}{2}$</td><td>两条水平渐近线</td></tr>
+  <tr><td><strong>$\lim\limits_{x\to\infty}\arctan x$</strong></td><td><strong>不存在</strong></td><td>$-\frac{\pi}{2}\neq\frac{\pi}{2}$</td></tr>
+  <tr><td>$\lim\limits_{x\to+\infty}\sin x$</td><td><strong>不存在</strong>（发散·振荡）</td><td>永远在 $[-1,1]$ 里晃</td></tr>
+  <tr><td>$\lim\limits_{x\to-\infty}\dfrac{|x|}{x}$</td><td>$-1$</td><td>$x&lt;0$ 时 $|x|=-x$</td></tr>
+</table>
+
+<h2>三、必须分左右极限的两类情形（高频考点）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">见到就拆左右</div>
+  <p style="margin:0.2rem 0">① <strong>分段函数的分段点</strong>：左、右各代所在段的表达式，算完再比较；</p>
+  <p style="margin:0.2rem 0">② <strong>$e^{1/x}$ 与 $\arctan\dfrac1x$ 在 $x\to0$</strong>：因为 $\dfrac1x$ 在 $0$ 两侧分别 $\to\mp\infty$，而 $e^u$、$\arctan u$ 的两侧行为天差地别。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（分段点）</span>$f(x)=\begin{cases}3x+2 &amp; x\le0\\ x^2+1 &amp; 0&lt;x\le1\\ \dfrac2x &amp; x&gt;1\end{cases}$，讨论 $x\to0$ 与 $x\to1$ 处的极限。（秋讲练习 1）</p>
+  <details><summary>先左右各算一次，再展开</summary>
+    <p><strong>$x\to0$</strong>：左 $=3(0)+2=2$，右 $=0^2+1=1$，$2\neq1$ ⇒ 极限<strong>不存在</strong>。</p>
+    <p><strong>$x\to1$</strong>：左 $=1^2+1=2$，右 $=\dfrac21=2$，相等 ⇒ $\lim\limits_{x\to1}f(x)=2$。</p>
+    <p>口诀：<strong>分段点处，左算一次右算一次，相等才存在</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（$e^{1/x}$ 型）</span>求 $\lim\limits_{x\to0}\dfrac{e^{1/x}-1}{e^{1/x}+2}$。（秋讲练习 2）</p>
+  <details><summary>先分左右，再展开</summary>
+    <p><strong>$x\to0^-$</strong>：$\dfrac1x\to-\infty$，$e^{1/x}\to0$，极限 $=\dfrac{0-1}{0+2}=-\dfrac12$。</p>
+    <p><strong>$x\to0^+$</strong>：$\dfrac1x\to+\infty$，$e^{1/x}\to+\infty$，分子分母同除 $e^{1/x}$：$\dfrac{1-e^{-1/x}}{1+2e^{-1/x}}\to\dfrac{1-0}{1+0}=1$。</p>
+    <p>左右不等 ⇒ $x\to0$ 时极限<strong>不存在</strong>（但单侧极限都算得出来——考试常只要单侧）。</p>
+  </details>
+</div>
+
+<div class="plot-row">
+  <div class="plot" data-fn="Math.exp(1/x)" data-xmin="-2" data-xmax="2" data-ymin="-1" data-ymax="4" data-w="300" data-h="190" data-vlines="0" data-clipy="1.5" data-label="$y=e^{1/x}$：左支贴 0，右支爆炸"></div>
+  <div class="plot" data-fn="Math.abs(x)/x" data-xmin="-2" data-xmax="2" data-ymin="-1.6" data-ymax="1.6" data-w="300" data-h="190" data-vlines="0" data-clipy="1.5" data-label="$y=\dfrac{|x|}{x}$：左 $-1$ 右 $1$，跳一段"></div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">"$\lim\limits_{x\to x_0}f(x)=a$"成立的充要条件是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f(x_0)=a$</button>
+    <button data-k="B">$f(x)$ 在 $x_0$ 处有定义</button>
+    <button data-k="C">左右极限都存在且都等于 $a$</button>
+    <button data-k="D">$f(x)$ 在 $x_0$ 处连续</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">左 $=$ 右 $=a$ 才行。A、B 混进了"该点的值"——极限用<strong>去心</strong>邻域，与 $f(x_0)$ 无关（后面可去间断点就靠这一点）；D 的条件比"极限存在"强得多。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">若按本课约定 $|x|\to\infty$，则 $\lim\limits_{|x|\to\infty}e^{x}$ 的结论是</p>
+  <div class="quiz-opts">
+    <button data-k="A">等于 $0$</button>
+    <button data-k="B">等于 $+\infty$</button>
+    <button data-k="C">等于 $1$</button>
+    <button data-k="D">不存在</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x\to-\infty$ 时 $e^x\to0$，$x\to+\infty$ 时 $e^x\to+\infty$，两侧不等 ⇒ 不存在。单侧看答案分别是 A 和 B——"两侧一起问"的题必须先想充要条件。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}\dfrac{\sin x}{|x|}$ 等于</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">不存在</button>
+    <button data-k="C">$-1$</button>
+    <button data-k="D">$0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$|x|$ 逼你分左右：右侧 $\dfrac{\sin x}{x}\to1$，左侧 $\dfrac{\sin x}{-x}\to-1$（秋讲练习 4），$1\neq-1$ ⇒ 不存在。看到 $|x|$、$e^{1/x}$、$\arctan\frac1x$、分段点——四类信号，先拆左右。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\lim\limits_{x\to2^-}[x]$（取整函数）等于</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">$2$</button>
+    <button data-k="C">$0$</button>
+    <button data-k="D">不存在</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x\to2^-$ 时 $x\in[1,2)$，不超过 $x$ 的最大整数是 $1$。（夏讲教材 P28 原题；取整函数图像是台阶，每级左闭右开，所以左极限踩在下一级上。）</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>极限存在与 $f(x_0)$ <strong>无关</strong>：$\lim\limits_{x\to2}\dfrac{x^2-4}{x-2}=4$，哪怕函数在 $x=2$ 根本没定义</li>
+    <li>$x\to\infty$ 的题先自问：<strong>两侧走向一样吗</strong>？（$e^x$、$\arctan x$、$2^x$、$\frac{|x|}{x}$ 都不一样）</li>
+    <li>发散两种：无穷（如 $\lim\limits_{x\to+\infty}e^x$）≠ 振荡（如 $\lim\limits_{x\to+\infty}\sin x$），但都"不存在"</li>
+    <li>分段点求极限只看左右两侧，<strong>不用管分段点上的函数值</strong></li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写两大充要条件（$x\to\infty$ 与 $x\to x_0$ 两式），并说出"发散"的两种方式。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">整体存在 ⟺ 两侧存在且相等（$\lim_{x\to\infty}$：$-\infty$ 侧 $=$ $+\infty$ 侧；$\lim_{x\to x_0}$：左 $=$ 右）。发散分：无穷、振荡。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">秒答：$\lim\limits_{x\to\infty}e^x$、$\lim\limits_{x\to-\infty}e^x$、$\lim\limits_{x\to\infty}\arctan x$、$\lim\limits_{x\to0}e^{1/x}$（分左右）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">不存在；$0$；不存在（左右 $=\pm\frac{\pi}{2}$）；$x\to0^-$ 时 $\to0$、$x\to0^+$ 时 $\to+\infty$，整体不存在。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。本课的走向表是后面每一课的工具——0011 起每次算极限都会暗中使用它。学完 0017（间断点）后回来重看本课例 2，你会认出那就是"跳跃/无穷间断点"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§一（六种过程、充要条件、必分左右的例题组）</li>
+    <li>讲义：《函数极限》夏讲 PDF 教材 P26–29（走向表与分段点例题原文）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："为什么极限和该点的函数值无关"、"$\arctan\frac1x$ 在 $x\to0$ 两侧到底怎么动"、"再出 10 道单侧极限判断题"，或让它考你走向表。
+</div>
+
+<nav class="footnav">
+  <a href="0009-一次与二次函数.html" class="prev"><span class="dir">← 上一课</span>0009 一次与二次函数</a>
+  <a href="0011-极限计算基础方法.html" class="next"><span class="dir">下一课 →</span>0011 极限计算（上）：未定式与基础方法</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/* PatchPilot 课程设计系统令牌 —— design.md 的唯一令牌源。
+   页面样式(assets/lesson.css)@import 本文件,所有颜色/字体/间距必须经 var() 引用。 */
+
+:root {
+  /* ── 颜色(暖纸锚 ~90 · 赭红 ~42)────────────────── */
+  --color-paper:       oklch(97.8% 0.009 90);
+  --color-paper-2:     oklch(99.1% 0.005 95);
+  --color-paper-3:     oklch(95.6% 0.010 90);
+  --color-ink:         oklch(25% 0.012 60);
+  --color-ink-2:       oklch(35% 0.010 60);
+  --color-muted:       oklch(46% 0.015 70);
+  --color-rule:        oklch(87% 0.012 80);
+  --color-accent:      oklch(46% 0.095 42);
+  --color-accent-soft: oklch(93.5% 0.020 55);
+  --color-accent-ink:  oklch(98% 0.005 80);
+  --color-focus:       oklch(52% 0.120 45);
+  --color-ok:          oklch(45% 0.090 145);
+  --color-ok-bg:       oklch(94% 0.020 145);
+  --color-bad:         oklch(46% 0.130 25);
+  --color-bad-bg:      oklch(94.5% 0.020 30);
+
+  /* ── 字体(display serif · body sans · mono outlier)─ */
+  --font-display: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-body:    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-mono:    "Cascadia Code", "JetBrains Mono", Consolas, Menlo, monospace;
+
+  /* ── 字阶(比例 1.25)────────────────────────────── */
+  --text-xs:      0.75rem;
+  --text-sm:      0.875rem;
+  --text-md:      1rem;
+  --text-lg:      1.125rem;
+  --text-xl:      1.35rem;
+  --text-2xl:     1.65rem;
+  --text-display: clamp(1.9rem, 1.4rem + 2.2vw, 2.6rem);
+
+  /* ── 间距(4pt 标尺)─────────────────────────────── */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* ── 动效 ──────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro:   120ms;
+  --dur-short:   220ms;
+  --dur-long:    420ms;
+
+  /* ── 圆角与深度 ────────────────────────────────── */
+  --radius-card:  6px;
+  --radius-block: 3px;
+  --shadow-whisper: 0 1px 2px oklch(25% 0.012 60 / 0.06);
+  --shadow-hairline: 0 0 0 1px oklch(30% 0.010 70 / 0.08);
+
+  /* ── 打印 ──────────────────────────────────────── */
+  --print-line: oklch(62% 0.010 70);
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查 003 · 求导公式与法则速查 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="ref-003">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">速查手册 · 003</span>
+  <a href="../lessons/0020-求导公式与六类求导法.html">配讲课 0020</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Reference 003 · 打印友好</span>
+<h1>求导公式与求导法则速查表</h1>
+<div class="meta">
+  <span>📄 建议打印随身</span>
+  <span>第 3、4、5 单元通用（积分是它的逆运算）</span>
+  <span>来源：笔记《导数与微分》§二 · §五–§十一</span>
+</div>
+
+<h2>① 基本求导公式（16 条必背）</h2>
+<table>
+  <tr><th>类型</th><th>公式</th></tr>
+  <tr><td>常数、幂</td><td>$(C)'=0$；$(x^{\mu})'=\mu x^{\mu-1}$</td></tr>
+  <tr><td>指数</td><td>$(e^{x})'=e^{x}$；$(a^{x})'=a^{x}\ln a$</td></tr>
+  <tr><td>对数</td><td>$(\ln x)'=\dfrac1x$；$(\log_a x)'=\dfrac{1}{x\ln a}$</td></tr>
+  <tr><td>三角</td><td>$(\sin x)'=\cos x$；$(\cos x)'=-\sin x$；$(\tan x)'=\sec^{2}x$；$(\cot x)'=-\csc^{2}x$</td></tr>
+  <tr><td>三角（续）</td><td>$(\sec x)'=\sec x\tan x$；$(\csc x)'=-\csc x\cot x$</td></tr>
+  <tr><td>反三角</td><td>$(\arcsin x)'=\dfrac{1}{\sqrt{1-x^{2}}}$；$(\arccos x)'=-\dfrac{1}{\sqrt{1-x^{2}}}$；$(\arctan x)'=\dfrac{1}{1+x^{2}}$；$(\operatorname{arccot}x)'=-\dfrac{1}{1+x^{2}}$</td></tr>
+</table>
+<p><strong>符号三查</strong>：cot/csc/arccos/arccot 带负号；arcsin 与 arccos、arctan 与 arccot 互为相反。</p>
+
+<h2>② 四则与链式</h2>
+<table>
+  <tr><th>法则</th><th>公式</th></tr>
+  <tr><td>加减、数乘</td><td>$(u\pm v)'=u'\pm v'$；$(Cu)'=Cu'$</td></tr>
+  <tr><td>乘</td><td>$(uv)'=u'v+uv'$</td></tr>
+  <tr><td>除</td><td>$\left(\dfrac uv\right)'=\dfrac{u'v-uv'}{v^{2}}$（下导上不导在前）</td></tr>
+  <tr><td>链式</td><td>$y=f[g(x)]$：$y'=f'[g(x)]\cdot g'(x)$（由外向内逐层乘）</td></tr>
+</table>
+
+<h2>③ 六类求导法</h2>
+<table>
+  <tr><th>类型</th><th>方法</th></tr>
+  <tr><td>分段函数</td><td>分段点用定义（左右导数相等），区间内用公式</td></tr>
+  <tr><td>隐函数</td><td>两边对 $x$ 求导，含 $y$ 项带 $y'$，解出 $y'$</td></tr>
+  <tr><td>参数方程</td><td>$y'=\dfrac{dy/dt}{dx/dt}$；$y''=\dfrac{(y')'_t}{x'_t}$（再除一次！）</td></tr>
+  <tr><td>幂指 $u^{v}$</td><td>化 $e^{v\ln u}$ 或两边取对数；最后乘回 $y$</td></tr>
+  <tr><td>反函数</td><td>$\dfrac{dy}{dx}=\dfrac{1}{dx/dy}$</td></tr>
+  <tr><td>复杂乘除开方</td><td>对数求导法：取 $\ln$ 化乘为加</td></tr>
+</table>
+
+<h2>④ 微分</h2>
+<table>
+  <tr><th>内容</th><th>公式</th></tr>
+  <tr><td>定义</td><td>$dy=f'(x)\,dx$（可导 ⟺ 可微）</td></tr>
+  <tr><td>阶的比较</td><td>$\lim\dfrac{dy}{\Delta x}=f'(x_0)$：为 0 高阶、为 1 等价、其他非零同阶不等价</td></tr>
+  <tr><td>常用凑微分</td><td>$x\,dx=\frac12d(x^2)$；$\cos x\,dx=d(\sin x)$；$e^{x}dx=d(e^{x})$；$\dfrac{dx}{x}=d(\ln|x|)$；$\dfrac{dx}{1+x^{2}}=d(\arctan x)$</td></tr>
+</table>
+
+<h2>⑤ $n$ 阶导公式</h2>
+<table>
+  <tr><th>函数</th><th>$n$ 阶导</th></tr>
+  <tr><td>$e^{x}$ / $a^{x}$</td><td>$e^{x}$ / $a^{x}\ln^{n}a$（复合入框：$(e^{2x})^{(n)}=2^{n}e^{2x}$）</td></tr>
+  <tr><td>$\sin x$ / $\cos x$</td><td>$\sin\!\left(x+\frac{n\pi}{2}\right)$ / $\cos\!\left(x+\frac{n\pi}{2}\right)$</td></tr>
+  <tr><td>$\ln(1+x)$</td><td>$(-1)^{n-1}\dfrac{(n-1)!}{(1+x)^{n}}$</td></tr>
+  <tr><td>$\dfrac{1}{1+x}$</td><td>$(-1)^{n}\dfrac{n!}{(1+x)^{n+1}}$</td></tr>
+  <tr><td>$x^{n}$ 求 $m$ 阶</td><td>$m&lt;n$：$\dfrac{n!}{(n-m)!}x^{n-m}$；$m=n$：$n!$；$m&gt;n$：$0$</td></tr>
+</table>
+<p>归纳型（$xe^x\to(x+n)e^x$）：求前几阶 → 找规律 → 代阶数。</p>
+
+<h2>⑥ 切线 / 法线 / 中值定理</h2>
+<table>
+  <tr><th>项目</th><th>公式</th></tr>
+  <tr><td>切线 / 法线</td><td>$y-y_0=f'(x_0)(x-x_0)$；$y-y_0=-\dfrac{1}{f'(x_0)}(x-x_0)$</td></tr>
+  <tr><td>罗尔</td><td>连续 + 可导 + $f(a)=f(b)$ ⇒ $\exists\xi$：$f'(\xi)=0$</td></tr>
+  <tr><td>拉格朗日</td><td>连续 + 可导 ⇒ $\exists\xi$：$f'(\xi)=\dfrac{f(b)-f(a)}{b-a}$</td></tr>
+  <tr><td>柯西</td><td>$+g'\neq0$ ⇒ $\exists\xi$：$\dfrac{f'(\xi)}{g'(\xi)}=\dfrac{f(b)-f(a)}{g(b)-g(a)}$</td></tr>
+  <tr><td>费马引理</td><td>可导的极值点必是驻点（$f'(x_0)=0$）</td></tr>
+</table>
+
+<h2>⑦ 单调 / 极值 / 最值 / 凹凸 / 拐点 / 曲率</h2>
+<table>
+  <tr><th>项目</th><th>要点</th></tr>
+  <tr><td>单调</td><td>$f'\ge0$ 增、$f'\le0$ 减；四步：定义域 → $f'$ 零点与不可导点 → 分区间 → 查符号</td></tr>
+  <tr><td>极值判定一</td><td>$f'$ 左正右负极大；左负右正极小（含不可导点，首选）</td></tr>
+  <tr><td>极值判定二</td><td>$f''(x_0)&lt;0$ 极大、$&gt;0$ 极小、$=0$ 失效</td></tr>
+  <tr><td>闭区间最值</td><td>比驻点 + 不可导点 + <strong>端点</strong>的函数值</td></tr>
+  <tr><td>凹凸 / 拐点</td><td>$f''&gt;0$ 凹、$f''&lt;0$ 凸；拐点 = 变号点全坐标 $(x_0,f(x_0))$，间断点变号不算</td></tr>
+  <tr><td>曲率</td><td>$k=\dfrac{|f''|}{\left[1+(f')^{2}\right]^{3/2}}$；参数式与极坐标式见讲课 0025</td></tr>
+  <tr><td>证不等式</td><td>设 $F=$ 右 $-$ 左 → $F$ 起点值 → $F'$ 定号</td></tr>
+</table>
+
+<p style="margin-top:2rem"><strong>配讲课</strong>：0019–0025 全单元 · <strong>姊妹速查</strong>：<a href="004-积分公式与凑微分速查.html">004 积分公式（本表逐条互逆）</a>。<br>
+<strong>打印建议</strong>：A4 单页双面；①④ 两栏建议加粗重印一份贴桌面。</p>
+</main>
+</body>
+</html>

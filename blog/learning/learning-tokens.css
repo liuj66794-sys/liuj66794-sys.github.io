@@ -1,0 +1,32 @@
+/* ZHIXU: shared palette for the website and interactive lessons. */
+:root {
+  --study-pine-700:#173e36; --study-pine-600:#214e45; --study-pine-100:#e8eddf;
+  --study-paper:#f5f4ee; --study-sprout:#d8e9a8; --study-ink:#253c35;
+  /* Compatibility aliases preserve existing lesson and task consumers. */
+  --study-blue-600:var(--study-pine-600); --study-blue-700:var(--study-pine-700); --study-blue-100:var(--study-pine-100);
+  --study-slate-950:var(--study-ink); --study-slate-600:#5c7066; --study-slate-200:#d7ded2;
+  --study-slate-50:var(--study-paper); --study-white:#fffef9;
+  --study-bg:var(--study-slate-50); --study-panel:var(--study-white);
+  --study-text:var(--study-slate-950); --study-muted:var(--study-slate-600);
+  --study-line:var(--study-slate-200); --study-accent:var(--study-blue-600);
+  --study-hover:var(--study-blue-700); --study-tint:var(--study-blue-100);
+  --study-action:var(--study-pine-600); --study-on-action:#fffef9; --study-action-hover:var(--study-pine-700);
+  --study-success:#21694f; --study-success-bg:#eaf3e9;
+  --study-error:#a13a3d; --study-error-bg:#fff0ed;
+  --study-warning:#815b20; --study-warning-bg:#f8efd9;
+  --study-font:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
+  --study-display-font:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;
+  --study-card-radius:10px; --study-control-radius:6px;
+  --study-card-shadow:0 4px 18px rgb(30 57 44 / .035);
+  --study-duration:180ms; --study-focus:#64863c;
+}
+:root[data-theme='dark'] {
+  --study-bg:#142520; --study-panel:#1c3029; --study-text:#e8eee4; --study-muted:#b0c1b5;
+  --study-line:#3b5147; --study-accent:#c8dfa5; --study-hover:#e0edc9; --study-tint:#2c4235;
+  --study-action:#c8dfa5; --study-on-action:#142520; --study-action-hover:#e0edc9;
+  --study-success:#9bd9b8; --study-success-bg:#203b30;
+  --study-error:#ffb1b9; --study-error-bg:#422831;
+  --study-warning:#efd091; --study-warning-bg:#3d3425;
+  --study-focus:#c8dfa5; --study-card-shadow:none;
+  color-scheme:dark;
+}

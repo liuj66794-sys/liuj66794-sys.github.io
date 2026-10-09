@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0005 · 函数的奇偶性 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0005">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 1 单元 · 函数 · 课 0005</span>
+  <a href="0004-抽象函数与函数表达式.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0005 · 函数</span>
+<h1>函数的奇偶性</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0003 函数概念与定义域</span>
+  <span>来源：笔记《函数》§五·5.2</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>记住判断的第一步永远是<strong>检查定义域是否关于原点对称</strong></li>
+    <li>用<strong>运算口诀</strong>（加减乘除 + 复合）秒判 $\sin x^2$、$x^3\cos x$ 这类组合函数</li>
+    <li>独立判断 $\ln\dfrac{1+x}{1-x}$ 这类"要先求定义域"的函数</li>
+  </ul>
+</div>
+
+<p>奇偶性是选择题、填空题的送分位——前提是流程熟练。本课的目标是把它练成<strong>条件反射</strong>：看一眼结构，10 秒出答案。</p>
+
+<h2>一、定义与前提</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背</div>
+  <p style="margin:0.2rem 0">前提：定义域 $D$ <strong>关于原点对称</strong>（$x\in D\iff -x\in D$）。不对称 → 直接"非奇非偶"，不用再算。</p>
+  <p style="margin:0.2rem 0">$f(-x)=-f(x)$ 对一切 $x\in D$ 成立 → <strong>奇函数</strong>（图像关于原点对称）；</p>
+  <p style="margin:0.2rem 0">$f(-x)=f(x)$ 对一切 $x\in D$ 成立 → <strong>偶函数</strong>（图像关于 $y$ 轴对称）。</p>
+</div>
+
+<p>为什么定义域要对称？因为"$f(-x)$"这个式子本身就要求 $-x$ 也在定义域里，否则连检验都做不了。</p>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">判断函数奇偶性的<strong>第一步</strong>是</p>
+  <div class="quiz-opts">
+    <button data-k="A">直接计算 $f(-x)$</button>
+    <button data-k="B">检查定义域是否关于原点对称</button>
+    <button data-k="C">画出函数图像</button>
+    <button data-k="D">代入 $x=1$ 试一试</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">定义域不对称就直接"非奇非偶"，连 $f(-x)$ 都不必算。例：$f(x)=x^2$，$x\in[-1,2]$——范围不对称，非奇非偶，虽然式子本身是偶式的。先看定义域是硬流程。</div>
+</div>
+
+<h2>二、常见奇偶函数清单</h2>
+
+<table>
+  <tr><th>奇函数</th><th>偶函数</th></tr>
+  <tr>
+    <td>$x^{2n-1}$（$x,x^3,x^5,\dots$）、$\sin x$、$\tan x$、$\arcsin x$、$\arctan x$、$f(x)-f(-x)$</td>
+    <td>$x^{2n}$（$x^2,x^4,\dots$）、常数 $C$、$|x|$、$\cos x$、$f(x)+f(-x)$</td>
+  </tr>
+</table>
+
+<p>配合 0001 课的三角奇偶（$\sin$ 奇、$\cos$ 偶、$\tan$ 奇）和反三角奇偶（$\arcsin$、$\arctan$ 奇，$\arccos$ 非奇非偶），这份清单覆盖了考题里 90% 的"零件"。</p>
+
+<h2>三、运算口诀</h2>
+
+<table>
+  <tr><th>运算</th><th colspan="3">结论</th></tr>
+  <tr><td>加减</td><td>奇 $\pm$ 奇 $=$ 奇</td><td>偶 $\pm$ 偶 $=$ 偶</td><td>奇 $\pm$ 偶 $=$ 非奇非偶</td></tr>
+  <tr><td>乘除</td><td>奇 $\times$ 奇 $=$ 偶</td><td>偶 $\times$ 偶 $=$ 偶</td><td>奇 $\times$ 偶 $=$ 奇</td></tr>
+  <tr><td>复合</td><td colspan="3"><strong>内偶则偶，内奇同外</strong>（内层偶 → 整体偶；内层奇 → 整体随外层）</td></tr>
+</table>
+
+<p>乘除可以记"<strong>同奇偶得偶，异得奇</strong>"；复合记成"跟内层争不过——内层是偶，整体就偶；内层奇，才轮到外层说话"。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（口诀速判）</span>用口诀判断下列函数（来自夏讲例题组）：</p>
+  <p style="margin:0.2rem 0">$y=x^5+x^3$、$y=\sin x^2$、$y=e^x+e^{-x}$、$y=x^3\cos x$、$y=x^2+x^3$、$y=|x|\tan x$、$y=\dfrac{x^3}{1+x^2}$</p>
+  <details><summary>先全部判断完，再展开答案</summary>
+    <table>
+      <tr><th>函数</th><th>判断</th><th>依据</th></tr>
+      <tr><td>$y=x^5+x^3$</td><td>奇</td><td>奇＋奇</td></tr>
+      <tr><td>$y=\sin x^2$</td><td>偶</td><td>复合：内层 $x^2$ 偶 → 内偶则偶</td></tr>
+      <tr><td>$y=e^x+e^{-x}$</td><td>偶</td><td>$f(-x)=e^{-x}+e^x=f(x)$</td></tr>
+      <tr><td>$y=x^3\cos x$</td><td>奇</td><td>奇 $\times$ 偶</td></tr>
+      <tr><td>$y=x^2+x^3$</td><td>非奇非偶</td><td>奇＋偶</td></tr>
+      <tr><td>$y=|x|\tan x$</td><td>偶</td><td>偶 $\times$ 奇</td></tr>
+      <tr><td>$y=\dfrac{x^3}{1+x^2}$</td><td>奇</td><td>奇 $\div$ 偶</td></tr>
+    </table>
+    <p>注意 $y=\sin x^2$ 与 $y=\sin^2 x$ 完全不同：前者"内偶则偶"是偶函数，后者是 $\sin x$ 的平方 = 奇×奇 = 偶函数（结论巧合相同，路径不同）。读题时看清位置！</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$f(x)=x+\sin x$ 是</p>
+  <div class="quiz-opts">
+    <button data-k="A">奇函数</button>
+    <button data-k="B">偶函数</button>
+    <button data-k="C">非奇非偶函数</button>
+    <button data-k="D">既是奇函数又是偶函数</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x$ 奇，$\sin x$ 奇，奇＋奇＝奇。（这是夏讲的原题，考的就是口诀熟练度。）</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$y=\tan^3(2x^2+1)$ 的奇偶性是</p>
+  <div class="quiz-opts">
+    <button data-k="A">奇函数</button>
+    <button data-k="B">偶函数</button>
+    <button data-k="C">非奇非偶函数</button>
+    <button data-k="D">无法确定</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">别被三角吓住：最内层是 $2x^2+1$——偶函数（$x^2$ 偶 ＋ 常数偶）。口诀"内偶则偶"：无论外面套 $\tan^3$ 还是别的什么，整体都是偶函数。</div>
+</div>
+
+<h2>四、必须先求定义域的类型</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>判断 $f(x)=\ln\dfrac{1+x}{1-x}$ 的奇偶性。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲例题组）</summary>
+    <p><strong>第一步</strong>：定义域。要 $\dfrac{1+x}{1-x}>0$，即 $-1&lt;x&lt;1$——关于原点对称 ✓（过不了这关就直接写非奇非偶）。</p>
+    <p><strong>第二步</strong>：$f(-x)=\ln\dfrac{1-x}{1+x}=\ln\left(\dfrac{1+x}{1-x}\right)^{-1}=-\ln\dfrac{1+x}{1-x}=-f(x)$。</p>
+    <p>结论：奇函数。</p>
+    <p>对照清单里"$\log_a\left(\sqrt{1+x^2}\pm x\right)$ 型是奇函数"——这类对数函数是命题常客，套路都是"先验对称，再用倒数关系提负号"。</p>
+  </details>
+</div>
+
+<div class="warn">
+  <div class="warn-title">易错</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>先看定义域对称，再验证 $f(-x)=\pm f(x)$——顺序不能反</li>
+    <li>证明奇偶要用<strong>任意</strong> $x$，代入 $x=1$、$x=2$ 验证数值不算证明</li>
+    <li>$\sin x^2$（偶）$\neq\sin^2x$（偶，但理由不同）$\neq\sin 2x$（奇）——位置决定一切</li>
+    <li>$f(x)+f(-x)$ 必偶、$f(x)-f(-x)$ 必奇——大题证明里直接引用</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写乘除口诀与复合口诀（奇偶函数的四则与复合结果）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">加减：同性保持，奇±偶＝非奇非偶。乘除：同得偶，异得奇。复合：内偶则偶，内奇同外。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">快速归类（先全答完再揭晓）：$\arctan x$、$\cos x$、$x^3$、$|x|$、$\arccos x$、$\tan x$、$x^4$ 各是奇还是偶？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">奇：$\arctan x$、$x^3$、$\tan x$；偶：$\cos x$、$|x|$、$x^4$；$\arccos x$：非奇非偶。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡；之后学"单调性·有界性·周期性"（下一课，规划中）之前，把例 1 的 7 个小题盖住答案重判一遍。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《函数》§五·5.2（含夏讲例题组全部 9 题与秋讲练习 9 答案）</li>
+    <li>讲义：《函数》夏讲 PDF 教材 P12（奇偶性例题组）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："再出 10 道口诀速判题"、"$\ln\dfrac{1+x}{1-x}$ 为什么定义域是 $(-1,1)$"、"奇偶性和下一章极限有什么关系"。
+</div>
+
+<nav class="footnav">
+  <a href="0004-抽象函数与函数表达式.html" class="prev"><span class="dir">← 上一课</span>0004 抽象函数与函数表达式</a>
+  <a href="0006-单调性有界性周期性.html" class="next"><span class="dir">下一课 →</span>0006 单调性·有界性·周期性</a>
+</nav>
+</main>
+</body>
+</html>

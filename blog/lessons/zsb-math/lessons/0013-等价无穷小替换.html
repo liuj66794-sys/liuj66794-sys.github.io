@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0013 · 等价无穷小替换 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0013">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0013</span>
+  <a href="0012-两个重要极限.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0013 · 极限与连续</span>
+<h1>等价无穷小替换</h1>
+<div class="meta">
+  <span>⏱ 约 18 分钟</span>
+  <span>前置：0012 两个重要极限 · 配套速查 <a href="../reference/005-等价无穷小与极限速查.html">005</a></span>
+  <span>来源：笔记《极限与连续》§三（方法七）· §四（4.4）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>背下<strong>基础八条</strong>等价无穷小（$x\to0$），并默写进速查 005</li>
+    <li>用<strong>三阶差关系</strong>六条处理 $\tan x-\sin x$ 这类"加减后抵消"的题</li>
+    <li>死守一条军规：<strong>乘除因子可整体替换，加减中不能乱换</strong></li>
+  </ul>
+</div>
+
+<p>等价替换是求极限的"快刀"：把复杂的无穷小换成最简单的 $x$ 的幂，$\frac00$ 型瞬间变四则运算。它是选择题与计算题的核心手法，也是<strong>错得最集中</strong>的地方——军规先立好。</p>
+
+<h2>一、基础八条（$x\to0$，必背）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">基础八条（方框替换后仍然成立）</div>
+  <p style="margin:0.2rem 0">$$\sin x\sim x,\qquad \tan x\sim x,\qquad \arcsin x\sim x,\qquad \arctan x\sim x$$</p>
+  <p style="margin:0.2rem 0">$$e^{x}-1\sim x,\qquad \ln(1+x)\sim x,\qquad 1-\cos x\sim\frac12x^{2},\qquad (1+x)^{\alpha}-1\sim\alpha x$$</p>
+  <p style="margin:0.2rem 0">前四条是 0012 重要极限一的化身；后四条请各自配套记忆：指数、对数、"幂减一"都是一阶，余弦补角是二阶。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（方框替换）</span>求 $\lim\limits_{x\to0}\dfrac{\ln(1+2x)}{x}$ 与 $\lim\limits_{x\to0}\dfrac{(1+x)^{n}-1}{x}$。</p>
+  <details><summary>先自己换，再展开（秋讲练习 12(3)(4)）</summary>
+    <p>$\ln(1+2x)\sim2x$（方框是 $2x$），故极限 $=2$。</p>
+    <p>$(1+x)^n-1\sim nx$（第八条 $\alpha=n$），故极限 $=n$。同法 $\dfrac{e^x-1}{x}\to1$、$\dfrac{\arcsin x}{x}\to1$。</p>
+  </details>
+</div>
+
+<h2>二、进阶六条：三阶差关系（加减题的钥匙）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">进阶六条（比基础条高两个数量级，必背）</div>
+  <p style="margin:0.2rem 0">$$\tan x-x\sim\frac13x^{3},\qquad x-\sin x\sim\frac16x^{3},\qquad \tan x-\sin x\sim\frac12x^{3}$$</p>
+  <p style="margin:0.2rem 0">$$x-\arctan x\sim\frac13x^{3},\qquad \arcsin x-x\sim\frac16x^{3},\qquad x-\ln(1+x)\sim\frac12x^{2}$$</p>
+  <p style="margin:0.2rem 0">记忆：六个都是"$f(x)-x$"或"$x-f(x)$"的差，一阶项抵掉后暴露出更高阶的主部。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（三阶差的典型战场）</span>求 $\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{x^{3}}$ 与 $\lim\limits_{x\to0}\dfrac{\tan x-x}{x^{2}\sin x}$。</p>
+  <details><summary>先自己算，再展开（秋讲练习 12(6)）</summary>
+    <p>$\tan x-\sin x=\tan x(1-\cos x)\sim x\cdot\dfrac12x^2=\dfrac12x^3$（用乘法自己合成，正好等于进阶第三条），故第一题 $=\dfrac12$。</p>
+    <p>第二题：分子 $\tan x-x\sim\dfrac13x^3$，分母 $x^2\sin x\sim x^3$，答案 $\dfrac13$。</p>
+  </details>
+</div>
+
+<h2>三、军规：哪里能换、哪里不能换</h2>
+
+<div class="keypoint">
+  <div class="kp-title">唯一军规</div>
+  <p style="margin:0.2rem 0"><strong>乘除因子：可以整体替换。</strong>加减运算：<strong>不能随意替换</strong>——两个一阶项相减可能暴露高阶主部，你把每个都换成 $x$ 就把主部抹没了（$x-x=0$ 的假象）。</p>
+  <p style="margin:0.2rem 0">正确姿势：加减结构优先套<strong>进阶六条</strong>的整体结论，或先恒等变形（提取公因式、乘共轭）化成乘除再换。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（变形后再替换）</span>求 $\lim\limits_{x\to0}\dfrac{\ln\cos x}{x^{2}}$。</p>
+  <details><summary>先自己找方框，再展开（夏讲教材 P35）</summary>
+    <p>$\ln$ 的真数不是 $1+x$ 的样子？其实是：$\ln\cos x=\ln\left[1+(\cos x-1)\right]$，方框是 $\cos x-1\to0$ ✓。用第七条：$\ln[1+(\cos x-1)]\sim\cos x-1\sim-\dfrac12x^2$。</p>
+    <p>所以极限 $=\lim\limits_{x\to0}\dfrac{-\frac12x^2}{x^2}=-\dfrac12$。<strong>"凑方框"是等价替换的灵魂技巧</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（乘除混合 + 提常数）</span>求 $\lim\limits_{x\to0}\dfrac{e-e^{\cos x}}{\sqrt[3]{1+x^{2}}-1}$。</p>
+  <details><summary>先自己变形，再展开（夏讲教材 P35）</summary>
+    <p>分子提 $e$：$e\left(1-e^{\cos x-1}\right)=e\left[-\left(e^{\cos x-1}-1\right)\right]$，用 $e^u-1\sim u$（$u=\cos x-1\sim-\frac12x^2$）→ 分子 $\sim e\cdot\dfrac{x^2}{2}$。</p>
+    <p>分母用幂式：$\sqrt[3]{1+x^2}-1\sim\dfrac13x^2$。答案 $=\dfrac{e/2}{1/3}=\dfrac{3e}{2}$。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">当 $x\to0$ 时，$1-\cos 2x$ 等价于</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2x^{2}$ 的一半即 $x^{2}$</button>
+    <button data-k="B">$x^{2}$</button>
+    <button data-k="C">$2x^{2}$</button>
+    <button data-k="D">$\dfrac{1}{2}x^{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">方框替换：$1-\cos\square\sim\dfrac12\square^2$，方框是 $2x$ → $\dfrac12(2x)^2=2x^2$。D 忘了给方框平方。两步都走稳：先平方、再乘半。（秋讲练习 22 用到。）</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}\dfrac{1-\cos x}{2\tan x^{2}}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{4}$</button>
+    <button data-k="B">$\dfrac{1}{2}$</button>
+    <button data-k="C">$\dfrac{1}{8}$</button>
+    <button data-k="D">$2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">乘除各自替换：分子 $\sim\dfrac12x^2$，分母 $2\tan x^2\sim2x^2$，答案 $\dfrac14$。（夏讲教材 P35 原题。）</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}\dfrac{\sqrt[3]{1+x^{2}}-1}{1-\cos 2x}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{3}$</button>
+    <button data-k="B">$\dfrac{1}{6}$</button>
+    <button data-k="C">$\dfrac{1}{12}$</button>
+    <button data-k="D">$1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">分子：$(1+x^2)^{1/3}-1\sim\dfrac13x^2$；分母：$1-\cos2x\sim\dfrac12(2x)^2=2x^2$。比值 $\dfrac{1/3}{2}=\dfrac16$。（夏讲教材 P35 原题。）</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">直接把 $\tan x$、$\sin x$ 都换成 $x$ 来算 $\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{x^3}$，会得到</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{2}$</button>
+    <button data-k="B">$\dfrac{1}{6}$</button>
+    <button data-k="C">$1$</button>
+    <button data-k="D">$0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x-x=0$——加减中乱替换把三阶主部抹掉了。正解：$\tan x-\sin x\sim\dfrac12x^3$（乘法合成或进阶第三条）。这就是军规存在的意义。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}\dfrac{\left(\sqrt{1+2x}-1\right)\arcsin x}{\tan x^{2}}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">$\dfrac{1}{2}$</button>
+    <button data-k="C">$2$</button>
+    <button data-k="D">$4$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">三个乘除因子各换各的：$\sqrt{1+2x}-1\sim\dfrac12\cdot2x=x$，$\arcsin x\sim x$，$\tan x^2\sim x^2$ → $\dfrac{x\cdot x}{x^2}=1$。（秋讲练习 12(7) 原题——乘除结构放心换。）</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>方框替换必须<strong>整体一致</strong>：$\sin 2x\sim2x$，不是 $\sim x$</li>
+    <li>加减优先用<strong>进阶六条</strong>整体结论；乱换一阶会抹掉主部</li>
+    <li>真数不是 $1+\square$ 时先<strong>凑方框</strong>（$\ln\cos x=\ln[1+(\cos x-1)]$）</li>
+    <li>带系数的幂式：$(1+\square)^\alpha-1\sim\alpha\cdot\square$，系数别丢</li>
+    <li>等价替换前后极限过程必须一致（都是 $x\to0$）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写等价替换军规，并举一个"乱换会错"的例子。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">乘除因子可整体替换；加减中不能随意替换。例：$\dfrac{\tan x-\sin x}{x^3}$ 乱换成 $\dfrac{x-x}{x^3}=0$，正解 $\dfrac12$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写基础八条（$x\to0$）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\sin x\sim x$，$\tan x\sim x$，$\arcsin x\sim x$，$\arctan x\sim x$，$e^x-1\sim x$，$\ln(1+x)\sim x$，$1-\cos x\sim\frac12x^2$，$(1+x)^\alpha-1\sim\alpha x$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写三阶差关系六条（进阶）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\tan x-x\sim\frac13x^3$；$x-\sin x\sim\frac16x^3$；$\tan x-\sin x\sim\frac12x^3$；$x-\arctan x\sim\frac13x^3$；$\arcsin x-x\sim\frac16x^3$；$x-\ln(1+x)\sim\frac12x^2$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测三张回忆卡 + 打开<a href="../reference/005-等价无穷小与极限速查.html">速查 005</a> 盖住右栏自测。这张表在第四章不定积分换元时还会被反复调用——现在多花的一分钟，将来加倍奉还。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>速查：<a href="../reference/005-等价无穷小与极限速查.html">《等价无穷小与极限速查表》</a>（本课全部公式 + 九法选择器，打印随身）</li>
+    <li>笔记：《极限与连续》§三 方法七 · §四 4.4（含夏讲 P35–36 例题与秋讲练习 12 全解）</li>
+    <li>讲义：《函数极限》夏讲 PDF 教材 P34–36</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："三阶差关系怎么推导"、"$\ln\cos x$ 那题为什么要凑方框"、"再出 10 道等价替换题（一半含加减陷阱）"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0012-两个重要极限.html" class="prev"><span class="dir">← 上一课</span>0012 两个重要极限</a>
+  <a href="0014-洛必达法则.html" class="next"><span class="dir">下一课 →</span>0014 洛必达法则</a>
+</nav>
+</main>
+</body>
+</html>

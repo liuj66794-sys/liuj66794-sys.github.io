@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题分析与学习计划 — 25道英语题（单选+翻译）</title>
+<style>
+/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5
+ * Hallmark · genre: editorial · macrostructure: Long Document · theme: Study Notebook (custom-tuned)
+ * paper oklch(97.5% 0.006 85) · ink oklch(24% 0.014 260) · accent oklch(42% 0.11 250) ink-blue
+ * display: heavy CJK sans (PingFang / YaHei / Noto Sans SC) · body: Georgia + Noto Serif SC
+ * axes: light / sans-display / cool · motion: cut (CSS transitions only)
+ * 说明：本文件是教学项目唯一的全局样式表。面向专升本考生 · 移动端长时间阅读 · 不依赖网络字体。
+ */
+
+/* ============================================================
+   1. 设计令牌（Design Tokens）
+   ============================================================ */
+:root {
+  /* 字体 —— 2+1 配对：黑体标题 × 宋体/衬线正文 × 等宽代码 */
+  --font-display: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                  "Noto Sans SC", "Source Han Sans SC", sans-serif;
+  --font-body: Georgia, "Times New Roman", "Noto Serif SC",
+               "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code",
+               Consolas, "Liberation Mono", monospace;
+
+  /* 纸面与墨色（暖纸 + 冷墨，全部向锚定色相微调，不使用纯黑纯白） */
+  --color-desk:      #e8e4dc;   /* 桌面（纸外背景） */
+  --color-desk:      oklch(92.5% 0.012 85);
+  --color-paper:     #faf8f4;   /* 纸张 */
+  --color-paper:     oklch(97.5% 0.006 85);
+  --color-paper-2:   #f0ede6;   /* 次级纸面（代码、表头） */
+  --color-paper-2:   oklch(94.5% 0.010 85);
+  --color-card:      #fefdfb;   /* 卡片浮层 */
+  --color-card:      oklch(99% 0.004 85);
+  --color-rule:      #d4d0c8;   /* 分隔线 */
+  --color-rule:      oklch(84% 0.012 85);
+  --color-rule-soft: rgba(212, 208, 200, 0.55);
+  --color-rule-soft: oklch(84% 0.012 85 / 0.55);
+  --color-ink:       #2d3040;   /* 正文墨色 */
+  --color-ink:       oklch(24% 0.014 260);
+  --color-ink-2:     #6b6d7a;   /* 次级文字 */
+  --color-ink-2:     oklch(45% 0.012 260);
+  --color-focus:     #3b6fbf;
+  --color-focus:     oklch(52% 0.14 250);
+
+  /* 主色 —— 墨蓝（钢笔水），占比 < 5% */
+  --color-accent:      #1a5276;   
+  --color-accent:      oklch(42% 0.11 250);
+  --color-accent-soft: #e8f0f8;
+  --color-accent-soft: oklch(94% 0.028 250);
+  --color-accent-line: rgba(26, 82, 118, 0.35);
+  --color-accent-line: oklch(42% 0.11 250 / 0.35);
+
+  /* 语义色 —— 色相对齐页面内联样式（红 #dc2626 ≈ 27°，绿 #16a34a ≈ 145°） */
+  --color-error:       #c0392b;
+  --color-error:       oklch(48% 0.17 27);
+  --color-error-soft:  #fdf2f2;
+  --color-error-soft:  oklch(96% 0.024 27);
+  --color-success:     #1e8449;
+  --color-success:     oklch(43% 0.11 150);
+  --color-success-soft: #f0fdf4;
+  --color-success-soft: oklch(96% 0.030 150);
+  --color-warning:     #b7791f;
+  --color-warning:     oklch(47% 0.12 62);
+  --color-warning-soft: #fefce8;
+  --color-warning-soft: oklch(96% 0.034 78);
+
+  /* 阴影与投影 */
+  --shadow-card: 0 1px 2px rgba(45,48,64,0.05),
+                 0 4px 14px -8px rgba(45,48,64,0.10);
+  --shadow-card: 0 1px 2px oklch(24% 0.014 260 / 0.05),
+                 0 4px 14px -8px oklch(24% 0.014 260 / 0.10);
+  --shadow-lift: 0 2px 4px rgba(45,48,64,0.06),
+                 0 10px 24px -10px rgba(45,48,64,0.16);
+  --shadow-lift: 0 2px 4px oklch(24% 0.014 260 / 0.06),
+                 0 10px 24px -10px oklch(24% 0.014 260 / 0.16);
+  --shadow-sheet: 0 14px 44px -18px rgba(45,48,64,0.18);
+  --shadow-sheet: 0 14px 44px -18px oklch(24% 0.014 260 / 0.18);
+
+  /* 间距（4pt 命名刻度） */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.25rem;
+  --space-xl:  3.25rem;
+
+  /* 字号刻度（1.25 比率，正文 ≥ 16px） */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   clamp(1.3rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-xl:   clamp(1.4rem, 1.1rem + 1vw, 1.7rem);
+  --text-2xl:  clamp(1.7rem, 1.25rem + 1.8vw, 2.3rem);
+
+  /* 圆角与动效 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 180ms;
+
+  --max-width: 47.5rem;
+}
+
+/* ============================================================
+   2. 基础与重置
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;                 /* 移动端基准：正文 16px */
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;                /* 中文长文阅读行高 */
+  color: var(--color-ink);
+  background: var(--color-paper);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 2.75rem) clamp(1rem, 4vw, 2.5rem) var(--space-xl);
+  border-top: 6px solid var(--color-accent);  /* 笔记本封面色带 */
+  min-height: 100dvh;
+  overflow-x: clip;
+  overflow-wrap: break-word;
+}
+
+::selection { background: var(--color-accent); color: var(--color-paper); }
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   3. 标题层级（字重 800/700 与正文明确拉开差距）
+   ============================================================ */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-style: normal;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  margin: var(--space-md) 0 var(--space-sm);
+}
+/* 标题下的手绘式短横线 */
+h1::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 4px;
+  margin-top: var(--space-xs);
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* 首段作为导语 */
+h1 + p {
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+  max-width: 38em;
+}
+
+h2 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  margin: var(--space-xl) 0 var(--space-sm);
+}
+/* 章节标记：短色条先于标题出现 */
+h2::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 0.22rem;
+  margin-bottom: var(--space-xs);
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: var(--text-md);
+  font-weight: 700;
+  margin: var(--space-md) 0 var(--space-2xs);
+}
+
+h4 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin: var(--space-sm) 0 var(--space-2xs);
+}
+
+/* ============================================================
+   4. 正文元素
+   ============================================================ */
+p { margin: 0 0 var(--space-sm); }
+
+strong { font-weight: 700; }
+
+a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  -webkit-tap-highlight-color: transparent;
+  transition: text-decoration-color var(--dur) var(--ease-out),
+              color var(--dur) var(--ease-out);
+}
+a:hover { text-decoration-color: var(--color-accent); }
+
+ul, ol { padding-left: 1.5rem; margin: 0 0 var(--space-sm); }
+li { margin: var(--space-2xs) 0; }
+li::marker { color: var(--color-accent); font-weight: 700; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--color-ink);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.12em 0.45em;
+  overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   5. 表格（桌面：清爽横线表；小屏：折叠为卡片，见 §9）
+   ============================================================ */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: var(--space-md) 0;
+  font-size: var(--text-sm);
+  background: var(--color-card);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+th, td {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-rule-soft);
+  overflow-wrap: break-word;
+}
+
+th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: var(--color-ink);
+  background: var(--color-accent-soft);
+  border-bottom: 2px solid var(--color-accent);
+  white-space: nowrap;
+}
+
+tr:last-child th, tr:last-child td { border-bottom: 0; }
+tbody tr:nth-child(even) td,
+tr:nth-child(even) td { background: #f7f5f0; background: oklch(97% 0.007 85); }
+
+td code { font-size: 0.82em; }
+
+/* 学习计划表：天数列强调 */
+.schedule td:first-child {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   6. 卡片（按优先级着色：P1 红 / P2 琥珀 / P3 蓝 / 方法 绿）
+   ============================================================ */
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-rule);
+  border-left: 4px solid var(--color-ink-2);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin: var(--space-md) 0;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur) var(--ease-out),
+              box-shadow var(--dur) var(--ease-out);
+}
+.card h3 { margin-top: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
+.card p:last-child { margin-bottom: 0; }
+.card ul:last-child, .card ol:last-child { margin-bottom: 0; }
+
+.card-error   { border-left-color: var(--color-error);   background: linear-gradient(rgba(253,242,242,0.45), rgba(253,242,242,0.45)) var(--color-card); background: linear-gradient(oklch(96% 0.024 27 / 0.45), oklch(96% 0.024 27 / 0.45)) var(--color-card); }
+.card-warning { border-left-color: var(--color-warning); background: linear-gradient(rgba(254,252,232,0.45), rgba(254,252,232,0.45)) var(--color-card); background: linear-gradient(oklch(96% 0.034 78 / 0.45), oklch(96% 0.034 78 / 0.45)) var(--color-card); }
+.card-info    { border-left-color: var(--color-accent);  background: linear-gradient(rgba(232,240,248,0.40), rgba(232,240,248,0.40)) var(--color-card); background: linear-gradient(oklch(94% 0.028 250 / 0.40), oklch(94% 0.028 250 / 0.40)) var(--color-card); }
+.card-success { border-left-color: var(--color-success); background: linear-gradient(rgba(240,253,244,0.45), rgba(240,253,244,0.45)) var(--color-card); background: linear-gradient(oklch(96% 0.030 150 / 0.45), oklch(96% 0.030 150 / 0.45)) var(--color-card); }
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+}
+
+/* ============================================================
+   7. 优先级标签
+   ============================================================ */
+.tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 0.35em 0.75em;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.tag-p1 { background: var(--color-error-soft);   color: var(--color-error);   border: 1px solid rgba(192,57,43,0.35); border: 1px solid oklch(48% 0.17 27 / 0.35); }
+.tag-p2 { background: var(--color-warning-soft); color: var(--color-warning); border: 1px solid rgba(183,121,31,0.35); border: 1px solid oklch(47% 0.12 62 / 0.35); }
+.tag-p3 { background: var(--color-accent-soft);  color: var(--color-accent);  border: 1px solid var(--color-accent-line); }
+
+/* ============================================================
+   8. 例句卡片（英汉对照）
+   ============================================================ */
+.example {
+  background: var(--color-card);
+  border: 1px solid var(--color-rule);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-sm) var(--space-sm);
+  margin: var(--space-sm) 0;
+  box-shadow: var(--shadow-card);
+}
+.example::before {
+  content: "例句";
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3xs);
+}
+.example .en {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.6;
+}
+.example .zh {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  margin-top: var(--space-3xs);
+}
+
+/* ============================================================
+   9. 互动测验（触控目标 ≥ 44px）
+   ============================================================ */
+.quiz {
+  background: var(--color-card);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  box-shadow: var(--shadow-card);
+}
+.quiz h4 {
+  margin: 0 0 var(--space-2xs);
+  font-size: var(--text-base);
+  font-weight: 800;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+.quiz > p { font-weight: 700; }
+
+.quiz-options {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-sm) 0 0;
+  display: grid;
+  gap: var(--space-2xs);
+  counter-reset: opt;
+}
+.quiz-options li {
+  counter-increment: opt;
+  display: flex;
+  align-items: center;
+  min-height: 44px;               /* 触控目标下限 */
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--dur) var(--ease-out),
+              background var(--dur) var(--ease-out),
+              transform 120ms var(--ease-out);
+}
+.quiz-options li::before {
+  content: counter(opt, upper-alpha);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  margin-right: 0.7rem;
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+.quiz-options li:active { transform: scale(0.985); }
+@media (hover: hover) and (pointer: fine) {
+  .quiz-options li:hover { border-color: var(--color-accent); background: var(--color-accent-soft); }
+}
+.quiz-options li.correct {
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+  color: var(--color-success);
+  font-weight: 700;
+}
+.quiz-options li.wrong {
+  background: var(--color-error-soft);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+.quiz-options li.correct::before,
+.quiz-options li.wrong::before { background: transparent; color: inherit; border: 1.5px solid currentcolor; }
+
+.quiz-feedback {
+  display: none;
+  margin-top: var(--space-xs);
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.6;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: var(--color-success-soft); border: 1px solid rgba(30,132,73,0.4); color: #1a6b3a; border: 1px solid oklch(43% 0.11 150 / 0.4); color: oklch(35% 0.10 150); }
+.quiz-feedback.wrong   { background: var(--color-error-soft);   border: 1px solid rgba(192,57,43,0.4);  color: #9b2c2c; border: 1px solid oklch(48% 0.17 27 / 0.4);  color: oklch(40% 0.15 27); }
+
+/* ============================================================
+   10. 优先级列表（保留给后续课程使用）
+   ============================================================ */
+.priority-list { list-style: none; padding: 0; counter-reset: priority; }
+.priority-list li {
+  counter-increment: priority;
+  position: relative;
+  padding: var(--space-xs) 0 var(--space-xs) 2.75rem;
+  border-bottom: 1px solid var(--color-rule-soft);
+}
+.priority-list li::before {
+  content: counter(priority);
+  position: absolute;
+  left: 0;
+  top: var(--space-xs);
+  width: 1.9em;
+  height: 1.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-paper);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+
+/* ============================================================
+   11. 页脚
+   ============================================================ */
+footer {
+  margin-top: var(--space-xl);
+  padding: var(--space-md) 0 max(var(--space-md), env(safe-area-inset-bottom));
+  border-top: 2px solid var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  text-align: center;
+  line-height: 1.9;
+}
+footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;               /* 触控目标下限 */
+  padding: 0 var(--space-3xs);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+/* ============================================================
+   12. 桌面增强（≥ 769px：纸张浮于桌面之上）
+   ============================================================ */
+@media (min-width: 769px) {
+  html { font-size: 17px; background: var(--color-desk); }
+  body {
+    border-inline: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+    box-shadow: var(--shadow-sheet);
+  }
+}
+
+/* ============================================================
+   13. 平板与手机适配（≤ 768px）
+   ============================================================ */
+@media (max-width: 768px) {
+  body { line-height: 1.7; }
+  h2 { margin-top: var(--space-lg); }
+
+  .card { padding: var(--space-xs) var(--space-sm); }
+  .quiz { padding: var(--space-sm); }
+
+  /* 仍保留表格形态的表：收紧 */
+  th, td { padding: 0.55rem 0.6rem; }
+  table { font-size: 0.8125rem; }
+
+  /* —— 所有表格在 ≤768px 统一折叠为卡片 —— */
+  table {
+    display: block;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    margin: var(--space-sm) 0;
+  }
+  tr {
+    display: block;
+    background: var(--color-card);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    padding: var(--space-3xs) var(--space-sm);
+    margin-bottom: var(--space-xs);
+    box-shadow: var(--shadow-card);
+  }
+  th { display: none; }
+  tr:has(th) { display: none; }
+  td {
+    display: block;
+    background: transparent !important;
+    border-bottom: 1px dashed var(--color-rule-soft);
+    padding: 0.5rem 0;
+    font-size: var(--text-sm);
+  }
+  td:last-child { border-bottom: 0; }
+  td:first-child {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  /* 学习计划表字段标签 */
+  .schedule td:nth-child(1)::before { content: "天数"; }
+  .schedule td:nth-child(2)::before { content: "模块"; }
+  .schedule td:nth-child(3)::before { content: "学习方式"; }
+  .schedule td:nth-child(4)::before { content: "练习任务"; }
+  .schedule td:nth-child(5)::before { content: "复习时间"; }
+  .schedule td::before {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-2);
+    margin-bottom: var(--space-3xs);
+  }
+
+  /* 错题清单表（含 quiz 的页面）字段标签 */
+  body:has(.quiz) table:not(.schedule) td:nth-child(1)::before { content: "题号"; }
+  body:has(.quiz) table:not(.schedule) td:nth-child(2)::before { content: "题目关键句"; }
+  body:has(.quiz) table:not(.schedule) td:nth-child(3)::before { content: "你的答案"; }
+  body:has(.quiz) table:not(.schedule) td:nth-child(4)::before { content: "正确答案"; }
+  body:has(.quiz) table:not(.schedule) td:nth-child(5)::before { content: "知识点"; }
+  body:has(.quiz) table:not(.schedule) td::before {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-2);
+    margin-bottom: var(--space-3xs);
+  }
+
+  /* 分隔行（colspan）不生成标签，作为分组横幅 */
+  td[colspan]::before { content: none !important; }
+  td[colspan] { text-align: center; font-size: var(--text-sm); }
+}
+
+/* ============================================================
+   14. 小屏手机适配（≤ 480px）
+   ============================================================ */
+@media (max-width: 480px) {
+  body { padding: var(--space-md) var(--space-sm) var(--space-lg); }
+  h1 { margin-top: var(--space-xs); }
+  h1 + p { font-size: var(--text-base); }
+
+  .card { padding: var(--space-xs) 0.85rem; }
+  .example { padding: var(--space-2xs) 0.85rem 0.85rem; }
+  .quiz { padding: 0.85rem; border-radius: var(--radius-md); }
+  .quiz-options li { padding: 0.5rem 0.75rem; }
+
+  /* 表格卡片进一步收紧间距 */
+  tr { padding: var(--space-3xs) 0.85rem; }
+  td { padding: 0.45rem 0; }
+
+  code { font-size: 0.82em; }
+  footer { font-size: var(--text-xs); }
+}
+
+/* ============================================================
+   15. 动效偏好：减弱动态
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+
+/* ============================================================
+   16. 打印
+   ============================================================ */
+@media print {
+  html { font-size: 11pt; background: none; }
+  body { max-width: 100%; padding: 1cm; border: 0; box-shadow: none; }
+  .card, .quiz, .example { break-inside: avoid; box-shadow: none; }
+  a { color: var(--color-ink); text-decoration: none; }
+  h2 { break-after: avoid; }
+}
+
+</style>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/english/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<h1>错题分析与针对性学习计划</h1>
+<p>基于 25 道错题（20 道单选 + 5 道英译汉）的系统分析，归纳出 <strong>9 大知识模块</strong>，按优先级排列学习顺序。</p>
+<p>📖 配套速查手册：<a href="../reference/grammar-points.html">语法速查手册</a></p>
+
+<!-- ==================== 第一部分：错题清单 ==================== -->
+<h2>一、按题目整理的错误知识点清单</h2>
+
+<table>
+<tr><th>题号</th><th>题目关键句</th><th>你的答案</th><th>正确答案</th><th>涉及知识点</th></tr>
+<tr><td>2</td><td>one in Paris and ___ in New York</td><td style="color:#dc2626">A. another</td><td style="color:#16a34a">D. the other</td><td>one...the other</td></tr>
+<tr><td>4</td><td>keep in touch ___ writing</td><td style="color:#dc2626">A. with</td><td style="color:#16a34a">C. by</td><td>by + doing</td></tr>
+<tr><td>5</td><td>Can you drive ___?</td><td style="color:#dc2626">A. more slowly a bit</td><td style="color:#16a34a">C. a bit more slowly</td><td>程度副词+比较级语序</td></tr>
+<tr><td>7</td><td>I'll never ___ myself</td><td style="color:#dc2626">A. forget</td><td style="color:#16a34a">B. forgive</td><td>forgive vs forget</td></tr>
+<tr><td>9</td><td>He was ___ sad that tears...</td><td style="color:#dc2626">A. very</td><td style="color:#16a34a">B. so</td><td>so...that 结构</td></tr>
+<tr><td>13</td><td>Would you like ___ cup of tea?</td><td style="color:#dc2626">B. the other</td><td style="color:#16a34a">C. another</td><td>another = 再来一个</td></tr>
+<tr><td>14</td><td>___ of them can speak Chinese</td><td style="color:#dc2626">B. None</td><td style="color:#16a34a">A. Neither</td><td>neither vs none</td></tr>
+<tr><td>18</td><td>but only ___ came</td><td style="color:#dc2626">B. a little</td><td style="color:#16a34a">D. a few</td><td>a few 修饰可数名词</td></tr>
+<tr><td>19</td><td>My first ___ of Dr. Smith</td><td style="color:#dc2626">A. expression</td><td style="color:#16a34a">D. impression</td><td>impression vs expression</td></tr>
+<tr><td>21</td><td>succeeded in ___ smoking</td><td style="color:#dc2626">D. gave up</td><td style="color:#16a34a">A. giving up</td><td>介词后接 doing</td></tr>
+<tr><td>22</td><td>___ his surprise</td><td style="color:#dc2626">B. With</td><td style="color:#16a34a">D. To</td><td>to one's surprise</td></tr>
+<tr><td>24</td><td>when she was ___</td><td style="color:#dc2626">C. in forty years old</td><td style="color:#16a34a">B. in her forties</td><td>in one's + 整十复数</td></tr>
+<tr><td>26</td><td>She's ___ to know the key</td><td style="color:#dc2626">D. probably</td><td style="color:#16a34a">A. likely</td><td>be likely to do</td></tr>
+<tr><td>27</td><td>one is...and ___ is...</td><td style="color:#dc2626">B. another</td><td style="color:#16a34a">D. the other</td><td>one...the other</td></tr>
+<tr><td>28</td><td>The more..., ___ chances</td><td style="color:#dc2626">D. the least</td><td style="color:#16a34a">C. the less</td><td>the+比较级...the+比较级</td></tr>
+<tr><td>32</td><td>I have ___ to tell you</td><td style="color:#dc2626">A. important something</td><td style="color:#16a34a">C. something important</td><td>形容词后置</td></tr>
+<tr><td>33</td><td>make yourself ___</td><td style="color:#dc2626">C. to understand</td><td style="color:#16a34a">D. understood</td><td>make+宾语+过去分词</td></tr>
+<tr><td>34</td><td>___ of them are women</td><td style="color:#dc2626">D. Second three</td><td style="color:#16a34a">A. Two thirds</td><td>分数表达法</td></tr>
+<tr><td>38</td><td>It ___ him two years to write</td><td style="color:#dc2626">C. spent</td><td style="color:#16a34a">A. took</td><td>It takes sb. time to do</td></tr>
+<tr><td>40</td><td>five days ___ week; play ___ football</td><td style="color:#dc2626">C. the; /</td><td style="color:#16a34a">D. a; /</td><td>a week 表频率</td></tr>
+<tr style="background:#f0f7ff"><td colspan="5"><strong>—— 英译汉翻译题 ——</strong></td></tr>
+<tr><td>46</td><td>expect too much of...under great pressure</td><td style="color:#dc2626">给予…过多期望，导致…在极大都压力之下</td><td style="color:#16a34a">对…期望过高，这使…压力很大</td><td>短语翻译+通顺性</td></tr>
+<tr><td>47</td><td>take new measures to protect</td><td style="color:#dc2626">采取新的措施<strong>来</strong>保护环境</td><td style="color:#16a34a">采取新的措施保护环境</td><td>翻译简洁性</td></tr>
+<tr><td>48</td><td>will be open on Sundays</td><td style="color:#dc2626">将在星期日<strong>被开放</strong></td><td style="color:#16a34a">将在周日开放</td><td>be open 形容词≠被动</td></tr>
+<tr><td>49</td><td>mobile phones...keep in touch with</td><td style="color:#dc2626">智能手机…互相联系其他人</td><td style="color:#16a34a">手机…与他人保持联系</td><td>词义准确+搭配翻译</td></tr>
+<tr><td>50</td><td>The more...a man...knowledgeable</td><td style="color:#dc2626">这个男人…获取的知识也越多</td><td style="color:#16a34a">一个人…知识就越丰富</td><td>泛指+the more结构+词义</td></tr>
+</table>
+
+<!-- ==================== 第二部分：知识模块归纳 ==================== -->
+<h2>二、9 大知识模块归纳</h2>
+
+<div class="card card-error">
+<h3>模块 A：不定代词辨析 <span class="tag tag-p1">P1 最高优先</span></h3>
+<p><strong>涉及题目：</strong>Q2, Q13, Q14, Q27（4 题，占错误的 20%）</p>
+<p><strong>为什么容易错：</strong>another / the other / other / others / neither / none 这六个词含义相近，中文都可以翻译成"另一个/其他"，但英语中它们的使用场景完全不同。你可能没有建立"先数个数，再选词"的思维习惯。</p>
+<p><strong>核心规则：</strong></p>
+<ul>
+<li>看到 <code>two</code> 或 <code>one...and</code> → 用 <code>the other</code>（两者中另一个）</li>
+<li>看到"再来一个/又一个"且不限定范围 → 用 <code>another</code></li>
+<li>两者都不 → <code>neither</code>；三者及以上都不 → <code>none</code></li>
+</ul>
+</div>
+
+<div class="card card-error">
+<h3>模块 B：介词固定搭配 <span class="tag tag-p1">P1 最高优先</span></h3>
+<p><strong>涉及题目：</strong>Q4, Q21, Q22（3 题）</p>
+<p><strong>为什么容易错：</strong>介词搭配是纯记忆型知识，没有逻辑可推导。中文说"用写信的方式"，你可能直觉选 with，但英语用 by。"令某人惊讶"中文没有对应介词线索，容易猜错。</p>
+<p><strong>核心搭配：</strong></p>
+<ul>
+<li><code>by + doing</code> = 通过…方式</li>
+<li><code>succeed in + doing</code> = 成功做某事（in 是介词，后接动名词）</li>
+<li><code>to one's surprise</code> = 令某人惊讶的是</li>
+</ul>
+</div>
+
+<div class="card card-warning">
+<h3>模块 C：比较级结构 <span class="tag tag-p2">P2 高优先</span></h3>
+<p><strong>涉及题目：</strong>Q5, Q28（2 题）</p>
+<p><strong>为什么容易错：</strong>① 程度副词（a bit / much / even）修饰比较级时，必须放在比较级<strong>前面</strong>，你可能受中文语序影响放到了后面。② <code>the more...the more/less</code> 结构中两边都必须用比较级，你可能误用了最高级。</p>
+</div>
+
+<div class="card card-warning">
+<h3>模块 D：花费动词辨析 <span class="tag tag-p2">P2 高优先</span></h3>
+<p><strong>涉及题目：</strong>Q38（1 题，但属于高频考点）</p>
+<p><strong>为什么容易错：</strong>take / spend / cost / pay 四个词中文都可以翻译成"花费"，但它们的<strong>主语</strong>和<strong>句型</strong>完全不同。看到 <code>It ___ sb. + 时间 + to do</code> 必须用 took。</p>
+</div>
+
+<div class="card card-info">
+<h3>模块 E：so...that 结构 <span class="tag tag-p3">P3 中优先</span></h3>
+<p><strong>涉及题目：</strong>Q9（1 题）</p>
+<p><strong>为什么容易错：</strong>very 和 so 都可以表示"很/非常"，但只有 <code>so</code> 能搭配 <code>that</code> 引导结果从句。看到 <code>that</code> 从句就要想到 so。</p>
+</div>
+
+<div class="card card-info">
+<h3>模块 F：词义辨析 <span class="tag tag-p3">P3 中优先</span></h3>
+<p><strong>涉及题目：</strong>Q7, Q19（2 题）</p>
+<p><strong>为什么容易错：</strong>forgive/forget 拼写相似但含义不同；impression/expression 都是"表…tion"结尾的名词，容易混淆。需要通过例句和搭配来记忆。</p>
+</div>
+
+<div class="card card-info">
+<h3>模块 G：语法结构规则 <span class="tag tag-p3">P3 中优先</span></h3>
+<p><strong>涉及题目：</strong>Q18, Q24, Q26, Q32, Q33, Q34（6 题）</p>
+<p><strong>为什么容易错：</strong>这些都是有明确规则的语法点，但规则细节容易遗忘：</p>
+<ul>
+<li>few/a few 修饰可数，little/a little 修饰不可数</li>
+<li>in one's + 整十数<strong>复数</strong>（forties 不是 forty）</li>
+<li>be likely to do（likely 是形容词可做表语，probably 是副词不行）</li>
+<li>形容词修饰不定代词<strong>后置</strong></li>
+<li>make + 宾语 + <strong>过去分词</strong>（被动含义）</li>
+<li>分数：分子基数词 + 分母序数词，分子>1 分母加 s</li>
+</ul>
+</div>
+
+<div class="card card-info">
+<h3>模块 H：冠词用法 <span class="tag tag-p3">P3 中优先</span></h3>
+<p><strong>涉及题目：</strong>Q40（1 题）</p>
+<p><strong>为什么容易错：</strong><code>a week</code> 表示“每周”（频率），你可能误以为 week 是特指而用了 the。球类运动前不加冠词你答对了，但第一空选错。</p>
+</div>
+
+<div class="card card-error">
+<h3>模块 I：英译汉翻译技巧 <span class="tag tag-p2">P2 高优先</span></h3>
+<p><strong>涉及题目：</strong>Q46, Q47, Q48, Q49, Q50（5 题，占错误的 20%）</p>
+<p><strong>为什么容易错：</strong>翻译题暴露了三类问题：① 短语含义记不准（expect too much of、keep in touch with、mobile phone）；② 语法结构误判（be open 是形容词不是被动）；③ 中文表达不够通顺简洁（“被开放”“互相联系其他人”“来保护环境”）。</p>
+<p><strong>核心规则：</strong></p>
+<ul>
+<li>翻译三原则：<strong>准确 → 通顺 → 简洁</strong></li>
+<li><code>be open</code> = 开着的（形容词），不是“被开放”</li>
+<li><code>a man</code> 在谚语中泛指“一个人”，不是“这个男人”</li>
+<li><code>knowledgeable</code> = 知识渊博的，不是“获取知识”</li>
+<li>中文不加多余的字（“来”“被”“互相…其他”）</li>
+</ul>
+</div>
+
+<!-- ==================== 第三部分：学习计划 ==================== -->
+<h2>三、按优先级的学习计划</h2>
+
+<p>以下计划按 <strong>10 天</strong> 安排，每天 30-45 分钟。每天聚焦 1 个模块，最后 2 天做综合自测。</p>
+
+<table class="schedule">
+<tr><th>天数</th><th>模块</th><th>学习方式</th><th>练习任务</th><th>复习时间</th></tr>
+<tr>
+  <td>Day 1</td>
+  <td><span class="tag tag-p1">P1</span> 不定代词</td>
+  <td>阅读速查手册 §1，画一张 another/the other/other/others/neither/none 的对比表格，用自己的话写出每个词的使用条件</td>
+  <td>完成下方 Quiz 1；另找 5 道不定代词真题练习</td>
+  <td>Day 3 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 2</td>
+  <td><span class="tag tag-p1">P1</span> 介词搭配</td>
+  <td>阅读速查手册 §2，把 by+doing / succeed in doing / to one's surprise 抄写 3 遍，各造 1 个新句子</td>
+  <td>完成下方 Quiz 2；整理你之前做错的介词题</td>
+  <td>Day 4 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 3</td>
+  <td><span class="tag tag-p2">P2</span> 比较级结构</td>
+  <td>阅读速查手册 §3，总结"程度副词+比较级"语序规则和 the+比较级...the+比较级 结构</td>
+  <td>完成下方 Quiz 3；用 the more...the more 造 3 个句子</td>
+  <td>Day 5 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 4</td>
+  <td><span class="tag tag-p2">P2</span> 花费动词</td>
+  <td>阅读速查手册 §5，画一张 take/spend/cost/pay 四列对比表（主语+句型+例句）</td>
+  <td>完成下方 Quiz 4；把同一件事用 4 个动词各写一遍</td>
+  <td>Day 6 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 5</td>
+  <td><span class="tag tag-p3">P3</span> so...that + 词义辨析</td>
+  <td>阅读速查手册 §4 和 §6，对比 so/very/too 的用法；对比 forgive/forget、impression/expression</td>
+  <td>完成下方 Quiz 5</td>
+  <td>Day 7 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 6</td>
+  <td><span class="tag tag-p3">P3</span> 语法结构规则（上）</td>
+  <td>阅读速查手册 §7-§9，掌握 few/a few、in one's forties、be likely to do</td>
+  <td>完成下方 Quiz 6</td>
+  <td>Day 8 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 7</td>
+  <td><span class="tag tag-p3">P3</span> 语法结构规则（下）+ 冠词</td>
+  <td>阅读速查手册 §10-§13，掌握形容词后置、make+过去分词、分数表达、冠词</td>
+  <td>完成下方 Quiz 7</td>
+  <td>Day 8 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 8</td>
+  <td><span class="tag tag-p2">P2</span> 英译汉翻译技巧</td>
+  <td>阅读速查手册 §14，对照 5 道翻译错题，逐句分析自己的错误原因；总结翻译三原则</td>
+  <td>完成下方 Quiz 8；另找 3 句英文自己翻译，对照标准答案修改</td>
+  <td>Day 10 回顾 10 分钟</td>
+</tr>
+<tr>
+  <td>Day 9</td>
+  <td>🔄 单选综合自测</td>
+  <td>不看速查手册，重做 20 道单选原题</td>
+  <td>记录正确率，对仍错的题回到对应模块复习</td>
+  <td>3 天后再测一次</td>
+</tr>
+<tr>
+  <td>Day 10</td>
+  <td>🔄 翻译+全面自测</td>
+  <td>重做 5 道翻译题 + 抽查各模块 Quiz</td>
+  <td>将仍不熟练的知识点记入错题本，安排下一轮复习</td>
+  <td>7 天后最终测试</td>
+</tr>
+</table>
+
+<!-- ==================== 第四部分：互动练习 ==================== -->
+<h2>四、互动自测练习</h2>
+<p>点击选项即可看到反馈。每题做完后，尝试<strong>不看答案</strong>说出理由。</p>
+
+<!-- Quiz 1 -->
+<div class="quiz" id="quiz1">
+<h4>Quiz 1 — 不定代词</h4>
+<p>There are two books on the desk. One is mine, and ___ is Tom's.</p>
+<ul class="quiz-options" data-answer="1">
+  <li data-idx="0" onclick="checkQuiz(this)">another</li>
+  <li data-idx="1" onclick="checkQuiz(this)">the other</li>
+  <li data-idx="2" onclick="checkQuiz(this)">other</li>
+  <li data-idx="3" onclick="checkQuiz(this)">others</li>
+</ul>
+<div class="quiz-feedback" id="quiz1-fb"></div>
+</div>
+
+<!-- Quiz 2 -->
+<div class="quiz" id="quiz2">
+<h4>Quiz 2 — 介词搭配</h4>
+<p>He improved his English ___ reading every day.</p>
+<ul class="quiz-options" data-answer="2">
+  <li data-idx="0" onclick="checkQuiz(this)">with</li>
+  <li data-idx="1" onclick="checkQuiz(this)">in</li>
+  <li data-idx="2" onclick="checkQuiz(this)">by</li>
+  <li data-idx="3" onclick="checkQuiz(this)">on</li>
+</ul>
+<div class="quiz-feedback" id="quiz2-fb"></div>
+</div>
+
+<!-- Quiz 3 -->
+<div class="quiz" id="quiz3">
+<h4>Quiz 3 — 比较级语序</h4>
+<p>This box is too heavy. Can you carry it ___?</p>
+<ul class="quiz-options" data-answer="1">
+  <li data-idx="0" onclick="checkQuiz(this)">more carefully a bit</li>
+  <li data-idx="1" onclick="checkQuiz(this)">a bit more carefully</li>
+  <li data-idx="2" onclick="checkQuiz(this)">carefully a bit more</li>
+  <li data-idx="3" onclick="checkQuiz(this)">a bit carefully more</li>
+</ul>
+<div class="quiz-feedback" id="quiz3-fb"></div>
+</div>
+
+<!-- Quiz 4 -->
+<div class="quiz" id="quiz4">
+<h4>Quiz 4 — 花费动词</h4>
+<p>It ___ me three hours to finish the homework yesterday.</p>
+<ul class="quiz-options" data-answer="0">
+  <li data-idx="0" onclick="checkQuiz(this)">took</li>
+  <li data-idx="1" onclick="checkQuiz(this)">spent</li>
+  <li data-idx="2" onclick="checkQuiz(this)">cost</li>
+  <li data-idx="3" onclick="checkQuiz(this)">paid</li>
+</ul>
+<div class="quiz-feedback" id="quiz4-fb"></div>
+</div>
+
+<!-- Quiz 5 -->
+<div class="quiz" id="quiz5">
+<h4>Quiz 5 — so...that / 词义</h4>
+<p>The movie was ___ boring that I fell asleep.</p>
+<ul class="quiz-options" data-answer="2">
+  <li data-idx="0" onclick="checkQuiz(this)">very</li>
+  <li data-idx="1" onclick="checkQuiz(this)">too</li>
+  <li data-idx="2" onclick="checkQuiz(this)">so</li>
+  <li data-idx="3" onclick="checkQuiz(this)">much</li>
+</ul>
+<div class="quiz-feedback" id="quiz5-fb"></div>
+</div>
+
+<!-- Quiz 6 -->
+<div class="quiz" id="quiz6">
+<h4>Quiz 6 — 语法结构</h4>
+<p>He is ___ to pass the exam. He has prepared well.</p>
+<ul class="quiz-options" data-answer="0">
+  <li data-idx="0" onclick="checkQuiz(this)">likely</li>
+  <li data-idx="1" onclick="checkQuiz(this)">probably</li>
+  <li data-idx="2" onclick="checkQuiz(this)">maybe</li>
+  <li data-idx="3" onclick="checkQuiz(this)">probable</li>
+</ul>
+<div class="quiz-feedback" id="quiz6-fb"></div>
+</div>
+
+<!-- Quiz 7 -->
+<div class="quiz" id="quiz7">
+<h4>Quiz 7 — 分数 + 形容词后置</h4>
+<p>___ of the students in our class are girls. And I have ___ to say.</p>
+<ul class="quiz-options" data-answer="1">
+  <li data-idx="0" onclick="checkQuiz(this)">Three fourth; important something</li>
+  <li data-idx="1" onclick="checkQuiz(this)">Three fourths; something important</li>
+  <li data-idx="2" onclick="checkQuiz(this)">Third four; important something</li>
+  <li data-idx="3" onclick="checkQuiz(this)">Three fourth; something important</li>
+</ul>
+<div class="quiz-feedback" id="quiz7-fb"></div>
+</div>
+
+<!-- Quiz 8 -->
+<div class="quiz" id="quiz8">
+<h4>Quiz 8 — 英译汉翻译判断</h4>
+<p>“The shop is open from 9 to 5.” 的正确翻译是？</p>
+<ul class="quiz-options" data-answer="1">
+  <li data-idx="0" onclick="checkQuiz(this)">商店从9点到5点被开放。</li>
+  <li data-idx="1" onclick="checkQuiz(this)">商店的营业时间是9点到5点。</li>
+  <li data-idx="2" onclick="checkQuiz(this)">商店在9点到5点之间被打开。</li>
+  <li data-idx="3" onclick="checkQuiz(this)">商店从9到5是开着的被。</li>
+</ul>
+<div class="quiz-feedback" id="quiz8-fb"></div>
+</div>
+
+<!-- ==================== 第五部分：自测方法 ==================== -->
+<h2>五、后续自测方法</h2>
+
+<div class="card card-success">
+<h3>方法 1：间隔重复测试</h3>
+<p>在学习后的 <strong>第 1 天、第 3 天、第 7 天、第 14 天</strong> 各做一次自测。每次遮住答案，先自己写出来再核对。如果某题再次做错，回到对应模块重新学习。</p>
+</div>
+
+<div class="card card-success">
+<h3>方法 2：造句输出法</h3>
+<p>对每个知识点，用正确的结构<strong>自己造一个新句子</strong>（不要抄原题）。例如学了 <code>one...the other</code>，就造："I have two pens: one is blue, the other is red." 能造出正确句子 = 真正掌握。</p>
+</div>
+
+<div class="card card-success">
+<h3>方法 3：错题本回顾</h3>
+<p>把这 25 道题抄到错题本上，只写题目和你的错误答案。每周翻一次，在脑中回忆正确答案和理由。回忆不起来就看速查手册。</p>
+</div>
+
+<div class="card card-success">
+<h3>方法 4：教别人</h3>
+<p>尝试把这 9 个模块的规则<strong>讲给同学或家人听</strong>。如果你能用简单的语言解释清楚“为什么选 the other 而不是 another”，说明你真正理解了。</p>
+</div>
+
+<div class="card card-success">
+<h3>方法 5：翻译回译法（针对英译汉）</h3>
+<p>看着标准答案的中文翻译，尝试<strong>回译成英文</strong>，然后对照原句检查。这能帮你同时巩固短语记忆和翻译能力。例如：看到“与某人保持联系”→ 回译 “keep in touch with sb.”→ 对照原句确认。</p>
+</div>
+
+<!-- ==================== 第六部分：错误模式总结 ==================== -->
+<h2>六、你的错误模式分析</h2>
+
+<div class="card card-warning">
+<h3>模式 1：凭语感选 A（出现 10 次）</h3>
+<p>你在 20 道题中有 <strong>10 道选了 A</strong>，其中大部分是错的。这说明你在不确定时倾向于选第一个"看起来对"的选项，而没有仔细分析语法结构。</p>
+<p><strong>改进策略：</strong>做题时先<strong>不看选项</strong>，自己想想空格应该填什么词性或结构，然后再去选项中找匹配的。</p>
+</div>
+
+<div class="card card-warning">
+<h3>模式 2：混淆"两者"与"多者"</h3>
+<p>Q2、Q14、Q27 都涉及"两者 vs 多者"的区分。你可能没有养成"先数个数"的习惯。</p>
+<p><strong>改进策略：</strong>看到不定代词题，第一步永远是<strong>数题目中提到了几个</strong>。two / twin / one...and → 两者 → the other / neither。</p>
+</div>
+
+<div class="card card-warning">
+<h3>模式 3：中式英语干扰</h3>
+<p>Q24 选了 "in forty years old"，Q32 选了 "important something"，翻译题中“被开放”“互相联系其他人”也是中式表达。</p>
+<p><strong>改进策略：</strong>记住英语的特殊语序规则（形容词后置、in one's forties），做题时警惕“直译陷阱”。翻译时先想“中文怎么说最自然”，而不是逐字对应。</p>
+</div>
+
+<div class="card card-warning">
+<h3>模式 4：翻译中词义偏差 + 冗余表达</h3>
+<p>Q46-Q50 的翻译中，你出现了：mobile phone→“智能手机”（词义偏差）、keep in touch with→“互相联系其他”（冗余）、be open→“被开放”（语法误判）、a man→“这个男人”（泛指未识别）。</p>
+<p><strong>改进策略：</strong>翻译前先识别句子中的固定短语和特殊用法，不要逐字翻译。翻译后读一遍中文，检查是否通顺自然。</p>
+</div>
+
+<footer>
+  课程 0001 · 错题分析与学习计划 · 
+  <a href="../reference/grammar-points.html">语法速查手册</a> · 
+  <a href="../MISSION.md">学习目标</a><br>
+  💡 如果有任何知识点不清楚，随时问我，我是你的老师。
+</footer>
+
+<script>
+function checkQuiz(el) {
+  const ul = el.parentElement;
+  const correctIdx = parseInt(ul.dataset.answer);
+  const chosenIdx = parseInt(el.dataset.idx);
+  const quizId = ul.closest('.quiz').id;
+  const fb = document.getElementById(quizId + '-fb');
+  
+  // Reset
+  ul.querySelectorAll('li').forEach(li => {
+    li.classList.remove('correct', 'wrong');
+    li.style.pointerEvents = 'none';
+  });
+  
+  if (chosenIdx === correctIdx) {
+    el.classList.add('correct');
+    fb.textContent = '✓ 正确！你掌握了这个知识点。';
+    fb.className = 'quiz-feedback show correct';
+  } else {
+    el.classList.add('wrong');
+    ul.querySelectorAll('li')[correctIdx].classList.add('correct');
+    fb.textContent = '✗ 不对。绿色标记的是正确答案，请回顾速查手册中对应的规则。';
+    fb.className = 'quiz-feedback show wrong';
+  }
+}
+</script>
+
+</body>
+</html>

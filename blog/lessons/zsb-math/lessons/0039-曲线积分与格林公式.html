@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0039 · 曲线积分与格林公式 · 路径无关 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0039">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 7 单元 · 多元函数积分学 · 课 0039</span>
+  <a href="0038-二重积分.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0039 · 多元函数积分学</span>
+<h1>曲线积分与格林公式 · 路径无关</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0038 二重积分 · 0034 弧长</span>
+  <span>来源：笔记《多元函数积分学》§二</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>分清<strong>第一类</strong>（对弧长 $ds$，与方向无关）与<strong>第二类</strong>（对坐标 $dx,dy$，反向变号）曲线积分</li>
+    <li>用参数法把两类曲线积分化成定积分</li>
+    <li>用<strong>格林公式</strong>（记得 $Q_x-P_y$ 与正向）算闭曲线积分，并用 $P_y=Q_x$ 判路径无关</li>
+  </ul>
+</div>
+
+<p>曲线积分把积分的"跑道"从区间换成了曲线。第一类量"沿线的质量"（无方向），第二类量"力沿路做的功"（有方向）——方向感是本章的灵魂。</p>
+
+<h2>一、第一类曲线积分（对弧长）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义式与参数化</div>
+  <p style="margin:0.2rem 0">$$\int_L f(x,y)\,ds,\qquad ds=\sqrt{x'^{2}(t)+y'^{2}(t)}\,dt$$</p>
+  <p style="margin:0.2rem 0">$$\int_L f\,ds=\int_{\alpha}^{\beta}f\bigl(x(t),y(t)\bigr)\sqrt{x'^{2}+y'^{2}}\,dt$$</p>
+  <p style="margin:0.2rem 0"><strong>与方向无关</strong>：从 $A$ 到 $B$ 积与从 $B$ 到 $A$ 积结果相同。若曲线是 $y=y(x)$：$ds=\sqrt{1+y'^{2}}\,dx$（0034 弧长公式的返场）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>计算 $\displaystyle\int_L(x+y)\,ds$，$L$ 为从 $(0,0)$ 到 $(1,1)$ 的线段。（冲刺练习 14）</p>
+  <details><summary>先自己参数化，再展开</summary>
+    <p>取 $x=t,\ y=t$（$0\le t\le1$），$ds=\sqrt{1+1}\,dt=\sqrt2\,dt$：</p>
+    <p>$\displaystyle\int_0^{1}2t\cdot\sqrt2\,dt=\sqrt2$。</p>
+    <p>流程：<strong>参数化 → 代入 → 算 $ds$ → 化定积分</strong>，四步一个不落。</p>
+  </details>
+</div>
+
+<h2>二、第二类曲线积分（对坐标）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义式与方向</div>
+  <p style="margin:0.2rem 0">$$\int_L P\,dx+Q\,dy=\int_{\alpha}^{\beta}\left[P\bigl(x(t),y(t)\bigr)x'(t)+Q\bigl(x(t),y(t)\bigr)y'(t)\right]dt$$</p>
+  <p style="margin:0.2rem 0"><strong>与方向有关</strong>：路径反向，积分值<strong>整体变号</strong>；参数的上下限必须体现方向（起点对应的参数作下限）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>计算 $\displaystyle\int_L xy\,dx$，$L$ 为抛物线 $y=x^{2}$ 上从 $(0,0)$ 到 $(2,4)$ 的一段。</p>
+  <details><summary>先自己代入，再展开（冲刺练习 18 同型）</summary>
+    <p>取 $x=t$（$t:0\to2$），$y=t^{2}$，$dx=dt$：</p>
+    <p>$\displaystyle\int_0^{2}t\cdot t^{2}\,dt=\int_0^{2}t^{3}dt=4$。</p>
+    <p>第二类的"代入三件套"：$P$ 代、$dx$ 换 $x'(t)dt$、限按方向定。</p>
+  </details>
+</div>
+
+<h2>三、格林公式：闭曲线 ↔ 二重积分</h2>
+
+<div class="keypoint">
+  <div class="kp-title">公式与两个前提</div>
+  <p style="margin:0.2rem 0">$$\oint_{L}P\,dx+Q\,dy=\iint_{D}\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)d\sigma$$</p>
+  <p style="margin:0.2rem 0">前提：① $L$ 是<strong>闭</strong>曲线（非闭先补线，"闭合积分 − 补线积分"）；② $L$ 取<strong>正向</strong>——沿 $L$ 前进时区域 $D$ 在<strong>左手边</strong>（逆时针为常见正向）。$P,Q$ 在含 $D$ 的区域内有一阶连续偏导。</p>
+  <p style="margin:0.2rem 0">记忆：<strong>"右导减下导"</strong>——$Q$ 对 $x$ 的偏导减 $P$ 对 $y$ 的偏导，顺序别反。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>$L$ 为单位圆周正向一周，$P=y^{2}$，$Q=x^{2}$，用格林公式算 $\displaystyle\oint_L y^{2}dx+x^{2}dy$。</p>
+  <details><summary>先自己算 $Q_x-P_y$，再展开</summary>
+    <p>$\dfrac{\partial Q}{\partial x}=2x$，$\dfrac{\partial P}{\partial y}=2y$，差 $=2(x-y)$。</p>
+    <p>$\displaystyle\iint_D2(x-y)\,d\sigma=0$（$D$ 是圆盘关于两轴对称，$2x$ 与 $-2y$ 都是"奇×对称域"⇒ 0，0038 对称性）。</p>
+    <p>看点：格林公式常把线积分变成"用对称性秒杀的二重积分"。<strong>闭曲线 + 二元多项式 = 绿灯走格林</strong>。</p>
+  </details>
+</div>
+
+<h2>四、路径无关</h2>
+
+<div class="keypoint">
+  <div class="kp-title">等价条件（单连通区域内）</div>
+  <p style="margin:0.2rem 0">$$\int_L P\,dx+Q\,dy\ \text{与路径无关}\iff P_{y}=Q_{x}\iff \exists\,u:\ du=P\,dx+Q\,dy$$</p>
+  <p style="margin:0.2rem 0">路径无关时积分只由起点终点决定：$I=u(B)-u(A)$。<strong>两个前提别跳过</strong>：区域单连通（无"洞"）、偏导连续——看到 $P_y=Q_x$ 就无脑下结论会翻车。</p>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">第一类曲线积分 $\displaystyle\int_L f\,ds$ 的特点是</p>
+  <div class="quiz-opts">
+    <button data-k="A">与方向有关，反向变号</button>
+    <button data-k="B">必须沿闭曲线积分</button>
+    <button data-k="C">与方向无关，$ds$ 是弧长微元</button>
+    <button data-k="D">等于二重积分</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">第一类"对弧长"积分，物理原型是曲线形构件的质量——从哪头开始量都一样。A 是第二类的特征。两类积分的"方向观"是本章第一判断点。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">曲线 $y=y(x)$ 上第一类曲线积分的弧长微元是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$ds=dx$</button>
+    <button data-k="B">$ds=\sqrt{1+y'^{2}}\,dx$</button>
+    <button data-k="C">$ds=y'\,dx$</button>
+    <button data-k="D">$ds=\sqrt{1+(y'')^{2}}\,dx$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">斜的小段：$ds=\sqrt{dx^{2}+dy^{2}}=\sqrt{1+y'^{2}}\,dx$（0034 弧长公式的微元版）。A 把"斜的路"当"平的路"量——弧长会算短。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">格林公式中，等号右端的被积函数是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{\partial Q}{\partial x}-\dfrac{\partial P}{\partial y}$</button>
+    <button data-k="B">$\dfrac{\partial P}{\partial x}-\dfrac{\partial Q}{\partial y}$</button>
+    <button data-k="C">$\dfrac{\partial Q}{\partial y}-\dfrac{\partial P}{\partial x}$</button>
+    <button data-k="D">$P+Q$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">"$Q$ 对 $x$ 减 $P$ 对 $y$"——与 $P\,dx+Q\,dy$ 的字母<strong>交叉</strong>对应。B 是最常见误写（同字母求导）；若写成 $\dfrac{\partial P}{\partial y}-\dfrac{\partial Q}{\partial x}$ 则整个差了一个负号——交叉再交叉，别抄反。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">关于格林公式的"正向"，正确的理解是</p>
+  <div class="quiz-opts">
+    <button data-k="A">一定是顺时针</button>
+    <button data-k="B">一定是逆时针，与区域无关</button>
+    <button data-k="C">只要闭合就行，方向随意</button>
+    <button data-k="D">沿边界前进时区域在左手边（外边界逆时针、内边界顺时针）</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">"左手规则"统一定义方向：单连通域即逆时针；复连通（有洞）区域的外边界逆时针、内边界顺时针。方向接反，结果差一个负号。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">在单连通区域内 $\int_L P\,dx+Q\,dy$ 与路径无关的充要条件是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$P=Q$</button>
+    <button data-k="B">$P_{y}=Q_{x}$ 处处成立</button>
+    <button data-k="C">$P_{x}=Q_{y}$ 处处成立</button>
+    <button data-k="D">$P\cdot Q=1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$P_y=Q_x$（交叉偏导相等）⟺ 存在原函数 $u$ 使 $du=P\,dx+Q\,dy$ ⟺ 路径无关，积分 $=u(B)-u(A)$。前提"单连通 + 偏导连续"在叙述条件时要写进答案。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>第一类 $ds$ 别写成 $dx$；第二类<strong>方向</strong>别丢（反向变号）</li>
+    <li>格林公式右端是 $Q_x-P_y$（<strong>交叉偏导</strong>），别写成 $P_x-Q_y$</li>
+    <li>非闭曲线：补线闭合，<strong>原积分 = 闭合积分 − 补线积分</strong></li>
+    <li>$P_y=Q_x$ 只是"候选"：还要检查<strong>单连通 + 偏导连续</strong></li>
+    <li>参数化时上下限按<strong>方向</strong>排（第二类），第一类则小参数在下</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写格林公式，并说出"正向"的定义。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\oint_LPdx+Qdy=\iint_D(Q_x-P_y)d\sigma$；正向 = 沿边界前进时区域在左手边（外边界逆时针、内边界顺时针）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">两类曲线积分各"对什么积"？与方向的关系各是什么？各自的参数化公式怎么写？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">第一类对弧长 $ds=\sqrt{x'^2+y'^2}\,dt$，与方向无关；第二类对坐标 $\int Pdx+Qdy=\int[Px'+Qy']dt$，反向变号、限按方向。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 7 单元（0038–0039）收官</strong>。考纲提示：曲线积分与格林公式在部分省份为选考/低频，按你省真题确认权重后再分配时间（下次对话记得告诉老师你的省份）。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《多元函数积分学》§二 曲线积分（含冲刺练习 14–21 答案与勘误说明）</li>
+    <li>讲义：《曲线积分》PDF（两类积分、格林公式、路径无关）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："补线法完整做一道"、"路径无关时怎么求原函数 $u$"、"$P_y=Q_x$ 但区域有洞的反例"，或让它出 5 道"判类 + 选招"的线积分题。
+</div>
+
+<nav class="footnav">
+  <a href="0038-二重积分.html" class="prev"><span class="dir">← 上一课</span>0038 二重积分</a>
+  <a href="0040-正项级数审敛法.html" class="next"><span class="dir">下一课 →</span>0040 正项级数审敛法</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0011 · 极限计算（上）：未定式与基础方法 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0011">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0011</span>
+  <a href="0010-极限概念与左右极限.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0011 · 极限与连续</span>
+<h1>极限计算（上）：未定式识别与四种基础方法</h1>
+<div class="meta">
+  <span>⏱ 约 18 分钟</span>
+  <span>前置：0010 极限概念与左右极限 · 0002 十字相乘</span>
+  <span>来源：笔记《极限与连续》§二 · §三（方法一至四）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>认出<strong>七种未定式</strong>，并按"长相"在 30 秒内选出对的方法</li>
+    <li>熟练使用四招：<strong>去零因式、通分、有理化、抓大头</strong></li>
+    <li>背下抓大头三结论与速度链，含 $\sqrt{x^2}=|x|$ 的负方向陷阱</li>
+  </ul>
+</div>
+
+<h2>一、先看两件"不用技巧"的事</h2>
+
+<div class="keypoint">
+  <div class="kp-title">直接代入法 + 四则法则</div>
+  <p style="margin:0.2rem 0">初等函数在<strong>连续点</strong>直接代：$\lim\limits_{x\to x_0}f(x)=f(x_0)$。如 $\lim\limits_{x\to3}(3x-2)=7$，$\lim\limits_{x\to e}\ln x=1$。</p>
+  <p style="margin:0.2rem 0">四则法则：各极限<strong>都存在</strong>时可加减乘除（除法分母非零）。口诀：<strong>极限存在且不为 0 的因子先算掉</strong>，别让它陪着你化简。</p>
+</div>
+
+<p>代入后发现是 $\dfrac00$、$\dfrac\infty\infty$ 这类"算不出来"的样子，就叫<strong>未定式</strong>，共七种：</p>
+
+<div class="keypoint">
+  <div class="kp-title">七种未定式（认脸不认人）</div>
+  <p style="margin:0.2rem 0">$$\frac00,\quad\frac{\infty}{\infty},\quad\infty-\infty,\quad0\cdot\infty,\quad1^{\infty},\quad0^{0},\quad\infty^{0}$$</p>
+  <p style="margin:0.2rem 0">这里的 $0,1,\infty$ 指<strong>极限为</strong>该值的式子，不是真常数。反例识破：$\lim\limits_{x\to\infty}1^x=1$——底是真常数 1，不是 $1^{\infty}$ 型。</p>
+</div>
+
+<h2>二、方法一：去零因式（$\frac00$ 型）</h2>
+
+<p>$x\to x_0$ 时分子分母同时趋于 0，说明<strong>两者都藏着因子 $(x-x_0)$</strong>——因式分解（0002 课十字相乘/立方和差）后约掉：</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>$\lim\limits_{x\to1}\dfrac{x^2+x-2}{x^2-x}$ 与 $\lim\limits_{x\to2}\dfrac{x^3-8}{x^2-4}$。</p>
+  <details><summary>先自己分解，再展开</summary>
+    <p>$\lim\limits_{x\to1}\dfrac{(x+2)(x-1)}{x(x-1)}=\lim\limits_{x\to1}\dfrac{x+2}{x}=3$。</p>
+    <p>$\lim\limits_{x\to2}\dfrac{(x-2)(x^2+2x+4)}{(x-2)(x+2)}=\lim\limits_{x\to2}\dfrac{x^2+2x+4}{x+2}=3$（分子用了<strong>立方差</strong>）。</p>
+  </details>
+</div>
+
+<h2>三、方法二：通分再约分（$\infty-\infty$ 型）</h2>
+
+<p>两个分式相减都是无穷，先<strong>通分化成一个分式</strong>，通常就变成 $\frac00$ 型，回到方法一：</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>$\lim\limits_{x\to2}\left(\dfrac{1}{x-2}-\dfrac{4}{x^2-4}\right)$。</p>
+  <details><summary>先自己通分，再展开</summary>
+    <p>$=\lim\limits_{x\to2}\dfrac{(x+2)-4}{(x-2)(x+2)}=\lim\limits_{x\to2}\dfrac{x-2}{(x-2)(x+2)}=\lim\limits_{x\to2}\dfrac{1}{x+2}=\dfrac14$。</p>
+    <p>同型（秋讲练习 7(6)）：$\lim\limits_{x\to1}\left(\dfrac{3}{1-x^3}-\dfrac{1}{1-x}\right)=\lim\limits_{x\to1}\dfrac{2+x}{1+x+x^2}=1$。</p>
+  </details>
+</div>
+
+<h2>四、方法三：有理化（见到根式差）</h2>
+
+<p>分子或分母出现 $\sqrt{\ }-\sqrt{\ }$，<strong>乘共轭根式</strong>（0002 课的有理化因式）：</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>$\lim\limits_{x\to0}\dfrac{\sqrt{1+x}-1}{x}$ 与 $\lim\limits_{x\to1}\dfrac{\sqrt{3-x}-\sqrt{1+x}}{x^2+x-2}$。</p>
+  <details><summary>先自己做，再展开</summary>
+    <p>$\lim\limits_{x\to0}\dfrac{(\sqrt{1+x}-1)(\sqrt{1+x}+1)}{x(\sqrt{1+x}+1)}=\lim\limits_{x\to0}\dfrac{x}{x(\sqrt{1+x}+1)}=\dfrac12$。</p>
+    <p>第二题分母先分解 $x^2+x-2=(x+2)(x-1)$，分子乘共轭：$\dfrac{(3-x)-(1+x)}{(x+2)(x-1)(\sqrt{3-x}+\sqrt{1+x})}=\dfrac{2(1-x)}{(x+2)(x-1)(\cdots)}=\dfrac{-2}{3\times2}=-\dfrac13$。</p>
+  </details>
+</div>
+
+<h2>五、方法四：抓大头（$\frac\infty\infty$ 型）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背：多项式比三结论</div>
+  <p style="margin:0.2rem 0">$$\lim_{x\to\infty}\frac{a_0x^m+\cdots+a_m}{b_0x^n+\cdots+b_n}=\begin{cases}0, &amp; n&gt;m\\ \dfrac{a_0}{b_0}, &amp; n=m\\ \infty, &amp; n&lt;m\end{cases}$$</p>
+  <p style="margin:0.2rem 0">速度链（$x\to+\infty$ 谁跑得快）：<strong>$\ln x\ll x^a\ll c^x\ll x^x$</strong>。混搭比阶：各自抓最大的头再比。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4</span>秒答四个（夏讲教材 P32–33）：</p>
+  <details><summary>先自己抓头，再展开</summary>
+    <p>$\lim\limits_{x\to\infty}\dfrac{x^2+2x-3}{x^2-1}=1$（同次比系数）；$\lim\limits_{x\to\infty}\dfrac{x^2-5x-1}{x^3-3}=0$（分母次数高）。</p>
+    <p>$\lim\limits_{x\to+\infty}\dfrac{x^2-1}{e^{2x}}=0$（指数吊打幂）；$\lim\limits_{x\to+\infty}\dfrac{\ln x}{x}=0$（幂吊打对数）。</p>
+    <p>$\lim\limits_{x\to+\infty}\dfrac{3^x+2}{2^x-4x^2+x}=\infty$：分子抓 $3^x$，分母里 $2^x\gg4x^2$ 抓 $2^x$，比值 $\sim(3/2)^x\to\infty$。</p>
+  </details>
+</div>
+
+<div class="warn">
+  <div class="warn-title">负方向陷阱：$x\to-\infty$ 时 $\sqrt{x^2}=|x|=-x$</div>
+  <p style="margin:0.2rem 0">例（夏讲原题）：$\lim\limits_{x\to-\infty}\dfrac{\sqrt{4x^2+x-1}+x+1}{\sqrt{x^2+\sin x}}$。此时 $\sqrt{4x^2}=|2x|=-2x$、$\sqrt{x^2}=-x$，故分子 $\sim-2x+x=-x$，比值 $=\dfrac{-x}{-x}=1$。</p>
+  <p style="margin:0.2rem 0">口诀：<strong>偶次根号开出来是非负的</strong>——负方向先提 $|x|$ 再抓大头。</p>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\lim\limits_{x\to3}\dfrac{x^2-5x+6}{x^2-8x+15}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$0$</button>
+    <button data-k="B">$-\dfrac{1}{2}$</button>
+    <button data-k="C">$\dfrac{1}{2}$</button>
+    <button data-k="D">$-\dfrac{2}{5}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">典型 $\frac00$：分子 $=(x-2)(x-3)$，分母 $=(x-3)(x-5)$，约掉 $(x-3)$ 后代入 $x=3$：$\dfrac{3-2}{3-5}=-\dfrac12$。（秋讲练习 7(3) 原题。）</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\lim\limits_{x\to\infty}\dfrac{3x^2+2x+1}{5x^2-4x+7}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$0$</button>
+    <button data-k="B">$\infty$</button>
+    <button data-k="C">$\dfrac{3}{5}$</button>
+    <button data-k="D">$\dfrac{5}{3}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">同次（$m=n=2$）比最高次项系数：$\dfrac{3}{5}$。D 倒过来了——结论是 $\dfrac{a_0}{b_0}$，分子系数在上。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\lim\limits_{x\to+\infty}\left(\sqrt{x^2+x}-x\right)=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{2}$</button>
+    <button data-k="B">$0$</button>
+    <button data-k="C">$1$</button>
+    <button data-k="D">$+\infty$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">"$\infty-\infty$"带根号 → 有理化：$\dfrac{x}{\sqrt{x^2+x}+x}$，再抓大头：分子最高阶 $x$，分母 $\sqrt{x^2+x}+x\sim2x$，得 $\dfrac12$。（秋讲练习 8(3)。）</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\lim\limits_{x\to+\infty}\dfrac{(2x-1)^3(3x+1)^2}{(x+1)^5}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$6$</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$36$</button>
+    <button data-k="D">$72$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">整体看次数：分子 $x^5$、分母 $x^5$，同次比系数 $\dfrac{2^3\cdot3^2}{1}=8\times9=72$。口诀是"抓大头"，但展开前的系数要抓准：$(2x)^3$ 的头是 $2^3$。（秋讲练习 9(6)。）</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\lim\limits_{x\to\infty}\dfrac{x+\sin x}{x-\cos x}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">不存在</button>
+    <button data-k="B">$1$ 之外还有别的值</button>
+    <button data-k="C">$1$</button>
+    <button data-k="D">$0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">别被 $\sin x$ 吓到：分子分母同除 $x$，得 $\dfrac{1+\frac{\sin x}{x}}{1-\frac{\cos x}{x}}$，其中 $\dfrac{\sin x}{x}\to0$（<strong>有界 × 无穷小</strong>，0015 课主角），分母 $\to1$，整体 $\to1$。（秋讲练习 9(5)。）</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">方法选择对照表（按长相 30 秒选对）</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>$\frac00$ 且是多项式 → <strong>去零因式</strong>（分解 → 约分）</li>
+    <li>$\infty-\infty$ 且是分式差 → <strong>通分</strong>后回上一条</li>
+    <li>根式差（$\sqrt{\ }-\sqrt{\ }$ 或 $\sqrt{\ }-a$）→ <strong>有理化</strong></li>
+    <li>$\frac\infty\infty$ 且是多项式 / 混合增长 → <strong>抓大头</strong>（三结论 + 速度链）</li>
+    <li>剩下 $\sin\frac{\square}{\square}$、$1^{\infty}$ → 下一课的两个重要极限</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写抓大头三结论（多项式比），并排出速度链（$\ln x$、$x^a$、$c^x$、$x^x$）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">次高得 0、同次比系数 $\frac{a_0}{b_0}$、次低得 $\infty$；$\ln x\ll x^a\ll c^x\ll x^x$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">七种未定式是哪七种？"假未定式"怎么识破？举一例。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\frac00$、$\frac\infty\infty$、$\infty-\infty$、$0\cdot\infty$、$1^\infty$、$0^0$、$\infty^0$。看底/因子是"极限为该值"还是真常数：$\lim\limits_{x\to\infty}1^x=1$ 是真常数底，不算未定式。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡，并把随堂测 1–5 盖住答案重做——这五道覆盖了本课四招。下一课（重要极限）的题一旦出现三角函数或 $1^{\infty}$，就不属于本课四招管辖了，注意"换武器"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§二 四则运算 · §三 方法一至四（含秋讲练习 7–9 速查表）</li>
+    <li>讲义：《函数极限》夏讲 PDF 教材 P30–33、秋讲 PDF（29 道随堂练习）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："再出 10 道 $\frac00$ 去零因式题"、"$x\to-\infty$ 时 $\sqrt{x^2}$ 为什么等于 $-x$"、"速度链里 $x!$ 和 $x^x$ 谁大"，或让它考你本课任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0010-极限概念与左右极限.html" class="prev"><span class="dir">← 上一课</span>0010 极限概念与左右极限</a>
+  <a href="0012-两个重要极限.html" class="next"><span class="dir">下一课 →</span>0012 两个重要极限</a>
+</nav>
+</main>
+</body>
+</html>

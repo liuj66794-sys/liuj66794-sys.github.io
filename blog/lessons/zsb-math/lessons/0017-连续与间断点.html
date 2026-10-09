@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0017 · 连续与间断点 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0017">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0017</span>
+  <a href="0016-数列极限专练.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0017 · 极限与连续</span>
+<h1>连续与间断点：四种类型判别</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0010 左右极限 · 0012 重要极限</span>
+  <span>来源：笔记《极限与连续》§六</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用<strong>判断三步</strong>（有定义？左右极限存在？都等于函数值？）判定连续</li>
+    <li>找全间断点（<strong>无定义点 + 分段点</strong>）并判对四类：<strong>可去、跳跃、无穷、振荡</strong></li>
+    <li>用"连续"条件<strong>逆求参数</strong>，并理清"有定义 / 极限存在 / 连续"的强弱链</li>
+  </ul>
+</div>
+
+<h2>一、连续：一个极限等式</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与判断三步</div>
+  <p style="margin:0.2rem 0"><strong>定义二（极限式）</strong>：$f(x)$ 在 $x_0$ 处连续 $\iff\lim\limits_{x\to x_0}f(x)=f(x_0)$。（定义一是增量式 $\lim\limits_{\Delta x\to0}\Delta y=0$，两者等价。）</p>
+  <p style="margin:0.2rem 0"><strong>判断三步</strong>：① $f(x_0)$ 有定义？② 左右极限存在？③ 都等于 $f(x_0)$？——<strong>三问全"是"才连续</strong>。</p>
+  <p style="margin:0.2rem 0">左右连续：$\lim\limits_{x\to x_0^-}f=f(x_0)$ 称左连续，右侧同理；连续 ⟺ 既左连续又右连续。</p>
+</div>
+
+<p>一条"免费定理"：<strong>初等函数在其定义域内处处连续</strong>。它反过来就是 0011 课直接代入法的合法性证明——$\lim\limits_{x\to2}\sqrt{7-x^2}=\sqrt3$、$\lim\limits_{x\to\frac\pi2}\ln(\sin x)=0$ 不需要任何技巧。</p>
+
+<p>概念强弱链（小充分大必要）："有定义"是"连续"的<strong>必要条件</strong>；"连续"是"极限存在"的<strong>充分条件</strong>。即：连续 ⇒ 极限存在 ⇒ 可以没定义（链条单向）。</p>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">"$f(x)$ 在 $x_0$ 处有定义"是"$f(x)$ 在 $x_0$ 处连续"的（夏讲原题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">必要条件</button>
+    <button data-k="B">充分条件</button>
+    <button data-k="C">充要条件</button>
+    <button data-k="D">既不充分也不必要</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">连续必先有定义（判断三步第一步），但光有定义不保证连续（如 $\frac{\sin x}{x}$ 补定义 $f(0)=0$ 仍不连续）。有定义 $\Leftarrow$ 连续，故是必要条件。姊妹题："连续"是"极限存在"的<strong>充分</strong>条件。</div>
+</div>
+
+<h2>二、间断点：先找全，再分类</h2>
+
+<div class="keypoint">
+  <div class="kp-title">四类间断点</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>大类</th><th>情形</th><th>名称</th></tr>
+    <tr><td rowspan="2">第一类（左右极限<strong>都存在</strong>）</td><td>左右极限不相等</td><td><strong>跳跃</strong></td></tr>
+    <tr><td>极限存在但 $\neq f(x_0)$，或该点无定义</td><td><strong>可去</strong></td></tr>
+    <tr><td rowspan="2">第二类（左右极限至少一个不存在）</td><td>至少一个为 $\infty$</td><td><strong>无穷</strong></td></tr>
+    <tr><td>至少一个振荡</td><td><strong>振荡</strong></td></tr>
+  </table>
+  <p style="margin:0.2rem 0"><strong>找点清单</strong>：① 分母 / 真数 / arcsin 内部的<strong>无定义点</strong>；② <strong>分段点</strong>。找全后逐点算左右极限，按表归类。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（四个代表）</span>判断间断点类型：</p>
+  <p style="margin:0.2rem 0">(1) $\dfrac{x^{2}-1}{x-1}$ 在 $x=1$；(2) $\dfrac{|x|}{x}$ 在 $x=0$；(3) $\dfrac{1}{x^{2}-4}$ 在 $x=\pm2$；(4) $e^{\frac1x}$ 在 $x=0$</p>
+  <details><summary>先逐个左右极限，再展开（秋连续练习 4 精选）</summary>
+    <p>(1) $x=1$ 无定义，但 $\lim\limits_{x\to1}\dfrac{(x+1)(x-1)}{x-1}=2$ <strong>存在</strong> ⇒ <strong>可去</strong>间断点（"约分约掉的点"要单独检查！）。</p>
+    <p>(2) 左 $=-1$、右 $=1$，都存在不相等 ⇒ <strong>跳跃</strong>。</p>
+    <p>(3) $x\to\pm2$ 时分母 $\to0$、分子不变 ⇒ <strong>无穷</strong>（两点都是）。</p>
+    <p>(4) 左：$\frac1x\to-\infty$，$e^{1/x}\to0$；右：$\to+\infty$ ⇒ 右侧无穷 ⇒ <strong>无穷</strong>间断点（0010 课 $e^{1/x}$ 图像的判别版）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（进阶：一函数两类型）</span>讨论 $f(x)=\dfrac{1}{e^{\frac{x}{x-1}}-1}$ 的间断点。</p>
+  <details><summary>先找全无定义点，再展开（夏连续教材 P48）</summary>
+    <p><strong>找点</strong>：指数分母 $x-1=0$ 给 $x=1$；外层 $e^0-1=0$ 给 $x=0$。两个都查。</p>
+    <p><strong>$x=1$</strong>：$x\to1^-$ 时 $\frac{x}{x-1}\to-\infty$、$e^{\cdot}\to0$、$f=\dfrac{1}{e^{\cdot}-1}\to\dfrac{1}{0-1}=-1$；$x\to1^+$ 时 $\frac{x}{x-1}\to+\infty$、$e^{\cdot}\to+\infty$、$f\to\dfrac{1}{+\infty}=0^{+}$——两侧单侧极限 $-1$ 与 $0$ 都存在但不相等 ⇒ <strong>跳跃</strong>间断点。</p>
+    <p><strong>$x=0$</strong>：$\frac{x}{x-1}\to0$，$e^0-1\to0$，$f\to\infty$ ⇒ <strong>无穷</strong>间断点。</p>
+    <p>一个函数可以同时有不同类型的间断点——逐点独立判。</p>
+  </details>
+</div>
+
+<h2>三、由连续逆求参数（高频小题）</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>设 $f(x)=\begin{cases}\dfrac{e^{2x}-1}{x} &amp; x&lt;0\\ 3x^{2}-2x+k &amp; x\ge0\end{cases}$ 在 $x=0$ 处连续，求 $k$。</p>
+  <details><summary>先自己算左右，再展开（秋连续练习 3）</summary>
+    <p>左极限：$\dfrac{e^{2x}-1}{x}\sim\dfrac{2x}{x}=2$；右极限：$3(0)-2(0)+k=k$。连续要求左 $=$ 右（$x=0$ 处函数值即 $k$），故 $k=2$。</p>
+    <p>同款：$f(x)=\dfrac{\sin2x}{x}\ (x\neq0)$，补充定义 $f(0)=k$ 使连续 → $k=\lim\limits_{x\to0}\dfrac{\sin2x}{x}=2$——<strong>可去间断点的"修补"正是逆求参数的来源</strong>。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$x=1$ 是 $\dfrac{x^{2}-4x+3}{x^{2}+x-2}$ 的哪类间断点？</p>
+  <div class="quiz-opts">
+    <button data-k="A">跳跃间断点</button>
+    <button data-k="B">可去间断点</button>
+    <button data-k="C">无穷间断点</button>
+    <button data-k="D">连续点</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">分解 $\dfrac{(x-1)(x-3)}{(x+2)(x-1)}$：$x=1$ 无定义但约分后极限 $=-\dfrac23$ 存在 ⇒ 可去。（$x=-2$ 才是无穷间断点。）"无定义但极限存在"= 可去，一条口诀判一半。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">设 $f(x)=\begin{cases}(1+x)^{\frac3x} &amp; x\neq0\\ a &amp; x=0\end{cases}$ 在 $x=0$ 连续，则 $a=$（夏讲原题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e$</button>
+    <button data-k="B">$e^{2}$</button>
+    <button data-k="C">$e^{3}$</button>
+    <button data-k="D">$1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">连续 ⟺ $a=\lim\limits_{x\to0}(1+x)^{\frac3x}$。这是 $1^{\infty}$ 型：$v(u-1)=\dfrac{3x}{x}=3$，极限 $e^3$。（0012 三步法 + 0017 连续条件的组合拳，考试最爱。）</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$f(x)=\dfrac{\arcsin x}{x(x+3)}$ 的间断点情况是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$x=0$ 是无穷间断点</button>
+    <button data-k="B">$x=0$ 是跳跃间断点</button>
+    <button data-k="C">只有 $x=-3$ 一个间断点</button>
+    <button data-k="D">$x=0$ 可去；$x=-3$ 不属于该实函数定义域的聚点，不能分类为间断点</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">实数范围内，$f$ 的自然定义域为 $[-1,1]\setminus\{0\}$。$x=0$ 时 $\arcsin x\sim x$，故极限 $=\dfrac13$ 存在但函数无定义，是可去间断点。$x=-3$ 不在定义域的聚点中，$x\to-3$ 时没有定义域内的实数点可趋近，不能写 $\arcsin(-3)$，也不能归类为无穷间断点。因此该实函数只有 $x=0$ 这一可去间断点。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">"$\lim\limits_{x\to a}f(x)$ 存在"是"$f(x)$ 在 $a$ 处连续"的</p>
+  <div class="quiz-opts">
+    <button data-k="A">必要条件</button>
+    <button data-k="B">充分条件</button>
+    <button data-k="C">充要条件</button>
+    <button data-k="D">毫无关系</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">连续 ⇒ 极限存在（且等于函数值）；但极限存在可以没有 $f(a)$（可去间断点）。所以"极限存在"弱一档，是必要条件。与随堂测 1 合起来就是完整的强弱链：连续 > 极限存在 > 有定义。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>间断点要<strong>找全</strong>：分母零点、真数边界、arcsin 越界、分段点，一个不漏</li>
+    <li><strong>约分约掉的点</strong>是可去间断点，不是"没事了"</li>
+    <li>第一类 vs 第二类的分界：左右极限<strong>是否都存在</strong>（不是是否相等）</li>
+    <li>可去间断点 = "极限存在但不连续"——修补法即逆求参数题</li>
+    <li>分段点连续 ⟺ 左 $=$ 右 $=$ 该点函数值（三量对齐）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写连续判断三步，并画出强弱链：有定义 / 极限存在 / 连续，谁推谁？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">①有定义 ②左右极限存在 ③都等于 $f(x_0)$，全"是"才连续。连续 ⇒ 极限存在 ⇒ 可无定义；"有定义"是"连续"的必要条件。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">四类间断点各举一例（可去、跳跃、无穷、振荡），并说出第一类 / 第二类的分界标准。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">可去：$\frac{x^2-1}{x-1}$ 于 $x=1$；跳跃：$\frac{|x|}{x}$ 于 0；无穷：$\frac{1}{x^2-4}$ 于 $\pm2$；振荡：$\sin\frac1x$ 于 0。分界：第一类左右极限<strong>都存在</strong>。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。回看 0010 课例 2 的 $e^{1/x}$ 图像，现在你应该能直接叫出"x=0 是无穷间断点"——两课知识合龙了。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§六 连续与间断（含秋连续练习 1–8 速查表）</li>
+    <li>讲义：《连续》夏讲 PDF 教材 P46–48、《连续与间断》秋讲 PDF</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："可去间断点为什么叫'可去'"、"$\sin\frac1x$ 在 0 处左右极限分别是什么"、"再出 10 道'找全间断点并判类'的题"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0016-数列极限专练.html" class="prev"><span class="dir">← 上一课</span>0016 数列极限专练</a>
+  <a href="0018-闭区间定理与零点证明.html" class="next"><span class="dir">下一课 →</span>0018 闭区间定理与零点证明</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0045 · 真题混编 Ⅱ：多元微分 · 多元积分 · 级数 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0045">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 10 单元 · 真题实战 · 课 0045</span>
+  <a href="0044-真题混编一二.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0045 · 真题实战</span>
+<h1>真题混编 Ⅱ：第五至第七章（交错练习）</h1>
+<div class="meta">
+  <span>⏱ 约 18 分钟</span>
+  <span>前置：0035–0041 多元与级数各课</span>
+  <span>来源：讲义体系例题混编（第六章真题、模拟八及 06–08 章笔记练习，逐题溯源见解析）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课玩法</div>
+  <ul>
+    <li>8 题混编多元微分 / 多元积分 / 级数三章——<strong>先认招，再动笔</strong></li>
+    <li>每题先在心里默念"章 → 方法"，再看选项</li>
+    <li>错题按四分类归因，24 小时后重做</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">混编 1（先认招）</span>
+  <p class="quiz-q">$z=x^{2}y+e^{xy}$，则 $z_{x}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2xy+e^{xy}$</button>
+    <button data-k="B">$2xy+ye^{xy}$</button>
+    <button data-k="C">$x^{2}+xe^{xy}$</button>
+    <button data-k="D">$2xy-xe^{xy}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：多元微分·偏导（冻变量 + 链式）</strong>。$x^{2}y\to2xy$（$y$ 是常数）；$e^{xy}\to e^{xy}\cdot y$（内层 $xy$ 对 $x$ 导数为 $y$）。A 丢了链式因子 $y$——偏导的链式一步都不能省。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">混编 2</span>
+  <p class="quiz-q">设 $z=f(x^{2}-y^{2},\,xy)$ 可微，则 $z_x=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2xf_1+yf_2$</button>
+    <button data-k="B">$-2yf_1+xf_2$</button>
+    <button data-k="C">$2xf_1-yf_2$</button>
+    <button data-k="D">$f_1+f_2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：复合求导·树状路径</strong>。$u=x^{2}-y^{2}$ 对 $x$ 导 $2x$；$v=xy$ 对 $x$ 导 $y$；沿路相乘、同标相加：$z_x=2xf_1+yf_2$。B 是 $z_y$ 的路径——动笔前先画树。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">混编 3</span>
+  <p class="quiz-q">求 $f(x,y)=x^{3}+y^{3}-3xy$ 的极值时，驻点 $(1,1)$ 处的判别结果是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$AC-B^{2}=27&lt;0$，鞍点</button>
+    <button data-k="B">$AC-B^{2}=0$，失效</button>
+    <button data-k="C">$AC-B^{2}=27&gt;0$ 且 $A=6&gt;0$，极小值 $-1$</button>
+    <button data-k="D">$AC-B^{2}=27&gt;0$ 且 $A&lt;0$，极大值 $1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：$AC-B^{2}$ 判别四步</strong>。$f_x=3x^{2}-3y$、$f_y=3y^{2}-3x$；$(1,1)$ 处 $A=f_{xx}=6$、$B=f_{xy}=-3$、$C=f_{yy}=6$，$\Delta=36-9=27&gt;0$，$A&gt;0$ ⇒ 极小值 $f(1,1)=-1$。$(0,0)$ 驻点才是 $\Delta=0$ 失效的那个。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">混编 4</span>
+  <p class="quiz-q">$\displaystyle\iint_D(x^{2}+y^{2})\,d\sigma$，$D:x^{2}+y^{2}\le4$，等于</p>
+  <div class="quiz-opts">
+    <button data-k="A">$4\pi$</button>
+    <button data-k="B">$8\pi$</button>
+    <button data-k="C">$16\pi$</button>
+    <button data-k="D">$2\pi$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：二重积分·极坐标（带 $r$！）</strong>。$\int_0^{2\pi}d\theta\int_0^2r^{3}dr=2\pi\cdot\frac{16}{4}=8\pi$。A 漏了面积元 $r$；被积 $r^2$ + 面积元 $r$ = $r^3$，一环扣一环。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">混编 5</span>
+  <p class="quiz-q">交换 $\displaystyle\int_0^{1}dx\int_0^{x}f(x,y)\,dy$ 的次序，得</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\displaystyle\int_0^{1}dy\int_0^{y}f(x,y)\,dx$</button>
+    <button data-k="B">$\displaystyle\int_0^{1}dy\int_y^{1}f(x,y)\,dx$</button>
+    <button data-k="C">$\displaystyle\int_0^{1}dy\int_0^{1}f(x,y)\,dx$</button>
+    <button data-k="D">$\displaystyle\int_y^{1}dx\int_0^{1}f(x,y)\,dy$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">区域：$0\le x\le1$、$0\le y\le x$（下三角）。换横条：$0\le y\le1$、$y\le x\le1$，即 B。A 的内层 $[0,y]$ 是另一块三角形（对偶题 $\int_0^1dy\int_0^y$ 对应的区域是上三角）；C 外层限写成了矩形；D 连内外层结构都没换。<strong>交换次序必先画图，"换符号不换区域"等于没换</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">混编 6</span>
+  <p class="quiz-q">$\displaystyle\iint_D 1\,d\sigma$（$D$：$0\le x\le1$，$0\le y\le1-x$）等于</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{2}$</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$\dfrac{1}{3}$</button>
+    <button data-k="D">$2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：被积函数为 1 ⇒ 积分 = 面积</strong>。直角三角形两直角边为 1，面积 $\frac12$。（冲刺练习 1 的同一块三角形还要算 $\iint_D(x+y)\,d\sigma=\dfrac13$——被积函数不再是 1，就得老老实实真算了。）</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">混编 7</span>
+  <p class="quiz-q">级数 $\sum\dfrac{1}{\sqrt{n}(n+1)}$ 的敛散性是</p>
+  <div class="quiz-opts">
+    <button data-k="A">发散（$p=1$）</button>
+    <button data-k="B">收敛（$p=2$）</button>
+    <button data-k="C">收敛（与 $p=\dfrac32$ 的 $p$-级数同阶）</button>
+    <button data-k="D">发散（通项不趋零）</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：极限比较法</strong>。$\dfrac{1}{\sqrt n(n+1)}\sim\dfrac{1}{n^{3/2}}$，$p=\frac32&gt;1$ ⇒ 收敛（练习 6(5)）。D 错——通项 $\to0$ 没问题；通项趋零本来就不是收敛的保证，但这里确实收敛。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">混编 8（综合）</span>
+  <p class="quiz-q">级数 $\sum(-1)^{n-1}\dfrac{1}{\sqrt n}$ 的类型是</p>
+  <div class="quiz-opts">
+    <button data-k="A">条件收敛</button>
+    <button data-k="B">绝对收敛</button>
+    <button data-k="C">发散</button>
+    <button data-k="D">敛散性取决于 $n$ 的起始值</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：三色标签流程</strong>。绝对值 $\sum\frac{1}{\sqrt n}$ 是 $p=\frac12\le1$ 的 $p$-级数，发散；原级数满足莱布尼茨（$\frac{1}{\sqrt n}$ 单调递减趋零）收敛 ⇒ 条件收敛（练习 9(2) 同型）。增删有限项不改变敛散性——D 是干扰项。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课的错题归因追问</div>
+  <p style="margin:0.2rem 0">混编 5 那种"描述自己的选项都写不清"的情形，本质是<strong>区域图没画</strong>。规则：凡交换次序题，草稿上必须有图；没图的错题，归"方法选择"类并回 0038 课重画三题。</p>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">不看上文，报出 8 题各自"认出"的方法名（8 个短语）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">偏导冻变量+链式；树状路径复合；$AC-B^{2}$ 四步；极坐标带 $r$；交换次序画图；被积 1 = 面积；极限比较法；三色标签流程。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">三色标签的完整流程（先看什么、分别得出哪三个结论）？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">先取绝对值用正项级数方法：收敛 ⇒ 绝对收敛；发散再验原级数（常用莱布尼茨）：收敛 ⇒ 条件收敛，发散 ⇒ 发散。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：三天后闭卷重做本课 8 题；并选第五～七章真题 PDF 各限时开刷一套。混编 Ⅰ + Ⅱ 两课合计 16 题——正确率 ≥ 80% 才进入 0046 的整卷实战。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（真题源头，按需取用）</div>
+  <ul>
+    <li>真题：《第五章真题（多元函数微分学）》、第六章（多元积分学）、第七章（无穷级数） PDF</li>
+    <li>对应题解入口：真题题解索引（每套均含答案速查与逐题解析）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："混编 5 的区域图画给我看"、"把 0044 与本课的 16 题打乱顺序再考一轮"、某题"出三个同型变式"，或让它统计你的错题集中在哪几章。
+</div>
+
+<nav class="footnav">
+  <a href="0044-真题混编一二.html" class="prev"><span class="dir">← 上一课</span>0044 真题混编 Ⅰ</a>
+  <a href="0046-模拟卷实战与错题复盘.html" class="next"><span class="dir">下一课 →</span>0046 模拟卷实战与错题复盘</a>
+</nav>
+</main>
+</body>
+</html>

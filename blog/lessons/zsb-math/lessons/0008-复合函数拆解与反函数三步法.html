@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0008 · 复合函数拆解与反函数三步法 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0008">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 1 单元 · 函数 · 课 0008</span>
+  <a href="0007-基本初等函数图像库实战.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0008 · 函数</span>
+<h1>复合函数拆解与反函数三步法</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0004 抽象函数与函数表达式 · 0007 图像库实战</span>
+  <span>来源：笔记《函数》§七 · §十</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>把 $y=\tan^3(2x^2+1)$、$y=\sqrt{\ln(a^x+3)}$ 这类函数<strong>由外向内逐层拆开</strong></li>
+    <li>用<strong>三步法</strong>求反函数：反解 → 互换 → <strong>标定义域</strong>（最后一步最容易被扣分）</li>
+    <li>默写常见反函数对：$e^x\leftrightarrow\ln x$、$\sin\leftrightarrow\arcsin$（带限制区间）</li>
+  </ul>
+</div>
+
+<p>复合函数的拆解是下一章"复合函数求极限 / 链式求导"的预备动作——到时候要一层一层穿进去算，所以现在就要练成"一眼看穿层数"的本事。反函数则是 0007 课指数↔对数关系的正式化。</p>
+
+<h2>一、复合函数：由外向内剥洋葱</h2>
+
+<div class="keypoint">
+  <div class="kp-title">结构与可复合条件</div>
+  <p style="margin:0.2rem 0">外层 $y=f(u)$，内层 $u=g(x)$，复合成 $y=f[g(x)]$。能复合的条件：$f$ 的定义域与 $g$ 的值域<strong>交集非空</strong>——内层的输出要接得住外层的输入。</p>
+  <p style="margin:0.2rem 0">拆解口诀：<strong>由外向内，逐层设变量</strong>；每层都必须是 0007 课的基本初等函数，拆到拆不动为止。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（四连拆，讲义原题）</span>写出下列函数的复合过程：</p>
+  <p style="margin:0.2rem 0">$y=2^{\sin x}$；$y=\lg(1-x)$；$y=\tan^3(2x^2+1)$；$y=\sqrt{\ln(a^x+3)}$</p>
+  <details><summary>先自己全部拆完，再展开答案</summary>
+    <table>
+      <tr><th>函数</th><th>复合过程（由外向内）</th></tr>
+      <tr><td>$y=2^{\sin x}$</td><td>$y=2^u$，$u=\sin x$（两层）</td></tr>
+      <tr><td>$y=\lg(1-x)$</td><td>$y=\lg u$，$u=1-x$（两层）</td></tr>
+      <tr><td>$y=\tan^3(2x^2+1)$</td><td>$y=u^3$，$u=\tan v$，$v=2x^2+1$（三层）</td></tr>
+      <tr><td>$y=\sqrt{\ln(a^x+3)}$</td><td>$y=\sqrt u$，$u=\ln v$，$v=a^x+3$（三层）</td></tr>
+    </table>
+    <p>两个细节：$\tan^3(\cdot)$ 的外层是 $u^3$ 不是 $\tan u$——三次方套在外面；$\lg(1-x)$ 的内层 $1-x$ 不必再拆，它已是一次函数。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$y=\tan^3(2x^2+1)$ 的复合过程（由外向内）是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=\tan u$，$u=v^3$，$v=2x^2+1$</button>
+    <button data-k="B">$y=u^3$，$u=\tan v$，$v=2x^2+1$</button>
+    <button data-k="C">$y=u^3$，$u=2v+1$，$v=\tan x^2$</button>
+    <button data-k="D">$y=\tan^3 u$，$u=2x^2+1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">最外层是"三次方"，其次是 $\tan$，最内是二次式。A 把前两层顺序穿反了；D 的"$\tan^3 u$"只是原式换了个写法，没有拆开——每一层都得是基本初等函数才算拆到位。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$y=2^{\sin^2 x}$ 应拆成几层？正确第一层（最外层）是</p>
+  <div class="quiz-opts">
+    <button data-k="A">两层，$y=2^u$，$u=\sin x$</button>
+    <button data-k="B">两层，$y=\sin^2 u$，$u=2x$</button>
+    <button data-k="C">三层，$y=2^u$，$u=v^2$，$v=\sin x$</button>
+    <button data-k="D">三层，$y=u^2$，$u=2^v$，$v=\sin x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">从外读：指数位置上坐着一个 $\sin^2x$，所以最外层是 $2^u$；$\sin^2x=\left(\sin x\right)^2$ 再拆出平方层；最后是 $\sin x$。层数 = 从外到内遇到的运算次数，先在草稿上标出来再设变量。</div>
+</div>
+
+<h2>二、反函数：三步法，最后一步必标定义域</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与性质</div>
+  <p style="margin:0.2rem 0">$y=f(x)$ 若对其值域内每个 $y$ 都能<strong>唯一</strong>解出 $x$，就得到反函数 $x=f^{-1}(y)$，习惯上写成 $y=f^{-1}(x)$。</p>
+  <p style="margin:0.2rem 0">三条性质：① $x=f^{-1}[f(x)]=f[f^{-1}(x)]$（互相抵消）；② 图象关于直线 $y=x$ 对称；③ <strong>单调性与原函数一致</strong>。</p>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">三步法</div>
+  <p style="margin:0.2rem 0"><strong>反解</strong>（把 $x$ 用 $y$ 表示）→ <strong>互换</strong>（$x,y$ 换位置）→ <strong>标定义域</strong>（= 原函数的值域，不是想当然的"全体实数"）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（夏讲教材 P24）</span>求 $y=\sqrt{x+1}$ 的反函数。</p>
+  <details><summary>先自己求，再展开</summary>
+    <p>反解：$x+1=y^2$，$x=y^2-1$（$y\ge0$，因为原函数是算术根）；互换：$y=x^2-1$；标定义域：原函数值域是 $[0,+\infty)$，所以</p>
+    <p style="margin:0.3rem 0">$$y=x^2-1\quad(x\ge0)$$</p>
+    <p>不写 $(x\ge0)$ 就错了：抛物线 $y=x^2-1$ 整条有左半支，而反函数只要右半支。同法可得 $y=e^{x+1}$ 的反函数为 $y=\ln x-1\ (x&gt;0)$。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（秋讲练习 10）</span>求 $y=2\sin 3x$，$x\in\left[-\dfrac{\pi}{6},\dfrac{\pi}{6}\right]$ 的反函数。</p>
+  <details><summary>先自己求，再展开</summary>
+    <p>反解：$\sin3x=\dfrac y2$，$3x=\arcsin\dfrac y2$，$x=\dfrac13\arcsin\dfrac y2$；互换并标定义域：原函数值域 $y\in[-2,2]$，故</p>
+    <p style="margin:0.3rem 0">$$y=\dfrac13\arcsin\dfrac x2,\quad x\in[-2,2]$$</p>
+    <p>注意题目给的 $x\in\left[-\frac{\pi}{6},\frac{\pi}{6}\right]$ 不是装饰：它让 $3x\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]$，正好落在 $\sin$ 的一一对应区间上，反函数才存在。<strong>先有限制区间，才有反函数</strong>——这正是 0007 课反三角函数表里值域受限的原因。</p>
+  </details>
+</div>
+
+<table>
+  <tr><th>原函数</th><th>反函数</th><th>限制条件</th></tr>
+  <tr><td>$y=x^n$</td><td>$y=\sqrt[n]{x}$</td><td>$x&gt;0$</td></tr>
+  <tr><td>$y=e^x$</td><td>$y=\ln x$</td><td>—</td></tr>
+  <tr><td>$y=\sin x$</td><td>$y=\arcsin x$</td><td>$x\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]$</td></tr>
+  <tr><td>$y=\cos x$</td><td>$y=\arccos x$</td><td>$x\in[0,\pi]$</td></tr>
+  <tr><td>$y=\tan x$</td><td>$y=\arctan x$</td><td>$x\in\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$</td></tr>
+  <tr><td>$y=\cot x$</td><td>$y=\operatorname{arccot} x$</td><td>$x\in(0,\pi)$</td></tr>
+</table>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$y=1+\ln(x+2)$ 的反函数是（秋讲练习 10）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=e^{x-1}-2\ (x\in R)$</button>
+    <button data-k="B">$y=e^{x+1}-2\ (x\in R)$</button>
+    <button data-k="C">$y=e^{x-1}+2\ (x\in R)$</button>
+    <button data-k="D">$y=\ln(x-1)+2\ (x&gt;1)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">反解：$y-1=\ln(x+2)$ → $x=e^{y-1}-2$；互换得 $y=e^{x-1}-2$。原函数值域是 $R$，所以定义域 $x\in R$。指数、对数互化时"常数搬家"最容易错位——用 $x=0$ 代回验算：原函数 $f(0)=1+\ln2$；反函数带 $x=1+\ln2$ 进去应得 0：$e^{\ln2}-2=0$ ✓。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y=\sqrt{x+1}$ 的反函数写成下列哪种形式才完整？</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=x^2-1$</button>
+    <button data-k="B">$y=x^2-1\ (x\le0)$</button>
+    <button data-k="C">$y=-x^2+1\ (x\ge0)$</button>
+    <button data-k="D">$y=x^2-1\ (x\ge0)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">三步法的第三步不可省：定义域 $=$ 原函数值域 $=[0,+\infty)$。A 没标——按定义不完整，考试要扣分；B、C 的方向或符号反了。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">一个函数与其反函数的图象，关于下列哪条直线对称？</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y$ 轴</button>
+    <button data-k="B">$y=x$</button>
+    <button data-k="C">$x$ 轴</button>
+    <button data-k="D">$y=-x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">"$x,y$ 互换"在图象上就是把每个点 $(a,b)$ 翻到 $(b,a)$——关于直线 $y=x$ 的镜面反射。例如 $y=e^x$ 与 $y=\ln x$ 互为镜像；顺带还有个有趣特例：$y=\dfrac{1-x}{1+x}$ 的反函数是它自己（秋讲练习 10）。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>反函数<strong>最后一步必标定义域</strong>（= 原函数值域）——阅卷看到 $y=x^2-1\ (x\ge0)$ 给满分，不标扣分</li>
+    <li>$\tan^3(\cdot)$ 外层是 $u^3$；$\sin^2(\cdot)$ 外层是 $u^2$——幂在三角<strong>外面</strong></li>
+    <li>不是所有函数都有反函数：要先一一对应（$\sin x$ 全域无反函数，限定区间后才有）</li>
+    <li>反函数单调性与原函数一致（增的反还是增），但定义域、值域<strong>互换</strong></li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写反函数三步法，并说出第三步的定义域等于什么。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">反解 → 互换 → 标定义域；定义域 = 原函数的值域。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">从外向内拆：$y=\sqrt{\ln(a^x+3)}$。每层各是什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$y=\sqrt u$，$u=\ln v$，$v=a^x+3$（三层：算术根、对数、指数）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写三组最常用反函数对及其限制区间：$e^x$、$\sin x$、$\tan x$ 的反函数。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$y=e^x\leftrightarrow y=\ln x$（无需限制）；$y=\sin x\leftrightarrow y=\arcsin x$（限 $x\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]$）；$y=\tan x\leftrightarrow y=\arctan x$（限 $x\in\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测三张回忆卡。下一章学"复合函数求极限"时，你会先拆层再逐层代——到时把本课例 1 的四连拆盖住答案重拆一遍，检验拆层是否已成条件反射。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《函数》§七 复合函数与特殊函数 · §十 反函数（含夏讲 P24 例题与秋讲练习 10 全部答案）</li>
+    <li>讲义：《函数》夏讲 PDF（复合过程 P 分层演示、反函数例题）与 秋讲随堂练习卷</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："为什么 $\sin x$ 在全体实数上没有反函数"、"再出 5 道'求反函数并标定义域'的题"、"$y=\frac{1-x}{1+x}$ 为什么和自己的反函数一样"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0007-基本初等函数图像库实战.html" class="prev"><span class="dir">← 上一课</span>0007 基本初等函数图像库实战</a>
+  <a href="0009-一次与二次函数.html" class="next"><span class="dir">下一课 →</span>0009 一次与二次函数</a>
+</nav>
+</main>
+</body>
+</html>

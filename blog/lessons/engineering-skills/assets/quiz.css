@@ -1,0 +1,169 @@
+/* Hallmark · component: quiz · genre: editorial · theme: Newsprint
+ * design-system: design.md · designed-as-app
+ * rev 2026-07-26：试卷化 —— 题号与 A–D 选项字母改由 CSS 计数器生成（HTML 不再手写），
+ * 反馈区改为上下发线的书注式排印。
+ * 小测验组件：单选题 + 即时反馈。类名契约不变：
+ * .quiz[data-answer] > .quiz-question + .quiz-options(label>input) + .check-btn + .quiz-feedback
+ */
+
+@import url("tokens.css");
+
+/* 题号计数器挂在 body 上：每页从 1 开始 */
+body {
+  counter-reset: quiz;
+}
+
+.quiz {
+  counter-increment: quiz;
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-top: 2px solid var(--color-ink);
+}
+
+.quiz-question {
+  font-weight: 600;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+}
+
+/* 试卷题号：小号、灰、宽字距，压在题干上方 */
+.quiz-question::before {
+  content: "第 " counter(quiz) " 题";
+  display: block;
+  margin-bottom: var(--space-2xs);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+}
+
+.quiz-options {
+  counter-reset: opt;
+}
+
+.quiz-options label {
+  counter-increment: opt;
+  display: flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  margin-bottom: var(--space-xs);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  transition: background-color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out);
+}
+
+/* 选项字母：细线圆圈 A–D，与步骤流数字同一语言 */
+.quiz-options label::before {
+  content: counter(opt, upper-alpha);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: var(--space-sm);
+  border: 1px solid var(--color-rule);
+  border-radius: 50%;
+  font-size: 0.8em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+
+.quiz-options label:hover {
+  background: var(--color-paper-2);
+}
+
+/* 选中态：accent 边框 + 纸面底色，字母圈同步染 accent，accent-color 染 radio 本身 */
+.quiz-options label:has(input:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-paper-2);
+}
+
+.quiz-options label:has(input:checked)::before {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.quiz-options input {
+  margin-right: var(--space-xs);
+  accent-color: var(--color-accent);
+}
+
+/* 反馈：颜色 + ✓/✗ 符号 + 文字，三者并用（非纯颜色信号）；上下发线的书注式排印 */
+.quiz-feedback {
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  display: none;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border-block: 1px solid var(--color-success);
+}
+
+.quiz-feedback.correct::before {
+  content: "✓ ";
+  font-weight: 700;
+}
+
+.quiz-feedback.wrong {
+  display: block;
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  border-block: 1px solid var(--color-error);
+}
+
+.quiz-feedback.wrong::before {
+  content: "✗ ";
+  font-weight: 700;
+}
+
+/* 主要动作：墨底纸字方块，hover 仅换 accent 底，active 下压 1px */
+.check-btn {
+  margin-top: var(--space-sm);
+  padding: 0.55em 1.4em;
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--dur-micro) var(--ease-out),
+              transform var(--dur-micro) var(--ease-out);
+}
+
+.check-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.check-btn:active {
+  transform: translateY(1px);
+}
+
+.check-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media print {
+  .quiz .check-btn {
+    display: none;
+  }
+}

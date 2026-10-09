@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 14 课 · 数据结构绪论与时间复杂度</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=98b6683880ba">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=98b6683880ba"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第二部分 数据结构</span>
+  <span>第 14 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>数据结构绪论与时间复杂度</h1><p class="lesson-meta">对应笔记 数据结构/10-数据结构绪论 · 教材 P6–P10 · 建议按小节分次学习</p><p>能从具体循环得到次数表达式，并解释复杂度忽略什么。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 先数执行次数，再谈增长速度</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / 五个必须精确的概念</a></li><li><a href="#cs-detail-2">04 / 数据结构的三要素</a></li><li><a href="#cs-detail-3">05 / 算法五特性与好算法目标</a></li><li><a href="#cs-detail-4">06 / 时间复杂度的分析与化简</a></li><li><a href="#cs-detail-5">07 / 先回忆，再自测</a></li><li><a href="#cs-practice">08 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-7">09 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">先数执行次数，再谈增长速度</h2><p class="cs-goal">这一节要学会：能从具体循环得到次数表达式，并解释复杂度忽略什么。</p><p>做一份名单的检查，人数翻倍后工作量怎样变化？复杂度讨论的是输入规模增大时的增长趋势，不是某台电脑上的实际秒数。</p><p>先选基本操作，例如循环体的一次加法，再计数。顺序执行的两段工作次数相加；嵌套循环不能只看有几层，必须看每层实际上走几次。</p><p>下面内层次数依次为 <code>1</code>、<code>2</code>、<code>3</code>……<code>n</code>，总数是 <code>n(n+1)/2</code>。它的主导项是 <code>n</code>²，渐进量级为 Θ<code>(n</code>²)，也可给出 <code>O(n</code>²) 上界。常数和低阶项不改变这一量级，但会影响小输入的实际用时。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>for(i=1;i&lt;=n;i++) for(j=1;j&lt;=i;j++) count++; /* n=4 */</code></pre><p>count 初值：0</p><p>每个外层 i 对应 i 次内层执行。</p><h3>第 2 步</h3><pre><code>i=1：内层执行 1 次</code></pre><p>本轮：1；累计：1</p><p>j 只取 1。</p><h3>第 3 步</h3><pre><code>i=2：内层执行 2 次</code></pre><p>本轮：2；累计：3</p><p>j 取 1、2。</p><h3>第 4 步</h3><pre><code>i=3：内层执行 3 次</code></pre><p>本轮：3；累计：6</p><p>不是每轮都执行 n 次。</p><h3>第 5 步</h3><pre><code>i=4：内层执行 4 次</code></pre><p>本轮：4；累计：10</p><p>一般化得到 1+2+…+n=n(n+1)/2。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>两个顺序执行的 <code>n</code> 次循环，总体量级是？</p><ol><li><code>O(n)</code>：对。次数相加是 <code>2n</code>，仍线性增长。</li><li><code>O(n</code>²)：只有适当的嵌套才会相乘，顺序执行相加。</li><li><code>O(1)</code>：次数随 <code>n</code> 增长，不是常数。</li></ol><p>正确判断：<code>O(n)</code></p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task"><code>for(i=1;i&lt;n;i*=2)</code> 的循环体执行次数怎样增长？假设数值范围足够且 <code>n</code> 为正整数。</p><details><summary>卡住时看提示</summary><p>直接列出小于 <code>16</code> 的 <code>1</code>、<code>2</code>、<code>4</code>……；条件为 <code>i&lt;n</code>，不包含等于 <code>n</code> 的那次。</p></details><details><summary>查看参考过程</summary><p><code>i</code> 依次为 <code>1</code>、<code>2</code>、<code>4</code>、<code>8</code>……，经过 <code>k</code> 次更新约为 <code>2^k</code>。到达 <code>n</code> 需要约 <code>log</code>₂<code>n</code> 次，所以量级为 <code>O(log n)</code>。<code>n=8</code> 时循环体在 <code>i=1</code>、<code>2</code>、<code>4</code> 执行，共 <code>3</code> 次。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p><code>n=16</code> 时上题循环体执行几次？</p><ol><li><code>16</code>：<code>i</code> 每次翻倍，不是加 <code>1</code>。</li><li><code>8</code>：逐次列出 <code>1</code>、<code>2</code>、<code>4</code>、<code>8</code> 即可避免猜测。</li><li><code>4</code>：对。<code>i</code> 到 <code>16</code> 时条件 <code>i&lt;n</code> 已为假。</li></ol><p>正确判断：<code>4</code></p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、五个必须精确的概念</h2>
+<p>包含关系（由大到小）：<strong>数据 &gt; 数据对象 &gt; 数据元素 &gt; 数据项</strong>。</p>
+<table>
+  <tr><th>概念</th><th>一句话定位</th><th>例子</th></tr>
+  <tr><td>数据</td><td>能输入计算机并被处理的<strong>符号集合</strong></td><td>全体学生档案</td></tr>
+  <tr><td>数据对象</td><td><strong>性质相同</strong>的数据元素的集合</td><td>某班全体学生</td></tr>
+  <tr><td>数据元素</td><td>数据的<strong>基本单位</strong>，整体处理</td><td>一位学生</td></tr>
+  <tr><td>数据项</td><td>构成数据元素的<strong>不可分割的最小单位</strong></td><td>学号、姓名</td></tr>
+  <tr><td>数据类型</td><td>值的集合 + 操作的集合</td><td>int、struct Student</td></tr>
+</table>
+<div class="callout warn">
+  <p class="callout-title">高频陷阱</p>
+  <p>说「数据元素是数据的最小单位」是<strong>错</strong>的；最小单位是<strong>数据项</strong>，数据元素只是基本单位。</p>
+</div>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 快速区分数据、数据元素、数据项、数据对象四层包含关系，并指出最小单位；② 判断任一结构属于线性还是非线性，并说出四种存储结构；③ 默写算法五特性，能把常见循环嵌套化简为正确的大 O。</p>
+</div>
+
+<details class="recall warmup">
+  <summary>温故 · 第 13 课「结构体与文件」：访问结构体成员的三种正确写法是什么？*p.num 为什么错误？</summary>
+  <div class="recall-a">三种写法：lisi.num、(*p).num、p->num。因为 . 和 -> 优先级高于 *，*p.num 会被解析为 *(p.num)，而 p.num 对指针不合法。</div>
+</details>
+
+<details class="recall warmup">
+  <summary>温故 · 第 12 课「指针进阶」：char *s = "hello"; 合法，为什么 char s[10]; s = "hello"; 却非法？</summary>
+  <div class="recall-a">char *s = "hello" 是声明时初始化，指针 s 接收字符串首地址，合法；而 s 是数组名，属于地址常量，不能出现在赋值号左边，应使用 strcpy(s, "hello")。</div>
+</details>
+
+<div class="callout">
+  <p class="callout-title">为什么现在才讲绪论</p>
+  <p>你已经用 C 语言把指针、结构体、文件都过了一遍，现在回头看绪论，所有抽象概念都能立刻落到代码实体上。这一章选择题、填空题密集，也是后面线性表、树、图的总纲。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、数据结构的三要素</h2>
+<p>研究数据结构就是研究 <strong>逻辑结构、存储结构、数据的运算</strong> 这三方面。</p>
+<p><strong>逻辑结构</strong>：数据元素之间的逻辑关系，<strong>独立于计算机</strong>，与怎么存无关。分为：</p>
+<ul>
+  <li><strong>线性结构</strong>：线性表、栈、队列（串、数组/广义表也归此类）</li>
+  <li><strong>非线性结构</strong>：集合、树、图</li>
+</ul>
+<p><strong>存储结构（物理结构）</strong>：逻辑结构在计算机中的具体实现，<strong>依赖具体计算机语言</strong>。四种必须背熟：</p>
+<ol>
+  <li>顺序存储</li>
+  <li>链式存储</li>
+  <li>索引存储</li>
+  <li>散列存储</li>
+</ol>
+<div class="callout tip">
+  <p class="callout-title">一句话记忆</p>
+  <p>逻辑结构回答「元素之间是什么关系」；存储结构回答「在内存里怎么放、关系怎么表示」。</p>
+</div>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、算法五特性与好算法目标</h2>
+<p><strong>算法</strong>是解决问题的指令的<strong>有限序列</strong>。五个特性缺一不可：</p>
+<table>
+  <tr><th>特性</th><th>含义</th></tr>
+  <tr><td>有穷性</td><td>有穷步结束，每步有穷时间完成</td></tr>
+  <tr><td>确定性</td><td>相同输入必有相同输出</td></tr>
+  <tr><td>可行性</td><td>可通过已实现的基本运算执行有限次完成</td></tr>
+  <tr><td>输入</td><td><strong>零个或多个</strong></td></tr>
+  <tr><td>输出</td><td><strong>一个或多个</strong></td></tr>
+</table>
+<div class="callout warn">
+  <p class="callout-title">易混点</p>
+  <p>正确性、可读性、健壮性、高效率（时间/空间复杂度）是<strong>好算法的目标</strong>，<strong>不是算法本身的特性</strong>。判断题说「可读性是算法的重要特性」要判错。</p>
+</div>
+
+</section>
+<section id="cs-detail-4" data-cs-step><h2 tabindex="-1">四、时间复杂度的分析与化简</h2>
+<p><strong>语句频度</strong>：某条语句被重复执行的次数。把所有语句频度之和记为 T(n)，则 <strong>T(n) = O(f(n))</strong>，其中 f(n) 取深层循环内基本运算的频度，只保留其数量级。</p>
+<p>化简三规则：</p>
+<ol>
+  <li>常数项统一写成 <strong>1</strong>（如 T=3 → O(1)）。</li>
+  <li>只保留<strong>最高阶项</strong>（如 T=n²+n+3 → O(n²)）。</li>
+  <li>忽略<strong>系数与对数底数</strong>（如 T=5log₂n+15 → O(log n)）。</li>
+</ol>
+<p>常见结论：一层遍历通常是 O(n)，两层嵌套且都与 n 有关通常是 O(n²)。例如：</p>
+<pre><code>for(i=1; i&lt;=n; i++)
+    for(j=1; j&lt;=n; j++)
+        printf("hello");</code></pre>
+<p>内层执行 n 次，外层执行 n 次，共 n² 次输出，时间复杂度为 <strong>O(n²)</strong>。</p>
+<p><strong>注意</strong>：时间复杂度还可能同时与问题规模 n 和<strong>待处理数据的初始状态</strong>有关——如直接插入排序，数据基本有序（最好）时为 O(n)，完全逆序（最坏）时为 O(n²)。</p>
+
+</section>
+<section id="cs-detail-5" data-cs-step><h2 tabindex="-1">五、先回忆，再自测</h2>
+<p>正文未展开的一个考点：<strong>ADT（抽象数据类型）</strong>用（数据对象，数据关系，基本操作集）三元组表示（见笔记 10），描述数据的逻辑结构和抽象运算。</p>
+<details class="recall">
+  <summary>合上笔记：数据、数据对象、数据元素、数据项的包含关系？最小单位是？</summary>
+  <div class="recall-a">包含关系：数据 &gt; 数据对象 &gt; 数据元素 &gt; 数据项。最小单位是数据项；数据元素只是基本单位。</div>
+</details>
+<details class="recall">
+  <summary>逻辑结构分哪两类？存储结构有哪四种？</summary>
+  <div class="recall-a">逻辑结构：线性结构（线性表、栈、队列）和非线性结构（集合、树、图）。存储结构：顺序、链式、索引、散列。</div>
+</details>
+<details class="recall">
+  <summary>算法五特性是什么？「可读性」算特性吗？</summary>
+  <div class="recall-a">有穷性、确定性、可行性、输入、输出。可读性属于好算法目标，不是算法特性。</div>
+</details>
+<details class="recall">
+  <summary>ADT 三元组是什么？</summary>
+  <div class="recall-a">ADT（抽象数据类型）=（数据对象，数据关系，基本操作集）三元组，描述数据的逻辑结构和抽象运算。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">六、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">1. 在数据结构中，构成数据元素的不可分割的最小单位是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">数据对象</li>
+    <li data-opt="b">数据项</li>
+    <li data-opt="c">数据元素</li>
+    <li data-opt="d">数据类型</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">数据项是最小单位；数据元素是基本单位，数据对象是性质相同的数据元素的集合。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">2. 下列关于逻辑结构的说法，正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">它等同于存储结构</li>
+    <li data-opt="b">它依赖于具体编程语言</li>
+    <li data-opt="c">它回答元素在内存中如何存放</li>
+    <li data-opt="d">它独立于计算机和实现</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">逻辑结构只描述元素之间的逻辑关系，与存储无关、独立于计算机；存储结构才依赖具体计算机语言。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">3. 下列结构中，属于线性结构的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">队列</li>
+    <li data-opt="b">树</li>
+    <li data-opt="c">图</li>
+    <li data-opt="d">集合</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">线性结构包括线性表、栈、队列等；树、图、集合均属于非线性结构。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">4. 下列不属于算法五个重要特性的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">有穷性</li>
+    <li data-opt="b">确定性</li>
+    <li data-opt="c">可读性</li>
+    <li data-opt="d">可行性</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">可读性是好算法目标之一；算法特性只有有穷性、确定性、可行性、输入、输出。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">5. 以下循环嵌套的时间复杂度是（其中 n 为问题规模）<br><code>for(i=1;i<=n;i++) for(j=1;j<=n;j++) x++;</code></p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">O(1)</li>
+    <li data-opt="b">O(n)</li>
+    <li data-opt="c">O(log n)</li>
+    <li data-opt="d">O(n²)</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">外层循环 n 次，每次内层循环也 n 次，基本运算 x++ 共执行 n² 次，化简为 O(n²)。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">6. 抽象数据类型 ADT 通常用哪个三元组表示</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">（逻辑结构、存储结构、基本运算）</li>
+    <li data-opt="b">（数据对象、数据关系、基本操作集）</li>
+    <li data-opt="c">（数据、数据元素、数据项）</li>
+    <li data-opt="d">（输入、输出、处理步骤）</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">ADT =（数据对象，数据关系，基本操作集）；它描述数据的逻辑结构和抽象运算。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 20 分钟）</p>
+  <p>打开 数据结构/10-数据结构绪论 · 自测问题 1–8，遮住答案逐题作答，错题标 ⭐️。重点复盘：时间复杂度化简、逻辑结构分类、存储结构四种、算法五特性与好算法目标的区别。</p>
+</div>
+
+</section>
+<section id="cs-detail-7" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：数据结构/10-数据结构绪论（含「易错点与对比」表）。术语速查：<a href="../reference/glossary.html">课程术语表</a>；公式速查：<a href="../reference/ds-formula-cheatsheet.html">数据结构公式表</a>。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:14:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-detail-4","cs-detail-5","cs-practice","cs-detail-7"],"checks":{"core":{"question":"两个顺序执行的 n 次循环，总体量级是？","choices":["O(n)","O(n²)","O(1)"],"answer":0,"why":["对。次数相加是 2n，仍线性增长。","只有适当的嵌套才会相乘，顺序执行相加。","次数随 n 增长，不是常数。"]},"transfer":{"question":"n=16 时上题循环体执行几次？","choices":["16","8","4"],"answer":2,"why":["i 每次翻倍，不是加 1。","逐次列出 1、2、4、8 即可避免猜测。","对。i 到 16 时条件 i\u003cn 已为假。"]}},"traces":{"core":{"title":"三角形循环逐行数","frames":[{"code":"for(i=1;i\u003c=n;i++) for(j=1;j\u003c=i;j++) count++; /* n=4 */","cells":[["count 初值","0"]],"note":"每个外层 i 对应 i 次内层执行。","pointer":""},{"code":"i=1：内层执行 1 次","cells":[["本轮","1"],["累计","1"]],"note":"j 只取 1。","pointer":""},{"code":"i=2：内层执行 2 次","cells":[["本轮","2"],["累计","3"]],"note":"j 取 1、2。","pointer":""},{"code":"i=3：内层执行 3 次","cells":[["本轮","3"],["累计","6"]],"note":"不是每轮都执行 n 次。","pointer":""},{"code":"i=4：内层执行 4 次","cells":[["本轮","4"],["累计","10"]],"note":"一般化得到 1+2+…+n=n(n+1)/2。","pointer":""}]}},"signature":"26536b65151b9197"}</script>
+<nav class="footer-nav">
+  <a href="0013-structs-and-files.html">← 上一课：结构体与文件</a>
+  <a href="0015-linear-list.html">下一课：线性表 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

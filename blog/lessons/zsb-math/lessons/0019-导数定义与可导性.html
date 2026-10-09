@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0019 · 导数定义与可导性 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0019">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 3 单元 · 导数与微分 · 课 0019</span>
+  <a href="0018-闭区间定理与零点证明.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0019 · 导数与微分</span>
+<h1>导数定义与可导性</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：0010 左右极限 · 0017 连续</span>
+  <span>来源：笔记《导数与微分》§一</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写导数两种定义式，并用<strong>补项拆分</strong>秒算 $\lim\dfrac{f(x_0+\alpha h)-f(x_0+\beta h)}{h}$ 型</li>
+    <li>判断分段点 / 绝对值函数 / $x^2\sin\frac1x$ 型的<strong>可导性</strong></li>
+    <li>用两步（连续 + 左右导数相等）<strong>逆求分段函数参数</strong></li>
+  </ul>
+</div>
+
+<p>进入<strong>全卷权重最高的一章</strong>。第 2 单元学的极限在这里正式"上岗"：导数就是一个极限。本课先磨快定义这把刀——它专治公式求导搞不定的分段点和绝对值。</p>
+
+<h2>一、定义：平均变化率的极限</h2>
+
+<div class="keypoint">
+  <div class="kp-title">两种等价形式（必背）</div>
+  <p style="margin:0.2rem 0"><strong>增量式</strong>：$f'(x_0)=\lim\limits_{\Delta x\to0}\dfrac{f(x_0+\Delta x)-f(x_0)}{\Delta x}$</p>
+  <p style="margin:0.2rem 0"><strong>点差式</strong>：$f'(x_0)=\lim\limits_{x\to x_0}\dfrac{f(x)-f(x_0)}{x-x_0}$</p>
+  <p style="margin:0.2rem 0">背景：瞬时速度（物理）与切线斜率（几何）——都是"平均量 → 取极限"。</p>
+</div>
+
+<h2>二、定义式变形：补项拆分</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背公式（$f$ 在 $x_0$ 可导时）</div>
+  <p style="margin:0.2rem 0">$$\lim_{h\to0}\frac{f(x_0+\alpha h)-f(x_0+\beta h)}{h}=(\alpha-\beta)f'(x_0)$$</p>
+  <p style="margin:0.2rem 0">原理：<strong>分子插入 $\pm f(x_0)$</strong>，拆成两个标准定义式。<strong>分母必须与增量的系数匹配</strong>——分母是 $h$ 就除以 $h$，是 $3h$ 就先凑 $\dfrac{1}{3}$。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>已知 $f'(x_0)$ 存在，求 $\lim\limits_{h\to0}\dfrac{f(x_0+h)-f(x_0-h)}{h}$。</p>
+  <details><summary>先自己补项，再展开（夏讲 P7–P9）</summary>
+    <p>插入 $\pm f(x_0)$ 拆两项：$\lim\left[\dfrac{f(x_0+h)-f(x_0)}{h}-\dfrac{f(x_0-h)-f(x_0)}{h}\right]$。</p>
+    <p>第一项 $=f'(x_0)$；第二项：$f(x_0-h)-f(x_0)=f(x_0+(-h))-f(x_0)$，除以 $h$ 后 $=-f'(x_0)$（$\alpha-\beta$ 视角：$\alpha=1,\beta=-1$，差为 $2$）。</p>
+    <p>答案 $2f'(x_0)$——<strong>"差是两点"时系数翻倍</strong>，直接套公式 $(\alpha-\beta)f'(x_0)=2f'(x_0)$。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（由极限反推）</span>$f$ 在 $x=0$ 连续且 $\lim\limits_{x\to0}\dfrac{f(x)}{x}=2$，求 $f(0)$ 与 $f'(0)$。</p>
+  <details><summary>先自己想，再展开（秋讲练习 3）</summary>
+    <p>分母 $\to0$ 而极限存在 ⇒ 分子必须 $\to0$：$f(0)=0$（这里用了<strong>连续</strong>）。</p>
+    <p>于是 $\lim\limits_{x\to0}\dfrac{f(x)}{x}=\lim\limits_{x\to0}\dfrac{f(x)-f(0)}{x-0}=f'(0)=2$。</p>
+    <p>结论模板：连续 + $\lim\limits_{x\to0}\frac{f(x)}{x}=A$ ⇒ $f(0)=0$ 且 $f'(0)=A$。<strong>缺"连续"只能得 $f(0)=0$，得不出 $f'(0)$</strong>。</p>
+  </details>
+</div>
+
+<h2>三、左右导数与可导充要条件</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背</div>
+  <p style="margin:0.2rem 0">$$f'(x_0)\ \text{存在}\iff f_-'(x_0)=f_+'(x_0)$$</p>
+  <p style="margin:0.2rem 0">其中 $f_-'(x_0)=\lim\limits_{x\to x_0^-}\dfrac{f(x)-f(x_0)}{x-x_0}$（左导数），右导数同理。</p>
+  <p style="margin:0.2rem 0"><strong>可导必连续，连续不一定可导</strong>。反例双雄：$|x|$（左右导数 $-1\neq1$）、$x^{1/3}$（导数 $\to+\infty$，切线竖直）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（绝对值函数双例）</span>判断 $|x|$ 与 $x|x|$ 在 $x=0$ 处的可导性。</p>
+  <details><summary>先用定义算，再展开（夏讲 P11–P17）</summary>
+    <p>$|x|$：左导 $=\lim\limits_{x\to0^-}\dfrac{-x-0}{x}=-1$，右导 $=\lim\limits_{x\to0^+}\dfrac{x}{x}=1$，不等 ⇒ <strong>不可导</strong>。</p>
+    <p>$x|x|$：$f'(0)=\lim\limits_{x\to0}\dfrac{x|x|-0}{x}=\lim\limits_{x\to0}|x|=0$ ⇒ <strong>可导</strong>，且 $f'(0)=0$。</p>
+    <p>启示：绝对值在零点未必"毒"——外面再乘一个同零点因子，就把尖点"压平"了。同款判断：$f(x)=(x-1)(x+2)|(x+2)(x-3)|$ 的不可导点只有 $x=3$（$x=-2$ 处外面还有 $(x+2)$ 因子）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（逆求参数两步法）</span>$f(x)=\begin{cases}ax+b &amp; x&lt;1\\ x^2 &amp; x\ge1\end{cases}$ 在 $x=1$ 处可导，求 $a,b$。</p>
+  <details><summary>先列两个方程，再展开（秋讲练习 6）</summary>
+    <p><strong>第一步 连续</strong>：左极限 $a+b=$ 右极限 $1$ ⇒ $a+b=1$。</p>
+    <p><strong>第二步 左右导数相等</strong>：左导 $=a$，右导 $=2x|_{x=1}=2$ ⇒ $a=2$。</p>
+    <p>解得 $a=2,\ b=-1$。口诀：<strong>先连续定一个方程，再导数相等定第二个</strong>。同款：$\begin{cases}x^2 &amp; x\le1\\ ae^{x-1}+b &amp; x&gt;1\end{cases}$ 可导 ⇒ $a=2,\ b=-1$（练习 9）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5（振荡型）</span>$f(x)=\begin{cases}x^2\sin\frac1x &amp; x\neq0\\ 0 &amp; x=0\end{cases}$ 在 $x=0$ 处连续吗？可导吗？</p>
+  <details><summary>用定义算，再展开（夏讲 P11–P17）</summary>
+    <p>连续：$\lim\limits_{x\to0}x^2\sin\frac1x=0=f(0)$（无穷小 × 有界）✓。</p>
+    <p>可导：$f'(0)=\lim\limits_{x\to0}\dfrac{x^2\sin\frac1x-0}{x}=\lim\limits_{x\to0}x\sin\frac1x=0$ ✓ <strong>连续且可导</strong>。</p>
+    <p>对照记忆：$y=x\sin\frac1x$ 在 0 连续但不可导（差一个 $x$ 的幂次）。<strong>幂次够高就能压住振荡</strong>。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">已知 $f'(x_0)=3$，则 $\lim\limits_{h\to0}\dfrac{f(x_0+3h)-f(x_0+h)}{h}=$（夏讲原题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$3$</button>
+    <button data-k="B">$4$</button>
+    <button data-k="C">$6$</button>
+    <button data-k="D">$2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">套公式 $(\alpha-\beta)f'(x_0)=(3-1)\times3=6$。分子是"相距 $2h$ 的两点"，差是 $f'$ 的两倍——A 忘了翻倍。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$f(x)=|x|$ 在 $x=0$ 处（夏讲原题组）</p>
+  <div class="quiz-opts">
+    <button data-k="A">连续且可导</button>
+    <button data-k="B">连续但不可导</button>
+    <button data-k="C">不连续但可导</button>
+    <button data-k="D">既不连续也不可导</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">图像有尖点：左导 $-1$、右导 $1$ 不相等 ⇒ 不可导；但左右极限都是 $0=f(0)$ ⇒ 连续。"可导必连续，连续不一定可导"的标准反例。姊妹反例：$x^{1/3}$（切线竖直）。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$f(x)=\begin{cases}e^{ax}+b &amp; x&lt;0\\ 2x+1 &amp; x\ge0\end{cases}$ 在 $x=0$ 处可导，则（秋讲练习 7）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$a=2,\ b=0$</button>
+    <button data-k="B">$a=2,\ b=1$</button>
+    <button data-k="C">$a=1,\ b=0$</button>
+    <button data-k="D">$a=0,\ b=2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">两步：连续 ⇒ $e^0+b=1$ 得 $b=0$；左右导数相等 ⇒ $ae^0=a=2$。顺序固定：<strong>先连续、后导数</strong>——导数相等蕴含连续，但只用连续方程才干净。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">已知 $f(1)=0$，$f'(1)=2$，则 $\lim\limits_{x\to1}\dfrac{f(x^2)}{x-1}=$（秋讲练习 4）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2$</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$8$</button>
+    <button data-k="D">$4$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">凑定义：$\dfrac{f(x^2)-f(1)}{x^2-1}\cdot\dfrac{x^2-1}{x-1}$。前一个因子 $\to f'(1)=2$（方框是 $x^2\to1$），后一个 $\to2$，乘积 $4$。C 是多乘了一次 2——看清最后除的是 $x-1$。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$f(x)=\begin{cases}x^3 &amp; x&gt;1\\ x^2 &amp; x\le1\end{cases}$ 在 $x=1$ 处（夏讲原题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">连续且可导</button>
+    <button data-k="B">连续但不可导</button>
+    <button data-k="C">不连续，也不可导</button>
+    <button data-k="D">不连续但可导</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">连续：左极限 $=1^2=1$、右极限 $=1^3=1$、$f(1)=1$，三量相等 ⇒ 连续。可导性用左右导数：左导 $=2x\big|_{x=1}=2$，右导 $=3x^2\big|_{x=1}=3$，$2\neq3$ ⇒ 不可导。结论：连续但不可导。分段点两件事分开验，别用"像不像"下结论。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>"差是两点"的定义式极限 = $(\alpha-\beta)f'(x_0)$，<strong>不是</strong> $f'(x_0)$</li>
+    <li>由 $\lim\frac{f(x)}{x}=A$ 反推必须带"$f$ 连续"，否则只得 $f(0)=0$</li>
+    <li>分段点求导<strong>必须用定义</strong>（公式只管区间内部）</li>
+    <li>$|u(x)|$ 在 $u=0$ 处：外面还有同零点因子则可导，否则不可导</li>
+    <li>逆求参数两步走：<strong>先连续、再左右导数相等</strong>，列两个方程</li>
+    <li>可导 ⇒ 连续（单向）；$|x|$、$x^{1/3}$、$x\sin\frac1x$ 是"连续不可导"三反例</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写导数两种定义式与补项拆分公式 $(\alpha-\beta)f'(x_0)$。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$f'(x_0)=\lim\limits_{\Delta x\to0}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}=\lim\limits_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}$；$\lim\limits_{h\to0}\frac{f(x_0+\alpha h)-f(x_0+\beta h)}{h}=(\alpha-\beta)f'(x_0)$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">报出四个判断：$|x|$、$x|x|$、$x^2\sin\frac1x$、$x\sin\frac1x$（补定义 0）在 $x=0$ 的连续性与可导性。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$|x|$：连续不可导；$x|x|$：连续可导（$f'(0)=0$）；$x^2\sin\frac1x$：连续可导；$x\sin\frac1x$：连续不可导。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。分段点"先连续后导数"两步法在 0020 课分段函数求导里立刻复用；$x^2\sin\frac1x$ 的"无穷小 × 有界"是 0015 课性质四的回报。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《导数与微分》§一（定义式变形、可导性判断、逆求参数速查表）</li>
+    <li>讲义：《导数》夏讲 PDF 教材 P58 起（定义 P7–P17）、秋讲 PDF（练习 1–9）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："补项拆分的公式怎么推"、"$x^{1/3}$ 为什么不可导"、"再出 10 道定义式求极限题"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0018-闭区间定理与零点证明.html" class="prev"><span class="dir">← 上一课</span>0018 闭区间定理与零点证明</a>
+  <a href="0020-求导公式与六类求导法.html" class="next"><span class="dir">下一课 →</span>0020 求导公式与六类求导法</a>
+</nav>
+</main>
+</body>
+</html>

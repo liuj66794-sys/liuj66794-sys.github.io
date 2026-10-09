@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0016 · 数列极限专练 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0016">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0016</span>
+  <a href="0015-无穷小的阶与渐近线.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0016 · 极限与连续</span>
+<h1>数列极限专练</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：0011–0015（本课是方法混编练习课）· 0002 裂项三件套</span>
+  <span>来源：笔记《极限与连续》§五</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写 $q^{n}$ <strong>四情形</strong>（$q=-1$ 是振荡发散，不是 0！）</li>
+    <li>用<strong>裂项、根式有理化、$e$ 定义式、求和公式</strong>四件套拆数列极限</li>
+    <li>对"$n$ 项和"型用<strong>夹逼定理</strong>放大缩小，并会用海涅定理桥接函数极限</li>
+  </ul>
+</div>
+
+<p>数列极限 = 函数极限的离散版，前面六课的方法几乎全部平移过来；真正新的只有三样：$q^n$ 的讨论、$n$ 项和的夹逼、以及几个数列专属公式。本课以练带讲。</p>
+
+<h2>一、必背：$q^{n}$ 的四情形</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背（$q=-1$ 是最常挖的坑）</div>
+  <p style="margin:0.2rem 0">$$\lim_{n\to\infty}q^{n}=\begin{cases}0, &amp; |q|&lt;1\\ +\infty, &amp; q&gt;1\\ 1, &amp; q=1\\ \text{不存在}, &amp; q\le-1\end{cases}$$</p>
+  <p style="margin:0.2rem 0">$q=-1$：$-1,1,-1,\dots$ <strong>振荡发散</strong>。$q=-\frac15$ 则 $|q|&lt;1$，收敛于 0（秋数列练习 1）。</p>
+</div>
+
+<h2>二、四件套逐个过</h2>
+
+<h3>1. 裂项（望远镜求和）</h3>
+<div class="example">
+  <p><span class="ex-tag">例 1</span>求 $\lim\limits_{n\to\infty}\left(\dfrac{1}{1\times2}+\dfrac{1}{2\times3}+\cdots+\dfrac{1}{n\times(n+1)}\right)$。</p>
+  <details><summary>先自己裂，再展开（夏数列 P30）</summary>
+    <p>$S_n=\left(1-\dfrac12\right)+\left(\dfrac12-\dfrac13\right)+\cdots+\left(\dfrac1n-\dfrac{1}{n+1}\right)=1-\dfrac{1}{n+1}\to1$。</p>
+    <p>0002 课的裂项三件套在这里全面服役：$1/\sqrt{n+1}+\sqrt n$ 型、$\ln(1+\frac1n)$ 型同法。</p>
+  </details>
+</div>
+
+<h3>2. 根式有理化</h3>
+<div class="example">
+  <p><span class="ex-tag">例 2</span>求 $\lim\limits_{n\to\infty}\left(\sqrt{n^{2}+n}-n\right)$ 与 $\lim\limits_{n\to\infty}\left(\sqrt{4n^{2}+n}-2n\right)$。</p>
+  <details><summary>先自己乘共轭，再展开（秋数列练习 6）</summary>
+    <p>$\sqrt{n^2+n}-n=\dfrac{n}{\sqrt{n^2+n}+n}$，抓大头分母 $\sim2n$，答案 $\dfrac12$。</p>
+    <p>$\sqrt{4n^2+n}-2n=\dfrac{n}{\sqrt{4n^2+n}+2n}\to\dfrac{n}{4n}=\dfrac14$。</p>
+    <p>系数进根号要还原：$2n=\sqrt{4n^2}$，这是容易错的一步。</p>
+  </details>
+</div>
+
+<h3>3. $e$ 定义式</h3>
+<div class="example">
+  <p><span class="ex-tag">例 3</span>秒答（秋数列练习 7）：</p>
+  <details><summary>先全部心算，再展开核对</summary>
+    <p>$\lim\limits_{n\to\infty}\left(1+\dfrac2n\right)^{n}=e^{2}$；$\lim\limits_{n\to\infty}\left(1-\dfrac1n\right)^{n}=e^{-1}$；</p>
+    <p>$\lim\limits_{n\to\infty}\left(1+\dfrac{3}{2n}\right)^{2n}=e^{3}$（指数与"分母配对"：$2n$ 正好吃掉 $\frac{3}{2n}$ 的分母）；$\lim\limits_{n\to\infty}\left(1+\dfrac{1}{2n}\right)^{3n}=e^{\frac32}$；</p>
+    <p>$\lim\limits_{n\to\infty}\left(\dfrac{3n-1}{3n+2}\right)^{n}=\left(1-\dfrac{3}{3n+2}\right)^{n}\to e^{-1}$。</p>
+    <p>统一公式：$\lim\left(1+\dfrac{k}{n}\right)^{cn}=e^{ck}$——先化成标准脸，再看指数吃进什么。</p>
+  </details>
+</div>
+
+<h3>4. 求和公式（先求和再取极限）</h3>
+<div class="example">
+  <p><span class="ex-tag">例 4</span>求 $\lim\limits_{n\to\infty}\left(\dfrac{1}{n^{2}}+\dfrac{2}{n^{2}}+\cdots+\dfrac{n}{n^{2}}\right)$ 与 $\lim\limits_{n\to\infty}\dfrac{1+3+5+\cdots+(2n-1)}{n^{2}}$。</p>
+  <details><summary>先自己求和，再展开（夏数列 P15、P17）</summary>
+    <p>第一题分子是 $1+2+\cdots+n=\dfrac{n(n+1)}{2}$，整体 $=\dfrac{n(n+1)}{2n^2}\to\dfrac12$。</p>
+    <p>第二题奇数和 $=n^2$，整体 $\dfrac{n^2}{n^2}\to1$。</p>
+    <p>信号词：分子是<strong>规整求和</strong>（等差/等比）→ 先闭式求和再除。</p>
+  </details>
+</div>
+
+<h2>三、夹逼定理：$n$ 项和的杀手锏</h2>
+
+<div class="keypoint">
+  <div class="kp-title">夹逼定理与操作流程</div>
+  <p style="margin:0.2rem 0">若 $a_n\le b_n\le c_n$（$n$ 足够大）且 $\lim a_n=\lim c_n=k$，则 $\lim b_n=k$。</p>
+  <p style="margin:0.2rem 0">$n$ 项和三步：<strong>每项换成最大 → 每项换成最小 → 两端算极限</strong>。两端相等才收网，不等则此路不通。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5</span>求 $\lim\limits_{n\to\infty}\left(\dfrac{n}{n^{2}+1}+\dfrac{n}{n^{2}+2}+\cdots+\dfrac{n}{n^{2}+n}\right)$。</p>
+  <details><summary>先自己放大缩小，再展开（夏数列 P32）</summary>
+    <p>共 $n$ 项，分母 $n^2+1$ 最小、$n^2+n$ 最大：</p>
+    <p>$\dfrac{n\cdot n}{n^{2}+n}\le S_n\le\dfrac{n\cdot n}{n^{2}+1}$，即 $\dfrac{n^{2}}{n^{2}+n}\le S_n\le\dfrac{n^{2}}{n^{2}+1}$。</p>
+    <p>两端抓大头都 $\to1$，故极限 $=1$。同型：$\sum\limits_{k=1}^{n}\dfrac{1}{\sqrt{n^{2}+k}}$，夹出 $1$。</p>
+  </details>
+</div>
+
+<h2>四、海涅定理：数列 ↔ 函数的桥</h2>
+
+<p>数列是"$x$ 取正整数"的函数，所以 $\lim\limits_{n\to\infty}f(n)=\lim\limits_{x\to+\infty}f(x)$。数列题卡住时，<strong>化成 $x\to+\infty$ 的函数极限</strong>，把 0011–0015 的全部武器搬过来用。例：$\lim\limits_{n\to\infty}\dfrac{n^{2}+2n+3}{3n^{2}-2}\xlongequal{转函数}\lim\limits_{x\to+\infty}\dfrac{x^{2}+2x+3}{3x^{2}-2}=\dfrac13$（抓大头）。反向也成立：函数极限存在 ⇒ 任何子列极限相同（可用于<strong>证伪</strong>：奇偶子列极限不同 ⇒ 原极限不存在，如 $(-1)^n$）。</p>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\lim\limits_{n\to\infty}\left(-\dfrac15\right)^{n}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">不存在</button>
+    <button data-k="B">$-1$</button>
+    <button data-k="C">$0$</button>
+    <button data-k="D">$1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$|q|=\frac15&lt;1$，按第一情形收敛于 0（正负交替只是让它"摆动着"归零，不影响极限值）。别和 $q=-1$ 的振荡发散搞混。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\lim\limits_{n\to\infty}\left(\dfrac{2n+3}{2n}\right)^{n}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e^{\frac{3}{2}}$</button>
+    <button data-k="B">$e^{3}$</button>
+    <button data-k="C">$e^{\frac{2}{3}}$</button>
+    <button data-k="D">$e^{6}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">化标准脸 $=\left(1+\dfrac{3}{2n}\right)^{n}$，指数 $v(u-1)=\dfrac{3n}{2n}=\dfrac32$，答案 $e^{3/2}$。（秋数列练习 7(5)。）</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\lim\limits_{n\to\infty}\left(\sqrt{9n^{2}+2n}-3n\right)=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$3$</button>
+    <button data-k="B">$\dfrac{1}{3}$</button>
+    <button data-k="C">$0$</button>
+    <button data-k="D">$+\infty$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">乘共轭：$\dfrac{2n}{\sqrt{9n^2+2n}+3n}$，分母抓大头 $\sim6n$，答案 $\dfrac{2n}{6n}=\dfrac13$。（秋数列练习 6(4) 改编——先有理化，再抓头，两步不能省。）</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">用夹逼定理求 $\lim\limits_{n\to\infty}\sum\limits_{k=1}^{n}\dfrac{1}{\sqrt{n^{2}+k}}$ 时，正确的放缩是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{n}{\sqrt{n^{2}+n^{2}}}\le S_n\le\dfrac{n}{\sqrt{n^{2}+1}}$，极限 $\dfrac{1}{\sqrt2}$</button>
+    <button data-k="B">每项放成 $\dfrac{1}{n}$，极限 $1$；不用夹逼</button>
+    <button data-k="C">$\dfrac{1}{\sqrt{n^{2}+n}}\le S_n\le1$，两端不等，夹不出来</button>
+    <button data-k="D">$\dfrac{n}{\sqrt{n^{2}+n}}\le S_n\le\dfrac{n}{\sqrt{n^{2}+1}}$，两端均 $\to1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">放缩用"每项同换最值"：最小值 $\frac{1}{\sqrt{n^2+n}}$ 乘 $n$ 项、最大值 $\frac{1}{\sqrt{n^2+1}}$ 乘 $n$ 项，两端抓大头都 $\to1$。A 的下界放太狠（把 $k$ 也换成 $n$），夹出了错误值。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">若 $\{a_n\}$ 的奇数项子列 $\to1$、偶数项子列 $\to-1$，则 $\{a_n\}$</p>
+  <div class="quiz-opts">
+    <button data-k="A">发散（子列极限不同）</button>
+    <button data-k="B">收敛于 0</button>
+    <button data-k="C">收敛，但极限未知</button>
+    <button data-k="D">收敛于 1 或 $-1$ 之一</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">收敛数列的<strong>任何子列</strong>都收敛于同一极限（海涅定理思想）。两支子列分道扬镳，原数列必发散——典型如 $(-1)^n$。这是"证发散"的标准话术。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>$q^{n}$ 四情形背全：$q\le-1$ 不存在，$q=-1$ 是<strong>振荡</strong>不是 0</li>
+    <li>有理化后别忘了分母抓大头：$\sqrt{n^2+n}+n\sim2n$（系数 2 别丢）</li>
+    <li>$e$ 定义式先化"$1+\frac{k}{\text{指数的底}}$"标准脸，再看指数</li>
+    <li>$n$ 项和：规整求和先闭式（例 4），乱和无规则用夹逼（例 5）——先判断再动笔</li>
+    <li>夹逼的放缩是"<strong>每项</strong>换成最值 × 项数"，别只放一两端</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写 $q^n$ 四情形，并举一个振荡发散的具体数列。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$|q|&lt;1\to0$；$q&gt;1\to+\infty$；$q=1\to1$；$q\le-1$ 不存在。例：$(-1)^n$（$q=-1$，振荡发散）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">数列极限四件套是哪四样？各自对付什么长相的题？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">裂项（$\sum$ 分式相消）；根式有理化（$\sqrt{n^2+an}-bn$）；$e$ 定义式（$1^{\infty}$ 型）；等差等比求和（分子规整求和）。再外加夹逼（乱和无规则）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。第 2 单元还剩两课（连续与间断、闭区间定理）——学完后去试做一套<strong>第二章真题</strong>（见第 10 单元），检验这九课的组合拳。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§五 数列极限（含秋数列练习 1–9 速查表与夏数列 P3–P35 例题）</li>
+    <li>讲义：《数列极限》夏讲 PDF（详讲）、秋讲 PDF（随堂练习）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："夹逼定理放缩的尺度怎么把握"、"$e$ 定义式的标准脸怎么凑"、"$\lim\sqrt[n]{a_1^n+\cdots+a_m^n}=\max$ 为什么成立"，或让它出 10 道数列极限混编题。
+</div>
+
+<nav class="footnav">
+  <a href="0015-无穷小的阶与渐近线.html" class="prev"><span class="dir">← 上一课</span>0015 无穷小的阶 · 三类渐近线</a>
+  <a href="0017-连续与间断点.html" class="next"><span class="dir">下一课 →</span>0017 连续与间断点</a>
+</nav>
+</main>
+</body>
+</html>

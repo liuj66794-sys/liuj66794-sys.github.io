@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>implement 速查参考</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>implement 速查参考</h1>
+  <p class="no-print" style="color: var(--muted);">
+    按 frontier 领取 ticket 完成实现：内部驱动 /tdd（red → green），收尾跑 /code-review（双轴审查），最后提交。
+    本页是查阅文档；系统学习请先看 <a href="../lessons/0005-implement.html">第五课</a>。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">mattpocock/skills · implement/SKILL.md</a>（本地 <code>~/.agents/skills/implement/SKILL.md</code>）
+  </p>
+
+  <h2>一、什么时候用</h2>
+  <ul>
+    <li>tracker 上有 agent-ready 的 ticket，且它的所有阻塞项已完成（在 frontier 上）。</li>
+    <li>每个 ticket 用一个<strong>全新 session</strong> 实现，从 ticket 出发，不带前几阶段的上下文。</li>
+    <li>也可以直接对一份 spec 使用（非 ticket 形态），规则相同。</li>
+  </ul>
+
+  <h2>二、前置条件</h2>
+  <ul>
+    <li>已运行 <code>/setup-matt-pocock-skills</code>（issue tracker、triage labels、CONTEXT.md/ADR）。</li>
+    <li>要领取的 ticket 位于 frontier 上，验收标准明确。</li>
+  </ul>
+
+  <h2>三、五条规则（SKILL.md 全文要点）</h2>
+  <ol>
+    <li>实现 spec/ticket 描述的工作——不多做，不少做。</li>
+    <li>尽可能用 <code>/tdd</code>，只在<strong>预先和用户确认的 seam</strong> 上写测试。</li>
+    <li>验证节奏：勤跑类型检查、勤跑单测试文件；<strong>完整测试套件只在最后跑一次</strong>。</li>
+    <li>完成后跑 <code>/code-review</code>。</li>
+    <li>提交到当前分支。</li>
+  </ol>
+
+  <h2>四、一个 ticket 的生命周期</h2>
+  <table>
+    <thead>
+      <tr><th>步骤</th><th>动作</th><th>要点</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1. 领取</td><td>从 frontier 取 ticket</td><td>读验收标准和 spec 上下文</td></tr>
+      <tr><td>2. 约定 seam</td><td>确认公共接口和要测的 seam</td><td>问：“公共接口是什么？测哪些 seam？”</td></tr>
+      <tr><td>3. red → green</td><td>一个失败测试 → 最小实现 → 下一个</td><td>一次一片；勤跑类型检查和单测试文件</td></tr>
+      <tr><td>4. 全量验证</td><td>跑一次完整测试套件</td><td>只在所有切片变绿后跑</td></tr>
+      <tr><td>5. 审查</td><td><code>/code-review</code></td><td>处理 Standards 与 Spec 两轴发现</td></tr>
+      <tr><td>6. 提交</td><td>commit 到当前分支</td><td>关闭 ticket，frontier 推进</td></tr>
+    </tbody>
+  </table>
+
+  <h2>五、tdd 要点</h2>
+
+  <h3>好测试的标准</h3>
+  <ul>
+    <li>通过<strong>公共接口</strong>验证行为，不验证实现细节。</li>
+    <li>读起来像规格说明，能在重构中幸存。</li>
+    <li>探索代码库时先读 CONTEXT.md，尊重相关 ADR，测试命名用领域语言。</li>
+  </ul>
+
+  <h3>seam 铁律</h3>
+  <ul>
+    <li>写任何测试前，把要测的 seam 写下来并和用户确认；<strong>没有任何测试写在未确认的 seam 上</strong>。</li>
+    <li>seam 通常继承自 spec（to-spec 模板要求声明），implement 阶段再确认一遍。</li>
+  </ul>
+
+  <h3>三个反模式</h3>
+  <table>
+    <thead>
+      <tr><th>反模式</th><th>表现</th><th>识别信号</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>implementation-coupled</td>
+        <td>mock 内部协作者、测私有方法、走旁路验证（如直接查库）</td>
+        <td>重构后测试挂，但行为没变</td>
+      </tr>
+      <tr>
+        <td>tautological</td>
+        <td>断言用和代码相同的方式重算期望值（<code>expect(add(a,b)).toBe(a+b)</code>）</td>
+        <td>构造上必然通过，永远不会失败</td>
+      </tr>
+      <tr>
+        <td>horizontal slicing</td>
+        <td>先写完全部测试，再写全部实现</td>
+        <td>测的是想象中的“形状”，不是用户行为</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>期望值必须来自独立真相来源：已知正确的字面量、手工算过的例子、spec。</p>
+
+  <h3>循环三条规则</h3>
+  <ol>
+    <li><strong>Red before green</strong>：先失败测试，再刚好够通过的代码；不预判、不投机。</li>
+    <li><strong>One slice at a time</strong>：一个 seam、一个测试、一个最小实现。</li>
+    <li><strong>重构不属于循环</strong>：留给 <code>/code-review</code> 驱动的审查阶段。</li>
+  </ol>
+
+  <h2>六、code-review 要点</h2>
+
+  <h3>双轴</h3>
+  <table>
+    <thead>
+      <tr><th>轴</th><th>审查什么</th><th>来源</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Standards</td>
+        <td>是否符合仓库成文规范</td>
+        <td>CODING_STANDARDS.md / CONTRIBUTING.md 等 + Fowler smell 基线（见下表）</td>
+      </tr>
+      <tr>
+        <td>Spec</td>
+        <td>是否忠实实现需求</td>
+        <td>原始 issue/PRD/spec；漏做、多做（scope creep）、做错都算发现</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>两轴由并行 sub-agent 分别执行，汇总时<strong>不合并、不重排</strong>——防止一个轴掩盖另一个轴。</li>
+    <li>spec 查找顺序：commit message 里的 issue 引用 → 用户传入的路径 → <code>docs/</code>、<code>specs/</code>、<code>.scratch/</code> 下匹配的文件 → 问用户。</li>
+    <li>diff 用三点语法 <code>git diff &lt;fixed-point&gt;...HEAD</code>（对 merge-base 比较）；先确认 fixed point 可解析且 diff 非空。</li>
+  </ul>
+
+  <h3>smell 基线的两条约束</h3>
+  <ul>
+    <li><strong>仓库规范优先</strong>：成文标准与基线冲突时，仓库赢。</li>
+    <li><strong>永远是判断题</strong>：smell 是启发式标签，不是硬性违规；工具已管的一律跳过。</li>
+  </ul>
+
+  <h3>12 种 Fowler 坏味道（是什么 → 怎么修）</h3>
+  <table>
+    <thead>
+      <tr><th>Smell</th><th>是什么</th><th>怎么修</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mysterious Name</td><td>名字不揭示用途或内容</td><td>重命名；想不出诚实的名字说明设计含糊</td></tr>
+      <tr><td>Duplicated Code</td><td>同一逻辑形状出现在多处</td><td>提取共享形状，两处调用</td></tr>
+      <tr><td>Feature Envy</td><td>方法对别的对象的数据兴趣超过自己的</td><td>把方法移到它所羡慕的数据上</td></tr>
+      <tr><td>Data Clumps</td><td>同样几个字段/参数总是一起出现</td><td>捆成一个类型来传递</td></tr>
+      <tr><td>Primitive Obsession</td><td>用原始类型代替本该独立的领域概念</td><td>给概念一个小类型</td></tr>
+      <tr><td>Repeated Switches</td><td>同一类型的 switch/if 级联反复出现</td><td>用多态，或两处共享一张映射表</td></tr>
+      <tr><td>Shotgun Surgery</td><td>一个逻辑修改被迫散落到许多文件</td><td>把一起变的东西收进一个模块</td></tr>
+      <tr><td>Divergent Change</td><td>一个模块因多种不相关原因被改</td><td>拆分，让每个模块只为一个原因变化</td></tr>
+      <tr><td>Speculative Generality</td><td>为 spec 没有的需求加了抽象、参数或钩子</td><td>删掉，内联回去，等真实需求出现</td></tr>
+      <tr><td>Message Chains</td><td>长长的 <code>a.b().c().d()</code> 导航链</td><td>在第一个对象上用一个方法隐藏这段路径</td></tr>
+      <tr><td>Middle Man</td><td>类或函数基本只在做转发</td><td>砍掉，直接调真正的目标</td></tr>
+      <tr><td>Refused Bequest</td><td>子类忽略或重写大部分继承来的东西</td><td>放弃继承，改用组合</td></tr>
+    </tbody>
+  </table>
+
+  <h2>七、与其他 skill 的关系</h2>
+  <ul>
+    <li>输入来自 <code>/to-tickets</code>（ticket + 阻塞边）；阻塞项未完成的 ticket 不能领。</li>
+    <li><code>/tdd</code>、<code>/code-review</code> 都可以<strong>单独使用</strong>：只想测试先行地写个小功能就喊 <code>/tdd</code>；想审查任意分支/PR 就喊 <code>/code-review</code> 并给出 fixed point。</li>
+    <li>审查发现的 Prefactor 需求或架构问题，可以回流成新的 ticket（回到 <code>/to-tickets</code>）。</li>
+  </ul>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    参考：<a href="../lessons/0005-implement.html">第五课：implement</a> |
+    <a href="skill-cheat-sheet.html">总速查表</a> |
+    <a href="../index.html">学习地图</a>
+  </p>
+</body>
+</html>

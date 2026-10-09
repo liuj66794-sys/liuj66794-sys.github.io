@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0025 · 凹凸 · 拐点 · 曲率 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0025">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 3 单元 · 导数与微分 · 课 0025</span>
+  <a href="0024-单调性极值与最值.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0025 · 导数与微分</span>
+<h1>凹凸 · 拐点 · 曲率</h1>
+<div class="meta">
+  <span>⏱ 约 14 分钟</span>
+  <span>前置：0024 单调性极值与最值 · 0022 高阶导数</span>
+  <span>来源：笔记《导数与微分》§十 · §十一</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用 $f''$ 的符号判<strong>凹凸</strong>，用"两侧凹凸性改变"定<strong>拐点</strong></li>
+    <li>独立完成"单调 + 极值 + 凹凸 + 拐点"<strong>一条龙大题</strong>（本课例 2）</li>
+    <li>按曲线形式选对<strong>三个曲率公式</strong>并计算</li>
+  </ul>
+</div>
+
+<p>这是第 3 单元收官课。单调管"往哪走"，凹凸管"往哪弯"；两者凑齐，函数图像的骨架就完整了——0024 的四步法在这里升级成一条龙。</p>
+
+<h2>一、凹凸：$f''$ 接管方向盘</h2>
+
+<div class="keypoint">
+  <div class="kp-title">判定定理（本课程约定）</div>
+  <p style="margin:0.2rem 0">$f''(x)&gt;0$ ⇒ 图形是<strong>凹</strong>的（碗形，如 $y=x^2$）；$f''(x)&lt;0$ ⇒ 图形是<strong>凸</strong>的（伞形，如 $y=\ln x$——它全程 $y''=-\frac{1}{x^2}&lt;0$）。</p>
+  <p style="margin:0.2rem 0"><strong>求凹凸区间/拐点四步</strong>：① 定义域 → ② 求 $f''$，找<strong>二阶导零点 + 不可导点</strong> → ③ 分区间 → ④ 逐区间看 $f''$ 符号。</p>
+</div>
+
+<p>流程与 0024 单调性四步<strong>完全同构</strong>，只是把 $f'$ 换成 $f''$、把"增减"换成"凹凸"——一套脑子两处用。</p>
+
+<h2>二、拐点：凹凸的换乘站</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与两个"有可能"</div>
+  <p style="margin:0.2rem 0"><strong>拐点</strong>：曲线两侧<strong>凹凸性改变</strong>的点，写作 $(x_0,\ f(x_0))$——是一个<strong>点（带纵坐标）</strong>，不是横坐标。</p>
+  <p style="margin:0.2rem 0">① 二阶导零点<strong>有可能</strong>是拐点（要验两侧变号，$f''(x_0)=0$ 但两侧同号就不是，如 $y=x^4$ 的原点）；② 二阶导<strong>不存在的点也有可能</strong>是拐点。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>求 $f(x)=x^{4}-6x^{3}+12x^{2}-x+1$ 的凹凸区间与拐点。（夏应用 P52）</p>
+  <details><summary>先自己走四步，再展开</summary>
+    <p>$f'(x)=4x^{3}-18x^{2}+24x-1$，$f''(x)=12x^{2}-36x+24=12(x-1)(x-2)$。</p>
+    <p>$f''$ 零点 $x=1,2$。符号：$x&lt;1$ 时 $+$（凹）；$1&lt;x&lt;2$ 时 $-$（凸）；$x&gt;2$ 时 $+$（凹）。</p>
+    <p>凹区间 $(-\infty,1)$、$(2,+\infty)$，凸区间 $(1,2)$；两侧变号 ⇒ 拐点 $(1,7)$ 与 $(2,15)$。</p>
+  </details>
+</div>
+
+<h2>三、一条龙大题实战</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（大题标准形态）</span>求 $f(x)=x^{3}-3x^{2}+1$ 的单调区间、极值、凹凸区间与拐点。（秋应用练习 7(1)）</p>
+  <details><summary>先自己全做，再展开</summary>
+    <p>$f'(x)=3x^{2}-6x=3x(x-2)$；$f''(x)=6x-6$。</p>
+    <p><strong>单调与极值</strong>：增 $(-\infty,0)$、$(2,+\infty)$，减 $(0,2)$；极大值 $f(0)=1$，极小值 $f(2)=-3$。</p>
+    <p><strong>凹凸与拐点</strong>：$f''&lt;0$ 于 $(-\infty,1)$ 凸，$f''&gt;0$ 于 $(1,+\infty)$ 凹；拐点 $(1,-1)$。</p>
+    <p>考场策略：$f'$、$f''$ 各画一张符号表，两问互不干扰、流水线产出。</p>
+  </details>
+</div>
+
+<div class="plot-row">
+  <div class="plot" data-fn="x*x*x-3*x*x+1" data-xmin="-1.6" data-xmax="3.4" data-ymin="-4" data-ymax="3" data-w="320" data-h="210" data-label="$y=x^{3}-3x^{2}+1$：极值 $(0,1),(2,-3)$，拐点 $(1,-1)$"></div>
+</div>
+
+<h2>四、曲率：弯得多厉害</h2>
+
+<div class="keypoint">
+  <div class="kp-title">三个公式（按曲线形式选）</div>
+  <p style="margin:0.2rem 0"><strong>直角坐标</strong> $y=f(x)$：$$k=\dfrac{\left|f''(x)\right|}{\left[1+(f'(x))^{2}\right]^{3/2}}$$</p>
+  <p style="margin:0.2rem 0"><strong>参数方程</strong>：$k=\dfrac{|x'y''-x''y'|}{\left[(x')^{2}+(y')^{2}\right]^{3/2}}$；<strong>极坐标</strong>：$k=\dfrac{|r^{2}+2(r')^{2}-rr''|}{\left[r^{2}+(r')^{2}\right]^{3/2}}$。</p>
+  <p style="margin:0.2rem 0">结构记忆：分子是"弯曲量"（二阶导为主），分母是"切线倾斜修正"（$1+y'^2$ 的 $\frac32$ 次幂）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>求 $y=x^{2}$ 在 $x=0$ 处与 $y=e^{x}$ 在 $x=0$ 处的曲率。（夏应用 P57）</p>
+  <details><summary>先自己代公式，再展开</summary>
+    <p>$y=x^{2}$：$y'(0)=0$，$y''(0)=2$，$k=\dfrac{2}{(1+0)^{3/2}}=2$。</p>
+    <p>$y=e^{x}$：$y'(0)=y''(0)=1$，$k=\dfrac{1}{(1+1)^{3/2}}=\dfrac{1}{2\sqrt2}=\dfrac{\sqrt2}{4}$。</p>
+    <p>检查点：抛物线顶点处最弯（切线水平、分母为 1），$k=2$ 正是 $x^2$ 的"曲率半径 $\frac12$"的倒数——公式与直觉吻合。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$y=\ln x$ 在 $(0,+\infty)$ 上的凹凸性是（夏应用 P49）</p>
+  <div class="quiz-opts">
+    <button data-k="A">凹的</button>
+    <button data-k="B">凸的</button>
+    <button data-k="C">先凸后凹</button>
+    <button data-k="D">无凹凸性</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=\frac1x$，$y''=-\frac{1}{x^{2}}&lt;0$ 恒成立 ⇒ 全程凸（伞形，越升越缓）。对数函数"涨得越来越慢"的图像直觉与结论一致。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">下列关于拐点的说法，正确的是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f''(x_0)=0$ 的点 $(x_0,f(x_0))$ 一定是拐点</button>
+    <button data-k="B">拐点就是 $f''(x_0)=0$ 的横坐标 $x_0$</button>
+    <button data-k="C">$f''(x_0)=0$ 且两侧 $f''$ 变号，$(x_0,f(x_0))$ 才是拐点</button>
+    <button data-k="D">拐点处函数必不可导</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">A 反例 $y=x^4$：$f''(0)=0$ 但两侧同号，不是拐点；B 丢了纵坐标——拐点是曲线上的<strong>点</strong>；D 反了：二阶不可导点、二阶为零的点都"有可能"，都要验两侧。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$y=x^{3}-\dfrac92x^{2}+6x$ 的拐点是（秋应用练习 7(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\left(\dfrac32,\ \dfrac94\right)$</button>
+    <button data-k="B">$\dfrac32$</button>
+    <button data-k="C">$\left(\dfrac32,\ 0\right)$</button>
+    <button data-k="D">$(1,2)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y''=6x-9$，零点 $x=\frac32$，两侧变号 ✓。代回：$y\left(\frac32\right)=\frac{27}{8}-\frac{81}{8}+9=\frac94$。B 只写了横坐标——拐点要写全点坐标，填空题按"缺纵坐标"扣分。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y=\dfrac{x^{2}}{x-1}$ 的凹凸与拐点情况是（秋应用练习 7(6)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">有拐点 $\left(1,\dfrac12\right)$</button>
+    <button data-k="B">全曲线凹，无拐点</button>
+    <button data-k="C">全曲线凸，无拐点</button>
+    <button data-k="D">$f''=\dfrac{2}{(x-1)^{3}}$：凹 $(1,+\infty)$、凸 $(-\infty,1)$，无拐点</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$f''=\dfrac{2}{(x-1)^3}$ 在 $x=1$ 两侧由负变正——但 $x=1$ 是<strong>间断点</strong>，函数在那里没有定义，曲线断成两截，两侧"接不上"，故<strong>不是拐点</strong>。"变号 + 该点有定义且连续"两个条件都要满足。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$y=e^{x}$ 在 $x=0$ 处的曲率 $k=$（夏应用 P57）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{2}$</button>
+    <button data-k="B">$\dfrac{\sqrt{2}}{4}$</button>
+    <button data-k="C">$1$</button>
+    <button data-k="D">$\sqrt2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'(0)=y''(0)=1$，$k=\dfrac{|1|}{(1+1^{2})^{3/2}}=\dfrac{1}{2\sqrt2}=\dfrac{\sqrt2}{4}$。分母是 $\frac32$ 次幂不是平方——D 是把 $2^{3/2}=2\sqrt2$ 算成 $\sqrt2$ 的结果。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>拐点写<strong>全坐标</strong> $(x_0,f(x_0))$；只写 $x_0$ 不完整</li>
+    <li>$f''(x_0)=0$ 只是"候选"，<strong>必须验两侧变号</strong>；间断点处变号不算拐点</li>
+    <li>凹凸用 $f''$ 符号判（$&gt;0$ 凹、$&lt;0$ 凸），与单调的 $f'$ 各管各的，别串</li>
+    <li>曲率分母是 $\left[1+(f')^{2}\right]^{\boldsymbol{3/2}}$，不是平方</li>
+    <li>一条龙大题先算 $f'$ 与 $f''$，两张符号表流水线作答</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写凹凸判定（$f''$ 符号）与拐点定义，并说出拐点的两个"有可能"。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$f''&gt;0$ 凹（碗）、$f''&lt;0$ 凸（伞）；拐点 = 两侧凹凸性改变的曲线点 $(x_0,f(x_0))$。二阶导零点与二阶不可导点都<strong>有可能</strong>是拐点，都要验变号。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写直角坐标曲率公式，并报出 $y=x^2$ 在顶点处的曲率。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$k=\dfrac{|f''|}{\left[1+(f')^{2}\right]^{3/2}}$；$y=x^2$ 顶点处 $y'=0$、$y''=2$，$k=2$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 3 单元（0019–0025）收官</strong>——建议：七课回忆卡混测一遍；再做一套第三章真题。下一单元"不定积分"会把求导公式<strong>整表倒过来用</strong>，速查 003 请继续留手边。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《导数与微分》§十 凹凸拐点 · §十一 曲率（含秋应用练习 7 速查表）</li>
+    <li>讲义：《导数的应用》夏讲 PDF（凹凸拐点 P49–P52、曲率 P57）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："$x^4$ 为什么原点不是拐点"、"曲率半径是什么"、"'一条龙'大题再出一道给我限时 15 分钟"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0024-单调性极值与最值.html" class="prev"><span class="dir">← 上一课</span>0024 单调性 · 极值 · 最值 · 不等式</a>
+  <a href="0026-原函数与基本积分表.html" class="next"><span class="dir">下一课 →</span>0026 原函数与基本积分表</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0040 · 数项级数 · 正项级数四大审敛法 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0040">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 8 单元 · 无穷级数 · 课 0040</span>
+  <a href="0039-曲线积分与格林公式.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0040 · 无穷级数</span>
+<h1>数项级数 · 正项级数四大审敛法</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：0016 数列极限 · 0002 裂项求和</span>
+  <span>来源：笔记《无穷级数》§一–§三 · §五</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用"通项不趋零 ⇒ 发散"做<strong>第一道安检</strong>，并识破调和级数反例</li>
+    <li>默写两个基准：<strong>几何级数</strong>（$|q|&lt;1$）与 <strong>$p$-级数</strong>（$p&gt;1$）的分界</li>
+    <li>按通项长相 10 秒选对审敛法（比较 / 比值 / 根值 / 部分和）</li>
+  </ul>
+</div>
+
+<p>级数研究"无穷多项相加有没有意义"。判断敛散有一套流程化打法：先安检，再认基准，最后按长相选判别法——本章是选择题与判散题的高产田。</p>
+
+<h2>一、基本概念与必要条件</h2>
+
+<div class="keypoint">
+  <div class="kp-title">部分和定义与必要条件</div>
+  <p style="margin:0.2rem 0">$\sum a_n$ 的部分和 $S_n=a_1+\cdots+a_n$；$S_n\to S$ 存在则<strong>收敛</strong>（和为 $S$），否则发散。<strong>级数的和 ≠ 通项的极限</strong>。</p>
+  <p style="margin:0.2rem 0"><strong>必要条件</strong>：$\sum a_n$ 收敛 $\Rightarrow a_n\to0$。<strong>只能用来判发散</strong>：$a_n\not\to0$ ⇒ 必发散；$a_n\to0$ <strong>不保证收敛</strong>——调和级数 $\sum\frac1n$ 通项趋零却发散（部分和 $\ln(n+1)\to\infty$）。</p>
+  <p style="margin:0.2rem 0">增删改<strong>有限项</strong>不改变敛散性（可能改变和）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（部分和定义）</span>判断 $\sum\dfrac{1}{n(n+1)}$ 的敛散并求和。（练习 5(1)）</p>
+  <details><summary>先自己裂项，再展开</summary>
+    <p>$S_n=\sum\limits_{k=1}^{n}\left(\dfrac1k-\dfrac{1}{k+1}\right)=1-\dfrac{1}{n+1}\to1$，<strong>收敛，和为 1</strong>。</p>
+    <p>同族：$\sum\ln\left(1+\frac1n\right)$ 的 $S_n=\ln(n+1)\to+\infty$ 发散；$\sum\left(\frac{1}{\sqrt{n+1}+\sqrt n}\right)$ 部分和 $\sqrt{n+1}-1\to\infty$ 发散——<strong>裂项三件套的"判散"用法</strong>。</p>
+    <p>流程提醒：裂项后要<strong>先写有限和 $S_n$ 再取极限</strong>，不能直接"首减尾"。</p>
+  </details>
+</div>
+
+<h2>二、两个基准级数（必背）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">几何级数与 $p$-级数</div>
+  <p style="margin:0.2rem 0">$$\sum q^{n}:\ \ |q|&lt;1\ \text{收敛}\ \left(\text{和}\ \tfrac{q}{1-q}\right),\quad |q|\ge1\ \text{发散}$$</p>
+  <p style="margin:0.2rem 0">$$\sum\frac1{n^{p}}:\ \ p&gt;1\ \text{收敛},\quad p\le1\ \text{发散}$$</p>
+  <p style="margin:0.2rem 0">一切比较判别的"终点"都是这两个基准——看通项与 $q^n$ 或 $\frac{1}{n^p}$ 谁同阶。</p>
+</div>
+
+<h2>三、正项级数四大审敛法</h2>
+
+<table>
+  <tr><th>方法</th><th>内容</th><th>适用长相</th></tr>
+  <tr><td>① 部分/裂项</td><td>求 $S_n$ 取极限</td><td>已知 $S_n$、可拆相邻差</td></tr>
+  <tr><td>② 比较法（含极限形式）</td><td>$a_n$ 与 $b_n$ 同阶 ⇒ 同敛散</td><td>有理式、根式、对数（与 $n^{-p}$ 同阶）</td></tr>
+  <tr><td>③ 比值法</td><td>$\rho=\lim\dfrac{a_{n+1}}{a_n}$：$&lt;1$ 收、$&gt;1$ 散、$=1$ 失效</td><td>含<strong>阶乘、$c^{n}$</strong></td></tr>
+  <tr><td>④ 根值法</td><td>$\rho=\lim\sqrt[n]{a_n}$：结论同上</td><td>通项整体 $[\,u_n\,]^{n}$</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">比较法方向铁律</div>
+  <p style="margin:0.2rem 0">判<strong>收敛</strong>：找<strong>更大</strong>的收敛级数压住它（$a_n\le Cb_n$，$\sum b_n$ 收 ⇒ 收）；判<strong>发散</strong>：找<strong>更小</strong>的发散级数顶住它。方向用反 = 结论反。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（极限比较）</span>判断 $\sum\dfrac{1}{\sqrt{n(n+1)}}$ 与 $\sum\dfrac{\sqrt n}{n^{2}+1}$。（练习 6(2)(10)）</p>
+  <details><summary>先自己找同阶，再展开</summary>
+    <p>第一题：$\dfrac{1}{\sqrt{n(n+1)}}\sim\dfrac1n$（分母 $\sim n$），与调和级数同阶 ⇒ <strong>发散</strong>。</p>
+    <p>第二题：$\dfrac{\sqrt n}{n^{2}+1}\sim\dfrac{\sqrt n}{n^{2}}=\dfrac{1}{n^{3/2}}$，$p=\frac32&gt;1$ ⇒ <strong>收敛</strong>。</p>
+    <p>操作：<strong>"抓大头的阶数版"</strong>——只保留 $n$ 的最高次，报出等价于 $\frac{1}{n^{p}}$ 的 $p$，查表。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（比值法）</span>判断 $\sum\dfrac{n!}{n^{n}}$ 与 $\sum\dfrac{3^{n}}{n!}$。（练习 7(1)(2)）</p>
+  <details><summary>先自己算 $\rho$，再展开</summary>
+    <p>第一题：$\dfrac{a_{n+1}}{a_n}=\dfrac{(n+1)!}{(n+1)^{n+1}}\cdot\dfrac{n^{n}}{n!}=\left(\dfrac{n}{n+1}\right)^{n}\to\dfrac1e&lt;1$ ⇒ <strong>收敛</strong>。</p>
+    <p>第二题：$\dfrac{a_{n+1}}{a_n}=\dfrac{3}{n+1}\to0&lt;1$ ⇒ <strong>收敛</strong>。</p>
+    <p>见阶乘先写 $\dfrac{a_{n+1}}{a_n}$；$\left(\frac{n}{n+1}\right)^{n}\to e^{-1}$ 是 0012 重要极限二的变形。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\sum\dfrac{1}{\sqrt n}$ 的敛散性是</p>
+  <div class="quiz-opts">
+    <button data-k="A">收敛（通项趋于 0）</button>
+    <button data-k="B">发散（通项不趋于 0）</button>
+    <button data-k="C">发散（$p=\dfrac12\le1$ 的 $p$-级数）</button>
+    <button data-k="D">收敛（$p$-级数）</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\dfrac{1}{\sqrt n}=\dfrac{1}{n^{1/2}}$，$p=\frac12\le1$ ⇒ 发散。A 是"必要条件当充分条件"的经典误判——通项趋零只是入场券，不是通行证。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">用比较判别法证 $\sum\dfrac{1}{n^{2}+1}$ 收敛，正确的比较对象是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{n^{2}+1}&lt;\dfrac{1}{n^{2}}$，而 $\sum\dfrac{1}{n^{2}}$ 收敛</button>
+    <button data-k="B">$\dfrac{1}{n^{2}+1}&gt;\dfrac{1}{n^{2}}$，而 $\sum\dfrac{1}{n^{2}}$ 发散</button>
+    <button data-k="C">$\dfrac{1}{n^{2}+1}&lt;\dfrac{1}{n}$，而 $\sum\dfrac{1}{n}$ 收敛</button>
+    <button data-k="D">与 $n^2$ 直接比较大小</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">判收敛要找"<strong>更大的收敛级数</strong>"：$\frac{1}{n^2+1}&lt;\frac1{n^2}$ 且 $\sum\frac1{n^2}$（$p=2$）收敛。B 把 $\sum\frac1{n^2}$ 说成发散（错），C 把调和级数说成收敛（错）。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">对 $\sum\dfrac{n^{2}}{2^{n}}$ 用比值判别法，$\rho=$（练习 7(3)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2$</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$4$</button>
+    <button data-k="D">$\dfrac{1}{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\dfrac{a_{n+1}}{a_n}=\dfrac{(n+1)^{2}}{2^{n+1}}\cdot\dfrac{2^{n}}{n^{2}}=\dfrac12\left(1+\dfrac1n\right)^{2}\to\dfrac12&lt;1$ ⇒ 收敛。含 $2^n$、$n^2$ 混合时比值法比抓大头更系统。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\sum\dfrac{1}{3^{n}+1}$ 的正确判法是（练习 6(12)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">比值法，$\rho=1$，失效</button>
+    <button data-k="B">极限比较：$\dfrac{1}{3^{n}+1}\sim\dfrac{1}{3^{n}}$，与收敛的几何级数同阶 ⇒ 收敛</button>
+    <button data-k="C">通项不趋零 ⇒ 发散</button>
+    <button data-k="D">与 $\sum\frac{1}{3^n}$ 逐项比较大小后仍无法判断</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$3^n+1\sim3^n$，故 $a_n\sim\left(\frac13\right)^{n}$，几何级数 $|q|=\frac13&lt;1$ 收敛 ⇒ 收敛。B 备选：$\frac{1}{3^n+1}&lt;\frac{1}{3^n}$ 直接用比较法也行——两条路都通。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">对 $\sum\dfrac{(n+1)!}{10^{n}}$ 判敛，正确的是（练习 7(6)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">比值法：$\rho=\lim\dfrac{n+2}{10}=+\infty&gt;1$，发散</button>
+    <button data-k="B">比较法：与 $\sum\dfrac{1}{10^{n}}$ 同阶，收敛</button>
+    <button data-k="C">根值法：$\rho=0$，收敛</button>
+    <button data-k="D">通项趋于 0，收敛</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">见阶乘上比值法：$\dfrac{a_{n+1}}{a_n}=\dfrac{(n+2)!}{10^{n+1}}\cdot\dfrac{10^{n}}{(n+1)!}=\dfrac{n+2}{10}\to\infty$ ⇒ 发散。B 的"同阶"完全错误（阶乘吊打指数——0011 速度链的级数版）；D 又是必要条件误用。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li><strong>$a_n\to0$ 只是必要条件</strong>：调和级数 $\sum\frac1n$ 是"趋零但发散"的头号反例</li>
+    <li>比较法方向：判收找<strong>大</strong>的收敛、判散找<strong>小</strong>的发散</li>
+    <li>比值 / 根值 $\rho=1$ 时<strong>失效</strong>（如 $\sum\frac1n$ 与 $\sum\frac1{n^2}$ 都是 $\rho=1$）——必须换比较法</li>
+    <li>几何级数看 $|q|$；$p$-级数看 $p&gt;1$——两条分界线别画反</li>
+    <li>裂项判敛先写 $S_n$ 再取极限，别直接"首减尾"</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写几何级数与 $p$-级数的敛散分界（含几何级数的和）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\sum q^n$：$|q|&lt;1$ 收敛（和 $\frac{q}{1-q}$，从 $n=1$ 起）、$|q|\ge1$ 发散；$\sum\frac1{n^p}$：$p&gt;1$ 收敛、$p\le1$ 发散。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">按通项长相报审敛法：有理式同阶？阶乘指数？整体 $n$ 次幂？相邻可拆？通项不趋零？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">极限比较法；比值法；根值法；部分和/裂项；直接判发散（必要条件）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。下一课给正项级数装上"正负号"：交错级数的莱布尼茨判别 + 绝对收敛 / 条件收敛的分类收尾。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《无穷级数》§一–§三 · §五 选法速查（含练习 1–8 答案表）</li>
+    <li>讲义：《无穷级数》PDF（概念、基准级数、三大审敛法）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："调和级数为什么发散（严格证一遍）"、"$\rho=1$ 时还能怎么办"、"再出 10 道审敛认脸题限时 10 分钟"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0039-曲线积分与格林公式.html" class="prev"><span class="dir">← 上一课</span>0039 曲线积分与格林公式</a>
+  <a href="0041-交错级数与绝对条件收敛.html" class="next"><span class="dir">下一课 →</span>0041 交错级数 · 绝对与条件收敛</a>
+</nav>
+</main>
+</body>
+</html>

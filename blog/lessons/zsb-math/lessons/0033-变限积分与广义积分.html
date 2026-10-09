@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0033 · 变限积分求导 · 广义积分敛散 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0033">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 5 单元 · 定积分 · 课 0033</span>
+  <a href="0032-定积分计算与华里士公式.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0033 · 定积分</span>
+<h1>变限积分求导 · 广义积分敛散</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0032 定积分计算 · 0014 洛必达 · 0017 间断点</span>
+  <span>来源：笔记《定积分》§五 · §六</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写变限积分求导<strong>五种形式</strong>，口诀"代上限函数，先代后乘导"</li>
+    <li>识破被积函数含 $x$ 的"陷阱型"，<strong>先分离再求导</strong></li>
+    <li>按定义取极限判断<strong>广义积分与瑕积分</strong>的敛散，内部瑕点必拆两半</li>
+  </ul>
+</div>
+
+<p>变限积分是连接定积分与函数的桥（也是 0018 课以后"新函数"的重要来源），求导五形式是填空、大题常客；反常积分则是"积分学边界"——判断敛散全靠定义。</p>
+
+<h2>一、变限积分函数</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与核心性质</div>
+  <p style="margin:0.2rem 0">$\Phi(x)=\displaystyle\int_a^{x}f(t)\,dt$（变上限）与 $\displaystyle\int_x^{b}f(t)\,dt$（变下限）。$f$ 可积 ⇒ $\Phi$ <strong>连续</strong>；$f$ 连续 ⇒ $\Phi$ <strong>可导</strong>且 $\Phi'(x)=f(x)$——<strong>连续函数必有原函数</strong>，这个 $\Phi$ 就是。</p>
+  <p style="margin:0.2rem 0">注意积分变量写 $t$、上限写 $x$：$\Phi$ 是 $x$ 的函数，$t$ 只是"哑变量"。</p>
+</div>
+
+<h2>二、求导五形式（必背）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">五种形式</div>
+  <p style="margin:0.2rem 0">$$①\ \left(\int_a^{x}f(t)dt\right)'=f(x)\qquad ②\ \left(\int_x^{b}f(t)dt\right)'=-f(x)$$</p>
+  <p style="margin:0.2rem 0">$$③\ \left(\int_a^{g(x)}f(t)dt\right)'=f\bigl(g(x)\bigr)\cdot g'(x)\qquad ④\ \left(\int_{h(x)}^{b}f(t)dt\right)'=-f\bigl(h(x)\bigr)\cdot h'(x)$$</p>
+  <p style="margin:0.2rem 0">$$⑤\ \left(\int_{h(x)}^{g(x)}f(t)dt\right)'=f\bigl(g(x)\bigr)\cdot g'(x)-f\bigl(h(x)\bigr)\cdot h'(x)$$</p>
+  <p style="margin:0.2rem 0">口诀：<strong>代上限函数，先代后乘导；下限为变量，前面添负号</strong>。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（三连秒答）</span>$\left(\displaystyle\int_0^{x}e^{-t}dt\right)'$、$\left(\displaystyle\int_x^{1}\cos^{2}t\,dt\right)'$、$\left(\displaystyle\int_0^{\sin x}t^{3}dt\right)'$。</p>
+  <details><summary>先自己套形式，再展开（秋讲练习 18 同族）</summary>
+    <p>形式①：$e^{-x}$；形式②：$-\cos^{2}x$；形式③：$\sin^{3}x\cdot\cos x$。</p>
+    <p>三题 15 秒内报完 = 五形式过关。再来两个复合的：$\left(\int_0^{x^{2}}\sqrt{1+t}\,dt\right)'=2x\sqrt{1+x^{2}}$；$\left(\int_{\cos x}^{\sin x}t^{3}dt\right)'=\sin^{3}x\cos x+\cos^{3}x\sin x$。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（陷阱型：被积函数含 $x$）</span>$F(x)=\displaystyle\int_a^{x}xf(t)\,dt$，求 $F'(x)$。（夏讲 P46）</p>
+  <details><summary>先自己想能不能直接代①，再展开</summary>
+    <p><strong>不能</strong>——被积函数里的 $x$ 不是"哑变量"。先拆项：$F(x)=x\displaystyle\int_a^{x}f(t)dt$（$x$ 是常数提出），乘积求导：</p>
+    <p>$F'(x)=\displaystyle\int_a^{x}f(t)dt+xf(x)$。</p>
+    <p>同族两型：<strong>$f(x-t)$ 型</strong>令 $u=x-t$ 换元后 $F'(x)=f(x-a)$ 型可导；<strong>$f(xt)$ 型</strong>令 $u=xt$ 再用形式⑤。总纲：<strong>先把 $x$ 从被积函数里清出去，再套五形式</strong>。</p>
+  </details>
+</div>
+
+<h2>三、变限积分求极限（$\frac00$ 型常客）</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>求 $\lim\limits_{x\to0}\dfrac{\displaystyle\int_0^{x^{2}}\tan t\,dt}{x^{4}}$。（夏讲 P43）</p>
+  <details><summary>先辨型，再展开</summary>
+    <p>$\frac00$ 型，洛必达 + 形式③：$=\lim\limits_{x\to0}\dfrac{\tan(x^{2})\cdot2x}{4x}=\lim\limits_{x\to0}\dfrac{x^{2}}{2x^{2}}=\dfrac12$。</p>
+    <p>等价法核对：分子 $\tan t\sim t$，积分 $\sim\int_0^{x^{2}}t\,dt=\dfrac{x^{4}}{2}$，比值 $\to\dfrac12$ ✓。<strong>洛必达与等价替换双通道</strong>，互相验算。</p>
+  </details>
+</div>
+
+<h2>四、反常积分：广义积分与瑕积分</h2>
+
+<div class="keypoint">
+  <div class="kp-title">两类反常积分</div>
+  <p style="margin:0.2rem 0"><strong>广义积分</strong>（区间无穷）：$\int_a^{+\infty}f\,dx=\lim\limits_{b\to+\infty}\int_a^{b}f\,dx$，极限存在称<strong>收敛</strong>，否则<strong>发散</strong>。</p>
+  <p style="margin:0.2rem 0"><strong>瑕积分</strong>（函数无界）：瑕点 $x=b$（右端）：$\lim\limits_{t\to b^{-}}\int_a^{t}f\,dx$；瑕点在<strong>内部</strong> $c$：<strong>必须拆成两半分别取极限，都收敛才收敛</strong>。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（广义积分）</span>$\displaystyle\int_0^{+\infty}e^{-x}dx$ 与 $\displaystyle\int_2^{+\infty}\dfrac{dx}{x\ln x}$。（夏讲 P52）</p>
+  <details><summary>先自己取极限，再展开</summary>
+    <p>$\left[-e^{-x}\right]_0^{+\infty}=0-(-1)=1$，<strong>收敛</strong>。</p>
+    <p>$\left[\ln|\ln x|\right]_2^{+\infty}=+\infty$，<strong>发散</strong>。（注意万能型凑微分：$\frac{dx}{x\ln x}=d(\ln\ln x)$。）</p>
+    <p>一字之差姊妹题：$\int_2^{+\infty}\dfrac{dx}{x(\ln x)^{2}}=\left[-\dfrac{1}{\ln x}\right]_2^{+\infty}=\dfrac{1}{\ln2}$ <strong>收敛</strong>——$\ln$ 上平方与否，结论相反。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5（内部瑕点）</span>$\displaystyle\int_{-1}^{1}\dfrac{dx}{x}$。（夏讲 P56）</p>
+  <details><summary>先自己拆两半，再展开</summary>
+    <p>瑕点 $x=0$ 在内部：$\lim\limits_{t\to0^-}\ln|t|=-\infty$ 发散 ⇒ 整个瑕积分<strong>发散</strong>。</p>
+    <p><strong>不能因为"奇函数"就答 0</strong>——奇偶秒杀的前提是正常可积；反常积分必须按定义逐半取极限。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\left(\displaystyle\int_x^{1}\sin t\,dt\right)'=$（秋讲练习 18(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\sin x$</button>
+    <button data-k="B">$-\sin x$</button>
+    <button data-k="C">$\cos x$</button>
+    <button data-k="D">$-\cos x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">形式②：下限是变量，前面添负号，代进去得 $-\sin x$。A 丢了负号——"下限变量添负"是五形式里最容易漏的动作。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$F(x)=\displaystyle\int_0^{x^{3}}e^{t}dt$，则 $F'(x)=$（秋讲练习 18(4) 变式）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$3x^{2}e^{x^{3}}$</button>
+    <button data-k="B">$e^{x^{3}}$</button>
+    <button data-k="C">$3x^{2}e^{3x^{2}}$</button>
+    <button data-k="D">$x^{3}e^{x^{3}}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">形式③："先代后乘导"：$e^{x^{3}}\cdot(x^{3})'=3x^{2}e^{x^{3}}$。C 把指数和导数搅在一起——先代 $g(x)$ 进 $f$，再单独乘 $g'$，两步分开写。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$F(x)=\displaystyle\int_0^{x}(x-t)f(t)\,dt$（$f$ 连续），则 $F'(x)=$（秋讲练习 18(7)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f(x)$</button>
+    <button data-k="B">$xf(x)$</button>
+    <button data-k="C">$\displaystyle\int_0^{x}f(t)\,dt$</button>
+    <button data-k="D">$xf(x)-f(x)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">被积函数含 $x$，先拆：$F(x)=x\displaystyle\int_0^{x}f(t)dt-\int_0^{x}tf(t)dt$。求导：$\int_0^xf+x f(x)-xf(x)=\int_0^{x}f(t)\,dt$。<strong>直接套形式⑤会把 $x$ 当常数——正是本题埋的雷</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\displaystyle\int_1^{+\infty}\dfrac{dx}{x^{2}}=$（秋讲练习 20(1)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">发散</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$\dfrac12$</button>
+    <button data-k="D">$+\infty$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\left[-\dfrac1x\right]_1^{+\infty}=0-(-1)=1$，收敛。记忆锚点：$\int_1^{+\infty}\dfrac{dx}{x^{p}}$ 在 $p&gt;1$ 收敛、$p\le1$ 发散——$p=1$（即 $\frac1x$）恰好发散。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">关于 $\displaystyle\int_0^{1}\dfrac{dx}{\sqrt{1-x}}$，正确的说法是（秋讲练习 21(1)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">被积函数在 $x=1$ 无定义，必发散</button>
+    <button data-k="B">瑕点在区间内部，须拆两半</button>
+    <button data-k="C">值是 $+\infty$</button>
+    <button data-k="D">瑕点 $x=1$，$\lim\limits_{t\to1^-}\left[-2\sqrt{1-x}\right]_0^{t}=2$，收敛</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">瑕点在端点不"必发散"——取极限定生死：$\lim\limits_{t\to1^-}2(1-\sqrt{1-t})=2$，收敛值为 2。A 把"有瑕点"与"发散"划等号是最常见的概念错误。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>五形式口诀：<strong>代上限函数，先代后乘导；下限为变量，前面添负号</strong></li>
+    <li>被积函数含 $x$（$xf(t)$、$f(x\pm t)$、$f(xt)$）：<strong>先拆项/换元分离 $x$，再求导</strong></li>
+    <li>"定积分是数字"vs"变限积分是函数"——看上下限有没有 $x$</li>
+    <li>反常积分判敛散<strong>只认定义取极限</strong>；$\frac1{x\ln x}$ 发散、$\frac1{x\ln^2x}$ 收敛</li>
+    <li>内部瑕点<strong>拆两半分别取极限</strong>，都收敛才收敛；奇偶性救不了反常积分</li>
+    <li>变限积分求极限：$\frac00$ 洛必达（配五形式）或等价替换（$\int_0^{\alpha(x)}f\sim f(0)\alpha(x)$）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写变限求导五种形式与口诀。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">①$\left(\int_a^xf\right)'=f(x)$；②$\left(\int_x^bf\right)'=-f(x)$；③④上下限换成 $g(x)$、$h(x)$ 时"先代后乘导"、下限带负；⑤上限项 $-$ 下限项。口诀：代上限函数，先代后乘导；下限为变量，前面添负号。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">反常积分分哪两类？判敛散的唯一依据是什么？内部瑕点怎么处理？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">广义积分（区间无穷）与瑕积分（函数无界）；依据：按定义取极限，存在则收敛；内部瑕点拆两半分别取极限，都收敛才收敛。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。变限求导五形式请在三天后再默写一遍——它是真题里"导数与积分综合题"的钥匙。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《定积分》§五 变限积分 · §六 反常积分（含秋讲练习 18–21 速查表）</li>
+    <li>讲义：《定积分》夏讲 PDF（变限 P38–P48、反常积分 P49–P56）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："$f(x-t)$ 型换元完整走一遍"、"$\int_0^x(e^t-1-t)dt$ 那道极限的等价法"、"$p$ 积分敛散口诀怎么记"，或让它出 10 道变限求导限时 6 分钟。
+</div>
+
+<nav class="footnav">
+  <a href="0032-定积分计算与华里士公式.html" class="prev"><span class="dir">← 上一课</span>0032 定积分计算与华里士公式</a>
+  <a href="0034-定积分应用.html" class="next"><span class="dir">下一课 →</span>0034 定积分应用：面积 · 体积 · 弧长</a>
+</nav>
+</main>
+</body>
+</html>

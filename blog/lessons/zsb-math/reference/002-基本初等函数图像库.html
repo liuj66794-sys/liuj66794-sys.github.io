@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查 002 · 基本初等函数图像库 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<style>
+  .plot-grid-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .pcard { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0.9rem 1rem 0.6rem; }
+  .pcard h3 { margin: 0 0 0.2rem; font-size: 1.02rem; color: var(--accent); }
+  .pcard .plot { border: none; background: transparent; padding: 0; display: block; margin: 0 auto; }
+  .pcard ul { font-size: 0.85rem; font-family: var(--sans); color: var(--ink-soft); margin: 0.3rem 0 0.4rem; padding-left: 1.2rem; line-height: 1.7; }
+  @media print { .plot-grid-wrap { grid-template-columns: 1fr 1fr; } }
+</style>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="ref-002">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">速查手册 · 002</span>
+  <a href="001-三角与反三角速查.html">速查 001</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Reference 002 · 随时翻 · 可打印</span>
+<h1>基本初等函数图像库</h1>
+<div class="meta">
+  <span>12 张必背图：幂 · 指数 · 对数 · 三角 · 反三角</span>
+  <span>来源：笔记《函数》§六、《基础预备》§六·七</span>
+</div>
+
+<p>这 12 张图是<strong>极限章的"走向"判断</strong>（$e^x$、$\ln x$、$\arctan x$ 两端去哪）、<strong>定义域值域</strong>、<strong>渐近线</strong>的底层依据。目标：看到函数名，脑中出图。</p>
+
+<div class="plot-grid-wrap">
+  <div class="pcard">
+    <h3>$y=x^2$</h3>
+    <div class="plot" data-fn="x*x" data-xmin="-3" data-xmax="3" data-ymin="-1" data-ymax="9" data-w="260" data-h="190" data-label="偶函数 · $[0,+\infty)$ 增"></div>
+    <ul><li>定义域 $\mathbb{R}$，值域 $[0,+\infty)$</li><li>过 $(0,0)$、$(1,1)$</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=x^3$</h3>
+    <div class="plot" data-fn="x*x*x" data-xmin="-2.2" data-xmax="2.2" data-ymin="-6" data-ymax="6" data-w="260" data-h="190" data-label="奇函数 · 全程增"></div>
+    <ul><li>定义域、值域都是 $\mathbb{R}$</li><li>过 $(0,0)$、$(1,1)$，原点是拐点</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\dfrac1x$</h3>
+    <div class="plot" data-fn="1/x" data-xmin="-5" data-xmax="5" data-ymin="-6" data-ymax="6" data-w="260" data-h="190" data-vlines="0" data-hlines="0" data-label="奇函数 · 坐标轴是渐近线"></div>
+    <ul><li>定义域 $x\neq0$，值域 $y\neq0$</li><li>每个区间内分别递减；过 $(1,1)$</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\sqrt{x}$</h3>
+    <div class="plot" data-fn="Math.sqrt(x)" data-xmin="-1" data-xmax="6" data-ymin="-1" data-ymax="3.4" data-w="260" data-h="190" data-label="$y^2=x$ 的上半支"></div>
+    <ul><li>定义域 $[0,+\infty)$，值域 $[0,+\infty)$</li><li>增；注意 $\sqrt{x}$ 与 $y^2=x$ 不是同一条曲线</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=e^x$（虚线：$y=(\tfrac12)^x$）</h3>
+    <div class="plot" data-fn="Math.exp(x)" data-fn2="Math.pow(0.5,x)" data-xmin="-3.4" data-xmax="2.6" data-ymin="-0.8" data-ymax="8" data-hlines="0" data-w="260" data-h="190" data-label="过 $(0,1)$ · $x$ 轴是水平渐近线"></div>
+    <ul><li>定义域 $\mathbb{R}$，值域 $(0,+\infty)$</li><li>$a>1$ 增，$0&lt;a&lt;1$ 减；$x\to-\infty$ 时 $e^x\to0$（极限章必用）</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\ln x$</h3>
+    <div class="plot" data-fn="Math.log(x)" data-xmin="-1.6" data-xmax="7" data-ymin="-3.6" data-ymax="2.6" data-vlines="0" data-w="260" data-h="190" data-label="过 $(1,0)$ · $y$ 轴是竖直渐近线"></div>
+    <ul><li>定义域 $(0,+\infty)$，值域 $\mathbb{R}$</li><li>增；$x\to0^+$ 时 $\ln x\to-\infty$；$\ln 1=0,\ \ln e=1$</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\sin x$</h3>
+    <div class="plot" data-fn="Math.sin(x)" data-xmin="-6.9" data-xmax="6.9" data-ymin="-1.7" data-ymax="1.7" data-w="260" data-h="190" data-label="奇函数 · 周期 $2\pi$"></div>
+    <ul><li>值域 $[-1,1]$；$x=k\pi$ 处为零</li><li>$x\to\infty$ 时<strong>振荡不存在</strong>（极限章必用）</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\cos x$</h3>
+    <div class="plot" data-fn="Math.cos(x)" data-xmin="-6.9" data-xmax="6.9" data-ymin="-1.7" data-ymax="1.7" data-w="260" data-h="190" data-label="偶函数 · 周期 $2\pi$"></div>
+    <ul><li>值域 $[-1,1]$；与 $\sin x$ 左移 $\dfrac{\pi}{2}$ 重合</li><li>同样：$x\to\infty$ 振荡，无极限</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\tan x$</h3>
+    <div class="plot" data-fn="Math.tan(x)" data-xmin="-6.9" data-xmax="6.9" data-ymin="-4.5" data-ymax="4.5" data-vlines="±1.5708,±4.7124" data-clipy="1" data-w="260" data-h="190" data-label="奇函数 · 周期 $\pi$"></div>
+    <ul><li>定义域 $x\neq\dfrac{\pi}{2}+k\pi$；竖直渐近线（虚线）</li><li>每个分支内增</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\arcsin x$</h3>
+    <div class="plot" data-fn="Math.asin(x)" data-xmin="-1.7" data-xmax="1.7" data-ymin="-2.1" data-ymax="2.1" data-w="260" data-h="190" data-label="奇函数 · 增"></div>
+    <ul><li>定义域 $[-1,1]$，值域 $\left[-\dfrac{\pi}{2},\dfrac{\pi}{2}\right]$</li><li>$\arcsin(-x)=-\arcsin x$</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\arccos x$</h3>
+    <div class="plot" data-fn="Math.acos(x)" data-xmin="-1.7" data-xmax="1.7" data-ymin="-0.7" data-ymax="3.5" data-w="260" data-h="190" data-label="非奇非偶 · 减"></div>
+    <ul><li>定义域 $[-1,1]$，值域 $[0,\pi]$</li><li>$\arccos(-x)=\pi-\arccos x$（负号变 $\pi-$）</li></ul>
+  </div>
+  <div class="pcard">
+    <h3>$y=\arctan x$</h3>
+    <div class="plot" data-fn="Math.atan(x)" data-xmin="-6.9" data-xmax="6.9" data-ymin="-2.1" data-ymax="2.1" data-hlines="±1.5708" data-w="260" data-h="190" data-label="奇函数 · 增 · 水平渐近线 $\pm\dfrac{\pi}{2}$"></div>
+    <ul><li>定义域 $\mathbb{R}$，值域 $\left(-\dfrac{\pi}{2},\dfrac{\pi}{2}\right)$</li><li>$x\to\pm\infty$ 分别贴 $\pm\dfrac{\pi}{2}$——左右极限不等，$x\to\infty$ 极限不存在（极限章必用）</li></ul>
+  </div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">三个"极限章先修"结论（现在就记住）</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>$\lim\limits_{x\to-\infty}e^x=0$，但 $\lim\limits_{x\to+\infty}e^x=+\infty$ → $\lim\limits_{x\to\infty}e^{x}$ <strong>不存在</strong></li>
+    <li>$\lim\limits_{x\to-\infty}\arctan x=-\dfrac{\pi}{2}$，$\lim\limits_{x\to+\infty}\arctan x=\dfrac{\pi}{2}$ → $\lim\limits_{x\to\infty}\arctan x$ <strong>不存在</strong></li>
+    <li>$x\to\infty$ 时 $\sin x$、$\cos x$ <strong>振荡不存在</strong>（不是没有界，是没有极限）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">💬 <b>用法</b>：盖住属性列表，只看图说定义域、值域、奇偶性、渐近线；说错了回<a href="../lessons/0001-三角函数必背包.html">课程 0001</a> 补三角，或问 AI 老师要专项练习。</div>
+</main>
+</body>
+</html>

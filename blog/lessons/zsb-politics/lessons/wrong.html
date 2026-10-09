@@ -1,0 +1,114 @@
+<!doctype html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>错题本 · 专升本政治互动课程</title>
+<link rel="stylesheet" href="../assets/course.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css?v=7778d358e92ea2a9"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-politics/" target="_self">政治课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/zhengzhi/" target="_self">政治学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+<a class="brand" href="../index.html"><span class="zh">政治</span> · 专升本互动课程</a>
+<div class="crumbs">错题本</div>
+<nav class="topnav">
+<a href="../index.html">课程总览</a>
+<a href="../lessons/sz00.html">时政课</a>
+<a href="../lessons/practice.html">刷题场</a>
+<a href="../lessons/srs.html">每日闪卡</a>
+<a href="../lessons/wrong.html">错题本</a>
+<a href="../reference/mzt.html">毛中特速查</a>
+<a href="../reference/xg.html">习概速查</a>
+<a href="../lessons/review.html">混合测试</a>
+</nav>
+</div></div>
+<div class="wrap">
+
+<header class="lesson-head">
+<div class="kicker">自动收集 · 答对一次自动移出</div>
+<h1 class="title">错题本</h1>
+<p class="lede">课程测验、刷题场、混合测试里做错的选择题都会进到这里。重做答对即自动移出；原卷未给答案的题不收集。</p>
+</header>
+<div id="wrongview"></div>
+
+<footer class="foot">
+<span>专升本政治 · 互动课程 · 由知识库笔记自动构建于 2026-09-09</span>
+<span>有不懂的，随时回到 <a href="../index.html">ZCode</a> 问你的 AI 老师 · 康奈尔式复习：先回忆，再核对</span>
+</footer>
+</div>
+<script src="../assets/quiz.js?v=7778d358e92ea2a9"></script>
+
+<script>
+(function () {
+  var box = document.getElementById("wrongview");
+
+  function render() {
+    box.innerHTML = "";
+    var all = ZQ.wrong.all();
+    var items = Object.keys(all).map(function (k) {
+      var w = all[k]; w.id = k; return w;
+    });
+    items.sort(function (a, b) { return (b.lastAt || "").localeCompare(a.lastAt || ""); });
+    var head = document.createElement("header");
+    head.className = "lesson-head";
+    head.innerHTML = '<div class="kicker">当前错题</div>' +
+      '<h1 class="title" style="font-size:1.4rem">共 ' + items.length + ' 题</h1>';
+    if (!items.length) {
+      head.innerHTML += '<p class="lede">错题本是空的。去刷题、测验吧——做错的题会自动来到这里。</p>';
+      box.appendChild(head);
+      return;
+    }
+    var redoBtn = document.createElement("button");
+    redoBtn.className = "btn primary";
+    redoBtn.textContent = "🔁 重做全部错题（答对自动移出）";
+    redoBtn.addEventListener("click", function () { mountRedo(items); });
+    box.appendChild(head);
+    box.appendChild(redoBtn);
+
+    var list = document.createElement("div");
+    list.style.marginTop = "1rem";
+    items.forEach(function (w) {
+      var d = document.createElement("details");
+      d.className = "qa";
+      d.innerHTML = '<summary>' + escRich(w.stem.slice(0, 60)) + (w.stem.length > 60 ? "…" : "") +
+        '</summary><div class="ans"><span class="anslabel">正确答案</span>' + escRich(w.answer || "") +
+        '<span style="font-family:var(--sans);font-size:.76rem;color:var(--ink-soft)">　错 ' + w.count +
+        ' 次 · 最近 ' + esc(w.lastAt || "") + (w.from ? ' · 来自 ' + esc(w.from) : '') + '</span></div>';
+      list.appendChild(d);
+    });
+    box.appendChild(list);
+  }
+
+  function mountRedo(items) {
+    box.innerHTML = "";
+    var head = document.createElement("p");
+    head.className = "hint";
+    head.textContent = "本轮 " + items.length + " 题。答对一题移出一题；再错留在本子里并累计次数。";
+    box.appendChild(head);
+    var mount = document.createElement("div");
+    box.appendChild(mount);
+    var back = document.createElement("button");
+    back.className = "btn";
+    back.textContent = "‹ 返回错题列表";
+    back.addEventListener("click", render);
+    box.appendChild(back);
+    ZQ.mountQuiz(mount, items.map(function (w) {
+      return { id: w.id, stem: w.stem, options: w.options, answer: w.answer, exp: w.exp };
+    }), {
+      from: "错题重做",
+      onJudge: function (q, right) {
+        if (right) ZQ.wrong.remove(q.id);
+      }
+    });
+  }
+
+  document.addEventListener("zzkk:wrong", function () { /* 重做中不刷列表，避免打断 */ });
+  render();
+})();
+</script>
+</body>
+</html>

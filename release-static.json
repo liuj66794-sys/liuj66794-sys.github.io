@@ -1,0 +1,13 @@
+{
+  "tier": "static-recovery",
+  "sourceSha": "dfeadc6069243045086efab2afca4eb3d1d8ba77",
+  "artifactSha256": "c38f39ecd70a9325b7cf2d82f912e85c198df2cbb69d77815f5e97ec9b94f52b",
+  "originalPublicSha": "7b9b76134d31a7f6f1b18b4bc57d09331eb772ec",
+  "flags": {
+    "auth": false,
+    "sync": false,
+    "ai": false
+  },
+  "files": 944,
+  "acceptance": "PC and physical phone acceptance still required"
+}

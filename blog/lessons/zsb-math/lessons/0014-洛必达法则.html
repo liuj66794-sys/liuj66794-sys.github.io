@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0014 · 洛必达法则 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0014">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0014</span>
+  <a href="0013-等价无穷小替换.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0014 · 极限与连续</span>
+<h1>洛必达法则：七种未定式的统一武器</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0011 未定式识别 · 0013 等价替换</span>
+  <span>来源：笔记《极限与连续》§三（方法八，秋讲内容）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写洛必达<strong>三个条件</strong>，动笔前先"验型"</li>
+    <li>把 $0\cdot\infty$、$\infty-\infty$、$1^{\infty}$、$0^0$、$\infty^0$ <strong>先化成</strong> $\frac00$ 或 $\frac\infty\infty$ 再洛</li>
+    <li>识别法则<strong>失效</strong>的信号（导数比振荡、越洛越复杂），及时换招</li>
+  </ul>
+</div>
+
+<p>洛必达法则是"万能钥匙"，但万能有条件。考试里它几乎从不单独出场——<strong>先等价替换简化，再洛</strong>才是标准打法；反过来"拿到就洛、洛到底"经常越洛越繁。</p>
+
+<h2>一、法则本体与三条纪律</h2>
+
+<div class="keypoint">
+  <div class="kp-title">法则</div>
+  <p style="margin:0.2rem 0">若 ① $\lim f=\lim g=0$（$\frac00$ 型）<strong>或</strong> $\lim g=\infty$（$\frac\infty\infty$ 型）；② $f,g$ 可导且 $g'(x)\neq0$；③ $\lim\dfrac{f'(x)}{g'(x)}=A$ 存在（或 $\infty$）——</p>
+  <p style="margin:0.2rem 0">$$\lim\frac{f(x)}{g(x)}=\lim\frac{f'(x)}{g'(x)}=A$$</p>
+</div>
+
+<div class="warn">
+  <div class="warn-title">三条纪律</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li><strong>先验型再求导</strong>：不是 $\frac00$ / $\frac\infty\infty$ 就不能用。其他五种未定式先化型（取对数、通分、提因子）</li>
+    <li><strong>用一次简化一次</strong>：求导前先约掉非零因子、换掉可替换的等价无穷小，别硬洛出八行</li>
+    <li><strong>失效就换招</strong>：条件③不满足（导数比来回振荡）时结论无效——例如 $\lim\limits_{x\to\infty}\dfrac{\sin x}{x}$ 不能洛（洛完是 $\cos x$ 不存在，但原极限 $=0$），要用"有界 × 无穷小"</li>
+  </ul>
+</div>
+
+<h2>二、标准 $\frac00$：洛一次或两次</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>求 $\lim\limits_{x\to0}\dfrac{e^{x}-1-x}{x^{2}}$ 与 $\lim\limits_{x\to0}\dfrac{e^{x}+e^{-x}-2}{x^{2}}$。</p>
+  <details><summary>先自己洛，再展开（秋讲练习 13(10)(6)）</summary>
+    <p>第一题：$\frac00$ ✓，洛一次 $=\lim\limits_{x\to0}\dfrac{e^x-1}{2x}$，仍是 $\frac00$，再洛 $=\dfrac{e^x}{2}\to\dfrac12$。</p>
+    <p>第二题：洛一次 $=\lim\dfrac{e^x-e^{-x}}{2x}$，再洛 $=\lim\dfrac{e^x+e^{-x}}{2}=1$。</p>
+    <p>注意每洛一次都要<strong>重新验型</strong>：第二题洛完一次后分母 $\to0$、分子 $\to0$，才允许再洛。</p>
+  </details>
+</div>
+
+<h2>三、先化型：五种间接未定式的处理</h2>
+
+<table>
+  <tr><th>原 型</th><th>化型手段</th></tr>
+  <tr><td>$0\cdot\infty$</td><td>把一个因子移到分母：$0\cdot\infty=\dfrac{0}{1/\infty}=\dfrac00$（通常"丢多项式、留复杂函数"更好洛）</td></tr>
+  <tr><td>$\infty-\infty$</td><td>通分成一个分式，或提公因式</td></tr>
+  <tr><td>$1^{\infty}$、$0^{0}$、$\infty^{0}$</td><td>取对数：$u^v=e^{v\ln u}$，指数 $v\ln u$ 多为 $0\cdot\infty$，化型后再洛</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（$0\cdot\infty$）</span>求 $\lim\limits_{x\to\frac{\pi}{2}}\left(\dfrac{\pi}{2}-x\right)\tan x$。</p>
+  <details><summary>先自己化型，再展开（秋讲练习 13）</summary>
+    <p>令 $t=\dfrac{\pi}{2}-x\to0^+$，原式 $=t\cot t=\dfrac{t}{\tan t}\to1$（$\frac00$，或直接用 $\tan t\sim t$）。</p>
+    <p>换元把"接近 $\frac{\pi}{2}$"化成"接近 $0$"，是三角位置未定式的通用起手。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（$\infty-\infty$）</span>求 $\lim\limits_{x\to1}\left(\dfrac{1}{\ln x}-\dfrac{1}{x-1}\right)$。</p>
+  <details><summary>先自己通分，再展开（秋讲练习 13）</summary>
+    <p>通分：$\dfrac{(x-1)-\ln x}{(x-1)\ln x}$。令 $t=x-1\to0$：$\dfrac{t-\ln(1+t)}{t\ln(1+t)}$，分母 $\sim t^2$、分子 $\sim\frac12t^2$（三阶差表），得 $\dfrac12$。</p>
+    <p>也可以洛一次后再通分：分子分母同乘 $(1+t)$ 得 $\lim\limits_{t\to0}\dfrac{t}{(1+t)\ln(1+t)+t}$；因式 $(1+t)\to1$ 有界非零，故 $(1+t)\ln(1+t)\sim t$（乘除位置可换），分母 $\sim2t$，得 $\dfrac12$。先等价再洛，快得多。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（幂指型）</span>求 $\lim\limits_{x\to0}(\cos x)^{\frac{1}{\ln(1+x^{2})}}$。</p>
+  <details><summary>先取对数，再展开（秋讲练习 13）</summary>
+    <p>写成 $e^{v\ln u}$：指数 $=\dfrac{\ln\cos x}{\ln(1+x^2)}$。分子 $\sim-\dfrac12x^2$（0013 例 3），分母 $\sim x^2$，指数 $\to-\dfrac12$。</p>
+    <p>答案 $e^{-\frac12}$。<strong>幂指三兄弟（$1^\infty,0^0,\infty^0$）统一走 $e^{v\ln u}$ 这条路</strong>——若指数恰是 $1^{\infty}$ 型，也可以直接用 0012 三步法。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">使用洛必达法则前，必须先确认</p>
+  <div class="quiz-opts">
+    <button data-k="A">函数处处可导</button>
+    <button data-k="B">是 $\frac00$ 或 $\frac\infty\infty$ 型，且导数比的极限存在（或为 $\infty$）</button>
+    <button data-k="C">分子分母都没有根式</button>
+    <button data-k="D">极限一定存在</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">三条件验型 → 可导 → 导数比有结论。D 反了：法则用来<strong>求</strong>极限，导数比不存在时只是法则失效，不代表原极限不存在。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\lim\limits_{x\to+\infty}\dfrac{\ln x}{x}$ 用洛必达法则得</p>
+  <div class="quiz-opts">
+    <button data-k="A">不存在</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$0$</button>
+    <button data-k="D">$+\infty$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\frac\infty\infty$ ✓，洛一次 $=\lim\limits_{x\to+\infty}\dfrac{1/x}{1}=0$。当然抓大头（幂吊打对数）更快——洛必达和抓大头互相印证。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">求 $\lim\limits_{x\to\infty}\dfrac{x+\sin x}{x}$ 时，下列做法正确的是</p>
+  <div class="quiz-opts">
+    <button data-k="A">洛必达两次得 $1$</button>
+    <button data-k="B">洛必达得 $\cos x$，故不存在</button>
+    <button data-k="C">等价替换 $\sin x\sim x$，得 $2$</button>
+    <button data-k="D">不能用洛必达；拆成 $1+\dfrac{\sin x}{x}=1+0=1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">这是 $\frac\infty\infty$，但洛完 $\dfrac{1+\cos x}{1}$ 极限不存在——条件③不满足，法则失效，<strong>不代表原极限不存在</strong>。正解：拆项后 $\dfrac{\sin x}{x}\to0$（有界 × 无穷小）。C 还犯了两条错：$\sin x$ 不是无穷小，且这是加减位置。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">化 $\lim\limits_{x\to0^+}x\ln x$（$0\cdot\infty$ 型）等价改写为可直接使用洛必达法则的无穷比无穷型，应该写成</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\lim\limits_{x\to0^+}\dfrac{\ln x}{1/x}$（$\frac\infty\infty$）</button>
+    <button data-k="B">$\lim\limits_{x\to0^+}\dfrac{x}{1/\ln x}$（$\frac00$）</button>
+    <button data-k="C">$\lim\limits_{x\to0^+}\dfrac{\ln x}{x}$（$\frac\infty\infty$）</button>
+    <button data-k="D">直接说极限不存在</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">A 与原式相等且为无穷比无穷型，洛一次得 $\dfrac{1/x}{-1/x^2}=-x\to0$。B 也是合法的等价变形，可以按 $0/0$ 型使用洛必达，但不符合本题指定的型别；C 不与原式相等，且其型别也不是无穷比无穷。原极限为 $0$。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\lim\limits_{x\to\frac{\pi}{2}}(\sec x-\tan x)$（$\infty-\infty$ 型）等于</p>
+  <div class="quiz-opts">
+    <button data-k="A">不存在</button>
+    <button data-k="B">$0$</button>
+    <button data-k="C">$1$</button>
+    <button data-k="D">$-1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">通分：$\dfrac{1-\sin x}{\cos x}=\dfrac{(1-\sin x)(1+\sin x)}{\cos x(1+\sin x)}=\dfrac{\cos^2x}{\cos x(1+\sin x)}=\dfrac{\cos x}{1+\sin x}\to\dfrac01=0$。（秋讲练习 13(9)，恒等变形比洛必达优雅。）</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>不验型就洛 = 白给：$\lim\limits_{x\to\infty}\dfrac{x+\cos x}{x}$ 不是"洛到 $\frac00$"</li>
+    <li>每洛一次<strong>重新验型</strong>，不是一劳永逸</li>
+    <li>洛完不存在 ≠ 原极限不存在（条件③失效，换夹逼 / 有界 × 无穷小 / 抓大头）</li>
+    <li>幂指三兄弟一律 $e^{v\ln u}$ 化型；$1^{\infty}$ 可 shortcut 用三步法</li>
+    <li>优先级：等价替换 / 恒等变形 <strong>先做</strong>，洛必达<strong>殿后</strong>——计算量天差地别</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写洛必达法则的三个条件，并说出三条纪律。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">①$\frac00$ 或 $\frac\infty\infty$；②$f,g$ 可导且 $g'\neq0$；③导数比的极限存在或为 $\infty$。纪律：先验型、用一次简化一次、失效就换招。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">五种间接未定式（$0\cdot\infty$、$\infty-\infty$、$1^{\infty}$、$0^{0}$、$\infty^{0}$）各怎么化型？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$0\cdot\infty$：因子下沉到分母；$\infty-\infty$：通分；幂指三兄弟：$u^v=e^{v\ln u}$ 取对数（$1^{\infty}$ 亦可用 $e^{\lim v(u-1)}$）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。建议把 0011–0014 四课的随堂测验<strong>混合重做</strong>一遍（交错练习）：真题从不告诉你"这题用哪招"，混合练习练的就是"认脸选招"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§三 方法八（含秋讲练习 13 代表题与速查表）</li>
+    <li>讲义：《函数极限》秋讲 PDF（洛必达法则与练习 13 原文）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："洛必达为什么成立（直观理解）"、"$x\ln x$ 为什么把 $x$ 放分母更好"、"$\frac{\sin x}{x}$ 那题洛完不存在怎么理解"，或让它出 10 道"先化型再洛"的题。
+</div>
+
+<nav class="footnav">
+  <a href="0013-等价无穷小替换.html" class="prev"><span class="dir">← 上一课</span>0013 等价无穷小替换</a>
+  <a href="0015-无穷小的阶与渐近线.html" class="next"><span class="dir">下一课 →</span>0015 无穷小的阶 · 三类渐近线</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 5 课 · 选择结构：条件、短路规则与 if</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=f674c7ea44f8">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=f674c7ea44f8"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第一部分 C 语言</span>
+  <span>第 5 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>选择结构：条件、短路规则与 if</h1><p class="lesson-meta">对应笔记 C语言/04-选择结构程序设计 · 题库 题库/选择结构程序设计-章节练习 · 教材 P87–110 · 建议按小节分次学习</p><p>能在短路表达式中区分“写在右边”和“实际执行”。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 条件决定哪条路径真的执行</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / 关系与逻辑表达式：值只有 0 或 1</a></li><li><a href="#cs-detail-2">04 / 短路规则：右侧可能「白写」</a></li><li><a href="#cs-detail-3">05 / if 单分支、双分支与多分支</a></li><li><a href="#cs-detail-4">06 / 条件等价与 else 配对</a></li><li><a href="#cs-detail-5">07 / 先回忆，再自测</a></li><li><a href="#cs-practice">08 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-7">09 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">条件决定哪条路径真的执行</h2><p class="cs-goal">这一节要学会：能在短路表达式中区分“写在右边”和“实际执行”。</p><p>门禁先验证有没有卡，再读取卡号。没有卡时，后续读取应直接跳过。这就是短路判断的直觉：左边已经足够决定结果，就不再执行右边。</p><p><code>a &amp;&amp; b</code> 中，<code>a</code> 为 <code>0</code> 就跳过 <code>b</code>；<code>a || b</code> 中，<code>a</code> 非 <code>0</code> 就跳过 <code>b</code>。<code>C</code> 条件把 <code>0</code> 当假，把非 <code>0</code> 当真；关系与逻辑运算的结果为 <code>0</code> 或 <code>1</code>。</p><p>读条件时画两条路径：先记左侧真假，再决定右侧是否执行，最后更新变量。尤其右侧有 ++、函数调用或除法时，不能只根据纸面出现次数来更新状态。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>int x=0, y=3;</code></pre><p>x：0；y：3</p><p>起点。每一步只执行当前列出的语句。</p><h3>第 2 步</h3><pre><code>int a = x &amp;&amp; ++y;</code></pre><p>a：0；y：3</p><p>x 为假，&amp;&amp; 的右边不执行，y 保持 3。</p><h3>第 3 步</h3><pre><code>int b = x || ++y;</code></pre><p>b：1；y：4</p><p>x 为假，|| 必须继续检查右侧；++y 得到 4，为真。</p><h3>第 4 步</h3><pre><code>if (b) x=9;</code></pre><p>x：9；y：4</p><p>b 为 1，执行赋值分支。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p><code>int x=1,y=2; int r=x || ++y;</code> 最后 <code>y</code> 是？</p><ol><li><code>2</code>：对。左边已经为真，右侧自增被跳过。</li><li><code>3</code>：这是忽略了 || 短路。</li><li><code>1</code>：逻辑结果 <code>r</code> 为 <code>1</code>，但 <code>y</code> 没有被赋为 <code>1</code>。</li></ol><p>正确判断：<code>2</code></p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task">如何写条件，保证 <code>d</code> 为 <code>0</code> 时不执行 <code>n/d</code>？假设 <code>n</code>、<code>d</code> 为 <code>int</code> 且不存在其他溢出情形。</p><details><summary>卡住时看提示</summary><p>把“除数不为零”放在左边，再选一个左边为假时会跳过右边的逻辑运算符。</p></details><details><summary>查看参考过程</summary><p>使用 <code>d != 0 &amp;&amp; n/d &gt; 2</code>。左侧先排除零除数；左侧为假时右侧不执行。把顺序反过来就失去了保护。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>哪一项先检查除数再计算？</p><ol><li><code>n/d&gt;2 &amp;&amp; d!=0</code>：除法在保护条件之前，可能先触发除零。</li><li><code>d!=0 &amp;&amp; n/d&gt;2</code>：对。左边为假就跳过除法。</li><li><code>d!=0 || n/d&gt;2</code>：<code>d</code> 为 <code>0</code> 时左侧为假，|| 反而继续做除法。</li></ol><p>正确判断：<code>d!=0 &amp;&amp; n/d&gt;2</code></p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、关系与逻辑表达式：值只有 0 或 1</h2>
+
+<p>关系运算符有 6 个，<strong>左结合</strong>，分两个优先级：</p>
+<table>
+  <tr><th>档次</th><th>运算符</th><th>优先级</th><th>记忆</th></tr>
+  <tr><td>高</td><td><code>&gt; &gt;= &lt; &lt;=</code></td><td>6</td><td>先算大小</td></tr>
+  <tr><td>低</td><td><code>== !=</code></td><td>7</td><td>再算相等</td></tr>
+</table>
+
+<p>完整优先级链（高 → 低）：</p>
+<pre><code>!  →  算术(* / % + -)  →  关系(> >= < <= == !=)  →  &&  →  ||  →  赋值(=)</code></pre>
+
+<div class="callout warn">
+  <p class="callout-title">最高频陷阱</p>
+  <p>关系/逻辑表达式的值<strong>只有 0 或 1</strong>，不是 true/false；C 语言里非 0 即真。数学式 <code>10 &lt; a &lt; 15</code> 在 C 中是 <code>(10 &lt; a) &lt; 15</code>，结果恒为 1；判断范围必须写 <code>a &gt; 10 && a &lt; 15</code>。</p>
+</div>
+
+<p>例（a=10, b=20, c=30）：</p>
+<ul>
+  <li><code>a &lt; b &lt; c</code> → <code>(a &lt; b) &lt; c</code> → <code>1 &lt; 30</code> → <strong>1</strong></li>
+  <li><code>a + b &gt;= c</code> → <code>30 &gt;= 30</code> → <strong>1</strong></li>
+  <li><code>'a' == 'b'</code> → <code>97 == 98</code> → <strong>0</strong></li>
+</ul>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 正确计算含 <code>&&</code>、<code>||</code>、<code>++</code> 副作用的程序阅读题，并判断哪些操作被短路；② 识别 <code>if(x)</code> 与 <code>if(x!=0)</code>、<code>if(!x)</code> 与 <code>if(x==0)</code> 的等价关系；③ 写出用 if-else-if 实现的分段函数，并画出 else 的配对关系。</p>
+</div>
+
+<details class="recall warmup">
+  <summary>温故 · 第 4 课「顺序结构：printf 与 scanf」：printf("%8.2f", -100.125); 的输出是什么？（□ 代表空格）</summary>
+  <div class="recall-a">先四舍五入为 -100.13，总宽度 8，当前 7 位，左补一个空格 → □-100.13。</div>
+</details>
+<details class="recall warmup">
+  <summary>温故 · 第 3 课「运算符与表达式」：优先级骨架链是什么？哪三档运算符是右结合？</summary>
+  <div class="recall-a">括号/下标 &gt; 单目 &gt; 算术 &gt; 移位 &gt; 关系 &gt; 位（与&gt;异或&gt;或）&gt; 逻辑 &gt; 条件 &gt; 赋值 &gt; 逗号。右结合：单目、?:、赋值（含复合赋值）。</div>
+</details>
+
+<div class="callout">
+  <p class="callout-title">为什么这一课这么关键</p>
+  <p>选择结构这一章的三大题源：<strong>短路求值</strong>、<strong>else 配对</strong>、<strong>case 穿透</strong>。广东省专升本真题里，<strong>短路规则</strong>、<strong>else 配对</strong>、<strong>等价形式</strong>反复出现，出题人最爱把 <code>++</code> 藏在被短路的右侧。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、短路规则：右侧可能「白写」</h2>
+
+<table>
+  <tr><th>运算符</th><th>短路条件</th><th>结果</th></tr>
+  <tr><td><code>&&</code></td><td>左侧为 0（假）</td><td>右侧<strong>不执行</strong>，整体为 0</td></tr>
+  <tr><td><code>||</code></td><td>左侧非 0（真）</td><td>右侧<strong>不执行</strong>，整体为 1</td></tr>
+</table>
+
+<div class="callout tip">
+  <p class="callout-title">判断口诀</p>
+  <p><code>&&</code>「一假俱假」；<code>||</code>「一真皆真」。只要左边已经能决定结果，右边就直接跳过——所以右边的自增、赋值、函数调用可能根本不发生。</p>
+</div>
+
+<p>例：</p>
+<ul>
+  <li><code>b && a++</code>（b=0）：值为 0，<code>a++</code> 不执行。</li>
+  <li><code>a || b++</code>（a=10）：值为 1，<code>b++</code> 不执行。</li>
+  <li><code>!a + 0 && b || c++</code>（a=0, b=1, c=0）：<code>((!a + 0) && b) || c++</code> → <code>(1 && 1) || c++</code> → <code>1 || …</code> → 值 <strong>1</strong>，<code>c++</code> 被短路，<strong>c 仍为 0</strong>。</li>
+</ul>
+
+<div class="callout warn">
+  <p class="callout-title">⚠️ 勘误提醒</p>
+  <p>部分旧版题库对含短路的答案有误。例如 <code>(m=a==b)||(n=c==d)</code> 在全零变量下，<code>m=1</code>、<code>||</code> 左真短路，<code>n</code> 保持 0，答案为 <code>1,0</code>。遇到与笔记结论冲突的旧答案，以源笔记为准。</p>
+</div>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、if 单分支、双分支与多分支</h2>
+
+<pre><code>// 单分支
+if (表达式) 语句;
+
+// 双分支
+if (表达式) 语句1;
+else       语句2;
+
+// 多分支（分段函数常用）
+if (表达式1) 语句1;
+else if (表达式2) 语句2;
+else if (表达式3) 语句3;
+else              语句4;</code></pre>
+
+<p>注意：</p>
+<ul>
+  <li>if 的「内嵌语句」只能有<strong>一条</strong>；多条必须用 <code>{ }</code> 包成复合语句。</li>
+  <li>else 前面<strong>必须紧邻同一条 if</strong>，中间不能隔别的语句，否则报错 <code>else without a previous if</code>。</li>
+  <li>多分支从上到下匹配，<strong>只执行其中一条</strong>。</li>
+</ul>
+
+<p>分段函数示例（符号函数）：</p>
+<pre><code>if (x > 0)      y = 1;
+else if (x == 0) y = 0;
+else            y = -1;</code></pre>
+
+</section>
+<section id="cs-detail-4" data-cs-step><h2 tabindex="-1">四、条件等价与 else 配对</h2>
+
+<table>
+  <tr><th>写法</th><th>等价形式</th><th>含义</th></tr>
+  <tr><td><code>if (x)</code></td><td><code>if (x != 0)</code></td><td>x 非零则执行</td></tr>
+  <tr><td><code>if (!x)</code></td><td><code>if (x == 0)</code></td><td>x 为零则执行</td></tr>
+</table>
+
+<p>「零值」陷阱表：</p>
+<table>
+  <tr><th>表达式</th><th>逻辑值</th><th>说明</th></tr>
+  <tr><td><code>0</code>、<code>0.0</code>、<code>NULL</code>、<code>'\0'</code></td><td>0</td><td>真正的「零」</td></tr>
+  <tr><td><code>'0'</code>、<code>"0"</code></td><td>1</td><td>字符 '0' 的 ASCII 是 48</td></tr>
+</table>
+
+<div class="callout warn">
+  <p class="callout-title">两个致命混淆</p>
+  <p><code>if (a = 0)</code> 是赋值，结果恒为 0，条件恒不成立；<code>if (a = b)</code> 把 b 赋给 a，条件值是 b 的逻辑值。比较必须用 <code>==</code>。</p>
+</div>
+
+<p><strong>else 配对规则</strong>：C 规定 else 总是与它<strong>前面最近的、尚未配对的 if</strong> 配对，<strong>与缩进无关</strong>。花括号可以把内层 if-else 包起来，让外层 else 与更外层的 if 配对。</p>
+
+</section>
+<section id="cs-detail-5" data-cs-step><h2 tabindex="-1">五、先回忆，再自测</h2>
+
+<details class="recall">
+  <summary>合上笔记默写：优先级链（从 ! 到赋值）和短路规则</summary>
+  <div class="recall-a">优先级：! &gt; 算术 &gt; 关系 &gt; && &gt; || &gt; 赋值。短路：&& 左假右不算；|| 左真右不算。右侧的自增/自减/赋值可能不执行。</div>
+</details>
+
+<details class="recall">
+  <summary><code>if(x)</code> 与 <code>if(!x)</code> 分别等价于什么？写错会发生什么？</summary>
+  <div class="recall-a"><code>if(x)</code> ≡ <code>if(x!=0)</code>；<code>if(!x)</code> ≡ <code>if(x==0)</code>。把 <code>==</code> 写成 <code>=</code> 会变成赋值，导致条件恒真或恒假。</div>
+</details>
+
+<details class="recall">
+  <summary>else 配对看缩进还是看语法？如何用花括号改变配对？</summary>
+  <div class="recall-a">else 与前面最近的未配对 if 配对，和缩进无关。用 <code>{ }</code> 把内层 if-else 包住，可让外层 else 只能与更外层的 if 配对。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">六、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">1. 下列运算符中优先级最低的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">逻辑与 &amp;&amp;</li>
+    <li data-opt="b">等于 ==</li>
+    <li data-opt="c">不等于 !=</li>
+    <li data-opt="d">逻辑或 ||</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">优先级：关系（6/7 级）&gt; &amp;&amp;（11 级）&gt; ||（12 级），四者中 || 最低。赋值比 || 还低，但不在选项中。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">2. 执行 <code>int a=1,b=2; (a=0)&amp;&amp;(b++);</code> 后，a、b 的值分别是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">a=0, b=2</li>
+    <li data-opt="b">a=0, b=3</li>
+    <li data-opt="c">a=1, b=2</li>
+    <li data-opt="d">a=1, b=3</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl"><code>a=0</code> 使 &amp;&amp; 左侧为 0，发生短路，右侧 <code>b++</code> 不执行，故 b 仍为 2。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">3. 已知 a=0,b=1,c=0，表达式 <code>!a+0 &amp;&amp; b || c++</code> 的值及 c 的最终值为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">0，c=0</li>
+    <li data-opt="b">1，c=0</li>
+    <li data-opt="c">1，c=1</li>
+    <li data-opt="d">0，c=1</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">按优先级加括号：<code>((!a+0) &amp;&amp; b) || c++</code> → <code>(1 &amp;&amp; 1) || c++</code> → <code>1 || …</code>，|| 左真短路，c++ 不执行，表达式值为 1。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">4. 下列写法中，与 <code>if(x)</code> 功能不同的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">if(x!=0)</li>
+    <li data-opt="b">if(!x==0)</li>
+    <li data-opt="c">if(x==0)</li>
+    <li data-opt="d">if(x>0||x<0)</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl"><code>if(x)</code> 等价于 <code>if(x!=0)</code>；B 中 <code>!x==0</code> 即 x 非零；D 对整数也等价。C 在 x 为零时才执行，与原式相反。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">5. 当 a=1,b=3,c=5,d=4 时，执行下面程序段后 x 的值是</p>
+  <pre><code>if(a&lt;b)
+    if(c&lt;d) x=1;
+    else
+        if(a&lt;c)
+            if(b&lt;d) x=2;
+            else x=3;
+        else x=6;
+else x=7;</code></pre>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">1</li>
+    <li data-opt="b">2</li>
+    <li data-opt="c">3</li>
+    <li data-opt="d">7</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">a&lt;b 成立 → c&lt;d（5&lt;4）不成立 → 进入 else → a&lt;c（1&lt;5）成立 → b&lt;d（3&lt;4）成立 → x=2。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">6. 阅读下列代码，输出结果是</p>
+  <pre><code>int x=3, y=2;
+if(x&gt;y)
+    if(x==3) printf("A");
+else printf("B");</code></pre>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">输出 A</li>
+    <li data-opt="b">输出 B</li>
+    <li data-opt="c">输出 AB</li>
+    <li data-opt="d">编译错误</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">else 与最近的未配对 if（即 <code>if(x==3)</code>）配对。x&gt;y 成立且 x==3 成立，执行 printf("A")，else 分支不执行。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 20 分钟）</p>
+  <p>打开 题库/选择结构程序设计-章节练习，遮住答案完成「一、选择题」第 1–8 题，错题标 ⭐️。然后回到笔记 自测问题 Q1–Q5，口头作答并记录卡壳点。</p>
+</div>
+
+</section>
+<section id="cs-detail-7" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：C语言/04-选择结构程序设计（前半：关系/逻辑表达式、短路规则、if 分支与嵌套）。术语速查：<a href="../reference/glossary.html">课程术语表</a>、<a href="../reference/c-syntax-cheatsheet.html">C 语法速查表</a>、<a href="../reference/ds-formula-cheatsheet.html">数据结构公式表</a>。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:5:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-detail-4","cs-detail-5","cs-practice","cs-detail-7"],"checks":{"core":{"question":"int x=1,y=2; int r=x || ++y; 最后 y 是？","choices":["2","3","1"],"answer":0,"why":["对。左边已经为真，右侧自增被跳过。","这是忽略了 || 短路。","逻辑结果 r 为 1，但 y 没有被赋为 1。"]},"transfer":{"question":"哪一项先检查除数再计算？","choices":["n/d>2 && d!=0","d!=0 && n/d>2","d!=0 || n/d>2"],"answer":1,"why":["除法在保护条件之前，可能先触发除零。","对。左边为假就跳过除法。","d 为 0 时左侧为假，|| 反而继续做除法。"]}},"traces":{"core":{"title":"右边的自增究竟有没有发生","frames":[{"code":"int x=0, y=3;","cells":[["x","0"],["y","3"]],"note":"起点。每一步只执行当前列出的语句。","pointer":""},{"code":"int a = x && ++y;","cells":[["a","0"],["y","3"]],"note":"x 为假，&& 的右边不执行，y 保持 3。","pointer":""},{"code":"int b = x || ++y;","cells":[["b","1"],["y","4"]],"note":"x 为假，|| 必须继续检查右侧；++y 得到 4，为真。","pointer":""},{"code":"if (b) x=9;","cells":[["x","9"],["y","4"]],"note":"b 为 1，执行赋值分支。","pointer":""}]}},"signature":"c7c093b708ae676a"}</script>
+<nav class="footer-nav">
+  <a href="0004-sequential-io.html">← 上一课：顺序结构与输入输出</a>
+  <a href="0006-selection-advanced.html">下一课：选择结构进阶 — switch、条件表达式与位运算 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+.zhixu-account-host{position:fixed;right:16px;bottom:16px;z-index:45;font-size:14px}
+.zhixu-account-host>button{box-shadow:0 4px 20px #0002}
+.zhixu-readonly-notice{max-width:min(420px,calc(100vw - 32px));padding:10px;margin-top:8px;border:2px solid #ae7316;border-radius:10px;background:var(--vp-c-bg,#fff);color:var(--vp-c-text-1,#263341)}.zhixu-readonly-notice[hidden]{display:none}.zhixu-readonly-notice p{margin:0 0 8px}.zhixu-account-dialog details{margin:16px 0;padding:12px;border:1px solid #af4d36;border-radius:10px}.zhixu-account-dialog summary{cursor:pointer;font-weight:600}
+.zhixu-account-dialog{max-width:660px;width:calc(100vw - 32px);max-height:calc(100dvh - 48px);overflow:auto;box-sizing:border-box;padding:20px;border:1px solid var(--vp-c-divider,#ccc);border-radius:16px;background:var(--vp-c-bg,#fff);color:var(--vp-c-text-1,#263341);line-height:1.65}
+.zhixu-account-dialog::backdrop{background:#0006}
+.zhixu-account-dialog header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.zhixu-account-dialog h2{margin:0;font-size:20px}.zhixu-account-dialog h3{font-size:17px}
+.zhixu-account-dialog p{overflow-wrap:anywhere}.zhixu-account-dialog input,.zhixu-account-dialog textarea,.zhixu-account-dialog select{display:block;width:100%;box-sizing:border-box;border:1px solid #8793a3;border-radius:8px;padding:8px;background:transparent;color:inherit;margin:5px 0 12px}
+.zhixu-account-host button,.zhixu-account-dialog button,.zhixu-actions button{border:1px solid #8793a3;border-radius:8px;background:var(--vp-c-bg-soft,#eef3f7);color:inherit;padding:8px 12px;cursor:pointer;min-height:42px;white-space:normal}
+.zhixu-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.zhixu-account-host button:disabled,.zhixu-account-dialog button:disabled,.zhixu-account-inline button:disabled{opacity:.55;cursor:not-allowed}
+.zhixu-account-inline input,.zhixu-account-inline textarea,.zhixu-account-inline select{display:block;max-width:100%;width:100%;box-sizing:border-box;margin:8px 0 12px;padding:8px;border:1px solid #8793a3;border-radius:8px;background:transparent;color:inherit}.zhixu-account-inline button{border:1px solid #8793a3;border-radius:8px;padding:8px 12px;margin:4px;min-height:42px;background:var(--vp-c-bg-soft,#eef3f7);color:inherit}
+.zhixu-ai-answer{white-space:normal;overflow-wrap:anywhere}.zhixu-ai-answer code{white-space:pre-wrap}.zhixu-ai-answer .katex-display{overflow-x:auto;max-width:100%}
+.zhixu-selection-preview{white-space:pre-wrap;overflow-wrap:anywhere;max-height:160px;overflow:auto}.zhixu-ai-panel input[type=checkbox]{display:inline-block;width:auto;margin:6px 8px 6px 0}
+@media(max-width:400px){.zhixu-account-host{right:8px;bottom:8px}.zhixu-account-dialog{padding:12px}}
+[data-theme=dark] .zhixu-account-dialog{background:#182230;color:#ecf0f5}[data-theme=dark] .zhixu-account-host button{background:#243246;color:#ecf0f5}

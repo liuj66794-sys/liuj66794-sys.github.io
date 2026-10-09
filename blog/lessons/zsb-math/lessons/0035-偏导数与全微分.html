@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0035 · 偏导数与全微分 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0035">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 6 单元 · 多元函数微分学 · 课 0035</span>
+  <a href="0034-定积分应用.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0035 · 多元函数微分学</span>
+<h1>偏导数与全微分</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：第 3 单元导数与微分</span>
+  <span>来源：笔记《多元函数微分学》§一 · §二</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>按"固定另一个变量"的口诀求一阶、二阶<strong>偏导数</strong>与<strong>全微分</strong></li>
+    <li>画出"<strong>偏导连续 ⇒ 可微 ⇒ 连续 + 偏导存在</strong>"的逻辑关系图</li>
+    <li>判断二重极限不存在（两条路径法），并说清它与累次极限的区别</li>
+  </ul>
+</div>
+
+<p>进入多元章节。好消息：本章的计算几乎是把第 3 单元的求导"重复使用"——难点不在算，而在<strong>概念关系</strong>（谁推出谁）和<strong>路径</strong>（链式法则的多条路）。</p>
+
+<h2>一、二元函数、二重极限与连续</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义域与二重极限</div>
+  <p style="margin:0.2rem 0">定义域把一元函数的限制<strong>逐项联立</strong>（分母、偶次根、真数、反三角）。如 $z=\ln(1-x^{2}-y^{2})$ 的定义域为 $x^{2}+y^{2}&lt;1$（圆内）。</p>
+  <p style="margin:0.2rem 0">二重极限 $\lim\limits_{(x,y)\to(x_0,y_0)}f=A$ 要求<strong>沿任意路径</strong>都趋于 $A$：<strong>两条路径结果不同 ⇒ 极限不存在</strong>；但两条路径相同<strong>不能证明</strong>存在。</p>
+  <p style="margin:0.2rem 0">连续：极限值 = 函数值；初等函数在有定义的区域内连续。累次极限（先 $y$ 后 $x$）与二重极限是两回事，存在时相等、反向不成立。</p>
+</div>
+
+<h2>二、偏导数：轮流"冻结"变量</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与求法</div>
+  <p style="margin:0.2rem 0">$$f_x(x_0,y_0)=\lim_{\Delta x\to0}\dfrac{f(x_0+\Delta x,\,y_0)-f(x_0,y_0)}{\Delta x}$$</p>
+  <p style="margin:0.2rem 0">对 $x$ 求偏导时<strong>把 $y$ 当常数</strong>，反之亦然——第 3 单元全部求导法则照用。分段函数在分界点求偏导<strong>必须回定义</strong>（固定另一变量后作差商）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（一阶 + 特定点值）</span>$f(x,y)=x^{3}y^{2}+2xy^{4}+\sin(xy)$，求 $f_x,\ f_y$ 与 $f_y(1,2)$ 型计算。</p>
+  <details><summary>先自己冻变量，再展开（练习 4–5 同族）</summary>
+    <p>$f_x=3x^{2}y^{2}+2y^{4}+y\cos(xy)$（对 $x$：$y$ 全程当常数）；$f_y=2x^{3}y+8xy^{3}+x\cos(xy)$。</p>
+    <p>定点型：$f(x,y)=x^{2}e^{x^{2}y}+\ln(x+y^{2})$，$f_y=x^{2}e^{x^{2}y}\cdot x^{2}+\dfrac{2y}{x+y^{2}}$，代 $(1,2)$：$f_y(1,2)=e^{2}+\dfrac45$。</p>
+    <p>偏导数也是（二元）函数——先求通式再代点，与一元"求 $f'$ 再代值"完全同构。</p>
+  </details>
+</div>
+
+<h2>三、全微分与二阶偏导</h2>
+
+<div class="keypoint">
+  <div class="kp-title">公式</div>
+  <p style="margin:0.2rem 0">$$dz=f_{x}\,dx+f_{y}\,dy$$</p>
+  <p style="margin:0.2rem 0">如 $z=x^{y}$（$x&gt;0$）：$dz=yx^{y-1}dx+x^{y}\ln x\,dy$（对 $y$ 求导时 $x^y$ 是"指数函数"，冒出 $\ln x$）。</p>
+  <p style="margin:0.2rem 0">二阶偏导四种：$f_{xx},\ f_{xy},\ f_{yx},\ f_{yy}$；混合偏导连续时 $f_{xy}=f_{yx}$（先对谁后对谁看下标顺序）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（二阶全套）</span>$z=x^{3}+x^{2}y-3y^{3}$，求四个二阶偏导。</p>
+  <details><summary>先自己求两轮，再展开（练习 10 同族）</summary>
+    <p>$z_x=3x^{2}+2xy$，$z_y=x^{2}-9y^{2}$。</p>
+    <p>$z_{xx}=6x+2y$，$z_{yy}=-18y$，$z_{xy}=z_{yx}=2x$。</p>
+    <p>操作节奏：<strong>先求两个一阶，再各再导一次</strong>；$z_{xy}$ 是"先对 $x$、再对 $y$"。</p>
+  </details>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">概念关系图（选择题高发区）</div>
+  <p style="margin:0.2rem 0">$$f_x,f_y\ \text{在邻域内连续}\ \Longrightarrow\ f\ \text{可微}\ \Longrightarrow\ f\ \text{连续且偏导存在}$$</p>
+  <p style="margin:0.2rem 0">箭头<strong>不可逆</strong>；"连续"与"偏导存在"互相推不出；<strong>偏导存在 ⇏ 可微</strong>（与一元"可导 ⇏ 连续？不，一元可导必连续"不同，多元的坑在"偏导存在但连续/可微都保不住"）。</p>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$z=x^{2}y+\sin(xy)$，则 $z_x=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2xy+\cos(xy)$</button>
+    <button data-k="B">$x^{2}+y\cos(xy)$</button>
+    <button data-k="C">$2xy+y\cos(xy)$</button>
+    <button data-k="D">$2xy-y\cos(xy)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">对 $x$ 求导，$y$ 是常数：$x^{2}y\to2xy$；$\sin(xy)\to\cos(xy)\cdot y$（链式，内层 $xy$ 对 $x$ 的导数是 $y$）。A 丢了链式的 $y$；B 把第一项求导错了对象。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">"$f_x$、$f_y$ 在点 $(x_0,y_0)$ 的邻域内连续"是"$f$ 在该点可微"的</p>
+  <div class="quiz-opts">
+    <button data-k="A">必要条件</button>
+    <button data-k="B">充分条件</button>
+    <button data-k="C">充要条件</button>
+    <button data-k="D">毫无关系</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">偏导连续 ⇒ 可微（充分），但可微<strong>不必</strong>偏导连续——"可微但偏导不连续"的反例存在（超出讲义范围，不要求会构造），记住这条单向箭头即可。关系图单向记忆：<strong>偏导连续是最强条件</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">要证明 $\lim\limits_{(x,y)\to(0,0)}f(x,y)$ 不存在，有效的做法是</p>
+  <div class="quiz-opts">
+    <button data-k="A">找两条路径趋近，极限值不同</button>
+    <button data-k="B">沿 $x$ 轴与 $y$ 轴极限相同</button>
+    <button data-k="C">两个累次极限相等</button>
+    <button data-k="D">沿 $y=kx$ 极限都相同</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">二重极限要求<strong>任意路径</strong>一致，两径不同即否决。B、D 是"部分路径相同"——不能证明存在；C 累次极限与二重极限是两回事。<strong>路径法只能证伪，不能证实</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$z=x^{y}$（$x&gt;0$），则 $z_y=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$yx^{y-1}$</button>
+    <button data-k="B">$x^{y}$</button>
+    <button data-k="C">$x^{y}\ln y$</button>
+    <button data-k="D">$x^{y}\ln x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">对 $y$ 求导时 $x^{y}$ 是"指数函数"：$(a^{y})'=a^{y}\ln a$，底是 $x$ ⇒ $x^{y}\ln x$。A 是 $z_x$——这对函数是"幂函数 / 指数函数"的双面人，看清对谁求导。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$z=e^{xy}$，则 $z_{xy}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e^{xy}$</button>
+    <button data-k="B">$(1+xy)e^{xy}$</button>
+    <button data-k="C">$xye^{xy}$</button>
+    <button data-k="D">$y^{2}e^{xy}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$z_x=ye^{xy}$；再对 $y$：$e^{xy}+y\cdot xe^{xy}=(1+xy)e^{xy}$（乘积 + 链式）。两次混合偏导连续时相等，验算可换序：$z_y=xe^{xy}$ 再对 $x$ 同样得 $(1+xy)e^{xy}$ ✓。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>偏导口诀：<strong>对谁求导，另一个变量全是常数</strong>；复合内层（$xy$）要链式</li>
+    <li>$x^{y}$ 型：对 $x$ 是幂（$yx^{y-1}$）、对 $y$ 是指数（$x^{y}\ln x$）——双面人函数</li>
+    <li>关系链单向：偏导连续 ⇒ 可微 ⇒ 连续 + 偏导存在；<strong>偏导存在 ⇏ 可微、⇏ 连续</strong></li>
+    <li>二重极限：路径法<strong>只能否定</strong>；累次极限 ≠ 二重极限</li>
+    <li>分段点偏导<strong>必须用定义</strong>（固定另一变量作差商）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写全微分公式，并画出"偏导连续 / 可微 / 连续 / 偏导存在"的推出关系。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$dz=f_xdx+f_ydy$。偏导连续 ⇒ 可微 ⇒ 连续且偏导存在；单向，且"连续"与"偏导存在"互不推出。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">写出 $z=x^{y}$ 的两个一阶偏导，并说出各自把 $x^{y}$ 当成什么函数。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$z_x=yx^{y-1}$（幂函数视角）；$z_y=x^{y}\ln x$（指数函数视角）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。下一课把偏导升级成"路径图"——链式法则的多路径相加是本章大题主力。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《多元函数微分学》§一 极限连续 · §二 偏导与全微分（含练习 1–14 解答）</li>
+    <li>讲义：《多元函数微分学》PDF（偏导与全微分部分）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："偏导存在但不可微的反例"、"$x^{y}$ 两个方向的求导再各来三题"、"二重极限不存在的经典反例有哪些"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0034-定积分应用.html" class="prev"><span class="dir">← 上一课</span>0034 定积分应用：面积 · 体积 · 弧长</a>
+  <a href="0036-复合与隐函数求导.html" class="next"><span class="dir">下一课 →</span>0036 复合与隐函数求导</a>
+</nav>
+</main>
+</body>
+</html>

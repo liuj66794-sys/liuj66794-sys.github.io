@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0015 · 无穷小的阶 · 三类渐近线 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0015">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0015</span>
+  <a href="0014-洛必达法则.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0015 · 极限与连续</span>
+<h1>无穷小的阶 · 三类渐近线</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：0013 等价无穷小替换</span>
+  <span>来源：笔记《极限与连续》§四（4.1–4.3）· §八</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用 $\lim\dfrac{\alpha}{\beta}$ 的取值<strong>五分类</strong>：高阶 / 低阶 / 同阶 / 等价 / $k$ 阶</li>
+    <li>记住方向相反的两个"只看一项"：<strong>抓大头看最高次，比阶看最低次</strong></li>
+    <li>求水平、垂直、斜三类渐近线，并会由极限式逆求 $a,b$</li>
+  </ul>
+</div>
+
+<h2>一、无穷小与无穷大：一对倒数</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与关系</div>
+  <p style="margin:0.2rem 0"><strong>无穷小</strong>：以 0 为极限的<strong>变量</strong>（$x\to\infty$ 时 $\frac1x$；$x\to-\infty$ 时 $e^x$）。<strong>无穷大</strong>：以 $\infty$ 为极限的变量。两者互为倒数（无穷小不取零值时）。</p>
+  <p style="margin:0.2rem 0">辨析：无穷小 ≠ 很小的常数；$0$ 是唯一的常量无穷小。</p>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">四条性质（第四条是求极限利器）</div>
+  <p style="margin:0.2rem 0">有限个无穷小的<strong>和</strong>、<strong>积</strong>仍是无穷小；常数 × 无穷小仍是无穷小；<strong>有界函数 × 无穷小仍是无穷小</strong>。</p>
+  <p style="margin:0.2rem 0">代表作：$\lim\limits_{x\to\infty}\dfrac{\sin x}{x}=0$（$\sin x$ 有界、$\frac1x$ 无穷小）；$\lim\limits_{x\to1}\cos\dfrac{1}{x-1}\cdot\ln x=0$（$\ln x\to0$，余弦有界）。</p>
+</div>
+
+<h2>二、阶的比较：一张表 + 一个方向警示</h2>
+
+<table>
+  <tr><th>设 $\alpha,\beta$ 是同过程无穷小，$\lim\dfrac{\alpha}{\beta}=$</th><th>结论</th><th>记号</th></tr>
+  <tr><td>$0$</td><td>$\alpha$ 是 $\beta$ 的<strong>高阶</strong>无穷小</td><td>$\alpha=o(\beta)$</td></tr>
+  <tr><td>$\infty$</td><td>$\alpha$ 是 $\beta$ 的<strong>低阶</strong>无穷小</td><td>—</td></tr>
+  <tr><td>$C\neq0$</td><td><strong>同阶</strong>无穷小</td><td>—</td></tr>
+  <tr><td>$1$</td><td><strong>等价</strong>无穷小</td><td>$\alpha\sim\beta$</td></tr>
+  <tr><td>$f$ 与 $x^{k}$ 同阶</td><td>$f$ 是 $k$ <strong>阶</strong>无穷小</td><td>—</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">方向相反的两个"只看一项"</div>
+  <p style="margin:0.2rem 0">两个<strong>多项式比阶</strong>（$x\to0$）：只看<strong>幂次最低</strong>的项——$x\to0$ 时 $x^2-x^3\sim x^2$。而<strong>抓大头</strong>（$x\to\infty$）看<strong>最高次</strong>。两个"只看一项"方向相反，先看趋向再选武器！</p>
+  <p style="margin:0.2rem 0">例（夏讲 P35）：$x\to0$ 时 $x^2-x^3$ 与 $2x-x^2$ 相比，$\lim\dfrac{x^2-x^3}{2x-x^2}=\lim\dfrac{x(1-x)}{2-x}=0$，故 $x^2-x^3$ 是<strong>高阶</strong>。</p>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">当 $x\to0$ 时，比 $x$ 高阶的无穷小是（夏讲选择题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\sqrt[3]{x}$</button>
+    <button data-k="B">$1-\cos x$</button>
+    <button data-k="C">$e^{x}-1$</button>
+    <button data-k="D">$\ln\left(1+\dfrac12x\right)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$1-\cos x\sim\frac12x^2$ 是二阶，比 $x$ 高阶 ✓。A 是 $\frac13$ 阶（低阶）；C、D 都 $\sim x$（同阶）。各选项往等价表里一放，秒出。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">当 $x\to0$ 时，下列无穷小中阶数最高的是（秋讲练习 22）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1-\cos 2x$</button>
+    <button data-k="B">$x-\sin 2x$</button>
+    <button data-k="C">$2x+x^{3}$</button>
+    <button data-k="D">$\sqrt{1+x}-\sqrt{1-x}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">A：$1-\cos2x\sim\frac12(2x)^2=2x^2$（二阶）；B：$x-2\sin x\sim-x$（一阶）；C 一阶；D：乘共轭 $\sim\dfrac{2x}{2}=x$（一阶）。最高阶 = A。方法：每项报阶数，取最大。</div>
+</div>
+
+<h2>三、三类渐近线：曲线的"边界"</h2>
+
+<table>
+  <tr><th>类型</th><th>定义</th><th>求法</th></tr>
+  <tr><td>水平 $y=A$</td><td>$\lim\limits_{x\to\pm\infty}f(x)=A$</td><td>$x\to+\infty$ 与 $-\infty$ <strong>分别看</strong>，最多两条</td></tr>
+  <tr><td>垂直 $x=x_0$</td><td>$\lim\limits_{x\to x_0^{\pm}}f(x)=\infty$</td><td>在<strong>无定义点</strong>逐个查单侧极限；约分约掉的点只是可去间断点，<strong>不是</strong>渐近线</td></tr>
+  <tr><td>斜 $y=kx+b$</td><td>$k=\lim\limits_{x\to\pm\infty}\dfrac{f(x)}{x}\neq0$，$b=\lim[f(x)-kx]$</td><td>$\pm\infty$ 各可有一条；$x\to-\infty$ 时 $\dfrac{\sqrt{x^2}}{x}=-1$</td></tr>
+</table>
+
+<div class="plot-row">
+  <div class="plot" data-fn="(x*x*x)/(x*x+2*x-3)" data-xmin="-5" data-xmax="5" data-ymin="-10" data-ymax="10" data-w="300" data-h="200" data-vlines="1,-3" data-clipy="1.2" data-label="$y=\dfrac{x^3}{x^2+2x-3}$：垂直渐近线 $x=1,\ x=-3$"></div>
+  <div class="plot" data-fn="Math.sqrt(x*x+x+1)" data-fn2="Math.abs(x)-0.5" data-xmin="-4" data-xmax="4" data-ymin="-2" data-ymax="6" data-w="300" data-h="200" data-label="$y=\sqrt{x^2+x+1}$ 与其两条斜渐近线"></div>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（斜渐近线全流程）</span>求 $y=\sqrt{x^{2}+x+1}$ 的斜渐近线。</p>
+  <details><summary>先自己算 $k,b$，再展开（夏讲教材 P37）</summary>
+    <p><strong>$x\to+\infty$</strong>：$k=\lim\dfrac{f(x)}{x}=1$；$b=\lim\left(\sqrt{x^2+x+1}-x\right)=\lim\dfrac{x+1}{\sqrt{x^2+x+1}+x}=\dfrac12$ ⇒ $y=x+\dfrac12$。</p>
+    <p><strong>$x\to-\infty$</strong>：$k=\lim\dfrac{\sqrt{x^2+x+1}}{x}=-1$（$\sqrt{x^2}=-x$！）；$b=\lim\left(\sqrt{x^2+x+1}+x\right)=\lim\dfrac{x+1}{\sqrt{x^2+x+1}-x}=-\dfrac12$（分母 $\sim-2x$，负号别丢）⇒ $y=-x-\dfrac12$。</p>
+    <p>两条都要算——右渐近线不能想当然推广到左边。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（逆求 $a,b$）</span>已知 $\lim\limits_{x\to\infty}\left(\dfrac{x^{2}+3}{x-1}-ax-b\right)=0$，求 $a,b$。</p>
+  <details><summary>先自己带除，再展开（夏讲教材 P38）</summary>
+    <p>带除法：$\dfrac{x^2+3}{x-1}=x+1+\dfrac{4}{x-1}$，代回：$(1-a)x+(1-b)+\dfrac{4}{x-1}\to0$。</p>
+    <p>逐层归零：$1-a=0$，$1-b=0$ ⇒ $a=1,\ b=1$。本质：<strong>$\frac{x^2+3}{x-1}$ 的斜渐近线就是 $y=x+1$，$a,b$ 就是渐近线的斜率与截距</strong>。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">曲线 $y=\dfrac{3x+1}{2x-1}$ 的水平渐近线是（秋讲练习 25(1)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=1$</button>
+    <button data-k="B">$y=\dfrac{2}{3}$</button>
+    <button data-k="C">$y=\dfrac{3}{2}$</button>
+    <button data-k="D">$x=\dfrac{1}{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\lim\limits_{x\to\infty}$ 抓大头：同次比系数 $\dfrac32$，即 $y=\dfrac32$。（D 是垂直渐近线——题目问的水平，看清问什么。）</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">曲线 $y=\dfrac{x^{2}-4x+3}{x^{2}+x-2}$ 的渐近线情况是（秋讲练习 26(3)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">垂直渐近线 $x=-2$；$x=1$ 处极限存在，不是渐近线</button>
+    <button data-k="B">垂直渐近线 $x=-2$ 与 $x=1$</button>
+    <button data-k="C">没有渐近线</button>
+    <button data-k="D">仅有水平渐近线</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">因式分解 $\dfrac{(x-1)(x-3)}{(x+2)(x-1)}$：$x=-2$ 处分母 $\to0$ ⇒ 垂直渐近线；$x=1$ 被约分<strong>约掉了</strong>，极限 $=\dfrac{1-3}{1+2}=-\dfrac23$ 存在——只是可去间断点，不是渐近线（B 恰栽在这）。另有水平渐近线 $y=1$，A 对垂直渐近线与 $x=1$ 的判断完全准确。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$y=\dfrac{2^{x}}{1+2^{x}}$ 的水平渐近线共有（秋讲练习 25(4)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">0 条</button>
+    <button data-k="B">1 条</button>
+    <button data-k="C">3 条</button>
+    <button data-k="D">2 条</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x\to+\infty$：分子吃掉分母，$\to1$；$x\to-\infty$：$2^x\to0$，$\to0$。两条水平渐近线 $y=1$、$y=0$——"分别看两侧"的典型回报。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>比阶看最低次、抓大头看最高次——先圈趋向再动笔</li>
+    <li>有界 × 无穷小 = 0：$\dfrac{\sin x}{x}$（$x\to\infty$）、$\dfrac{\arctan x}{x}$（$x\to\infty$）都是 0</li>
+    <li>垂直渐近线只认"单侧极限为 $\infty$"的点；约分约掉的点是可去间断点</li>
+    <li>水平渐近线两侧各看，最多 2 条（$\arctan$、$\frac{2^x}{1+2^x}$ 型）</li>
+    <li>$x\to-\infty$ 求 $k$：$\dfrac{\sqrt{x^2+\cdots}}{x}=-1$</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写阶比较五分类（$\lim\frac{\alpha}{\beta}$ 的五种取值对应什么），并说出"两个只看一项"的方向。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$0$ 高阶 $o(\beta)$；$\infty$ 低阶；$C\neq0$ 同阶；$1$ 等价 $\sim$；与 $x^k$ 同阶即 $k$ 阶。抓大头看最高次，比阶（$x\to0$）看最低次。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">三类渐近线的定义式各是什么？各最多几条？垂直渐近线去哪里找？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">水平 $\lim_{x\to\pm\infty}f=A$（≤2 条）；垂直 $\lim_{x\to x_0^\pm}f=\infty$（找无定义点）；斜 $k=\lim\frac f x\neq0$、$b=\lim(f-kx)$（$\pm\infty$ 各一条）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。渐近线是 0025 课"函数作图"的标配步骤（那里还要算单调、凹凸），现在打的底子到时直接复用。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§四 无穷小与无穷大 · §八 渐近线（含秋讲练习 25–29 速查表）</li>
+    <li>讲义：《函数极限》夏讲 PDF 教材 P34–38、秋讲 PDF</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："为什么有界乘无穷小等于零"、"$k=\lim\frac{f(x)}{x}$ 这个公式怎么来的"、"再出 10 道'找全部渐近线'的题"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0014-洛必达法则.html" class="prev"><span class="dir">← 上一课</span>0014 洛必达法则</a>
+  <a href="0016-数列极限专练.html" class="next"><span class="dir">下一课 →</span>0016 数列极限专练</a>
+</nav>
+</main>
+</body>
+</html>

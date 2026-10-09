@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 4 课 · 涨跌停与集合竞价 | A 股入门</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/a-shares/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<div class="lesson-meta">
+  <span>模块 1 · 概念扫盲 | 第 1 周 · 第 4 课</span>
+  <span>三段式：20 分钟读 + 15 分钟动手 + 5 分钟费曼</span>
+</div>
+
+<h1>涨跌停与集合竞价：波动的边界、开盘的形成</h1>
+
+<div class="win">学完你能：算出任意股票的今日涨/跌停价，并讲清 9:15–9:25 那十分钟里发生了什么、为什么涨停时你排不上队。</div>
+
+<div class="mission-tie">与考核的关系：实盘第一天你打开行情软件，最先撞见的就是"为什么这个股票不涨了"和"开盘前那些跳动的数字是什么"。盘面语言看不懂，情绪就会被盘面牵着走——考核要的是"沉得下心"。</div>
+
+<h2>课前回炉（凭记忆作答，不许翻旧讲义）</h2>
+<p class="src">答错正好——说明该回炉，点错后按解析回对应课补一眼。</p>
+
+<div class="quiz review" data-answer="0" data-explain="12 × 100 = 1200 元一手，3000 ÷ 1200 = 2.5，向下取整只能买 2 手（买入必须是一手的整数倍）。（回炉第 3 课）">
+  <p class="q">回炉 1. 股价 12 元的主板股，你的 3000 元最多能买？</p>
+  <ul class="opts">
+    <li>两手两百股</li>
+    <li>三手三百股</li>
+    <li>四手四百股</li>
+  </ul>
+</div>
+
+<div class="quiz review" data-answer="0" data-explain="T+1：当天买入的股票，次日才能卖出。当天能卖的是以前买的持仓。（回炉第 3 课）">
+  <p class="q">回炉 2. 今天上午买入的股票，最早什么时候能卖？</p>
+  <ul class="opts">
+    <li>明天开盘之后</li>
+    <li>今天下午三点</li>
+    <li>下周一开盘后</li>
+  </ul>
+</div>
+
+<h2>一、涨跌停：单日波动的天花板和地板</h2>
+<p>A 股给每只股票设了<b>单日最大波动幅度</b>，以上一交易日收盘价为基准：</p>
+<table>
+  <tr><th>板块/状态</th><th>幅度</th><th>例子（昨收 20 元）</th></tr>
+  <tr><td>主板普通股</td><td>±10%</td><td>涨停 22 元 / 跌停 18 元</td></tr>
+  <tr><td>ST / *ST（风险警示股）</td><td>±5%</td><td>涨停 21 元 / 跌停 19 元</td></tr>
+  <tr><td>创业板 / 科创板</td><td>±20%</td><td>涨停 24 元 / 跌停 16 元</td></tr>
+  <tr><td>北交所</td><td>±30%</td><td>涨停 26 元 / 跌停 14 元</td></tr>
+</table>
+<p class="src">注：新股上市初期、复牌首日等有例外情形，以交易所最新规则为准。ST 是"其他风险警示"、*ST 是"退市风险警示"——看到这两个前缀，新手绕道。</p>
+<p>为什么要设限？和 T+1 同一个哲学：<b>给情绪化波动装上刹车</b>。一天最多亏 10%（主板），意味着最坏情况下你有时间反应——这也是课程把你限定在主板的一层隐含保护。</p>
+
+<h2>二、涨停为什么买不进：排队规则</h2>
+<p>撮合成交遵循<b>价格优先、时间优先</b>：出价高的买单先成交，同价的先挂单的先成交。涨停时，想买的人远多于想卖的人，价格已经顶到天花板无法再优先——于是所有人的买单都挤在同一个涨停价上<b>按挂单时间排队</b>。你 10 点才想起来追，前面排着几万手，轮不到你。跌停时反过来：卖单排队，想跑跑不掉。</p>
+<p>记住这个体感：<b>涨停买不进、跌停卖不出，不是系统坏了，是队伍太长了。</b></p>
+
+<h2>三、集合竞价：开盘价是怎么产生的</h2>
+<table>
+  <tr><th>时间</th><th>阶段</th><th>发生了什么</th></tr>
+  <tr><td class="num">9:15–9:20</td><td>开盘集合竞价（可撤单）</td><td>大家挂单试价，看到的价格可能很离谱——因为单还能撤，存在"假报价"</td></tr>
+  <tr><td class="num">9:20–9:25</td><td>开盘集合竞价（<b>不可撤单</b>）</td><td>报价变真实；9:25 撮合成一个让成交量最大的价格 = <b>开盘价</b></td></tr>
+  <tr><td class="num">9:30–11:30</td><td>连续竞价（上午盘）</td><td>逐笔实时撮合，你看到的大部分波动发生在这里</td></tr>
+  <tr><td class="num">13:00–14:57</td><td>连续竞价（下午盘）</td><td>同上</td></tr>
+  <tr><td class="num">14:57–15:00</td><td>收盘集合竞价</td><td>最后 3 分钟撮合出收盘价——它决定明天的涨跌停基准</td></tr>
+</table>
+
+<div class="example">
+  <span class="tag">场景演算</span>
+  <p>你（模拟盘阶段）持有某主板股，昨收 <span class="num">10.00</span> 元。今天最多涨到 <span class="num">11.00</span>、最多跌到 <span class="num">9.00</span>。如果 9:25 开盘价直接开在 <span class="num">11.00</span>（一字涨停），意味着集合竞价阶段买单就挤满了——你当天大概率买不进它。看懂这一点，就不会在 9:30 慌着追。</p>
+</div>
+
+<div class="task">
+  <h3>动手 15 分钟：观察一次真实的集合竞价</h3>
+  <ol>
+    <li>任选一个交易日早上 <b>9:15</b>，打开任一行情软件（东财/同花顺均可，只看不动手），盯一只主板股票</li>
+    <li>记录三个时刻的价格：9:18（可撤单阶段）、9:23（不可撤单阶段）、9:25（开盘价）</li>
+    <li>对比：9:18 和 9:25 的价格差多少？想明白为什么会有差（提示：撤单规则）</li>
+    <li>用昨天收盘价验算今天的涨停价和跌停价，看软件显示的限价数字是否一致</li>
+  </ol>
+</div>
+
+<h2>随堂测（回忆作答，不许翻上文）</h2>
+
+<div class="quiz" data-answer="0" data-explain="主板 ±10%：20 × 1.1 = 22 元。">
+  <p class="q">1. 主板某股昨收 20 元，今天的涨停价是？</p>
+  <ul class="opts">
+    <li>22 元整</li>
+    <li>21 元整</li>
+    <li>24 元整</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="9:20–9:25 不可撤单。9:15–9:20 才允许撤——所以早盘报价会『由虚转实』。">
+  <p class="q">2. 9:22 你挂出一个买单后想撤，能不能撤？</p>
+  <ul class="opts">
+    <li>可以随时撤单</li>
+    <li>已经不能撤了</li>
+    <li>要看券商规定</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="0" data-explain="涨停时价格优先失效（都顶在天花板），按时间优先排队——你排在大单后面。">
+  <p class="q">3. 涨停时你的买单通常成交不了，原因是？</p>
+  <ul class="opts">
+    <li>前面排着大量买单</li>
+    <li>涨停后禁止交易了</li>
+    <li>系统故意卡你单子</li>
+  </ul>
+</div>
+
+<div class="feynman" data-topic="出声讲：主板/创业板/北交所的涨跌停幅度；价格优先时间优先；9:15-9:25 的三个细节（哪段可撤、开盘价怎么来）">
+  <h3>费曼自测（5 分钟）</h3>
+</div>
+
+<h2>推荐一手来源</h2>
+<ul class="src">
+  <li><a href="https://edu.sse.com.cn/">上交所投资者教育 · 证券学院 · 证券基础知识专题</a>（竞价与涨跌幅规则的官方口径）</li>
+  <li><a href="https://investor.szse.cn/">深交所投资者教育 · 热线问答</a>（规则细节的官方答疑）</li>
+</ul>
+
+<div class="teacher-note">有讲不顺的地方直接问我。追问不扣学分。</div>
+
+<div class="nav">
+  <span><a href="./0003-one-lot-and-t-plus-1.html">← 第 3 课 · 一手与 T+1</a></span>
+  <span><a href="../reference/a-share-terms.html">术语参考表</a></span>
+  <span><a href="./0005-trading-fees.html">第 5 课 · 交易费用 →</a></span>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

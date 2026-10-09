@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0001 · 三角函数必背包 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0001">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 0 单元 · 基础预备 · 课 0001</span>
+  <a href="../reference/001-三角与反三角速查.html">速查表</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0001 · 基础预备</span>
+<h1>三角函数必背包</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：无</span>
+  <span>来源：笔记《基础预备》§七、《函数》§6.5</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>30 秒内报出任意特殊角的 $\sin$、$\cos$、$\tan$ 值（不用查表）</li>
+    <li>用一句口诀化简任意诱导公式，如 $\cos\left(\dfrac{3\pi}{2}-\alpha\right)$</li>
+    <li>把 $\sin^2 x$、$\cos^2 x$ 降为一次幂——这是后面不定积分的饭碗</li>
+    <li>秒算 $\arcsin\dfrac{\sqrt2}{2}$、$\arccos\left(-\dfrac12\right)$ 这类反三角值</li>
+  </ul>
+</div>
+
+<p>为什么第一课是它？因为<strong>极限、积分、微分方程全都默认你已经会这些</strong>。这张表没背熟，后面每一课都要回头补，得不偿失。放心，这课全是"背了就能对"的题。</p>
+
+<h2>一、特殊角三角函数值</h2>
+
+<table>
+  <tr><th>$\alpha$</th><th>$0$</th><th>$\dfrac{\pi}{6}$</th><th>$\dfrac{\pi}{4}$</th><th>$\dfrac{\pi}{3}$</th><th>$\dfrac{\pi}{2}$</th></tr>
+  <tr><td>$\sin\alpha$</td><td>$0$</td><td>$\dfrac12$</td><td>$\dfrac{\sqrt2}{2}$</td><td>$\dfrac{\sqrt3}{2}$</td><td>$1$</td></tr>
+  <tr><td>$\cos\alpha$</td><td>$1$</td><td>$\dfrac{\sqrt3}{2}$</td><td>$\dfrac{\sqrt2}{2}$</td><td>$\dfrac12$</td><td>$0$</td></tr>
+  <tr><td>$\tan\alpha$</td><td>$0$</td><td>$\dfrac{\sqrt3}{3}$</td><td>$1$</td><td>$\sqrt3$</td><td>不存在</td></tr>
+</table>
+
+<div class="keypoint">
+  <div class="kp-title">必背口诀</div>
+  <p style="margin:0.2rem 0"><strong>分母一律是 2，分子 $\sqrt{n}$ 从 0 数到 4</strong>：$\sin$ 依次是 $\dfrac{\sqrt0}{2},\dfrac{\sqrt1}{2},\dfrac{\sqrt2}{2},\dfrac{\sqrt3}{2},\dfrac{\sqrt4}{2}$；$\cos$ 倒过来写；$\tan$ 是两者相除。</p>
+</div>
+
+<p>钝角（第二象限）的值用第一象限推：<strong>符号看象限</strong>。例如 $\sin\dfrac{5\pi}{6}=\sin\left(\pi-\dfrac{\pi}{6}\right)=\sin\dfrac{\pi}{6}=\dfrac12$（第二象限 $\sin$ 为正），而 $\tan\dfrac{2\pi}{3}=-\sqrt3$（第二象限 $\tan$ 为负）。</p>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\sin\dfrac{5\pi}{6}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac12$</button>
+    <button data-k="B">$-\dfrac12$</button>
+    <button data-k="C">$\dfrac{\sqrt3}{2}$</button>
+    <button data-k="D">$-\dfrac{\sqrt3}{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$5\pi/6 = \pi - \pi/6$，化为第一象限的 $\pi/6$；正弦在第二象限仍为正，故 $\sin\dfrac{5\pi}{6}=\sin\dfrac{\pi}{6}=\dfrac12$。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\tan\dfrac{2\pi}{3}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\sqrt3$</button>
+    <button data-k="B">$\dfrac{\sqrt3}{3}$</button>
+    <button data-k="C">$-\sqrt3$</button>
+    <button data-k="D">$-\dfrac{\sqrt3}{3}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$2\pi/3 = \pi - \pi/3$，诱导公式给 $\tan\left(\pi-\alpha\right)=-\tan\alpha$，所以 $=-\tan\dfrac{\pi}{3}=-\sqrt3$。第二象限正切为负——符号看象限。</div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">不看上面，报出 $\dfrac{\pi}{6}$、$\dfrac{\pi}{4}$、$\dfrac{\pi}{3}$ 三个角的全部 $\sin$、$\cos$、$\tan$ 值。</p>
+  <div class="recall-a">
+    $$\sin：\dfrac12,\ \dfrac{\sqrt2}{2},\ \dfrac{\sqrt3}{2}\qquad \cos：\dfrac{\sqrt3}{2},\ \dfrac{\sqrt2}{2},\ \dfrac12\qquad \tan：\dfrac{\sqrt3}{3},\ 1,\ \sqrt3$$
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<h2>二、同角关系：一条平方链</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背三条</div>
+  <p style="margin:0.2rem 0">$$\sin^2\alpha+\cos^2\alpha=1\qquad \tan\alpha=\dfrac{\sin\alpha}{\cos\alpha}\qquad \sec^2\alpha-1=\tan^2\alpha$$</p>
+  <p style="margin:0.2rem 0">第三条就是常写的 $\tan^2\alpha+1=\sec^2\alpha$；配套的还有 $\csc^2\alpha-1=\cot^2\alpha$，其中 $\sec\alpha=\dfrac1{\cos\alpha}$，$\csc\alpha=\dfrac1{\sin\alpha}$。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>已知 $\sin\alpha=\dfrac35$，且 $\alpha\in\left(\dfrac{\pi}{2},\pi\right)$，求 $\cos\alpha$ 与 $\tan\alpha$。</p>
+  <details><summary>先自己做，再展开解答（解答为整理时补写）</summary>
+    <p>平方关系：$\cos^2\alpha=1-\sin^2\alpha=1-\dfrac{9}{25}=\dfrac{16}{25}$，所以 $\cos\alpha=\pm\dfrac45$。</p>
+    <p><strong>定符号</strong>：$\alpha$ 在第二象限，$\cos$ 为负，故 $\cos\alpha=-\dfrac45$，$\tan\alpha=\dfrac{\sin\alpha}{\cos\alpha}=\dfrac{3/5}{-4/5}=-\dfrac34$。</p>
+    <p>踩坑提醒：只有给定了象限（或等价的范围）才能去掉"$\pm$"。</p>
+  </details>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">$\sin^2\alpha+\cos^2\alpha=?$　$\tan\alpha=$？　$1+\tan^2\alpha=$？</p>
+  <div class="recall-a">$$1\qquad\dfrac{\sin\alpha}{\cos\alpha}\qquad \sec^2\alpha$$</div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<h2>三、诱导公式：一句口诀管全部</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背口诀：奇变偶不变，符号看象限</div>
+  <ul style="margin:0.3rem 0 0.2rem">
+    <li>把角写成 $k\cdot\dfrac{\pi}{2}\pm\alpha$ 的形式（$\alpha$ 是锐角）。</li>
+    <li><strong>$k$ 是奇数</strong>（$\dfrac{\pi}{2}$、$\dfrac{3\pi}{2}$）→ 函数名改变（$\sin\leftrightarrow\cos$，$\tan\leftrightarrow\cot$）；<strong>$k$ 是偶数</strong>（$\pi$、$2\pi$）→ 函数名不变。</li>
+    <li>符号：把 $\alpha$ 当锐角看，原函数在"那个角所在象限"的正负，写在新函数前面。</li>
+  </ul>
+</div>
+
+<table>
+  <tr><th>化简式</th><th>结果</th><th>化简式</th><th>结果</th></tr>
+  <tr><td>$\sin(\pi+\alpha)$</td><td>$-\sin\alpha$</td><td>$\cos(\dfrac{\pi}{2}+\alpha)$</td><td>$-\sin\alpha$</td></tr>
+  <tr><td>$\sin(\dfrac{3\pi}{2}+\alpha)$</td><td>$-\cos\alpha$</td><td>$\cos(\dfrac{3\pi}{2}-\alpha)$</td><td>$-\sin\alpha$</td></tr>
+  <tr><td>$\tan(\dfrac{\pi}{2}-\alpha)$</td><td>$\cot\alpha$</td><td>$\cot(\pi-\alpha)$</td><td>$-\cot\alpha$</td></tr>
+  <tr><td>$\sin(\dfrac{\pi}{2}+\alpha)$</td><td>$\cos\alpha$</td><td>$\cos(\dfrac{\pi}{2}-\alpha)$</td><td>$\sin\alpha$</td></tr>
+  <tr><td>$\cot(2\pi-\alpha)$</td><td>$-\cot\alpha$</td><td>$\tan(\dfrac{3\pi}{2}-\alpha)$</td><td>$\cot\alpha$</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">易错</div>
+  <p style="margin:0.2rem 0">口诀里的"奇偶"指 <strong>$\dfrac{\pi}{2}$ 的倍数</strong>的奇偶，不是 $2\pi$ 的倍数（你的某份讲义原文印错为 $2\pi$，以 $\dfrac{\pi}{2}$ 为准，考试按 $\dfrac{\pi}{2}$ 处理）。</p>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\cos\left(\dfrac{\pi}{2}+\alpha\right)=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\sin\alpha$</button>
+    <button data-k="B">$-\sin\alpha$</button>
+    <button data-k="C">$\cos\alpha$</button>
+    <button data-k="D">$-\cos\alpha$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$k=1$ 是奇数 → "变"：$\cos$ 变 $\sin$。把 $\alpha$ 当锐角，$\dfrac{\pi}{2}+\alpha$ 在第二象限，原函数 $\cos$ 在第二象限为负 → 符号取 $-$。所以是 $-\sin\alpha$。</div>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>化简：$\dfrac{\sin(\pi+\alpha)\cos\left(\dfrac{\pi}{2}+\alpha\right)}{\cos(\pi-\alpha)\sin\left(\dfrac{3\pi}{2}-\alpha\right)}$</p>
+  <details><summary>先自己做，再展开解答（解答为整理时补写）</summary>
+    <p>逐个用口诀：$\sin(\pi+\alpha)=-\sin\alpha$，$\cos\left(\dfrac{\pi}{2}+\alpha\right)=-\sin\alpha$，$\cos(\pi-\alpha)=-\cos\alpha$，$\sin\left(\dfrac{3\pi}{2}-\alpha\right)=-\cos\alpha$。</p>
+    <p>分子 $=(-\sin\alpha)(-\sin\alpha)=\sin^2\alpha$，分母 $=(-\cos\alpha)(-\cos\alpha)=\cos^2\alpha$。</p>
+    <p>原式 $=\tan^2\alpha$。</p>
+  </details>
+</div>
+
+<h2>四、二倍角与降幂（积分预备）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背四条</div>
+  <p style="margin:0.2rem 0">$$\sin 2\alpha=2\sin\alpha\cos\alpha$$</p>
+  <p style="margin:0.2rem 0">$$\cos 2\alpha=\cos^2\alpha-\sin^2\alpha=2\cos^2\alpha-1=1-2\sin^2\alpha$$</p>
+  <p style="margin:0.2rem 0">$$\cos^2\alpha=\dfrac{1+\cos 2\alpha}{2}\qquad \sin^2\alpha=\dfrac{1-\cos 2\alpha}{2}\quad(\text{降幂公式})$$</p>
+</div>
+
+<p>后两行叫<strong>降幂公式</strong>：把二次降为一次。不定积分里 $\displaystyle\int\sin^2 x\,dx$ 这类题，第一步永远是它。现在就把方向记死：<strong>见到平方，想 $\cos 2\alpha$</strong>。</p>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\cos^2 x$ 降幂后的正确形式是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1-\cos 2x}{2}$</button>
+    <button data-k="B">$\dfrac{1+\cos 2x}{2}$</button>
+    <button data-k="C">$\dfrac{1+\cos x}{2}$</button>
+    <button data-k="D">$\dfrac{1-\cos x}{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">由 $\cos 2x=2\cos^2x-1$ 移项解出 $\cos^2 x=\dfrac{1+\cos 2x}{2}$。口诀：余弦平方"加"，正弦平方"减"。</div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写 $\cos 2\alpha$ 的全部三种形式，以及 $\sin^2\alpha$ 的降幂形式。</p>
+  <div class="recall-a">$$\cos^2\alpha-\sin^2\alpha\qquad 2\cos^2\alpha-1\qquad 1-2\sin^2\alpha\qquad \sin^2\alpha=\dfrac{1-\cos 2\alpha}{2}$$</div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<h2>五、反三角速算</h2>
+
+<p>反三角就是"问角度"：$\arcsin\dfrac12$ 问的是"哪个角的正弦等于 $\dfrac12$？"——答案必须落在规定的<strong>值域</strong>里，否则会有无穷多解。</p>
+
+<table>
+  <tr><th>函数</th><th>定义域</th><th>值域（背这个！）</th><th>奇偶性</th></tr>
+  <tr><td>$\arcsin x$</td><td>$[-1,1]$</td><td>$\left[-\dfrac{\pi}{2},\dfrac{\pi}{2}\right]$</td><td>奇</td></tr>
+  <tr><td>$\arccos x$</td><td>$[-1,1]$</td><td>$[0,\pi]$</td><td>非奇非偶</td></tr>
+  <tr><td>$\arctan x$</td><td>$\mathbb{R}$</td><td>$\left(-\dfrac{\pi}{2},\dfrac{\pi}{2}\right)$</td><td>奇</td></tr>
+</table>
+
+<div class="keypoint">
+  <div class="kp-title">负值恒等式（三条必背）</div>
+  <p style="margin:0.2rem 0">$$\arcsin(-a)=-\arcsin a\qquad \arctan(-a)=-\arctan a\qquad \boxed{\arccos(-a)=\pi-\arccos a}$$</p>
+  <p style="margin:0.2rem 0">前两个是奇函数，天然带负号；$\arccos$ <strong>不是</strong>奇函数，负号要变成 $\pi-$。这是函数章明确点名的易错点。</p>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\arccos\left(-\dfrac12\right)=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$-\dfrac{\pi}{3}$</button>
+    <button data-k="B">$\dfrac{\pi}{3}$</button>
+    <button data-k="C">$\dfrac{2\pi}{3}$</button>
+    <button data-k="D">$\dfrac{4\pi}{3}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$-\dfrac12$ 是负数，必须用 $\arccos(-a)=\pi-\arccos a$：$\arccos\dfrac12=\dfrac{\pi}{3}$，所以答案是 $\pi-\dfrac{\pi}{3}=\dfrac{2\pi}{3}$。选 $-\dfrac{\pi}{3}$ 就是掉进了"负号直接提出来"的坑。</div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">速算九连（先全部回忆完再揭晓）：$\arcsin\dfrac12$、$\arcsin\dfrac{\sqrt2}{2}$、$\arcsin\left(-\dfrac{\sqrt3}{2}\right)$、$\arccos 0$、$\arccos\left(-\dfrac12\right)$、$\arccos\left(-\dfrac{\sqrt2}{2}\right)$、$\arctan 1$、$\arctan\sqrt3$、$\arctan(-1)$</p>
+  <div class="recall-a">
+    $$\dfrac{\pi}{6},\quad \dfrac{\pi}{4},\quad -\dfrac{\pi}{3},\quad \dfrac{\pi}{2},\quad \dfrac{2\pi}{3},\quad \dfrac{3\pi}{4},\quad \dfrac{\pi}{4},\quad \dfrac{\pi}{3},\quad -\dfrac{\pi}{4}$$
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（综合）</span>化简：$\sqrt{1-2\sin^2\dfrac{\pi}{12}}$</p>
+  <details><summary>先自己做，再展开解答（解答为整理时补写）</summary>
+    <p>$1-2\sin^2\theta=\cos 2\theta$（二倍角第三形式反过来用），所以原式 $=\sqrt{\cos\dfrac{\pi}{6}}=\sqrt{\dfrac{\sqrt3}{2}}$。</p>
+    <p>套路总结：<strong>看到"$1\pm 2\sin^2$ / $2\cos^2-1$"，立刻拼成 $\cos 2\theta$</strong>。</p>
+  </details>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：今天把这 4 张回忆卡测完；<strong>明天</strong>打开<a href="../reference/001-三角与反三角速查.html">速查表 001</a> 把盖住再背一遍；<strong>一周后</strong>回来直接重测回忆卡。三遍之后这张表跟你一辈子。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>讲义：《三角函数》原始 PDF（重点看特殊角值表、诱导公式、图像性质三处）</li>
+    <li>讲义：《三角函数与反三角函数》原始 PDF（反三角部分；注意该讲义 P11 口诀"$2\pi$ 的倍数"为印刷笔误，以 $\dfrac{\pi}{2}$ 为准）</li>
+    <li>速查：<a href="../reference/001-三角与反三角速查.html">速查表 001 · 三角与反三角</a>（打印一张贴桌上）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>在 ZCode 对话里可以直接问："诱导公式口诀再举三个例子"、"为什么 $\arccos$ 不是奇函数"、"给我出 10 道特殊角速算题"。老师还能为你加一节专门的补弱课。
+</div>
+
+<nav class="footnav">
+  <a href="../index.html" class="prev"><span class="dir">← 上一课</span>课程主页</a>
+  <a href="0002-代数工具箱.html" class="next"><span class="dir">下一课 →</span>0002 代数工具箱</a>
+</nav>
+</main>
+</body>
+</html>

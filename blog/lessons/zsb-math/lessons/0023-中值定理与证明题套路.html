@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0023 · 中值定理三剑客与证明题套路 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0023">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 3 单元 · 导数与微分 · 课 0023</span>
+  <a href="0022-高阶导数.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0023 · 导数与微分</span>
+<h1>中值定理三剑客与证明题套路</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0018 零点定理证明 · 0020 六类求导法</span>
+  <span>来源：笔记《导数与微分》§六</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写罗尔 / 拉格朗日 / 柯西<strong>三定理的条件与结论</strong>，说出退化关系</li>
+    <li>对"证 $f'(\xi)=\varphi(\xi)$"型<strong>构造辅助函数</strong>（罗尔），三步写满分</li>
+    <li>用拉格朗日<strong>放缩证不等式</strong>（$\ln$ 型是常客），并会算具体的 $\xi$</li>
+  </ul>
+</div>
+
+<p>中值定理是导数章的<strong>证明题担当</strong>。三定理是同一个几何事实的三档精度：曲线上总有一点的切线，平行于两端点的连线（弦）。</p>
+
+<h2>一、三剑客：条件与结论</h2>
+
+<table>
+  <tr><th>定理</th><th>条件</th><th>结论</th></tr>
+  <tr><td><strong>罗尔</strong></td><td>$[a,b]$ 连续；$(a,b)$ 可导；$f(a)=f(b)$</td><td>存在 $\xi\in(a,b)$：$f'(\xi)=0$</td></tr>
+  <tr><td><strong>拉格朗日</strong></td><td>$[a,b]$ 连续；$(a,b)$ 可导</td><td>存在 $\xi\in(a,b)$：$f'(\xi)=\dfrac{f(b)-f(a)}{b-a}$</td></tr>
+  <tr><td><strong>柯西</strong></td><td>$f,g$ 在 $[a,b]$ 连续、$(a,b)$ 可导，$g'(x)\neq0$</td><td>存在 $\xi\in(a,b)$：$\dfrac{f'(\xi)}{g'(\xi)}=\dfrac{f(b)-f(a)}{g(b)-g(a)}$</td></tr>
+</table>
+
+<p>退化链：柯西取 $g(x)=x$ → 拉格朗日；拉格朗日加 $f(a)=f(b)$ → 罗尔。底层是<strong>费马引理</strong>：极值点若可导，则该点导数为零。</p>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">下列函数在 $[-1,1]$ 上<strong>满足罗尔定理</strong>的是（夏应用选择题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=\dfrac{1}{x^{2}-1}$</button>
+    <button data-k="B">$y=|x|$</button>
+    <button data-k="C">$y=\sqrt[3]{x^{2}-1}$</button>
+    <button data-k="D">$y=x^{2}-x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">罗尔三条件逐一过：A 在端点无定义（不连续）；B 在 $x=0$ 不可导；C 在 $[\pm1,1]$ 连续、$(-1,1)$ 内可导、$f(\pm1)=0$ 相等 ✓；D 一切可导但 $f(-1)=2\neq f(1)=0$。<strong>三个条件缺一就出局</strong>，先查端点值，再查内部不可导点。</div>
+</div>
+
+<h2>二、套路一：构造辅助函数（罗尔）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">"证 $f'(\xi)=\varphi(\xi)$" 三步</div>
+  <p style="margin:0.2rem 0">① <strong>构造</strong> $F(x)=f(x)-G(x)$，其中 $G'(x)=\varphi(x)$（把结论里的右端"反求导"出来）；</p>
+  <p style="margin:0.2rem 0">② 验证 $F$ 满足罗尔条件（连续、可导、<strong>$F(a)=F(b)$</strong>）；</p>
+  <p style="margin:0.2rem 0">③ 由罗尔定理得 $F'(\xi)=0$，即 $f'(\xi)=\varphi(\xi)$。∎</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>$f(0)=0$，$f(1)=2$，证明存在 $\xi\in(0,1)$ 使 $f'(\xi)=2\xi+1$。（夏应用 P10）</p>
+  <details><summary>先自己找 $G$，再展开</summary>
+    <p>目标右端 $2\xi+1$ 是谁的导数？$G(x)=x^{2}+x$。构造 $F(x)=f(x)-x^{2}-x$。</p>
+    <p>$F(0)=0$，$F(1)=2-1-1=0$，$F(0)=F(1)$ ✓，且 $F$ 连续可导。</p>
+    <p>由罗尔定理，存在 $\xi\in(0,1)$ 使 $F'(\xi)=f'(\xi)-2\xi-1=0$。∎</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（罗尔 + 零点定理组合）</span>$f(0)=f(1)=0$，$f\left(\dfrac12\right)=1$，证明存在 $\xi\in(0,1)$ 使 $f'(\xi)=1$。（夏应用 P6）</p>
+  <details><summary>先想"零点在哪"，再展开</summary>
+    <p>构造 $F(x)=f(x)-x$：$F(0)=0$，$F\left(\frac12\right)=\frac12&gt;0$，$F(1)=-1&lt;0$。</p>
+    <p>由零点定理，存在 $c\in\left(\frac12,1\right)$ 使 $F(c)=0$。现在 $F(0)=F(c)=0$，在 $[0,c]$ 上用<strong>罗尔定理</strong>：</p>
+    <p>存在 $\xi\in(0,c)\subset(0,1)$ 使 $F'(\xi)=f'(\xi)-1=0$，即 $f'(\xi)=1$。∎</p>
+    <p>看点：当两端的 $F$ 值不相等时，先<strong>用零点定理造一个等值点</strong>，再进罗尔——两章知识串烧。</p>
+  </details>
+</div>
+
+<h2>三、套路二：拉格朗日求 $\xi$ 与证不等式</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（计算型：求 $\xi$）</span>$f(x)=\sqrt{x}-1$ 在 $[1,4]$ 上求中值 $\xi$。（夏应用 P9）</p>
+  <details><summary>先自己列等式，再展开</summary>
+    <p>右端 $=\dfrac{f(4)-f(1)}{4-1}=\dfrac{1-0}{3}=\dfrac13$；左端 $f'(\xi)=\dfrac{1}{2\sqrt{\xi}}$。</p>
+    <p>解 $\dfrac{1}{2\sqrt{\xi}}=\dfrac13$：$\sqrt{\xi}=\dfrac32$，$\xi=\dfrac94$。</p>
+    <p>流程：<strong>算弦斜率 → 算导数表达式 → 解方程</strong>（$\xi$ 落在开区间内才有效）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（放缩型）</span>$m&gt;n&gt;0$，证明 $\dfrac{m-n}{m}&lt;\ln\dfrac{m}{n}&lt;\dfrac{m-n}{n}$。（夏应用 P12）</p>
+  <details><summary>先自己设 $f$，再展开</summary>
+    <p>设 $f(x)=\ln x$，在 $[n,m]$ 上用拉格朗日：存在 $\xi\in(n,m)$ 使</p>
+    <p>$$\ln m-\ln n=\dfrac{1}{\xi}(m-n)$$</p>
+    <p>由 $n&lt;\xi&lt;m$ 得 $\dfrac{1}{m}&lt;\dfrac{1}{\xi}&lt;\dfrac{1}{n}$，同乘正数 $(m-n)$ 即得。∎</p>
+    <p>套路总结：见到 $\ln$、$\arctan$ 的<strong>差值</strong>，立刻设它是某函数的 $f(b)-f(a)$，中值定理把差变成"导数 × 区间长"，再用 $\xi$ 的范围放缩。<strong>双端不等式 = 分别用 $1/m$ 和 $1/n$ 夹住 $1/\xi$</strong>。</p>
+  </details>
+</div>
+
+<h2>四、套路三：双中值问题（了解思路）</h2>
+
+<p>结论若含<strong>两个</strong>希腊字母（如 $f'(\eta)f'(\zeta)=1$）：把区间从内部一点劈成两段，<strong>各用一次拉格朗日</strong>，再相乘/相除。内部那一点常由零点定理先造出来（如 $f(\xi)=1-\xi$），见夏应用 P14 综合题。这类题是压轴难度，先掌握"分段 + 各用一次"的骨架即可。</p>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">拉格朗日中值定理 $f'(\xi)=\dfrac{f(b)-f(a)}{b-a}$ 的几何意义是</p>
+  <div class="quiz-opts">
+    <button data-k="A">存在一点切线过原点</button>
+    <button data-k="B">存在一点切线平行于两端点连线（弦）</button>
+    <button data-k="C">曲线在 $[a,b]$ 上是直线</button>
+    <button data-k="D">两端点处切线斜率相等</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">右端正是弦的斜率，$f'(\xi)$ 是切线斜率——两者相等即"切线 ∥ 弦"。C 反了：正因为一般不是直线，定理才给出"总有一点补上"；D 说的是罗尔的极端情形（弦水平）。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$f(x)=x^{2}-2x+3$ 在 $[0,3]$ 上满足拉格朗日中值定理的 $\xi=$（秋应用练习 1）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">$2$</button>
+    <button data-k="C">$\dfrac{3}{2}$</button>
+    <button data-k="D">$\dfrac{1}{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">弦斜率 $=\dfrac{f(3)-f(0)}{3}=\dfrac{6-3}{3}=1$；$f'(\xi)=2\xi-2=1$ ⇒ $\xi=\dfrac32\in(0,3)$ ✓。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">证明 $\dfrac{x}{1+x}&lt;\ln(1+x)&lt;x$（$x&gt;0$）应设 $f(t)=$（秋应用练习 4）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f(t)=\ln(1+t)$，在 $[0,x]$ 上用拉格朗日</button>
+    <button data-k="B">$f(t)=\ln t$，在 $[1,x]$ 上用罗尔定理</button>
+    <button data-k="C">$f(t)=\dfrac{1}{1+t}$，在 $[0,x]$ 上用柯西定理</button>
+    <button data-k="D">$f(t)=t\ln(1+t)$，在 $[0,x]$ 上用拉格朗日</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">A：$f'(\xi)=\dfrac{1}{1+\xi}$，中值定理给 $\ln(1+x)=\dfrac{x}{1+\xi}$，由 $0&lt;\xi&lt;x$ 得 $\dfrac{x}{1+x}&lt;\dfrac{x}{1+\xi}&lt;x$。B 的定理选错（罗尔证不了差值）；D 画蛇添足。<strong>待证式里出现函数差值 + 区间长 → 拉格朗日</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">证"$f'(\xi)=2\xi+1$"型结论时构造 $F(x)=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$F(x)=f'(x)-2x-1$</button>
+    <button data-k="B">$F(x)=f(x)+x^{2}+x$</button>
+    <button data-k="C">$F(x)=f(x)$</button>
+    <button data-k="D">$F(x)=f(x)-x^{2}-x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">构造原则：$F'(x)=f'(x)-(2x+1)$，这样 $F'(\xi)=0$ 正好翻译成结论。A 对 $f'$ 求导超出已知条件（未必二阶可导）；B 符号反了（$F'(\xi)=0$ 会给出 $f'(\xi)=-2\xi-1$）。<strong>"结论右端反求导 = 辅助函数里减去的 $G$"</strong>。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>罗尔三条件（连续 + 可导 + 端点值相等）<strong>逐条验</strong>，端点无定义、内部不可导都是常见陷阱</li>
+    <li>结论写明"$\xi\in\boldsymbol{(a,b)}$"（开区间）</li>
+    <li>构造口诀：<strong>结论右端反求导</strong>当 $G$，令 $F=f-G$，再验 $F(a)=F(b)$</li>
+    <li>证不等式先识别：差值 = $f(b)-f(a)$，区间长 = $b-a$ → 拉格朗日，然后放缩 $1/\xi$</li>
+    <li>$F$ 两端值不等时，先用<strong>零点定理</strong>造等值点，再罗尔（例 2 模板）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写罗尔、拉格朗日、柯西三定理的条件与结论，并说出退化关系。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">罗尔：连续 + 可导 + $f(a)=f(b)$ ⇒ $f'(\xi)=0$。拉格朗日：连续 + 可导 ⇒ $f'(\xi)=\frac{f(b)-f(a)}{b-a}$。柯西：加 $g$、$g'\neq0$ ⇒ $\frac{f'(\xi)}{g'(\xi)}=\frac{f(b)-f(a)}{g(b)-g(a)}$。$g=x$ 时柯西→拉格朗日；$f(a)=f(b)$ 时拉格朗日→罗尔。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">三类证明套路各一句话：证 $f'(\xi)=\varphi(\xi)$？证不等式？双中值？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">构造 $F=f-G$（$G'=\varphi$）用罗尔；差值 + 区间长 → 拉格朗日放缩 $1/\xi$；两个字母 → 分两段各用一次拉格朗日再运算。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡；三天后再回来把例 2 的"零点 + 罗尔"串联证明独立写一遍——这是本课最难也最出彩的一步。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《导数与微分》§六 微分中值定理（含秋应用练习 1–6 与双中值综合题）</li>
+    <li>讲义：《导数的应用》夏讲 PDF 教材 P69 起（中值定理 P4–P15）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："构造辅助函数的思路怎么培养"、"$\ln$ 不等式那题的放缩方向怎么定"、"双中值问题完整讲一遍"，或让它出 5 道中值定理证明题限时练。
+</div>
+
+<nav class="footnav">
+  <a href="0022-高阶导数.html" class="prev"><span class="dir">← 上一课</span>0022 高阶导数</a>
+  <a href="0024-单调性极值与最值.html" class="next"><span class="dir">下一课 →</span>0024 单调性 · 极值 · 最值 · 不等式</a>
+</nav>
+</main>
+</body>
+</html>

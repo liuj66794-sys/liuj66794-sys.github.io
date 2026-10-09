@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第六课：使用 diagnosing-bugs 诊断难 bug</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>第六课：使用 diagnosing-bugs 诊断难 bug</h1>
+
+  <p>
+    上一课你用 <code>/implement</code> 走完了主流程 idea → ship 的最后一环，并且已经在真实项目里完整跑通过一遍。
+    从这一课开始进入<strong>「入口场景」系列</strong>：不是每个任务都从 grill 开始——
+    有人报了个时好时坏的 bug、真机上行为诡异、某个页面突然变慢，这些任务有自己的入口：
+    <code>/diagnosing-bugs</code>。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">主源推荐（Primary Source）</div>
+    <p>
+      本课内容基于官方 skill 定义，建议精读原文：
+      <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">diagnosing-bugs/SKILL.md</a>
+      （本地 <code>~/.agents/skills/diagnosing-bugs/SKILL.md</code>）。
+      建议完整读一遍原文，尤其是十种建回路方法和非确定性 bug 两节。
+    </p>
+  </div>
+
+  <h2>1. diagnosing-bugs 是什么？</h2>
+  <p>
+    <code>/diagnosing-bugs</code> 是一套针对<strong>难 bug 和性能回退</strong>的诊断纪律。
+    触发信号就是你嘴里会说的那句话：「这个 bug 我复现不了」「这个东西时好时坏」「更新之后变慢了」。
+  </p>
+  <p>
+    它把诊断组织成六个阶段的循环：<strong>建反馈回路 → 复现并最小化 → 提假设 → 探测 →
+    修复加回归测试 → 收尾复盘</strong>。原文开宗明义：这是一条纪律，跳过任何阶段都需要明确的理由。
+  </p>
+
+  <h2>2. 第 1 阶段是灵魂：先建紧反馈回路</h2>
+  <p>
+    SKILL.md 原文说：<strong>「This is the skill. Everything else is mechanical.」</strong>
+    如果你有一个 tight feedback loop（紧反馈回路）——一个能在这个 bug 上变红、修好后变绿的 pass/fail 信号——
+    你迟早能找到原因：bisect、假设验证、插桩都只是消耗这个信号。
+    反之，<strong>没有回路，盯着代码看多久都没用</strong>。所以这一阶段要投入不成比例的精力：
+    激进一点、有创造力一点、拒绝放弃。
+  </p>
+  <p>
+    回路的核心品质是 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md"><strong>red-capable（能变红）</strong></a>：
+    它必须真的驱动 bug 所在的代码路径，并且断言<strong>用户描述的那个症状</strong>——
+    不是「跑完没报错」，而是能抓住这一个具体的 bug。修好之后，同一条命令要变绿。
+  </p>
+  <p>第 1 阶段的完成判据很硬：你能说出<strong>一条已经跑过的命令</strong>（贴出调用方式和输出），且它满足四条：</p>
+  <ul>
+    <li><strong>red-capable</strong>：能在这个 bug 上变红、修好后变绿。</li>
+    <li><strong>deterministic（确定）</strong>：每次运行给出相同判定（flaky bug 则要求复现率足够高）。</li>
+    <li><strong>fast</strong>：秒级，不是分钟级。</li>
+    <li><strong>agent-runnable</strong>：agent 可以无人值守地跑；需要人操作时走 HITL 脚本。</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-title">反模式：回路不存在就去读代码</div>
+    <p>
+      如果你发现自己在回路建好之前就去读代码、建理论——<strong>停下来</strong>。
+      原文明确说：直接跳到假设，正是这个 skill 要防止的那个失败。
+      没有 red-capable 的命令，就没有资格进入第 2 阶段。
+    </p>
+  </div>
+
+  <h2>3. 十种建回路的方法</h2>
+  <p>原文给出十种构造回路的方法，大致按这个顺序尝试：</p>
+  <table>
+    <thead>
+      <tr><th>#</th><th>方法</th><th>适用场景</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>失败测试</td><td>在能触达 bug 的某个 seam 上写 unit / integration / e2e 测试。</td></tr>
+      <tr><td>2</td><td>curl / HTTP 脚本</td><td>对跑着的 dev server 直接打请求，断言响应。</td></tr>
+      <tr><td>3</td><td>CLI + 快照</td><td>喂一个 fixture 输入，把 stdout 和已知正确的快照 diff。</td></tr>
+      <tr><td>4</td><td>headless 浏览器</td><td>用 Playwright / Puppeteer 驱动 UI，断言 DOM、console、网络。</td></tr>
+      <tr><td>5</td><td>重放 trace</td><td>把真实请求 / 事件日志存盘，隔离地重放进代码路径。</td></tr>
+      <tr><td>6</td><td>一次性 harness</td><td>搭一个最小子系统（mock 依赖），一次函数调用触发 bug 路径。</td></tr>
+      <tr><td>7</td><td>property / fuzz</td><td>「有时输出不对」型 bug：跑 1000 个随机输入找失败模式。</td></tr>
+      <tr><td>8</td><td>bisect 台架</td><td>bug 出现在两个已知状态之间：自动化「在状态 X 启动、检查、重复」，交给 <code>git bisect run</code>。</td></tr>
+      <tr><td>9</td><td>差分对比</td><td>同一输入分别跑旧版本和新版本（或两种配置），diff 输出。</td></tr>
+      <tr><td>10</td><td>HITL 脚本（兜底）</td><td>必须有人动手时，用 <code>scripts/hitl-loop.template.sh</code> 驱动人，回路依然是结构化的。</td></tr>
+    </tbody>
+  </table>
+  <p>建好回路不算完，还要把它当产品一样<strong>收紧</strong>，问自己三个问题：</p>
+  <ul>
+    <li>能更快吗？（缓存准备步骤、跳过无关初始化、缩小测试范围）</li>
+    <li>信号能更准吗？（断言具体症状，而不是「没崩溃」）</li>
+    <li>能更确定吗？（固定时间、给随机数种子、隔离文件系统、冻结网络）</li>
+  </ul>
+  <p>
+    30 秒还 flaky 的回路约等于没有回路；2 秒且确定的回路才是调试超能力。
+    对<strong>非确定性 bug</strong>，目标不是干净复现，而是<strong>提高复现率</strong>：
+    循环触发 100 次、并行、加压、收窄时间窗口。50% 的 flake 可以调试，1% 不行——持续提高复现率直到可调试为止。
+    实在建不出回路时，明确说出来，列出试过的方法，向用户要环境、要抓取物（HAR、日志、coredump）、或要加临时生产插桩的许可——不要在没有回路的情况下硬进假设阶段。
+  </p>
+
+  <h2>4. 第 2–4 阶段：复现、假设、探测</h2>
+  <p><strong>第 2 阶段：复现 + 最小化。</strong>跑回路，看着它变红，并确认三点：
+    失败模式就是用户描述的那个（修错 bug 等于没修）；多次运行可复现；症状已被精确记录。
+    然后把场景往小里砍：输入、调用方、配置、数据、步骤，<strong>一次砍一个</strong>，每砍一次重跑回路。
+    完成的标志是：剩下的每个元素都是 load-bearing（承重的）——再砍掉任何一个，回路就变绿。
+    最小复现既缩小了第 3 阶段的假设空间，也是第 5 阶段回归测试的毛坯。
+  </p>
+  <p><strong>第 3 阶段：提假设。</strong>验证任何假设之前，先生成
+    <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md"><strong>3–5 个排好序的假设</strong></a>——
+    只提一个假设会锚定在第一个貌似合理的想法上。每个假设必须 falsifiable（可证伪），用固定格式写出它的预测：
+  </p>
+  <div class="callout">
+    <div class="callout-title">假设格式</div>
+    <p>「If &lt;X&gt; 是因，那么 &lt;改 Y&gt; 会让 bug 消失 / &lt;改 Z&gt; 会让它更严重。」</p>
+    <p>说不出预测，这个假设就是 vibe（感觉），丢掉或磨尖它。</p>
+  </div>
+  <p>
+    <strong>排序后先给用户看</strong>：用户常有领域知识能立刻重排（「我们昨天刚改过 #3」），
+    或知道哪些已经排除过。这是便宜的检查点，别跳过；用户不在就按你的排序继续，不阻塞。
+  </p>
+  <p><strong>第 4 阶段：探测。</strong>每个探针必须对应第 3 阶段的一个具体预测，
+    <strong>一次只改一个变量</strong>。工具偏好：调试器 / REPL 优先（一个断点胜过十条日志），
+    其次是在能区分假设的边界上打点日志，永远不要「到处打日志然后 grep」。
+    所有 debug 日志一律带唯一前缀，如 <code>[DEBUG-a4f2]</code>——收尾时一次 grep 就能删干净：
+    带前缀的日志会死，不带前缀的日志会活下来。
+  </p>
+  <p>
+    <strong>性能回退走分支</strong>：对 perf regression，日志通常是错的工具。
+    先测量——建立 baseline（计时台架、profiler、query plan），再 bisect。先测量，后修复。
+  </p>
+
+  <h2>5. 第 5–6 阶段：修复、回归测试与收尾</h2>
+  <p><strong>第 5 阶段：修复 + 回归测试。</strong>回归测试写在修复<strong>之前</strong>——但只在有
+    正确 seam（测试边界）的时候。正确的 seam 是指测试能像真实调用点那样触发 bug 模式；
+    如果唯一可用的 seam 太浅（bug 需要多个调用方串联，单测复现不了那条链），
+    在那里写回归测试只会带来虚假的信心。
+  </p>
+  <div class="callout">
+    <div class="callout-title">没有正确 seam，本身就是发现</div>
+    <p>
+      找不到正确的 seam，说明<strong>代码架构在阻止这个 bug 被锁定</strong>——这本身就是诊断成果。
+      记录下来，移交 <code>/improve-codebase-architecture</code>，不要硬写一个自欺的测试。
+    </p>
+  </div>
+  <p>
+    有正确 seam 时的流程是第五课红绿循环的熟人：把最小复现变成该 seam 上的失败测试 →
+    看着它红 → 修复 → 看着它绿 → 最后用第 1 阶段的回路对<strong>原始（未最小化的）场景</strong>复跑一遍。
+  </p>
+  <p><strong>第 6 阶段：收尾 + post-mortem（复盘）。</strong>宣布完成之前，清单逐条过：</p>
+  <ul>
+    <li>原始场景复跑，bug 不再出现（用第 1 阶段的回路）。</li>
+    <li>回归测试通过（或 seam 缺失已被记录）。</li>
+    <li>所有 <code>[DEBUG-...]</code> 插桩已删除（grep 前缀验证）。</li>
+    <li>一次性原型已删除（或移到明确标注的 debug 目录）。</li>
+    <li>commit / PR 信息里写明<strong>哪个假设最后被证实是对的</strong>——让下一个调试者能学到。</li>
+  </ul>
+  <p>
+    最后问一句：「什么能阻止这个 bug 再次发生？」如果答案是架构层面的（没有好的测试 seam、调用方纠缠、隐藏耦合），
+    带着具体信息移交给 <code>/improve-codebase-architecture</code>。
+    建议在修复落地<strong>之后</strong>再提——此刻你掌握的信息比开工时多。
+  </p>
+
+  <h2>6. 实战场景：真机上「锁屏后音乐停了」</h2>
+  <p>
+    拿你自己的真实项目当例子。「妈妈音乐播放器」的 issue #5 是真机验证，
+    假设验证时发现：<strong>锁屏后音乐停了</strong>——模拟器上正常，真机上必现。六阶段怎么套：
+  </p>
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>建回路</strong>：真机问题没法用普通单测触达，用 adb 脚本或 HITL 脚本：
+        脚本启动播放 → 锁屏 → 等 60 秒 → 用 <code>adb shell dumpsys</code> 检查播放状态和前台服务是否存活。
+        断言是用户的精确症状「锁屏 60 秒后仍在播放」——现在它是红的。必须人工听声音确认的部分，走 HITL 脚本兜底。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>复现 + 最小化</strong>：确认每次锁屏约 30 秒后停止，和用户描述一致；
+        逐步砍变量——换 Wi-Fi/流量、换音频文件、灭屏即停还是 30 秒后停——直到剩下的每个条件都是承重的。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>提假设</strong>（排序后先给你看）：①前台服务没起来，锁屏后进程被冻结（「如果是这个原因，强制以前台服务启动后锁屏，音乐就不会停」）；
+        ②厂商 ROM 的杀后台策略（「如果是这个原因，关掉电池优化后就不会停」）；
+        ③BackgroundAudioManager 不支持包内音频路径，锁屏切换时播放中断（「如果是这个原因，换成网络音频 URL 就不会停」）。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>探测</strong>：一次只验证一个假设；在播放状态切换处打 <code>[DEBUG-a4f2]</code> 前缀的日志，
+        用 <code>adb logcat</code> 抓取锁屏前后的服务生命周期。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">5</div>
+    <div class="step-body">
+      <p><strong>修复 + 回归测试</strong>：假如证实是前台服务没起来，修复它。
+        然后找 seam：音频封装层有没有一个公共接口能断言「进入后台时前台服务已注册」？
+        有——回归测试写在那里；没有——「没有 seam」本身就是发现，记录并移交 <code>/improve-codebase-architecture</code>。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">6</div>
+    <div class="step-body">
+      <p><strong>收尾</strong>：真机原始场景复跑一遍；<code>grep DEBUG-a4f2</code> 确认插桩清零；
+        commit 里写明「假设①被证实：前台服务未启动」，顺手关闭 issue #5 的这个子问题。</p>
+    </div>
+  </div>
+
+  <h2>7. 小测验</h2>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">遇到一个难 bug（比如「真机锁屏后音乐停了」），按 diagnosing-bugs 的第一步是？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q1" value="A"> 通读播放模块代码，先建一个原因理论</label>
+      <label><input type="radio" name="q1" value="B"> 建一个能在这个 bug 上变红的紧回路</label>
+      <label><input type="radio" name="q1" value="C"> 在可疑的位置加一批日志再运行看看</label>
+      <label><input type="radio" name="q1" value="D"> 凭经验直接修改最可疑的代码试一试</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">tight loop 的四条判据中，哪一条最核心、缺了它其余都没意义？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q2" value="A"> red-capable——回路必须能在这个 bug 上变红</label>
+      <label><input type="radio" name="q2" value="B"> deterministic——每次运行给出相同的判定</label>
+      <label><input type="radio" name="q2" value="C"> fast——回路必须要在几秒钟内跑完一轮</label>
+      <label><input type="radio" name="q2" value="D"> agent-runnable——agent 可以无人值守运行</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="D">
+    <div class="quiz-question">关于 Phase 3 提假设，正确的做法是？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q3" value="A"> 先验证最可能的一个，不行再想下一个</label>
+      <label><input type="radio" name="q3" value="B"> 生成 3–5 个假设后立即开始逐个测试</label>
+      <label><input type="radio" name="q3" value="C"> 假设越具体越好，不必先给用户过目</label>
+      <label><input type="radio" name="q3" value="D"> 生成 3–5 个可证伪假设，排序先给用户看</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="C">
+    <div class="quiz-question">Phase 5 要写回归测试时，发现没有正确的 seam，该怎么办？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q4" value="A"> 退而求其次，在最浅的 seam 上写个测试</label>
+      <label><input type="radio" name="q4" value="B"> 跳过回归测试，修完 bug 直接提交代码</label>
+      <label><input type="radio" name="q4" value="C"> 这本身就是发现：记录并移交架构改进</label>
+      <label><input type="radio" name="q4" value="D"> 先把代码重构成可测试的，再回头修复</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">【复习·第4课】为什么每个 ticket 的大小要「适配单个上下文窗口」？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q5" value="A"> 让 issue tracker 上的数量显得更多</label>
+      <label><input type="radio" name="q5" value="B"> 让全新 session 的 agent 能一次做完</label>
+      <label><input type="radio" name="q5" value="C"> 让每个 ticket 只需要修改单个文件</label>
+      <label><input type="radio" name="q5" value="D"> 让验收标准更容易浓缩成一句话</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">【复习·第5课】重构之后测试挂了，但代码行为根本没变——这是哪个反模式的识别信号？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q6" value="A"> implementation-coupled：测试耦合了内部实现</label>
+      <label><input type="radio" name="q6" value="B"> tautological：断言重算了相同的期望值</label>
+      <label><input type="radio" name="q6" value="C"> horizontal slicing：先写完全部测试再实现</label>
+      <label><input type="radio" name="q6" value="D"> scope creep：实现了 spec 之外的行为</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <h2>8. 本课收获</h2>
+  <ul>
+    <li><code>/diagnosing-bugs</code> 是难 bug 与性能回退的六阶段诊断循环：建回路 → 复现最小化 → 假设 → 探测 → 修复+回归测试 → 收尾复盘。</li>
+    <li>第 1 阶段是灵魂：没有 red-capable 的紧回路，读代码建理论就是这个 skill 要防止的失败。</li>
+    <li>回路的四条判据：red-capable、deterministic、fast、agent-runnable；建好后用「更快？更准？更确定？」持续收紧。</li>
+    <li>假设要 3–5 个、可证伪、排序后先给用户看；探测一次只改一个变量，debug 日志带 <code>[DEBUG-xxxx]</code> 前缀。</li>
+    <li>回归测试写在修复之前，但只在有正确 seam 时；没有 seam 本身就是发现，移交架构改进。</li>
+  </ul>
+
+  <h2>9. 术语表</h2>
+  <table>
+    <thead>
+      <tr><th>术语</th><th>解释</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="glossary-term">tight feedback loop</span></td>
+        <td>紧反馈回路。一个快速、确定、能在 bug 上变红的 pass/fail 信号，是整个诊断的地基。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">red-capable</span></td>
+        <td>能变红。回路真的驱动 bug 代码路径并断言用户的精确症状，能在这个 bug 上变红、修好后变绿。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">deterministic</span></td>
+        <td>确定。同一回路每次运行给出相同判定；flaky bug 则要求复现率被提高到可调试的水平。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">agent-runnable</span></td>
+        <td>agent 可运行。回路可以无人值守执行；必须有人操作时通过 HITL 脚本保持结构化。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">seam</span></td>
+        <td>测试边界（第五课）。在其上观察行为的公共接口；回归测试只有写在正确的 seam 上才有意义。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">load-bearing</span></td>
+        <td>承重的。最小复现里剩下的每个元素都是承重的——再砍掉任何一个，回路就变绿。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">falsifiable hypothesis</span></td>
+        <td>可证伪假设。能写出明确预测的假设：「如果 X 是因，那么改 Y 会让 bug 消失」；说不出预测的就是 vibe。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">bisect</span></td>
+        <td>二分定位。在两个已知状态（commit、版本、数据集）之间自动二分，找出引入 bug 的那一点。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">differential loop</span></td>
+        <td>差分回路。同一输入分别跑新旧两个版本（或两种配置），diff 输出找差异。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">HITL</span></td>
+        <td>human-in-the-loop，人在回路。必须人工操作时用 <code>scripts/hitl-loop.template.sh</code> 驱动人，保持回路结构化。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">regression test</span></td>
+        <td>回归测试。把最小复现固化成测试，锁定这个 bug 不再复发；写在修复之前。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">post-mortem</span></td>
+        <td>复盘。修复后追问「什么能阻止它再次发生」，架构性答案移交 <code>/improve-codebase-architecture</code>。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>10. 实战任务</h2>
+  <p>
+    拿一个<strong>真实的难 bug</strong> 走完六阶段。首选你自己项目里的那个：
+    「妈妈音乐播放器」issue #5 的真机问题（锁屏后音乐停了，或验证中实际发现的任何一个）；
+    也可以另选一个你一直复现不了、时好时坏的 bug。调用 <code>/diagnosing-bugs</code>，亲手走一遍：
+  </p>
+  <ol>
+    <li><strong>建回路</strong>：用十种方法里最合适的一种（真机问题多半是 adb 脚本或 HITL 脚本），建一个 red-capable 的回路，<strong>真的跑一次</strong>，把命令和输出留下来。</li>
+    <li><strong>复现 + 最小化</strong>：确认失败模式就是用户描述的那个；一次砍一个变量，直到剩下的每个元素都是承重的。</li>
+    <li><strong>提假设</strong>：写出 3–5 个可证伪假设（「If X 是因，那么改 Y 会……」格式），排好序先给自己/合作者过目，再开始验证。</li>
+    <li><strong>探测 + 修复</strong>：一次只改一个变量；debug 日志全带 <code>[DEBUG-xxxx]</code> 前缀；把最小复现变成正确 seam 上的回归测试——或者记录下「没有正确 seam」这个发现。</li>
+    <li><strong>收尾</strong>：原始场景复跑、grep 清掉插桩、commit 里写明哪个假设被证实是对的。</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">自检标准</div>
+    <ul>
+      <li>你能说出一项<strong>已经跑过的</strong> red-capable 命令（脚本路径、测试调用或 curl），并贴得出它的输出。</li>
+      <li>你写出过 3–5 个可证伪假设，每个都带「改 Y 会怎样」的预测。</li>
+      <li>所有 debug 日志都带 <code>[DEBUG-xxxx]</code> 前缀，且收尾时已经 grep 清理干净。</li>
+      <li>回归测试落在正确的 seam 上——或者你明确记录了 seam 缺失这个发现。</li>
+    </ul>
+  </div>
+
+  <p>
+    完成后回来告诉我结果（贴出产出或描述过程），我会给你反馈。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">下一步</div>
+    <p>
+      入口场景系列还有两课：<code>/wayfinder</code>（大型模糊项目怎么规划探索）和
+      <code>/handoff</code>（跨 session 怎么交接上下文）。想先学哪个，告诉我即可。
+      学习中有任何不清楚的地方，随时直接问我——我是你的老师，可以针对任何一点展开讲。
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    参考：<a href="../reference/diagnosing-bugs-reference.html">diagnosing-bugs 速查参考</a> |
+    <a href="../reference/skill-cheat-sheet.html">总速查表</a> |
+    <a href="0005-implement.html">上一课</a>
+  </p>
+
+  <script src="../assets/quiz.js"></script>
+  <script>
+    window.quizExplanations = {
+      q1: {
+        A: "不对。回路不存在就去读代码建理论，正是这个 skill 要防止的失败。",
+        B: "正确。Phase 1 是这个 skill 的灵魂：先有 red-capable 的紧回路，其余阶段都是消耗它。",
+        C: "不对。没有回路就加日志是盲目插桩，而且日志属于 Phase 4 的探测手段。",
+        D: "不对。没有变红信号就改代码，修没修好你都无法知道。"
+      },
+      q2: {
+        A: "正确。不能在这个 bug 上变红的回路抓不到这个 bug，再快再确定也没用。",
+        B: "不对。确定性很重要，但一个确定地测错东西的回路同样毫无价值。",
+        C: "不对。速度是收紧回路的方向，不是它成立的前提。",
+        D: "不对。agent-runnable 保证执行方式，HITL 脚本也允许人在回路。"
+      },
+      q3: {
+        A: "不对。只提一个假设会锚定在第一个貌似合理的想法上。",
+        B: "不对。漏了两步：假设必须可证伪，且排序后要先给用户看。",
+        C: "不对。具体不等于可证伪；而且用户常有领域知识能立刻重排假设。",
+        D: "正确。3–5 个、可证伪、排序后先给用户看，用户不在再按自己的排序继续。"
+      },
+      q4: {
+        A: "不对。太浅的 seam 复现不了真实 bug 模式，写出来的是虚假信心。",
+        B: "不对。跳过测试会让这个 bug 失去锁定，且漏掉了架构层面的发现。",
+        C: "正确。没有正确 seam 说明架构在阻止 bug 被锁定——这本身就是发现，记录并移交 /improve-codebase-architecture。",
+        D: "不对。先重构再修复打乱了顺序；架构建议应在修复落地之后提出。"
+      },
+      q5: {
+        A: "不对。ticket 数量不是目标，拆太碎反而增加协调成本。",
+        B: "正确。每个 /implement 都在全新 session 里领取 ticket，大小必须让新上下文一次做完。",
+        C: "不对。垂直切片恰恰要切穿多层，通常涉及多个文件。",
+        D: "不对。验收标准是用户视角的行为清单，和一句话长短无关。"
+      },
+      q6: {
+        A: "正确。测试 mock 了内部协作者或测了私有方法，重构时行为没变它却误报。",
+        B: "不对。tautological 的问题是必然通过、永远发现不了错误，不是重构后误报。",
+        C: "不对。horizontal slicing 指先写完全部测试再写全部实现，与重构无关。",
+        D: "不对。scope creep 是 Spec 轴的发现：多做了 spec 没要求的行为。"
+      }
+    };
+  </script>
+</body>
+</html>

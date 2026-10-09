@@ -1,0 +1,226 @@
+/* Guided pilot: only applies to sections with an explicit guide payload. */
+html[data-study-shell] .guided-section {
+  margin: 2rem 0;
+  border: 1px solid var(--study-line);
+  border-radius: 16px;
+  background: var(--study-panel);
+  color: var(--study-text);
+  overflow-wrap: anywhere;
+  scroll-margin-top: 80px;
+  font: 400 16px/1.85 var(--study-font);
+}
+html[data-study-shell] .guided-section * { box-sizing: border-box; }
+html[data-study-shell] .gs-header { padding: clamp(20px, 4vw, 32px); border-bottom: 1px solid var(--study-line); }
+html[data-study-shell] .gs-eyebrow { margin: 0 0 8px; color: var(--study-muted); font-size: 12px; letter-spacing: .06em; }
+html[data-study-shell] .gs-header h3 { margin: 0 0 10px; padding: 0; border: 0; font: 600 clamp(23px, 4vw, 29px)/1.4 var(--study-display-font); color: var(--study-text); }
+html[data-study-shell] .gs-intro { margin: 0 0 12px; color: var(--study-muted); font-size: 14px; }
+html[data-study-shell] a.gs-entry { display: inline-flex; align-items: center; min-height: 48px; margin: 12px 0; color: var(--study-action); font-weight: 600; }
+html[data-study-shell] .gs-course-entries { display: flex; flex-wrap: wrap; gap: 0 22px; margin: 12px 0; }
+html[data-study-shell] .gs-course-entries a.gs-entry { margin: 0; font-size: 14px; }
+html[data-study-shell] .gs-course-entries a.gs-latest { flex-basis: 100%; }
+html[data-study-shell] .gs-reading { display: inline-block; min-height: 44px; padding: 8px 0; margin-right: 18px; font-size: 14px; color: var(--study-action); }
+html[data-study-shell] .gs-steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 16px clamp(16px, 4vw, 32px); border-bottom: 1px solid var(--study-line); }
+html[data-study-shell] .guided-section button,
+html[data-study-shell] .guided-section .gs-primary { min-height: 44px; max-width: 100%; border: 1px solid var(--study-line); border-radius: 8px; padding: 9px 14px; color: var(--study-text); background: var(--study-panel); cursor: pointer; font: inherit; line-height: 1.6; text-align: left; white-space: normal; }
+html[data-study-shell] .gs-steps button { font-size: 13px; padding: 7px 10px; }
+html[data-study-shell] .gs-steps button[aria-current] { color: var(--study-action); border-color: var(--study-action); background: var(--study-tint); font-weight: 650; }
+html[data-study-shell] .guided-section button:hover:not(:disabled) { background: var(--study-tint); }
+html[data-study-shell] .guided-section :is(button, a, summary, textarea):focus-visible { outline: 3px solid var(--study-focus); outline-offset: 3px; }
+html[data-study-shell] .guided-section button:disabled { cursor: default; opacity: 1; }
+html[data-study-shell] .gs-actions button:disabled { opacity: .5; }
+html[data-study-shell] .gs-content { padding: 24px clamp(16px, 4vw, 32px); }
+html[data-study-shell] .gs-meta { margin: 0 0 8px; font-size: 13px; color: var(--study-muted); }
+html[data-study-shell] .gs-title { margin: 0 0 20px; padding: 0; font-size: 23px; line-height: 1.5; color: var(--study-text); scroll-margin-top: 84px; }
+html[data-study-shell] .gs-body { margin: 0 0 16px; }
+html[data-study-shell] .gs-examples { display: grid; gap: 12px; margin: 22px 0; }
+html[data-study-shell] .gs-example { padding: 16px 20px; border-left: 3px solid var(--study-accent); background: var(--study-tint); border-radius: 0 8px 8px 0; }
+html[data-study-shell] .gs-english { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.6; }
+html[data-study-shell] .gs-translation { margin: 4px 0 10px; color: var(--study-muted); font-size: 15px; }
+html[data-study-shell] .gs-example-note { margin: 8px 0 0; font-size: 14px; }
+html[data-study-shell] .gs-details { margin: 16px 0; padding: 0; border: 0; background: transparent; }
+html[data-study-shell] .gs-details summary { min-height: 44px; padding: 8px 0; color: var(--study-action); cursor: pointer; font-size: 14px; }
+html[data-study-shell] .gs-details p { margin: 6px 0 14px; font-size: 15px; }
+html[data-study-shell] .gs-context { max-height: 26rem; overflow: auto; padding: 12px 16px; border: 1px solid var(--study-line); border-radius: 8px; }
+html[data-study-shell] .gs-context p { white-space: pre-line; }
+html[data-study-shell] .gs-quiz { min-width: 0; margin: 28px 0 0; padding: 18px 0 0; border: 0; border-top: 1px solid var(--study-line); }
+html[data-study-shell] .gs-quiz legend { max-width: 100%; padding: 0 0 8px; font-size: 17px; font-weight: 600; }
+html[data-study-shell] .gs-quiz .gs-option { display: block; width: 100%; margin: 9px 0; padding: 12px 16px; }
+html[data-study-shell] .gs-quiz .gs-option.is-correct { border-color: var(--study-success); background: var(--study-success-bg); }
+html[data-study-shell] .gs-quiz .gs-option.is-picked:not(.is-correct) { border-color: var(--study-error); background: var(--study-error-bg); }
+html[data-study-shell] .gs-quiz .gs-text-button { margin: 8px 12px 0 0; border: 0; padding: 8px 0; color: var(--study-action); font-size: 14px; }
+html[data-study-shell] .gs-hint { color: var(--study-muted); font-size: 15px; }
+html[data-study-shell] .gs-feedback { margin: 20px 0; padding: 18px; border-radius: 8px; background: var(--study-tint); }
+html[data-study-shell] .gs-feedback p { margin: 10px 0; }
+html[data-study-shell] .gs-feedback ol { padding-left: 22px; margin: 10px 0; }
+html[data-study-shell] .gs-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 24px; }
+html[data-study-shell] .gs-actions .gs-primary { background: var(--study-action); border-color: var(--study-action); color: var(--study-on-action); text-decoration: none; }
+html[data-study-shell] .gs-actions .gs-primary:hover { background: var(--study-action-hover); }
+html[data-study-shell] .gs-save { padding: 0 clamp(16px, 4vw, 32px) 18px; margin: 0; font-size: 12px; color: var(--study-muted); }
+html[data-study-shell] .gs-result { padding: 14px 16px; border-radius: 8px; background: var(--study-tint); }
+html[data-study-shell] .gs-note-label { display: block; margin: 22px 0 8px; font-weight: 600; }
+html[data-study-shell] .guided-section textarea { display: block; width: 100%; resize: vertical; padding: 12px; border: 1px solid var(--study-line); border-radius: 8px; background: var(--study-panel); color: var(--study-text); font: inherit; }
+html[data-study-shell] .gs-weak { display: grid; gap: 8px; }
+@media (max-width: 480px) {
+  html[data-study-shell] .gs-title { font-size: 21px; }
+  html[data-study-shell] .gs-example { padding: 14px; }
+  html[data-study-shell] .gs-actions { display: grid; grid-template-columns: 1fr; }
+  html[data-study-shell] .gs-actions > * { text-align: center; }
+}
+
+/*
+ * 教学流与逐选项反馈的样式（随 learning/teaching-flow.mjs 一起发布）。
+ * 颜色全部取自 learning-tokens.css，深浅主题跟随课程镜像，不引入新变量。
+ */
+
+html[data-study-shell] .tf-goal {
+  box-sizing: border-box;
+  margin: 0 0 clamp(1rem, 2.4vw, 1.5rem);
+  padding: 10px 14px;
+  border-left: 3px solid var(--study-accent, #214e45);
+  border-radius: 0 8px 8px 0;
+  background: var(--study-tint, #e8eddf);
+  color: var(--study-text, #253c35);
+  font: 500 14px/1.7 var(--study-font, system-ui, sans-serif);
+}
+
+html[data-study-shell] .tf-goal-label {
+  margin-right: 6px;
+  color: var(--study-accent, #214e45);
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+
+html[data-study-shell] .tf-retell {
+  box-sizing: border-box;
+  display: grid;
+  gap: 8px;
+  margin: clamp(1.25rem, 3vw, 2rem) 0;
+  padding: 14px 16px;
+  border: 1px dashed var(--study-line, #d7ded2);
+  border-radius: 10px;
+  color: var(--study-muted, #5c7066);
+  font: 400 14px/1.75 var(--study-font, system-ui, sans-serif);
+}
+
+html[data-study-shell] .tf-retell-tip { margin: 0; }
+html[data-study-shell] .tf-retell-next {
+  justify-self: start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--study-action, #214e45);
+  font-weight: 600;
+  text-decoration: none;
+}
+html[data-study-shell] .tf-retell-next:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+html[data-study-shell] .tf-resume {
+  box-sizing: border-box;
+  margin: 0 0 1.5rem;
+  padding: 12px 16px;
+  border: 1px solid var(--study-accent, #214e45);
+  border-radius: 10px;
+  background: var(--study-panel, #fffef9);
+}
+html[data-study-shell] .tf-resume-link { color: var(--study-accent, #214e45); font-weight: 600; text-decoration: none; }
+html[data-study-shell] .tf-resume-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+html[data-study-shell] .tf-warmup {
+  box-sizing: border-box;
+  margin: clamp(1.25rem, 3vw, 2rem) 0;
+  padding: clamp(16px, 3vw, 22px);
+  border: 1px solid var(--study-line, #d7ded2);
+  border-radius: 14px;
+  background: var(--study-panel, #fffef9);
+  color: var(--study-text, #253c35);
+  box-shadow: var(--study-card-shadow, 0 4px 18px rgb(30 57 44 / .035));
+}
+
+html[data-study-shell] .tf-warmup-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  margin-bottom: 12px;
+}
+html[data-study-shell] .tf-warmup-title { font: 600 17px/1.5 var(--study-display-font, serif); }
+html[data-study-shell] .tf-warmup-sub { color: var(--study-muted, #5c7066); font-size: 13px; }
+html[data-study-shell] .tf-warmup-empty { margin: 0; color: var(--study-muted, #5c7066); font-size: 14px; line-height: 1.8; }
+html[data-study-shell] .tf-warmup-note { margin: 0 0 10px; color: var(--study-muted, #5c7066); font-size: 13px; }
+
+html[data-study-shell] .tf-warmup-q {
+  padding: 14px 0;
+  border-top: 1px solid var(--study-line, #d7ded2);
+}
+html[data-study-shell] .tf-warmup-stem { margin: 0 0 10px; font-weight: 500; line-height: 1.8; }
+html[data-study-shell] .tf-warmup-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+html[data-study-shell] .tf-warmup-opt,
+html[data-study-shell] .tf-warmup-peek,
+html[data-study-shell] .tf-warmup-skip {
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid var(--study-line, #d7ded2);
+  border-radius: var(--study-control-radius, 6px);
+  background: var(--study-panel, #fffef9);
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+html[data-study-shell] .tf-warmup-opt:hover:not(:disabled),
+html[data-study-shell] .tf-warmup-peek:hover:not(:disabled),
+html[data-study-shell] .tf-warmup-skip:hover { border-color: var(--study-accent, #214e45); }
+html[data-study-shell] .tf-warmup-opt:disabled { cursor: default; opacity: .9; }
+html[data-study-shell] .tf-warmup-peek { margin-left: auto; color: var(--study-muted, #5c7066); }
+html[data-study-shell] .tf-warmup-skip { border-color: var(--study-accent, #214e45); color: var(--study-accent, #214e45); font-weight: 600; }
+html[data-study-shell] .tf-warmup-feedback:not(:empty) { margin-top: 10px; }
+html[data-study-shell] .tf-warmup-feedback p { margin: 0 0 6px; font-size: 14px; line-height: 1.8; }
+html[data-study-shell] .tf-warmup-ok { color: var(--study-success, #21694f); }
+html[data-study-shell] .tf-warmup-no { color: var(--study-error, #a13a3d); }
+html[data-study-shell] .tf-warmup-bridge { color: var(--study-muted, #5c7066); }
+html[data-study-shell] .tf-warmup-exp { border-left: 2px solid var(--study-line, #d7ded2); padding-left: 10px; }
+
+/* 逐选项反馈：与旧解析并存，无补充时不出现 */
+html[data-study-shell] .qteach {
+  box-sizing: border-box;
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--study-line, #d7ded2);
+  border-radius: 10px;
+  background: var(--study-bg, #f5f4ee);
+  color: var(--study-text, #253c35);
+  font: 400 14px/1.85 var(--study-font, system-ui, sans-serif);
+}
+html[data-study-shell] .qteach strong { font-weight: 650; }
+html[data-study-shell] .qteach p { margin: 4px 0; }
+html[data-study-shell] .qteach-picked strong { color: var(--study-error, #a13a3d); }
+html[data-study-shell] .qteach-missed strong { color: var(--study-warning, #815b20); }
+html[data-study-shell] .qteach-correct strong { color: var(--study-success, #21694f); }
+html[data-study-shell] .qteach-label { color: var(--study-muted, #5c7066); font-size: 12px; letter-spacing: .08em; }
+html[data-study-shell] .qteach-steps { margin: 4px 0; padding-left: 1.4em; }
+html[data-study-shell] .qteach-steps li { margin: 2px 0; }
+html[data-study-shell] .qteach-rest summary,
+html[data-study-shell] .qteach-subjective summary { min-height: 36px; cursor: pointer; color: var(--study-accent, #214e45); font-size: 13px; }
+html[data-study-shell] .qteach-phrases { margin: 4px 0; padding-left: 1.3em; }
+html[data-study-shell] .qteach-source {
+  margin: 4px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--study-accent, #214e45);
+  background: var(--study-panel, #fffef9);
+  color: var(--study-muted, #5c7066);
+}
+html[data-study-shell] .qteach-compare { min-height: 40px; align-self: start; }
+html[data-study-shell] .qteach-keypoints,
+html[data-study-shell] .qteach-selfeval { margin: 4px 0; padding-left: 1.3em; }
+html[data-study-shell] .quiz-flash,
+html[data-study-shell] .qcard.quiz-flash,
+html[data-study-shell] .q-item.quiz-flash {
+  outline: 3px solid var(--study-focus, #64863c);
+  outline-offset: 3px;
+  transition: outline-color var(--study-duration, 180ms);
+}

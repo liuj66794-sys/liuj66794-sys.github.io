@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查 004 · 积分公式与凑微分速查 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="ref-004">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">速查手册 · 004</span>
+  <a href="../lessons/0026-原函数与基本积分表.html">配讲课 0026</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Reference 004 · 打印友好</span>
+<h1>积分公式与凑微分速查表</h1>
+<div class="meta">
+  <span>📄 建议打印随身</span>
+  <span>与 <a href="003-求导公式与求导法则速查.html">速查 003 求导表</a> 逐条互逆</span>
+  <span>来源：笔记《不定积分》§二–§八</span>
+</div>
+
+<h2>① 基本积分公式表</h2>
+<table>
+  <tr><th>公式</th><th>公式</th></tr>
+  <tr><td>$\int k\,dx=kx+C$</td><td>$\int x^{\mu}dx=\dfrac{x^{\mu+1}}{\mu+1}+C\ (\mu\neq-1)$</td></tr>
+  <tr><td>$\int\dfrac{dx}{x}=\ln|x|+C$</td><td>$\int\dfrac{dx}{\sqrt x}=2\sqrt x+C$；$\int\dfrac{dx}{x^{2}}=-\dfrac1x+C$</td></tr>
+  <tr><td>$\int e^{x}dx=e^{x}+C$</td><td>$\int a^{x}dx=\dfrac{a^{x}}{\ln a}+C$</td></tr>
+  <tr><td>$\int\sin x\,dx=-\cos x+C$</td><td>$\int\cos x\,dx=\sin x+C$</td></tr>
+  <tr><td>$\int\sec^{2}x\,dx=\tan x+C$</td><td>$\int\csc^{2}x\,dx=-\cot x+C$</td></tr>
+  <tr><td>$\int\sec x\tan x\,dx=\sec x+C$</td><td>$\int\csc x\cot x\,dx=-\csc x+C$</td></tr>
+  <tr><td>$\int\dfrac{dx}{1+x^{2}}=\arctan x+C$</td><td>$\int\dfrac{dx}{\sqrt{1-x^{2}}}=\arcsin x+C$</td></tr>
+  <tr><td colspan="2">$\int\dfrac{dx}{\sqrt{x^{2}+a}}=\ln\left|x+\sqrt{x^{2}+a}\right|+C$</td></tr>
+</table>
+
+<h2>② 常见凑微分表</h2>
+<table>
+  <tr><th>凑微分</th><th>凑微分</th></tr>
+  <tr><td>$dx=\dfrac1a\,d(ax+b)$</td><td>$x\,dx=\dfrac12d(x^{2})$</td></tr>
+  <tr><td>$\dfrac{dx}{\sqrt x}=2\,d(\sqrt x)$</td><td>$\dfrac{dx}{x^{2}}=-d\!\left(\dfrac1x\right)$</td></tr>
+  <tr><td>$x^{\mu-1}dx=\dfrac1\mu d(x^{\mu})$</td><td>$\dfrac{dx}{x}=d(\ln|x|)$</td></tr>
+  <tr><td>$e^{x}dx=d(e^{x})$</td><td>$\sin x\,dx=-d(\cos x)$；$\cos x\,dx=d(\sin x)$</td></tr>
+  <tr><td>$\sec^{2}x\,dx=d(\tan x)$；$\csc^{2}x\,dx=-d(\cot x)$</td><td>$\sec x\tan x\,dx=d(\sec x)$；$\csc x\cot x\,dx=-d(\csc x)$</td></tr>
+  <tr><td>$\dfrac{dx}{1+x^{2}}=d(\arctan x)$</td><td>$\dfrac{dx}{\sqrt{1-x^{2}}}=d(\arcsin x)$</td></tr>
+</table>
+<p><strong>万能型</strong>：$\displaystyle\int\dfrac{f'(x)}{f(x)}dx=\ln|f(x)|+C$（$\tan x$、$\frac{1}{x\ln x}$、$\frac{e^x}{e^x+2}$ 皆此型）。</p>
+
+<h2>③ 方法选择器（按长相找招）</h2>
+<table>
+  <tr><th>长相</th><th>招法</th></tr>
+  <tr><td>根式化分数指数后是幂和</td><td>直接积分（化幂、加减一项）</td></tr>
+  <tr><td>$f(\square)\cdot\square'$ 结构</td><td>第一换元（凑微分）；线性整体除系数</td></tr>
+  <tr><td>$\sqrt[n]{ax+b}$、双根号、分母高次 $x$</td><td>第二换元（根式换元 / 最小公倍根 / 倒代换）</td></tr>
+  <tr><td>$\sqrt{a^{2}-x^{2}}$ / $\sqrt{x^{2}+a^{2}}$ / $\sqrt{x^{2}-a^{2}}$</td><td>三角换元：$a\sin t$ / $a\tan t$ / $a\sec t$，画三角形回代</td></tr>
+  <tr><td>两类函数相乘（幂×三角/指数）</td><td>分部积分："反对幂三指"排前者当 $u$</td></tr>
+  <tr><td>$\ln x$、$\arctan x$ 单独积分</td><td>分部：$u=$ 它本身，$dv=dx$</td></tr>
+  <tr><td>$e^{ax}\sin bx$ 型</td><td>分部两次循环移项（或引用⑧中 9、10 号）</td></tr>
+  <tr><td>假分式</td><td>长除化"多项式 + 真分式"</td></tr>
+  <tr><td>真分式可分解 / 不可分解</td><td>裂项待定系数 / 凑分母导数 + 配方 $\arctan$</td></tr>
+  <tr><td>三角：幂 / $1\pm\sin$ / 对称 / 线性比</td><td>降幂 / 乘共轭齐次化 / 同除 $\cos^2$ 化切 / 一次项重组 / 万能公式兜底</td></tr>
+</table>
+
+<h2>④ 分部积分与经典结果</h2>
+<table>
+  <tr><th>积分</th><th>结果</th></tr>
+  <tr><td>$\int x\cos x\,dx$</td><td>$x\sin x+\cos x+C$</td></tr>
+  <tr><td>$\int x\sin x\,dx$</td><td>$-x\cos x+\sin x+C$</td></tr>
+  <tr><td>$\int xe^{x}dx$ / $\int x^{2}e^{x}dx$</td><td>$(x-1)e^{x}+C$ / $(x^{2}-2x+2)e^{x}+C$</td></tr>
+  <tr><td>$\int\ln x\,dx$ / $\int\arctan x\,dx$</td><td>$x\ln x-x+C$ / $x\arctan x-\frac12\ln(1+x^{2})+C$</td></tr>
+  <tr><td>$\int\tan x\,dx$ / $\int\cot x\,dx$</td><td>$-\ln|\cos x|+C$ / $\ln|\sin x|+C$</td></tr>
+  <tr><td>$\int\sec x\,dx$ / $\int\csc x\,dx$</td><td>$\ln|\sec x+\tan x|+C$ / $\ln|\csc x-\cot x|+C$</td></tr>
+</table>
+
+<h2>⑤ 三角降幂与万能公式</h2>
+<table>
+  <tr><th>项目</th><th>内容</th></tr>
+  <tr><td>降幂</td><td>$\sin^{2}x=\dfrac{1-\cos2x}{2}$；$\cos^{2}x=\dfrac{1+\cos2x}{2}$</td></tr>
+  <tr><td>万能公式</td><td>$t=\tan\dfrac x2$：$\sin x=\dfrac{2t}{1+t^{2}}$，$\cos x=\dfrac{1-t^{2}}{1+t^{2}}$，$dx=\dfrac{2\,dt}{1+t^{2}}$（算完回代！）</td></tr>
+  <tr><td>凑微分求 tan</td><td>$\int\tan^{n}x\sec^{2}x\,dx=\int\tan^{n}x\,d(\tan x)$；$\int\tan x\sec^{2}x\,dx$ 类同</td></tr>
+</table>
+
+<h2>⑥ 复杂函数积分表（10 条）</h2>
+<table>
+  <tr><th>#</th><th>公式</th></tr>
+  <tr><td>1</td><td>$\displaystyle\int\frac{dx}{a^{2}+x^{2}}=\frac1a\arctan\frac xa+C$</td></tr>
+  <tr><td>2</td><td>$\displaystyle\int\frac{dx}{x^{2}-a^{2}}=\frac{1}{2a}\ln\left|\frac{x-a}{x+a}\right|+C$（与 $\int\frac{dx}{a^{2}-x^{2}}=\frac{1}{2a}\ln\left|\frac{a+x}{a-x}\right|+C$ 倒序勿混）</td></tr>
+  <tr><td>3</td><td>$\displaystyle\int\frac{dx}{\sqrt{x^{2}+a}}=\ln\left|x+\sqrt{x^{2}+a}\right|+C$</td></tr>
+  <tr><td>4</td><td>$\displaystyle\int\sqrt{x^{2}+a}\,dx=\frac{x\sqrt{x^{2}+a}}{2}+\frac a2\ln\left|x+\sqrt{x^{2}+a}\right|+C$</td></tr>
+  <tr><td>5</td><td>$\displaystyle\int\frac{dx}{\sqrt{a^{2}-x^{2}}}=\arcsin\frac xa+C$</td></tr>
+  <tr><td>6</td><td>$\displaystyle\int\sqrt{a^{2}-x^{2}}\,dx=\frac{x\sqrt{a^{2}-x^{2}}}{2}+\frac{a^{2}}{2}\arcsin\frac xa+C$</td></tr>
+  <tr><td>7 / 8</td><td>$\int\sec x\,dx=\ln|\sec x+\tan x|+C$；$\int\csc x\,dx=\ln|\csc x-\cot x|+C$</td></tr>
+  <tr><td>9 / 10</td><td>$\int e^{ax}\sin bx\,dx=\dfrac{e^{ax}}{a^{2}+b^{2}}(a\sin bx-b\cos bx)+C$；$\int e^{ax}\cos bx\,dx=\dfrac{e^{ax}}{a^{2}+b^{2}}(a\cos bx+b\sin bx)+C$</td></tr>
+</table>
+
+<p style="margin-top:2rem"><strong>配讲课</strong>：0026–0030 全单元 · <strong>姊妹速查</strong>：<a href="003-求导公式与求导法则速查.html">003 求导表</a>（互逆验证用）。<br>
+<strong>打印建议</strong>：A4 单页双面；② 号凑微分表建议单独加印一份做"3 秒填表"自测卡。</p>
+</main>
+</body>
+</html>

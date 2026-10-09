@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0031 · 定积分定义 · 性质 · 牛顿–莱布尼茨 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0031">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 5 单元 · 定积分 · 课 0031</span>
+  <a href="0030-分式与三角积分策略.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0031 · 定积分</span>
+<h1>定积分定义 · 六大性质 · 牛顿–莱布尼茨</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：第 4 单元不定积分</span>
+  <span>来源：笔记《定积分》§一 · §二 · §三</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>说清定积分是<strong>一个数字</strong>，默写五点说明与<strong>六大性质</strong></li>
+    <li>把和式极限 $\lim\limits_{n\to\infty}\sum\dfrac{n}{n^{2}+i^{2}}$ <strong>翻译成定积分</strong>算出 $\frac{\pi}{4}$</li>
+    <li>用牛顿–莱布尼茨公式计算，并识破"定积分是常数"的待定系数题</li>
+  </ul>
+</div>
+
+<p>定积分 = 面积 + 极限 + 逆运算三重身份。本课先立概念（考选择题），下两课练计算与应用。</p>
+
+<h2>一、定义：曲边梯形的极限</h2>
+
+<div class="keypoint">
+  <div class="kp-title">四步定义</div>
+  <p style="margin:0.2rem 0"><strong>分割 → 近似代替 → 求和 → 取极限</strong>：</p>
+  <p style="margin:0.2rem 0">$$\int_a^b f(x)\,dx=\lim_{\lambda\to0}\sum_{i=1}^{n}f(\xi_{i})\,\Delta x_{i}$$</p>
+  <p style="margin:0.2rem 0">（$\lambda=\max\Delta x_i\to0$。几何：$y=f(x)$、$x$ 轴、$x=a$、$x=b$ 围成的曲边梯形面积。）</p>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">五点说明（概念选择题弹药）</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>定积分是<strong>一个具体的数字</strong>，与积分变量记号无关：$\int_a^bf\,dx=\int_a^bf\,dt$</li>
+    <li>换限变号：$\int_a^b=-\int_b^a$；点积分：$\int_a^a=0$</li>
+    <li>结果是<strong>代数值</strong>：可正、可负、可为零（$x$ 轴下方贡献负面积）</li>
+  </ul>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（和式极限 → 定积分）</span>求 $\lim\limits_{n\to\infty}\sum\limits_{i=1}^{n}\dfrac{n}{n^{2}+i^{2}}$。（夏讲 P12）</p>
+  <details><summary>先自己提 $\frac1n$，再展开</summary>
+    <p>提出 $\dfrac1n$ 作 $\Delta x$：$\displaystyle\sum_{i=1}^{n}\frac1n\cdot\frac{1}{1+\left(\frac in\right)^{2}}$——这正是 $f(x)=\dfrac{1}{1+x^{2}}$ 在 $[0,1]$ 上的积分和（$\frac in$ 是分点）。</p>
+    <p>$=\displaystyle\int_0^1\frac{dx}{1+x^{2}}=\arctan x\Big|_0^1=\dfrac{\pi}{4}$。</p>
+    <p>识别口诀：<strong>提出 $\frac1n$ 当 $dx$，$\frac in$ 当 $x$，认出 $f$ 与区间</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（几何意义速算）</span>$\displaystyle\int_0^2\sqrt{4-x^{2}}\,dx$。（夏讲 P14）</p>
+  <details><summary>先认形状，再展开</summary>
+    <p>$y=\sqrt{4-x^{2}}$ 是半径 2 的上半圆，$[0,2]$ 取四分之一：$=\dfrac14\pi\cdot2^{2}=\pi$。</p>
+    <p>同族：$\int_a^b1\,dx=b-a$（矩形）；$\int_a^bk\,dx=k(b-a)$；<strong>几何面积</strong>要写 $\int_a^b|f(x)|dx$（先取绝对值逐段保正，防正负抵消）。</p>
+  </details>
+</div>
+
+<h2>二、六大性质（性质 6 是秒杀器）</h2>
+
+<table>
+  <tr><th>#</th><th>性质</th><th>备注</th></tr>
+  <tr><td>1</td><td>线性：$\int(f\pm g)=\int f\pm\int g$，$\int kf=k\int f$</td><td>—</td></tr>
+  <tr><td>2</td><td>乘积<strong>可积</strong></td><td>但可积 $\neq$ <strong>可拆</strong>：$\int fg\neq\int f\cdot\int g$</td></tr>
+  <tr><td>3</td><td>保序：$f\ge g$ ⇒ $\int f\ge\int g$</td><td>比大小专用</td></tr>
+  <tr><td>4</td><td>$\left|\int f\right|\le\int|f|$</td><td>单向：$|f|$ 可积 ⇏ $f$ 可积</td></tr>
+  <tr><td>5</td><td>区间可加：$\int_a^b=\int_a^c+\int_c^b$</td><td>$c$ 可在区间外——绝对值/分段函数的依据</td></tr>
+  <tr><td><strong>6</strong></td><td><strong>对称区间奇偶积分</strong>（$[-a,a]$ 连续）：奇函数 $=0$；偶函数 $=2\int_0^a$</td><td><strong>计算前第一眼</strong></td></tr>
+</table>
+
+<p>三定理一句话：连续（或有限个第一类间断点）⇒ 可积（存在定理）；$m(b-a)\le\int_a^bf\le M(b-a)$（估值）；$\int_a^bf=f(\xi)(b-a)$（中值）。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（奇偶秒杀）</span>$\displaystyle\int_{-1}^{1}\frac{e^{x}-e^{-x}}{1+x^{2}}dx$。（夏讲 P20）</p>
+  <details><summary>先判奇偶，再展开</summary>
+    <p>分子 $e^x-e^{-x}$ 奇、分母 $1+x^2$ 偶 ⇒ 被积函数<strong>奇</strong>，对称区间 $[-1,1]$ 上 $=0$。一行收工。</p>
+    <p>进阶（秋讲练习 10(8)）：$\int_{-\frac\pi2}^{\frac\pi2}\dfrac{x-\cos x}{\sin^{2}x+1}dx=\underbrace{0}_{奇}-2\int_0^{\frac\pi2}\dfrac{\cos x}{1+\sin^{2}x}dx=-\dfrac{\pi}{2}$——奇偶拆分 + 凑微分连招。</p>
+  </details>
+</div>
+
+<h2>三、牛顿–莱布尼茨公式</h2>
+
+<div class="keypoint">
+  <div class="kp-title">微积分基本公式</div>
+  <p style="margin:0.2rem 0">$$\int_a^{b}f(x)\,dx=F(x)\Big|_{a}^{b}=F(b)-F(a)\qquad(F'=f)$$</p>
+  <p style="margin:0.2rem 0">先求原函数，再<strong>上限减下限</strong>——第 4 单元全部技巧在此上岗。如 $\int_2^4\frac{dx}x=\ln4-\ln2=\ln2$。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（"定积分是常数"）</span>$f(x)=x^{2}-\displaystyle\int_0^1 f(x)\,dx$，求 $f(x)$。（秋讲练习 6）</p>
+  <details><summary>先设常数，再展开</summary>
+    <p>定积分是数字！设 $A=\int_0^1f\,dx$，则 $f(x)=x^{2}-A$。两边在 $[0,1]$ 上积分：</p>
+    <p>$A=\displaystyle\int_0^1(x^{2}-A)dx=\frac13-A\ \Rightarrow\ A=\frac16$，故 $f(x)=x^{2}-\dfrac16$。</p>
+    <p>同款：$\dfrac{d}{dx}\displaystyle\int_1^2x\ln x\,dx=0$（常数的导数为零，练习 5）——"定积分是数字"两个方向都考。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\displaystyle\int_2^5 f(x)dx=8$，则 $\displaystyle\int_5^2 f(x)dx=$（秋讲练习 1）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$8$</button>
+    <button data-k="B">$0$</button>
+    <button data-k="C">$-8$</button>
+    <button data-k="D">不能确定</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">交换上下限提出负号：$\int_5^2=-\int_2^5=-8$。"换限变号、点积分为零"两条一起记。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">由 $y=f(x)$、$x=a$、$x=b$ 与 $x$ 轴所围图形的<strong>几何面积</strong>是（夏讲 P15 原题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\displaystyle\int_a^b f(x)\,dx$</button>
+    <button data-k="B">$\displaystyle\int_a^b\left|f(x)\right|dx$</button>
+    <button data-k="C">$\left|\displaystyle\int_a^b f(x)\,dx\right|$</button>
+    <button data-k="D">$\displaystyle\int_a^b f^{2}(x)\,dx$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">A 是代数值（$x$ 轴下方为负，正负抵消）；C 是"抵消后剩多少"再取绝对值，不等于真实面积；正确做法是<strong>先逐点取绝对值再积分</strong>。面积题变号必分段。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">下列不等式正确的是（夏讲 P19）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\displaystyle\int_1^{2}x^{2}dx\ge\int_1^{2}x\,dx$</button>
+    <button data-k="B">$\displaystyle\int_0^{1}x^{3}dx\ge\int_0^{1}x\,dx$</button>
+    <button data-k="C">$\displaystyle\int_1^{2}\sqrt x\,dx\ge\int_1^{2}x^{2}dx$</button>
+    <button data-k="D">$\displaystyle\int_0^{1}x^{2}dx\ge\int_0^{1}x\,dx$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">保序性：区间上逐点比较。$[1,2]$ 上 $x^2\ge x$ ⇒ A 对。B 错（$[0,1]$ 上 $x^3\le x$）；C 错（$[1,2]$ 上 $\sqrt x\le x^2$）；D 错（$[0,1]$ 上 $x^2\le x$）。比大小 = <strong>先比被积函数，别急着算数值</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\displaystyle\int_{-2}^{2}(x^{2}+1)\,dx$ 用奇偶性速算得（秋讲练习 10(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{14}{3}$</button>
+    <button data-k="B">$\dfrac{16}{3}$</button>
+    <button data-k="C">$\dfrac{10}{3}$</button>
+    <button data-k="D">$\dfrac{28}{3}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x^2+1$ 是偶函数：$2\displaystyle\int_0^2(x^{2}+1)dx=2\left(\frac83+2\right)=\frac{28}{3}$。A 忘了乘 2——对称偶函数翻倍是最顺手的减负，也是最顺手的失分点。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">设 $f(x)=x^{2}-\displaystyle\int_0^1f(x)dx$，则 $\displaystyle\int_0^1 f(x)\,dx=$（秋讲练习 6 变式）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{3}$</button>
+    <button data-k="B">$\dfrac{1}{6}$</button>
+    <button data-k="C">$-\dfrac{1}{6}$</button>
+    <button data-k="D">$0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">设 $A=\int_0^1f$，两边积分：$A=\frac13-A$ ⇒ $A=\frac16$。关键观念：<strong>定积分是常数，可以参与代数运算</strong>。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>定积分是<strong>数字</strong>：导数为 0、可设为 $A$ 参与运算</li>
+    <li>几何面积 $\int_a^b|f|dx$：<strong>变号点必分段</strong>；$\left|\int f\right|$ 不是面积</li>
+    <li>乘积<strong>可积 ≠ 可拆</strong>：$\int fg\neq\int f\cdot\int g$</li>
+    <li>奇偶积分前提：<strong>对称区间 + 连续</strong>（瑕点在内部的 $\int_{-1}^1\frac{dx}x$ 不能用奇性说 0）</li>
+    <li>和式极限化定积分：提 $\frac1n$ 认 $dx$，$\frac in$ 认 $x$，再认 $f$ 与区间</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写牛顿–莱布尼茨公式与定积分五点说明。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\int_a^bf\,dx=F(b)-F(a)$。五点：是一个数字；与变量记号无关；换限变号；点积分 $=0$；结果是代数值。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写六大性质名称，并写出对称区间奇偶积分两条公式。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">线性、乘积可积（≠可拆）、保序、绝对可积（$\left|\int f\right|\le\int|f|$）、区间可加、对称奇偶。$[-a,a]$ 连续：奇 $\to0$，偶 $\to2\int_0^a$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。性质 6（奇偶秒杀）要练成"看限先看对称"的反射——下一课每道计算题的第一步都是它。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《定积分》§一 概念 · §二 六大性质 · §三 牛顿–莱布尼茨（含秋讲练习 1–8 速查表）</li>
+    <li>讲义：《定积分》夏讲 PDF 教材 P103–P106（定义、性质、牛–莱）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："和式极限怎么认出该化成哪个定积分"、"估值定理怎么用"、"再出 10 道奇偶秒杀题限时 5 分钟"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0030-分式与三角积分策略.html" class="prev"><span class="dir">← 上一课</span>0030 分式与三角积分策略</a>
+  <a href="0032-定积分计算与华里士公式.html" class="next"><span class="dir">下一课 →</span>0032 定积分计算与华里士公式</a>
+</nav>
+</main>
+</body>
+</html>

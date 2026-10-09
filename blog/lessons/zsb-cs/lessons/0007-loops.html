@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 7 课 · 循环结构</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=3cc97cf0f1e7">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=3cc97cf0f1e7"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第一部分 C 语言</span>
+  <span>第 7 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>循环结构</h1><p class="lesson-meta">对应笔记 C语言/05-循环结构程序设计 · 教材 P113–P142 · 建议按小节分次学习</p><p>能按判断、循环体、更新的顺序推演，并给出退出时的变量值。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 循环每轮都要记录状态</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / while 与 do-while：先判还是先执行</a></li><li><a href="#cs-detail-2">04 / for：三表达式的“固定走位”</a></li><li><a href="#cs-detail-3">05 / break 与 continue：范围与去向</a></li><li><a href="#cs-detail-4">06 / 典型代码：九九乘法表</a></li><li><a href="#cs-detail-5">07 / 先回忆，再自测</a></li><li><a href="#cs-practice">08 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-7">09 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">循环每轮都要记录状态</h2><p class="cs-goal">这一节要学会：能按判断、循环体、更新的顺序推演，并给出退出时的变量值。</p><p>循环像每圈先验票、再跑步、最后记圈数。<code>for</code> 的初始化只做一次；随后反复执行“条件→循环体→更新→条件”。把更新误放到循环体前面，是很多差一错误的来源。</p><p>下面用 <code>sum</code> 累加 <code>1</code> 到 <code>3</code>。<code>sum=0</code> 是起点；每轮先确认 <code>i&lt;=3</code>，才把本轮 <code>i</code> 加进去。最后一次加完后还要执行 <code>i++</code>，再判断失败，所以退出时 <code>i</code> 是 <code>4</code>。</p><p><code>continue</code> 在 <code>for</code> 中会先去做更新表达式，再检查条件；<code>break</code> 直接离开循环，不做本轮后续更新。<code>while</code> 中的 <code>continue</code> 直接回条件，因此把更新写在它后面可能永远执行不到。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>int i, sum=0; for(i=1; i&lt;=3; i++)</code></pre><p>i：1；sum：0</p><p>初始化一次，准备判断 1&lt;=3。</p><h3>第 2 步</h3><pre><code>sum += i; /* 第 1 轮 */</code></pre><p>i：1；sum：1</p><p>把 1 加入，再更新 i 到 2。</p><h3>第 3 步</h3><pre><code>sum += i; /* 第 2 轮 */</code></pre><p>i：2；sum：3</p><p>条件通过，把 2 加入，再更新到 3。</p><h3>第 4 步</h3><pre><code>sum += i; /* 第 3 轮 */</code></pre><p>i：3；sum：6</p><p>把 3 加入；这一轮完成后还要做 i++。</p><h3>第 5 步</h3><pre><code>i++ → 判断 4&lt;=3 为假</code></pre><p>i：4；sum：6</p><p>退出时不再执行循环体，sum 不会加上 4。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>循环结束时 <code>i</code> 为什么不是 <code>3</code>？</p><ol><li>最后还执行了 <code>i++</code>，然后条件失败：对。变量值来自实际执行顺序。</li><li>因为 <code>sum</code> 等于 <code>6</code>：<code>sum</code> 的值不决定 <code>i</code> 的更新。</li><li><code>for</code> 会自动把 <code>i</code> 设成 <code>4</code>：<code>for</code> 没有这种特殊赋值规则，是代码里的 <code>i++</code> 改变它。</li></ol><p>正确判断：最后还执行了 <code>i++</code>，然后条件失败</p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task"><code>int s=0; for(int i=1;i&lt;=4;i++){ if(i==2) continue; s+=i; }</code>。先列出真正加进 <code>s</code> 的数，再求 <code>s</code>。</p><details><summary>卡住时看提示</summary><p>分别记录 <code>i=1</code>、<code>2</code>、<code>3</code>、<code>4</code>。<code>i=2</code> 时跳过加法，但 <code>for</code> 的更新表达式仍会执行。</p></details><details><summary>查看参考过程</summary><p><code>i=1</code> 加 <code>1</code>；<code>i=2</code> 执行 <code>continue</code>，跳过 <code>s+=i</code> 但仍进行 <code>i++</code>；<code>i=3</code> 加 <code>3</code>；<code>i=4</code> 加 <code>4</code>。最终 <code>s=8</code>。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>上题的 <code>s</code> 是？</p><ol><li><code>10</code>：<code>10</code> 是把被 <code>continue</code> 跳过的 <code>2</code> 也加了。</li><li><code>8</code>：对。加的是 <code>1</code>、<code>3</code>、<code>4</code>。</li><li><code>1</code>：<code>continue</code> 不会终止整个循环，后面的轮次仍执行。</li></ol><p>正确判断：<code>8</code></p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、while 与 do-while：先判还是先执行</h2>
+
+<table>
+  <tr><th>循环</th><th>语法</th><th>执行顺序</th><th>最少次数</th></tr>
+  <tr><td>while</td><td><code>while(表达式) 语句;</code></td><td>先判断表达式，为真再执行</td><td><strong>≥0 次</strong></td></tr>
+  <tr><td>do-while</td><td><code>do 语句; while(表达式);</code></td><td>先执行一次，再判断表达式</td><td><strong>≥1 次</strong></td></tr>
+</table>
+
+<div class="callout">
+  <p class="callout-title">高频对比</p>
+  <p>条件一开始就不成立时，while 的循环体一次都不执行；do-while 已经执行完那一次。do-while 的 <code>while(表达式)</code> 后面<strong>必须加分号</strong>，且 <code>do</code> 不能单独出现。</p>
+</div>
+
+<p>累加 <code>1+2+…+100</code> 的 while 写法：</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main()
+{
+    int i = 1, sum = 0;   /* 累加器必须置 0，否则脏数据影响结果 */
+    while (i &lt;= 100)
+    {
+        sum = sum + i;
+        i++;
+    }
+    printf("sum=%d i=%d\n", sum, i);
+    return 0;
+}
+</code></pre>
+<p>循环结束后 <strong>i = 101</strong>：i=100 时进入循环，i++ 后变成 101 才退出。累乘 <code>1×2×…×10</code> 时，存放乘积的变量必须<strong>置 1</strong>，否则乘 0 会全部归零。</p>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 一句话说清 while 至少 0 次、do-while 至少 1 次的本质差异；② 画出 for 三表达式的执行顺序，并判断省略/赋值变形会不会造成死循环；③ 指出 break 与 continue 在嵌套中的作用范围，以及 continue 在 for 和 while 中“回到哪里”的不同；④ 写对累加（初值 0）和累乘（初值 1）程序，能独立写出九九乘法表类双重循环代码。</p>
+</div>
+
+<details class="recall warmup">
+  <summary>温故 · 第 6 课「选择进阶」：switch 中 case 和 break 各是什么角色？default 写在最前面会先执行吗？</summary>
+  <div class="recall-a">case 是入口，break 是出口；无 break 就继续执行下一个 case，称为穿透。default 位置不影响匹配，先匹配所有 case 都不中时才走 default。</div>
+</details>
+<details class="recall warmup">
+  <summary>温故 · 第 5 课「选择结构」：if(x) 与 if(!x) 分别等价于什么写法？</summary>
+  <div class="recall-a">if(x) 等价于 if(x != 0)；if(!x) 等价于 if(x == 0)。</div>
+</details>
+
+<div class="callout warn">
+  <p class="callout-title">练习缺口提示</p>
+  <p>⚠️ 本循环章无配套章节练习 PDF，课后任务以笔记末尾自测题 Q1–Q8 和正文代码改写为主。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、for：三表达式的“固定走位”</h2>
+
+<pre><code>for(表达式1; 表达式2; 表达式3) 语句;</code></pre>
+
+<table>
+  <tr><th>表达式</th><th>执行时机</th><th>省略或写错会怎样</th></tr>
+  <tr><td>表达式 1</td><td>只执行一次，用于设初值</td><td>可在 for 之前定义</td></tr>
+  <tr><td>表达式 2</td><td>循环体<strong>前</strong>判断</td><td>省略默认恒真 → <strong>死循环</strong></td></tr>
+  <tr><td>表达式 3</td><td>循环体<strong>后</strong>执行</td><td>需在循环体内手动改变控制变量</td></tr>
+</table>
+
+<p>标准顺序：表达式 1 → 表达式 2（真）→ 循环体 → 表达式 3 → 回到表达式 2 → …</p>
+
+<div class="callout warn">
+  <p class="callout-title">赋值当条件最坑</p>
+  <p><code>for(i=0; i=5; i++)</code> 中表达式 2 是赋值，结果恒真，死循环；<code>for(; i=0; )</code> 中表达式 2 是赋值 0，恒假，一次都不执行。不要把 <code>==</code> 和 <code>=</code> 混用。</p>
+</div>
+
+<p>最简死循环：<code>for(;;)</code> 等价 <code>while(1)</code>。用 <code>getchar</code> 控制循环时，<code>for(; (ch=getchar())!='\n'; )</code> 里 <code>(ch=getchar())</code> 的括号<strong>不可省</strong>，因为 <code>!=</code> 优先级高于 <code>=</code>，去掉就变成把比较结果 0/1 赋给 ch。</p>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、break 与 continue：范围与去向</h2>
+
+<table>
+  <tr><th></th><th>break</th><th>continue</th></tr>
+  <tr><td>作用范围</td><td>结束整个所属循环；嵌套时只结束所属层</td><td>只结束本次循环，循环不终止；嵌套时也只作用于所属层</td></tr>
+  <tr><td>在 for 中的去向</td><td>直接到循环<strong>之后</strong>的语句，<strong>不经过表达式 3</strong></td><td>先执行表达式 3，再判表达式 2</td></tr>
+  <tr><td>在 while/do-while 中的去向</td><td>直接到循环之后的语句</td><td>回到 while/do-while 的表达式</td></tr>
+  <tr><td>可用位置</td><td>switch 和循环</td><td>仅循环</td></tr>
+</table>
+
+<div class="callout">
+  <p class="callout-title">嵌套就近原则</p>
+  <p>外层执行一次，内层执行一轮；break/continue 都只影响自己所在的那一层循环。switch 里的 break 只跳出 switch，<strong>不会</strong>跳出外层循环。</p>
+</div>
+
+</section>
+<section id="cs-detail-4" data-cs-step><h2 tabindex="-1">四、典型代码：九九乘法表</h2>
+
+<pre><code>#include &lt;stdio.h&gt;
+int main()
+{
+    int i, j;
+    for (i = 1; i &lt;= 9; i++)        /* 外层控制行 */
+    {
+        for (j = 1; j &lt;= i; j++)    /* 内层控制列 */
+            printf("%d*%d=%-2d ", j, i, i * j);
+        printf("\n");
+    }
+    return 0;
+}
+</code></pre>
+<p>核心记忆点：外层一次，内层一轮；内层循环变量要在外层循环体内部重新初始化或按行控制，否则行与行之间会乱。当前版本内层 j 从 1 到 i，输出的是<strong>下三角</strong>。</p>
+
+</section>
+<section id="cs-detail-5" data-cs-step><h2 tabindex="-1">五、先回忆，再自测</h2>
+
+<details class="recall">
+  <summary>合上笔记：while 与 do-while 最少执行几次？for 的三个表达式分别在什么时候执行？</summary>
+  <div class="recall-a">while 先判断，条件一开始不成立就 0 次；do-while 先执行，至少 1 次。for：表达式 1 只执行一次；表达式 2 在循环体前判断；表达式 3 在循环体后执行。</div>
+</details>
+
+<details class="recall">
+  <summary>break 与 continue 在 for 循环中分别“跳到哪里”？嵌套时作用范围如何？</summary>
+  <div class="recall-a">break 直接跳到循环后面的语句，不会执行表达式 3；continue 跳到表达式 3，再判断表达式 2。嵌套时两者都遵循就近原则，只作用于自己所在的那一层。</div>
+</details>
+
+<details class="recall">
+  <summary>写累加、累乘程序时，累加变量和累乘变量分别要置多少？</summary>
+  <div class="recall-a">累加变量置 0，累乘变量置 1。否则累加会带入脏数据，累乘遇到 0 会全部归零。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">六、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">1. 关于 while 与 do-while 的执行次数，正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">while 至少执行 1 次，do-while 至少 0 次</li>
+    <li data-opt="b">while 至少执行 0 次，do-while 至少 1 次</li>
+    <li data-opt="c">两者都至少执行 1 次，两种循环没有区别</li>
+    <li data-opt="d">两者都至少执行 0 次，两种循环没有区别</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">while 先判断后执行，条件一开始不成立就一次都不执行；do-while 先执行后判断，即使条件一开始不成立也已执行一次。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">2. 下列 for 循环中，循环体一次都不会执行的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">条件为关系表达式 i&lt;10，正常执行</li>
+    <li data-opt="b">条件为赋值 i=1，导致死循环</li>
+    <li data-opt="c">条件为赋值 i=0，循环体不执行</li>
+    <li data-opt="d">三个表达式全部省略，无限循环</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">表达式 2 是赋值 <code>i=0</code>，值为 0 即恒假，循环体一次不执行；<code>i=1</code> 恒真会死循环；<code>for(;;)</code> 表达式 2 省略默认恒真，也是死循环。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">3. 在 for 循环中遇到 continue 后，程序下一步会</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">直接结束整个循环，不再继续执行</li>
+    <li data-opt="b">跳到循环后面的语句继续执行</li>
+    <li data-opt="c">跳过本次后直接判断表达式 2</li>
+    <li data-opt="d">先执行表达式 3 再判断表达式 2</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">continue 只结束本次循环。在 for 中它会先执行表达式 3，再去判断表达式 2；在 while/do-while 中则直接回到表达式。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">4. 嵌套循环中，内层循环里的 break 会</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">只结束 break 所属的内层循环</li>
+    <li data-opt="b">同时结束内层循环与外层循环</li>
+    <li data-opt="c">跳到外层循环的下一次继续</li>
+    <li data-opt="d">跳到内层循环的表达式 3 执行</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">break 与 continue 都遵循就近原则，只作用于它们所在的那一层循环；内层 break 结束后，外层继续执行下一轮。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">5. 写程序计算 <code>1×2×…×10</code> 时，累乘变量 result 的初值应设为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">0，防止累乘结果超出范围</li>
+    <li data-opt="b">1，作为乘法单位元起始</li>
+    <li data-opt="c">10，从循环上限开始递减</li>
+    <li data-opt="d">-1，用于判断最终乘积符号</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">累乘必须置 1，因为 1 是乘法单位元；若置 0，所有乘积都会变成 0。累加则必须置 0。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">6. <code>for(;;)</code> 与下列哪个循环等价</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a"><code>while(0)</code>，条件恒假不执行</li>
+    <li data-opt="b"><code>do {} while(0);</code> 条件恒假</li>
+    <li data-opt="c"><code>while(1)</code>，条件恒真无限循环</li>
+    <li data-opt="d"><code>for(;0;)</code>，条件恒假不执行</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">for 的三个表达式全部省略时，表达式 2 默认恒真，等价 <code>while(1)</code>，都是无限循环。其他三个选项条件为假，不会等价。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">7. 执行下面程序段后，输出结果是</p>
+  <pre><code>for (i = 1; i &lt;= 5; i++)
+{
+    if (i == 3) break;
+    printf("%d", i);
+}</code></pre>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">12</li>
+    <li data-opt="b">123</li>
+    <li data-opt="c">12345</li>
+    <li data-opt="d">3</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">i=1、2 时输出 1、2；i=3 时遇 break，直接结束整个循环（不经过表达式 3），后面的 3、4、5 都不再输出。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">8. 执行下面程序段后，输出结果是</p>
+  <pre><code>for (i = 1; i &lt;= 5; i++)
+{
+    if (i % 2 == 0) continue;
+    printf("%d", i);
+}</code></pre>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">135</li>
+    <li data-opt="b">12345</li>
+    <li data-opt="c">24</li>
+    <li data-opt="d">13</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">i=2、4 时 i%2==0 成立，continue 跳过本次的 printf，先执行表达式 3（i++）再判 i&lt;=5，循环不终止；只有奇数 1、3、5 被输出。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 25 分钟）</p>
+  <p>① 打开 笔记末尾自测问题 Q1–Q8，遮住答案口头作答，卡壳的记入错题本。② 改写正文代码：把 1+2+…+100 分别用 do-while 和 for 实现一遍；把九九乘法表改成“上三角”输出（j 从 i 开始到 9）。③ 整理你最容易混淆的 3 个点，下节课前再默写一次。</p>
+</div>
+
+</section>
+<section id="cs-detail-7" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：C语言/05-循环结构程序设计（含“易错点与对比”表，值得再过一遍）。教材对照：谭浩强《C程序设计》P113–P142。术语速查：<a href="../reference/glossary.html">课程术语表</a> · 语法速查：<a href="../reference/c-syntax-cheatsheet.html">C 语法 cheatsheet</a> · 公式速查：<a href="../reference/ds-formula-cheatsheet.html">数据结构公式表</a>。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:7:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-detail-4","cs-detail-5","cs-practice","cs-detail-7"],"checks":{"core":{"question":"循环结束时 i 为什么不是 3？","choices":["最后还执行了 i++，然后条件失败","因为 sum 等于 6","for 会自动把 i 设成 4"],"answer":0,"why":["对。变量值来自实际执行顺序。","sum 的值不决定 i 的更新。","for 没有这种特殊赋值规则，是代码里的 i++ 改变它。"]},"transfer":{"question":"上题的 s 是？","choices":["10","8","1"],"answer":1,"why":["10 是把被 continue 跳过的 2 也加了。","对。加的是 1、3、4。","continue 不会终止整个循环，后面的轮次仍执行。"]}},"traces":{"core":{"title":"手动走完三轮累加","frames":[{"code":"int i, sum=0; for(i=1; i\u003c=3; i++)","cells":[["i","1"],["sum","0"]],"note":"初始化一次，准备判断 1\u003c=3。","pointer":""},{"code":"sum += i; /* 第 1 轮 */","cells":[["i","1"],["sum","1"]],"note":"把 1 加入，再更新 i 到 2。","pointer":""},{"code":"sum += i; /* 第 2 轮 */","cells":[["i","2"],["sum","3"]],"note":"条件通过，把 2 加入，再更新到 3。","pointer":""},{"code":"sum += i; /* 第 3 轮 */","cells":[["i","3"],["sum","6"]],"note":"把 3 加入；这一轮完成后还要做 i++。","pointer":""},{"code":"i++ → 判断 4\u003c=3 为假","cells":[["i","4"],["sum","6"]],"note":"退出时不再执行循环体，sum 不会加上 4。","pointer":""}]}},"signature":"84cfb4186dd8e704"}</script>
+<nav class="footer-nav">
+  <a href="0006-selection-advanced.html">← 上一课：选择结构进阶</a>
+  <a href="0008-arrays-and-strings.html">下一课：数组与字符串 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

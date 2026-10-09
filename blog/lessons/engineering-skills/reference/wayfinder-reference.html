@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wayfinder 速查参考</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>wayfinder 速查参考</h1>
+  <p class="no-print" style="color: var(--muted);">
+    大型模糊工程的探路纪律：把路绘成 issue tracker 上的共享地图，逐票解决决策，直到通往目的地的路清晰。
+    系统学习请看<a href="../lessons/0007-wayfinder.html">第七课：使用 wayfinder 规划大型模糊项目</a>。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">mattpocock/skills · wayfinder/SKILL.md</a>（本地 <code>~/.agents/skills/wayfinder/SKILL.md</code>）
+  </p>
+
+  <h2>一、什么时候用</h2>
+  <ul>
+    <li>触发形状：想法<strong>太大</strong>——一个 agent session 装不下；<strong>太模糊</strong>——从这里到目的地的路还看不见。</li>
+    <li>目的地的三种典型形态：要交接迭代的一份 spec、规划前要锁定的一个决策、一次就地完成的变更（如数据迁移）。</li>
+    <li><strong>不需要地图的信号</strong>：广度优先 grill 后没浮出任何雾——路已清晰、一个 session 装得下——停下来问用户想怎么走。</li>
+    <li><strong>该交接的信号</strong>：感到「别画了直接干」的冲动——说明已到地图边缘，交接给 to-spec → implement 主流程。</li>
+  </ul>
+
+  <h2>二、地图（map）结构</h2>
+  <p>tracker 上带 <code>wayfinder:map</code> 标签的单个 issue；<strong>索引不是仓库</strong>——决策住在票里，地图只 gist + 链接；进行中的票不列在地图上，靠查询找。</p>
+  <table>
+    <thead>
+      <tr><th>区块</th><th>内容</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Destination</td><td>到达终点长什么样，一两行；每个 session 选票前先对准它。</td></tr>
+      <tr><td>Notes</td><td>领域、每个 session 该查阅的 skills、本工程的长期偏好；可在此声明「把施工带进地图」的例外。</td></tr>
+      <tr><td>Decisions so far</td><td>索引：每张已关闭的票一行 gist + 链接；记录实际走过的路线。</td></tr>
+      <tr><td>Not yet specified</td><td>范围内的雾：能感觉到但还钉不死的问题；随前沿推进毕业成票后从这里划掉。</td></tr>
+      <tr><td>Out of scope</td><td>被排除在目的地之外的工作；永不毕业；越界的票关掉后在此留一行 gist + 原因 + 链接。</td></tr>
+    </tbody>
+  </table>
+  <p>引用纪律：<strong>用名字不用编号</strong>——标题即链接，<code>#42, #43</code> 式的编号墙不可读。</p>
+
+  <h2>三、决策票（decision ticket）</h2>
+  <p>地图的 child issue，正文是一个 <code>## Question</code>，大小适配单个 100K token session。</p>
+  <table>
+    <thead>
+      <tr><th>类型标签</th><th>HITL / AFK</th><th>干什么</th><th>怎么解决</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>wayfinder:research</code></td><td>AFK</td><td>挖决策等待的外部事实（文档、API、知识库）</td><td><code>/research</code> subagent，可并行，成果落 <code>research/&lt;name&gt;</code> 分支</td></tr>
+      <tr><td><code>wayfinder:prototype</code></td><td>HITL</td><td>「该长什么样 / 该怎么表现」</td><td><code>/prototype</code> 做粗糙工件给大家 react，链接为资产</td></tr>
+      <tr><td><code>wayfinder:grilling</code></td><td>HITL</td><td>对话，默认类型</td><td>总是配合 <code>/grilling</code> + <code>/domain-modeling</code></td></tr>
+      <tr><td><code>wayfinder:task</code></td><td>HITL 或 AFK</td><td>决策前必须先做的人工操作（开通服务、搬数据）</td><td>唯一「做」的类型；资格是为决策解锁，答案记录产出的事实（凭证位置、URL、行数）</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>认领（claim）</strong>：干活前把票 assign 给驱动地图的人；assignee 即认领标记，未 assign 的打开票 = 未认领。</li>
+    <li><strong>阻塞</strong>：用 tracker 原生依赖关系（让 frontier 在 tracker UI 上可见）；tracker 不支持才退回正文约定。</li>
+    <li><strong>frontier</strong> = 打开 ∧ 未阻塞 ∧ 未认领的票。</li>
+    <li>HITL 票只能经真人实时交流解决——agent 自问自答即违规。答案不进正文，结案时以 resolution comment 记录；产物链接不进正文。</li>
+  </ul>
+
+  <h2>四、雾 / 票 / 范围之外 判别表</h2>
+  <table>
+    <thead>
+      <tr><th>情况</th><th>归宿</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>问题现在就能精确表述（哪怕被阻塞、暂时动不了）</td><td><strong>立票</strong></td></tr>
+      <tr><td>能感觉到要来，但还表述不精确</td><td><strong>Not yet specified</strong>（雾；不要预切成票大小的片）</td></tr>
+      <tr><td>超出目的地范围</td><td><strong>Out of scope</strong>（永不毕业；已有票越界 → 关闭 + 留一行 gist/原因/链接）</td></tr>
+      <tr><td>已决定的</td><td>Decisions so far（一行 gist + 链接）</td></tr>
+    </tbody>
+  </table>
+
+  <h2>五、两种调用模式</h2>
+  <h3>chart the map（绘制地图，一个 session 的工作量）</h3>
+  <ol>
+    <li>命名目的地：<code>/grilling</code> + <code>/domain-modeling</code> 钉死这张地图要找什么。</li>
+    <li>广度优先 grill 出全部开放决策与第一步；无雾则停，不需要地图。</li>
+    <li>建地图（Destination / Notes 填好，Decisions-so-far 空，雾进 Not yet specified）。</li>
+    <li>立现在能具体化的票 → <strong>第二遍再连阻塞边</strong>（先有 id 才能互相引用）。</li>
+    <li>每张 research 票派一个 <code>/research</code> subagent 并行解决，票里留上下文指针。</li>
+    <li>停手——绘制地图的 session 一张票都不亲手解决。</li>
+  </ol>
+  <h3>work through the map（沿图推进）</h3>
+  <ol>
+    <li>加载地图（低分辨率视图，不读全部票正文）。</li>
+    <li>选票（用户点名 &gt; 前沿第一张）→ <strong>先认领再干活</strong>。</li>
+    <li>解决：按需 zoom 取相关/已关闭票正文；调用 Notes 点名的 skills；拿不准用 <code>/grilling</code> + <code>/domain-modeling</code>。</li>
+    <li>结案：resolution comment 写答案 → 关闭 issue → 地图 Decisions-so-far 追加上下文指针。</li>
+    <li>补新票（先建后连线）、毕业已清晰的雾（从 Not yet specified 划掉）、越界票判出范围、被推翻的票更新或删除。</li>
+  </ol>
+
+  <h2>六、铁律清单</h2>
+  <ul>
+    <li>plan, don't do：默认产出决策，不产出交付物。</li>
+    <li>一个 session 最多解决<strong>一张票</strong>（research 票除外）。</li>
+    <li>先认领（assign）再干活——预期别的 session 在并发编辑 tracker。</li>
+    <li>地图是索引：一个决策只住在它的票里，地图不复述。</li>
+    <li>引用用名字，不用裸编号。</li>
+    <li>Out of scope 永不毕业；重画目的地 = 全新工程，不是继续。</li>
+    <li>HITL 票的真人那一侧，agent 永远不得代答。</li>
+  </ul>
+
+  <h2>七、本地 markdown tracker 映射（无 issue tracker 时）</h2>
+  <table>
+    <thead>
+      <tr><th>概念</th><th>本地形态</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>地图</td><td><code>.scratch/&lt;effort&gt;/map.md</code></td></tr>
+      <tr><td>票</td><td><code>.scratch/&lt;effort&gt;/issues/NN-&lt;slug&gt;.md</code>（从 01 编号；<code>Type:</code> 行记类型，<code>Status:</code> 行记 claimed/resolved）</td></tr>
+      <tr><td>阻塞</td><td>票文件顶部 <code>Blocked by: NN, NN</code> 行；所列文件全部 resolved 即解锁</td></tr>
+      <tr><td>frontier</td><td>扫 <code>issues/</code> 目录：打开 ∧ 未阻塞 ∧ 未认领，编号最小者优先</td></tr>
+      <tr><td>认领</td><td><code>Status: claimed</code>，先保存再干活</td></tr>
+      <tr><td>结案</td><td>答案追加在 <code>## Answer</code> 下，<code>Status: resolved</code>，map.md 的 Decisions-so-far 追加 gist + 链接</td></tr>
+    </tbody>
+  </table>
+
+  <p class="colophon no-print">
+    相关：<a href="../lessons/0007-wayfinder.html">第七课</a> |
+    <a href="skill-cheat-sheet.html">总速查表</a> |
+    <a href="../index.html">学习地图</a>
+  </p>
+</body>
+</html>

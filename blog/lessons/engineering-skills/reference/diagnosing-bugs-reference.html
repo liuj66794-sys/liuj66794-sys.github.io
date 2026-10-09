@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>diagnosing-bugs 诊断循环速查</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>diagnosing-bugs 诊断循环速查</h1>
+  <p class="no-print" style="color: var(--muted);">
+    难 bug 与性能回退的六阶段诊断纪律：先建 red-capable 的紧反馈回路，再复现、假设、探测、修复、收尾。
+    系统学习请看<a href="../lessons/0006-diagnosing-bugs.html">第六课：使用 diagnosing-bugs 诊断难 bug</a>。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">mattpocock/skills · diagnosing-bugs/SKILL.md</a>（本地 <code>~/.agents/skills/diagnosing-bugs/SKILL.md</code>）。
+    <strong>注意（2026-09-09）</strong>：本地副本已被第三方 claudekit 包覆盖成衍生版（不再是仓库原文），精读请用上面的 GitHub 链接，详见 RESOURCES.md 底部说明。
+  </p>
+
+  <h2>一、什么时候用</h2>
+  <ul>
+    <li>用户说「diagnose」「debug this」，或报告某个东西 broken / throwing / failing / slow。</li>
+    <li>触发信号：「这个 bug 我复现不了」「时好时坏」「更新之后变慢了」。</li>
+    <li>探索代码库时先读 CONTEXT.md（如存在）和相关区域的 ADR。</li>
+  </ul>
+
+  <h2>二、六阶段及完成判据</h2>
+  <table>
+    <thead>
+      <tr><th>阶段</th><th>做什么</th><th>完成判据</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. 建反馈回路</td>
+        <td>建一个 tight 且 red-capable 的 pass/fail 信号（见第三、四节）。这是灵魂，投入不成比例的精力。</td>
+        <td>能说出<strong>一条已跑过的命令</strong>（贴调用与输出），满足四判据。没有它，禁止进入 Phase 2。</td>
+      </tr>
+      <tr>
+        <td>2. 复现 + 最小化</td>
+        <td>跑回路看着它变红；一次砍一个变量，每砍一次重跑。</td>
+        <td>失败模式=用户描述的症状；可复现；每个剩余元素都是 load-bearing（再砍任何一个就变绿）。</td>
+      </tr>
+      <tr>
+        <td>3. 提假设</td>
+        <td>验证前先写 3–5 个排序假设，每个可证伪：「If X 是因，那么改 Y 会让 bug 消失/更严重」。</td>
+        <td>每个假设都带明确预测；排序列表已给用户看过（用户 AFK 则按自己的排序继续）。</td>
+      </tr>
+      <tr>
+        <td>4. 探测</td>
+        <td>每个探针对应一个预测，一次只改一个变量。调试器优先，其次边界打点；日志带 <code>[DEBUG-xxxx]</code> 前缀。</td>
+        <td>某个假设被证实或被排除。性能回退走分支：先测 baseline 再 bisect，先测量后修复。</td>
+      </tr>
+      <tr>
+        <td>5. 修复 + 回归测试</td>
+        <td>把最小复现变成正确 seam 上的失败测试 → 修复 → 变绿 → 用 Phase 1 回路复跑原始场景。</td>
+        <td>回归测试先红后绿；原始场景不再复现。没有正确 seam = 发现本身，记录并移交 <code>/improve-codebase-architecture</code>。</td>
+      </tr>
+      <tr>
+        <td>6. 收尾 + 复盘</td>
+        <td>过收尾清单（见第五节）；问「什么能阻止它再次发生」，架构答案移交 <code>/improve-codebase-architecture</code>。</td>
+        <td>清单逐条勾完；架构建议在修复落地之后提出。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>三、十条建回路方法（按此顺序尝试）</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>方法</th><th>一句话</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>失败测试</td><td>在能触达 bug 的 seam 上写 unit / integration / e2e。</td></tr>
+      <tr><td>2</td><td>curl / HTTP 脚本</td><td>对运行中的 dev server 打请求断言响应。</td></tr>
+      <tr><td>3</td><td>CLI + 快照</td><td>fixture 输入，stdout 对已知正确快照 diff。</td></tr>
+      <tr><td>4</td><td>headless 浏览器</td><td>Playwright / Puppeteer 驱动 UI，断言 DOM / console / 网络。</td></tr>
+      <tr><td>5</td><td>重放 trace</td><td>真实请求 / 事件日志存盘，隔离重放进代码路径。</td></tr>
+      <tr><td>6</td><td>一次性 harness</td><td>最小子系统（mock 依赖），一次函数调用触发 bug 路径。</td></tr>
+      <tr><td>7</td><td>property / fuzz</td><td>「有时输出不对」：1000 个随机输入找失败模式。</td></tr>
+      <tr><td>8</td><td>bisect 台架</td><td>自动化「在状态 X 启动、检查、重复」，交给 <code>git bisect run</code>。</td></tr>
+      <tr><td>9</td><td>差分对比</td><td>同一输入跑新旧两版（或两种配置），diff 输出。</td></tr>
+      <tr><td>10</td><td>HITL 脚本（兜底）</td><td>必须人动手时，用 <code>scripts/hitl-loop.template.sh</code> 驱动人，回路保持结构化。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>四、tight loop 四判据与收紧</h2>
+  <ul>
+    <li><strong>red-capable</strong>（最核心）：驱动真实 bug 路径，断言用户的精确症状——能在这个 bug 上变红、修好后变绿，不是「跑完没报错」。</li>
+    <li><strong>deterministic</strong>：每次运行同一判定；flaky bug 要求复现率足够高。</li>
+    <li><strong>fast</strong>：秒级，不是分钟级。</li>
+    <li><strong>agent-runnable</strong>：agent 可无人值守运行；人在回路只经由 HITL 脚本。</li>
+  </ul>
+  <p>收紧三问：能更快吗？信号能更准吗（断言具体症状）？能更确定吗（固定时间、种子随机数、隔离文件系统、冻结网络）？</p>
+  <p>非确定性 bug：目标不是干净复现而是<strong>提高复现率</strong>——循环 100×、并行、加压、收窄时间窗；50% 可调试，1% 不行。</p>
+  <p>实在建不出回路：明确说出来，列出试过的方法，向用户要环境 / 抓取物（HAR、日志、coredump）/ 临时生产插桩许可——不要无回路硬进假设阶段。</p>
+
+  <h2>五、脱敏规则（Redact，2026-08-06 新增）</h2>
+  <ul>
+    <li>诊断中三条路径都可能把活 token 带进对话：粘贴调用及输出、构造 curl 循环、收集 artifact（日志、HAR 等）——<strong>先脱敏，再贴入</strong>。</li>
+    <li>token、cookie、密码、连接串一律替换为占位符；模型不需要被教会"什么是 secret"，见到可疑凭据就脱。</li>
+    <li>HITL 脚本里的 <code>capture</code> 会把值打印回终端，agent 读得到——涉及密钥时手动脱敏后再让它回显。</li>
+    <li>背景：Snyk 审计 W007（HIGH）指出该 skill 原本存在凭据泄露风险，此节是修复。</li>
+  </ul>
+
+  <h2>六、收尾清单（Phase 6）</h2>
+  <ul>
+    <li>原始（未最小化）场景复跑，bug 不再出现（用 Phase 1 回路）。</li>
+    <li>回归测试通过（或 seam 缺失已记录）。</li>
+    <li>所有 <code>[DEBUG-...]</code> 插桩已 grep 清除。</li>
+    <li>一次性原型已删除（或移到明确标注的 debug 目录）。</li>
+    <li>commit / PR 信息写明哪个假设被证实是对的。</li>
+  </ul>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">GitHub: engineering/diagnosing-bugs/SKILL.md</a> · <a href="file:///C:/Users/38623/.agents/skills/diagnosing-bugs/SKILL.md"><code>~/.agents/skills/diagnosing-bugs/SKILL.md</code></a> |
+    相关课程：<a href="../lessons/0006-diagnosing-bugs.html">第六课：diagnosing-bugs</a> |
+    <a href="skill-cheat-sheet.html">总速查表</a>
+  </p>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查 001 · 三角与反三角速查表 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="ref-001">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">速查手册 · 001</span>
+  <a href="../lessons/0001-三角函数必背包.html">对应课程 0001</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Reference 001 · 随时翻 · 可打印</span>
+<h1>三角与反三角速查表</h1>
+<div class="meta">
+  <span>来源：笔记《基础预备》§七·八、《函数》§6.5</span>
+  <span>打印：Ctrl+P（答案与表格全量展开）</span>
+</div>
+
+<h2>1. 特殊角函数值</h2>
+<table>
+  <tr><th>$\alpha$</th><th>$0$</th><th>$\dfrac{\pi}{6}$</th><th>$\dfrac{\pi}{4}$</th><th>$\dfrac{\pi}{3}$</th><th>$\dfrac{\pi}{2}$</th><th>$\pi$</th></tr>
+  <tr><td>$\sin\alpha$</td><td>$0$</td><td>$\dfrac12$</td><td>$\dfrac{\sqrt2}{2}$</td><td>$\dfrac{\sqrt3}{2}$</td><td>$1$</td><td>$0$</td></tr>
+  <tr><td>$\cos\alpha$</td><td>$1$</td><td>$\dfrac{\sqrt3}{2}$</td><td>$\dfrac{\sqrt2}{2}$</td><td>$\dfrac12$</td><td>$0$</td><td>$-1$</td></tr>
+  <tr><td>$\tan\alpha$</td><td>$0$</td><td>$\dfrac{\sqrt3}{3}$</td><td>$1$</td><td>$\sqrt3$</td><td>不存在</td><td>$0$</td></tr>
+</table>
+<p style="font-size:.92rem">口诀：分母全是 $2$，分子 $\sqrt{n}$ 从 $0$ 到 $4$（$\sin$ 正序，$\cos$ 倒序）；第二象限角（$\dfrac{2\pi}{3},\dfrac{3\pi}{4},\dfrac{5\pi}{6}$）由对称补符号——$\sin$ 正、$\cos\tan$ 负。</p>
+
+<h2>2. 同角关系</h2>
+<table>
+  <tr><th>平方</th><th>商</th><th>倒数</th></tr>
+  <tr><td>$\sin^2\alpha+\cos^2\alpha=1$<br>$\sec^2\alpha-1=\tan^2\alpha$<br>$\csc^2\alpha-1=\cot^2\alpha$</td><td>$\tan\alpha=\dfrac{\sin\alpha}{\cos\alpha}$</td><td>$\sec\alpha=\dfrac1{\cos\alpha}$　$\csc\alpha=\dfrac1{\sin\alpha}$　$\cot\alpha=\dfrac1{\tan\alpha}$</td></tr>
+</table>
+
+<h2>3. 诱导公式：奇变偶不变，符号看象限</h2>
+<p style="font-size:.95rem">把角写成 $k\cdot\dfrac{\pi}{2}\pm\alpha$：$k$ 奇 → 函数名变（$\sin\leftrightarrow\cos$，$\tan\leftrightarrow\cot$）；$k$ 偶 → 不变。符号 = 把 $\alpha$ 当锐角时原函数在该象限的正负。</p>
+<table>
+  <tr><th>式</th><th>值</th><th>式</th><th>值</th><th>式</th><th>值</th></tr>
+  <tr><td>$\sin(\pi\pm\alpha)$</td><td>$\mp\sin\alpha$</td><td>$\cos(\pi\pm\alpha)$</td><td>$-\cos\alpha$</td><td>$\tan(\pi\pm\alpha)$</td><td>$\pm\tan\alpha$</td></tr>
+  <tr><td>$\sin(\dfrac{\pi}{2}\pm\alpha)$</td><td>$\cos\alpha$</td><td>$\cos(\dfrac{\pi}{2}\pm\alpha)$</td><td>$\mp\sin\alpha$</td><td>$\tan(\dfrac{\pi}{2}\pm\alpha)$</td><td>$\mp\cot\alpha$</td></tr>
+  <tr><td>$\sin(\dfrac{3\pi}{2}\pm\alpha)$</td><td>$-\cos\alpha$</td><td>$\cos(\dfrac{3\pi}{2}\pm\alpha)$</td><td>$\pm\sin\alpha$</td><td>$\tan(\dfrac{3\pi}{2}\pm\alpha)$</td><td>$\mp\cot\alpha$</td></tr>
+  <tr><td>$\sin(2\pi-\alpha)$</td><td>$-\sin\alpha$</td><td>$\cos(2\pi-\alpha)$</td><td>$\cos\alpha$</td><td>$\cot(\pi-\alpha)$</td><td>$-\cot\alpha$</td></tr>
+</table>
+
+<h2>4. 倍角与降幂</h2>
+<table>
+  <tr><th>倍角</th><th>降幂</th></tr>
+  <tr>
+    <td>$\sin 2\alpha=2\sin\alpha\cos\alpha$<br>$\cos 2\alpha=\cos^2\alpha-\sin^2\alpha=2\cos^2\alpha-1=1-2\sin^2\alpha$</td>
+    <td>$\cos^2\alpha=\dfrac{1+\cos 2\alpha}{2}$<br>$\sin^2\alpha=\dfrac{1-\cos 2\alpha}{2}$</td>
+  </tr>
+</table>
+
+<h2>5. 图像性质总表</h2>
+<table>
+  <tr><th></th><th>$y=\sin x$</th><th>$y=\cos x$</th><th>$y=\tan x$</th><th>$y=\cot x$</th></tr>
+  <tr><td>定义域</td><td>$\mathbb{R}$</td><td>$\mathbb{R}$</td><td>$x\neq\dfrac{\pi}{2}+k\pi$</td><td>$x\neq k\pi$</td></tr>
+  <tr><td>值域</td><td>$[-1,1]$</td><td>$[-1,1]$</td><td>$\mathbb{R}$</td><td>$\mathbb{R}$</td></tr>
+  <tr><td>周期</td><td>$2\pi$</td><td>$2\pi$</td><td>$\pi$</td><td>$\pi$</td></tr>
+  <tr><td>奇偶性</td><td>奇</td><td>偶</td><td>奇</td><td>奇</td></tr>
+  <tr><td>零值点</td><td>$x=k\pi$</td><td>$x=k\pi+\dfrac{\pi}{2}$</td><td>$x=k\pi$</td><td>$x=k\pi+\dfrac{\pi}{2}$</td></tr>
+</table>
+
+<h2>6. 反三角函数</h2>
+<table>
+  <tr><th></th><th>$\arcsin x$</th><th>$\arccos x$</th><th>$\arctan x$</th><th>$\operatorname{arccot} x$</th></tr>
+  <tr><td>定义域</td><td>$[-1,1]$</td><td>$[-1,1]$</td><td>$\mathbb{R}$</td><td>$\mathbb{R}$</td></tr>
+  <tr><td>值域</td><td>$\left[-\dfrac{\pi}{2},\dfrac{\pi}{2}\right]$</td><td>$[0,\pi]$</td><td>$\left(-\dfrac{\pi}{2},\dfrac{\pi}{2}\right)$</td><td>$(0,\pi)$</td></tr>
+  <tr><td>单调性</td><td>增</td><td>减</td><td>增</td><td>减</td></tr>
+  <tr><td>奇偶性</td><td>奇</td><td>非奇非偶</td><td>奇</td><td>非奇非偶</td></tr>
+</table>
+<p style="font-size:.95rem"><strong>负值恒等式</strong>：$\arcsin(-x)=-\arcsin x$；$\arctan(-x)=-\arctan x$；<strong>$\arccos(-x)=\pi-\arccos x$</strong>（不是 $-\arccos x$！）；$\operatorname{arccot}(-x)=\pi-\operatorname{arccot} x$。<br>
+<strong>互余</strong>：$\arcsin x+\arccos x=\dfrac{\pi}{2}$；$\arctan x+\operatorname{arccot} x=\dfrac{\pi}{2}$。</p>
+<table>
+  <tr><th>$\arcsin\dfrac12=\dfrac{\pi}{6}$</th><th>$\arcsin\dfrac{\sqrt2}{2}=\dfrac{\pi}{4}$</th><th>$\arcsin\left(-\dfrac{\sqrt3}{2}\right)=-\dfrac{\pi}{3}$</th></tr>
+  <tr><td>$\arccos 0=\dfrac{\pi}{2}$</td><td>$\arccos\left(-\dfrac12\right)=\dfrac{2\pi}{3}$</td><td>$\arccos\left(-\dfrac{\sqrt2}{2}\right)=\dfrac{3\pi}{4}$</td></tr>
+  <tr><td>$\arctan 1=\dfrac{\pi}{4}$</td><td>$\arctan\sqrt3=\dfrac{\pi}{3}$</td><td>$\arctan(-1)=-\dfrac{\pi}{4}$</td></tr>
+</table>
+
+<div class="teacher-note">💬 <b>用法</b>：做题卡壳时查这里，<strong>查完立刻合上重背一次</strong>——这才是在建记忆，不是抄答案。发现表里有不懂的，回<a href="../lessons/0001-三角函数必背包.html">课程 0001</a> 或直接问 AI 老师。</div>
+</main>
+</body>
+</html>

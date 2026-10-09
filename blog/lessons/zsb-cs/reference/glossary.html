@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<title>课程术语表</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<nav class="lesson-nav"><span><a href="../lessons/index.html">课程大纲</a> · 参考速查</span><span>打印友好</span></nav>
+
+<h1>课程术语表</h1>
+<p class="lesson-meta">广东专升本《计算机基础与程序设计》参考速查 · 概念辨析词条速览（共 80 条）</p>
+
+<h2>第一部分 C 语言</h2>
+
+<h3>第 1 课 程序设计与 C 语言</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>机器语言</strong></td><td>机器能直接识别并执行的 0/1 二进制编码语言。</td></tr>
+<tr><td><strong>汇编语言</strong></td><td>用助记符代替机器指令的符号语言，与机器语言统称低级语言。</td></tr>
+<tr><td><strong>高级语言</strong></td><td>不依赖机器、通用性好，须经翻译后才能执行的语言。</td></tr>
+<tr><td><strong>编译方式</strong></td><td>把整个源程序翻译成目标程序，连接生成 .exe 后运行。</td></tr>
+</table>
+
+<h3>第 2 课 数据存储与运算</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>标识符</strong></td><td>由字母、数字、下划线组成，数字不能开头、不用关键字、区分大小写。</td></tr>
+<tr><td><strong>关键字</strong></td><td>C 语言保留的具有特定含义的单词，不能用作用户标识符。</td></tr>
+<tr><td><strong>常量</strong></td><td>程序运行过程中其值不能改变的量。</td></tr>
+<tr><td><strong>变量</strong></td><td>程序运行中其值可以改变的量，必须先定义后使用。</td></tr>
+<tr><td><strong>符号常量</strong></td><td>用 #define 定义的符号名代表常量，编译前文本替换、不占内存。</td></tr>
+<tr><td><strong>常变量</strong></td><td>用 const 定义，有类型、编译时分配内存，运行中不可修改。</td></tr>
+<tr><td><strong>补码</strong></td><td>有符号整数的存储形式；正数三码合一，负数补码＝反码+1。</td></tr>
+<tr><td><strong>转义字符</strong></td><td>以反斜杠开头表示控制代码的字符，一个转义字符占 1 字节。</td></tr>
+</table>
+
+<h3>第 3 课 顺序结构程序设计</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>复合语句</strong></td><td>用花括号括起的语句组，整体看作一条语句。</td></tr>
+<tr><td><strong>空语句</strong></td><td>只有分号的语句，语法有效，可作占位或空循环体。</td></tr>
+<tr><td><strong>格式控制字符串</strong></td><td>由格式声明符与普通字符组成，普通字符原样输出。</td></tr>
+<tr><td><strong>键盘缓冲区</strong></td><td>输入字符先暂存之处，按回车后 getchar 才逐个读取。</td></tr>
+</table>
+
+<h3>第 4 课 选择结构程序设计</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>短路规则</strong></td><td>&amp;&amp; 左边为假右边不运算；|| 左边为真右边不运算。</td></tr>
+<tr><td><strong>else 配对</strong></td><td>else 总与它前面最近的且未配对的 if 配对，与缩进无关。</td></tr>
+<tr><td><strong>case 穿透</strong></td><td>语句组无 break 时继续执行下一个 case 语句组的现象。</td></tr>
+<tr><td><strong>条件运算符</strong></td><td>C 语言唯一的三目运算符 ?:，右结合，真取前假取后。</td></tr>
+</table>
+
+<h3>第 5 课 循环结构程序设计</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>while 循环</strong></td><td>先判断后执行；条件一开始不成立则一次都不执行。</td></tr>
+<tr><td><strong>do-while 循环</strong></td><td>先执行后判断，至少执行 1 次；while 后分号必须有。</td></tr>
+<tr><td><strong>break 语句</strong></td><td>结束整个所属循环或跳出 switch，只能用于这两处。</td></tr>
+<tr><td><strong>continue 语句</strong></td><td>只能出现在循环体中，跳过其后语句、结束本次循环。</td></tr>
+</table>
+
+<h3>第 6 课 数组</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>数组</strong></td><td>同名同类型数据组成的集合，下标从 0 开始按序编号。</td></tr>
+<tr><td><strong>数组名</strong></td><td>数组首元素的地址（地址常量），不能自增或被赋值。</td></tr>
+<tr><td><strong>字符串结束标志</strong></td><td>字符串结尾的 '\0'（ASCII 值 0），处理字符串遇它停止。</td></tr>
+<tr><td><strong>下标越界</strong></td><td>C 不检查越界，越界引用不报错、得到随机值。</td></tr>
+</table>
+
+<h3>第 7 课 函数</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>形参</strong></td><td>定义函数时括号内的变量，只能是变量、接收实参的值。</td></tr>
+<tr><td><strong>实参</strong></td><td>调用函数时括号内的参数，可为常量、变量或表达式。</td></tr>
+<tr><td><strong>传值调用</strong></td><td>实参把值单向复制给形参，形参变化不影响实参。</td></tr>
+<tr><td><strong>传址调用</strong></td><td>把变量地址传给形参，被调函数借指针可改变实参的值。</td></tr>
+<tr><td><strong>递归</strong></td><td>函数直接或间接调用自身，必须有终止递归的条件。</td></tr>
+<tr><td><strong>静态局部变量</strong></td><td>static 修饰：编译时赋初值只一次，整个运行期不释放。</td></tr>
+</table>
+
+<h3>第 8 课 指针</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>指针</strong></td><td>C 语言里地址称为指针；存放地址的变量是指针变量。</td></tr>
+<tr><td><strong>基类型</strong></td><td>指针指向的数据类型，必须与所指变量的类型一致。</td></tr>
+<tr><td><strong>数组指针</strong></td><td>指向"一行数组"的指针，如 int (*p)[4]，p+1 跳一行。</td></tr>
+<tr><td><strong>指针数组</strong></td><td>元素都是指针的数组，如 int *p[4]。</td></tr>
+<tr><td><strong>二级指针</strong></td><td>指向指针的指针，如 int **q，**q 才是数据的值。</td></tr>
+</table>
+
+<h3>第 9 课 结构体与文件</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>结构体</strong></td><td>把不同类型的数据捆绑成一种新类型的构造数据类型。</td></tr>
+<tr><td><strong>结构体成员</strong></td><td>结构体类型中的变量（又称域），只能定义变量、不可初始化。</td></tr>
+<tr><td><strong>结构体指针</strong></td><td>基类型为结构体类型的指针，用 p-&gt;成员 方式访问成员。</td></tr>
+<tr><td><strong>EOF</strong></td><td>文件结束标志，fgetc 读写失败或读到文件末尾时返回。</td></tr>
+</table>
+
+<h2>第二部分 数据结构</h2>
+
+<h3>第 10 课 数据结构绪论</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>数据元素</strong></td><td>数据的基本单位，通常作为整体进行考虑和处理。</td></tr>
+<tr><td><strong>数据项</strong></td><td>构成数据元素的不可分割的最小单位。</td></tr>
+<tr><td><strong>逻辑结构</strong></td><td>数据元素间的逻辑关系，分线性与非线性，与存储无关。</td></tr>
+<tr><td><strong>存储结构</strong></td><td>数据结构在计算机中的表示，分顺序、链式、索引、散列。</td></tr>
+<tr><td><strong>时间复杂度</strong></td><td>T(n)=O(f(n))，取基本运算频度的数量级，与数据初态有关。</td></tr>
+</table>
+
+<h3>第 11 课 线性表</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>线性表</strong></td><td>具有相同数据类型的 n(n≥0) 个数据元素的有限序列。</td></tr>
+<tr><td><strong>顺序表</strong></td><td>用地址连续的存储单元依次存储元素，可随机存取。</td></tr>
+<tr><td><strong>单链表</strong></td><td>结点含数据域与指针域、靠指针建立逻辑关系的链式存储。</td></tr>
+<tr><td><strong>头指针与头结点</strong></td><td>头指针用于标识链表；头结点是首元素结点之前的附加结点。</td></tr>
+</table>
+
+<h3>第 12 课 栈和队列</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>栈</strong></td><td>限定仅在表尾（栈顶）插删的线性表，后进先出（LIFO）。</td></tr>
+<tr><td><strong>队列</strong></td><td>只允许队尾插入、队头删除的线性表，先进先出（FIFO）。</td></tr>
+<tr><td><strong>循环队列</strong></td><td>把顺序队列臆想成环状空间以克服假溢出的队列。</td></tr>
+<tr><td><strong>假溢出</strong></td><td>顺序队列前面已出队单元无法再利用而出现的假满现象。</td></tr>
+</table>
+
+<h3>第 13 课 数组、矩阵与广义表</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>稀疏矩阵</strong></td><td>非零元素远少于元素总数的矩阵，压缩后失去随机存取特性。</td></tr>
+<tr><td><strong>三元组</strong></td><td>稀疏矩阵的压缩存储：（行标、列标、值）存每个非零元素。</td></tr>
+<tr><td><strong>广义表</strong></td><td>表元素可以是原子或广义表的线性表的推广结构。</td></tr>
+<tr><td><strong>表头与表尾</strong></td><td>表头是第一个元素（可为原子）；表尾必是广义表。</td></tr>
+</table>
+
+<h3>第 14 课 串</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>串</strong></td><td>由零个或多个字符组成的有限序列，数据对象限于字符集。</td></tr>
+<tr><td><strong>子串</strong></td><td>串中任意连续字符组成的子序列；串自身和空串也是子串。</td></tr>
+<tr><td><strong>空串</strong></td><td>不含任何字符、长度为 0 的串。</td></tr>
+<tr><td><strong>空格串</strong></td><td>由一个或多个空格组成的串，长度等于空格个数，不是空串。</td></tr>
+</table>
+
+<h3>第 15 课 树与二叉树</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>满二叉树</strong></td><td>所有分支结点都有左右子树、所有叶子在同一层的二叉树。</td></tr>
+<tr><td><strong>完全二叉树</strong></td><td>满二叉树从下往上、从右到左逐个删除结点得到的二叉树。</td></tr>
+<tr><td><strong>线索二叉树</strong></td><td>利用 n+1 个空链域存放遍历次序下前驱、后继指针的链表。</td></tr>
+<tr><td><strong>赫夫曼树</strong></td><td>带权路径长度 WPL 最小的二叉树，又称最优二叉树。</td></tr>
+</table>
+
+<h3>第 16 课 图</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>连通分量</strong></td><td>无向图的极大连通子图；有向图对应概念是强连通分量。</td></tr>
+<tr><td><strong>生成树</strong></td><td>含全部顶点、任意两点仅一条通路的子图，边数=顶点数−1。</td></tr>
+<tr><td><strong>邻接矩阵</strong></td><td>用二维数组存放边信息的存储结构；无向图的一定对称。</td></tr>
+<tr><td><strong>拓扑排序</strong></td><td>在 AOV 网中反复选入度为 0 的顶点输出并删其出边。</td></tr>
+</table>
+
+<h3>第 17 课 查找</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>平均查找长度（ASL）</strong></td><td>ASL=ΣPiCi（Pi=1/n），衡量查找算法效率的主要指标。</td></tr>
+<tr><td><strong>散列表</strong></td><td>用散列函数把关键字映射到表地址的结构；冲突关键字互称同义词。</td></tr>
+<tr><td><strong>装填因子</strong></td><td>散列表中记录数 n 与表长 m 之比，越大冲突可能性越大。</td></tr>
+<tr><td><strong>二叉排序树</strong></td><td>左子树＜根＜右子树（递归成立）；中序遍历得递增序列。</td></tr>
+</table>
+
+<h3>第 18 课 排序</h3>
+<table>
+<tr><th>术语</th><th>一句话定义</th></tr>
+<tr><td><strong>排序的稳定性</strong></td><td>相等元素排序后相对顺序不变；冒泡、插入、归并、基数稳定。</td></tr>
+<tr><td><strong>内部排序与外部排序</strong></td><td>全程在内存进行的为内部排序；需访问外存的是外部排序。</td></tr>
+<tr><td><strong>堆</strong></td><td>用顺序存储（下标从 1 开始）的完全二叉树表示的结构。</td></tr>
+<tr><td><strong>大顶堆</strong></td><td>任意结点大于等于其左右子树的堆，堆顶为最大值。</td></tr>
+</table>
+
+<p class="lesson-meta">整理依据：知识库笔记《C语言》01～09 与《数据结构》10～18 共 18 篇，措辞与各章定义表格保持一致。</p>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0034 · 定积分应用：面积 · 旋转体体积 · 弧长 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0034">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 5 单元 · 定积分 · 课 0034</span>
+  <a href="0033-变限积分与广义积分.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0034 · 定积分</span>
+<h1>定积分应用：面积 · 旋转体体积 · 弧长</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：0032 定积分计算</span>
+  <span>来源：笔记《定积分》§七</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用<strong>元素法三步</strong>（画图 → 写微元 → 定限）搭起所有应用题</li>
+    <li>默写面积（X/Y 型）、弧长、旋转体体积四组公式</li>
+    <li>算出 $y=\sqrt x$ 与 $y=x^2$ 的面积 $\frac13$、旋转体 $2\pi$ 这类"送分标准件"</li>
+  </ul>
+</div>
+
+<p>定积分应用题的本质是"<strong>总量 = 微元的累积</strong>"。公式不用硬背一堆——每个公式都是一条微元加个积分号。本课把四组公式搭好架子，配讲义标准例题。</p>
+
+<h2>一、元素法三步</h2>
+
+<div class="keypoint">
+  <div class="kp-title">通用流程</div>
+  <p style="margin:0.2rem 0">① <strong>画图像</strong>（求交点、看区域）→ ② <strong>写微元</strong>（$dS$、$dV$、$dl$）→ ③ <strong>补积分区间</strong>（积分限 = 交点 / 端点）。</p>
+</div>
+
+<h2>二、平面图形的面积</h2>
+
+<div class="keypoint">
+  <div class="kp-title">两组公式</div>
+  <p style="margin:0.2rem 0"><strong>X 型</strong>（竖条微元 $[f-g]\,dx$）：$S=\displaystyle\int_a^{b}\left[f(x)-g(x)\right]dx$</p>
+  <p style="margin:0.2rem 0"><strong>Y 型</strong>（横条微元 $[\varphi-\psi]\,dy$）：$S=\displaystyle\int_c^{d}\left[\varphi(y)-\psi(y)\right]dy$</p>
+  <p style="margin:0.2rem 0">被减数永远是<strong>"上减下"或"右减左"</strong>——先画图再定，别死记谁减谁。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（必会标准件）</span>求 $y=\sqrt x$ 与 $y=x^{2}$ 围成图形的面积。（夏讲 P61）</p>
+  <details><summary>先自己三步走，再展开</summary>
+    <p>交点：$\sqrt x=x^{2}\Rightarrow x=0,1$；$[0,1]$ 上 $\sqrt x\ge x^{2}$（上减下）。</p>
+    <p>$S=\displaystyle\int_0^{1}\left(\sqrt x-x^{2}\right)dx=\left[\frac23x^{\frac32}-\frac{x^{3}}{3}\right]_0^1=\frac23-\frac13=\frac13$。</p>
+    <p>同款：$y=e^{x}$ 与 $y=e^{-x}$ 在 $[0,1]$：$S=e+\dfrac1e-2$（夏讲 P60）。</p>
+  </details>
+</div>
+
+<h2>三、旋转体的体积</h2>
+
+<div class="keypoint">
+  <div class="kp-title">两组公式（圆盘法）</div>
+  <p style="margin:0.2rem 0"><strong>绕 $x$ 轴</strong>：$V=\pi\displaystyle\int_a^{b}f^{2}(x)\,dx$（竖条转出薄圆盘 $\pi y^{2}dx$）</p>
+  <p style="margin:0.2rem 0"><strong>绕 $y$ 轴</strong>：换写成 $x=\varphi(y)$ 后 $V=\pi\displaystyle\int_c^{d}\varphi^{2}(y)\,dy$（横条转盘）</p>
+  <p style="margin:0.2rem 0">两个自带项：**$\pi$ 与平方**——漏 $\pi$ 或忘平方是本考点两大失分源。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（球的体积是怎么来的）</span>半圆 $y=\sqrt{r^{2}-x^{2}}$ 绕 $x$ 轴一周。（夏讲 P66）</p>
+  <details><summary>先自己积分，再展开</summary>
+    <p>$V=\pi\displaystyle\int_{-r}^{r}\left(r^{2}-x^{2}\right)dx=\pi\left[r^{2}x-\frac{x^{3}}{3}\right]_{-r}^{r}=\frac43\pi r^{3}$。</p>
+    <p>初中背的球体积公式，用定积分三行推出——旋转体公式的"验明正身"。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（绕 $x$ 轴标准件）</span>$y=\sqrt x$、$x=2$ 与 $x$ 轴围成的图形绕 $x$ 轴。（夏讲 P67）</p>
+  <details><summary>先自己列式，再展开</summary>
+    <p>$V=\pi\displaystyle\int_0^{2}\left(\sqrt x\right)^{2}dx=\pi\int_0^{2}x\,dx=2\pi$。</p>
+    <p>看点：$\left(\sqrt x\right)^2=x$——先平方后积分，很多"吓人"的根号自己就消失了。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（绕 $y$ 轴）</span>$y=e^{x}$、$y=e^{3}$ 与 $y$ 轴围成的图形绕 $y$ 轴。（夏讲 P68）</p>
+  <details><summary>先换成 $x=\varphi(y)$，再展开</summary>
+    <p>区域：$1\le y\le e^{3}$，$0\le x\le\ln y$。换底：$x=\varphi(y)=\ln y$。</p>
+    <p>$V=\pi\displaystyle\int_1^{e^{3}}(\ln y)^{2}dy=\pi\left[y(\ln y)^{2}-2y\ln y+2y\right]_1^{e^{3}}=\pi\left(5e^{3}-2\right)$（分部积分两次）。</p>
+    <p>要点：<strong>绕 $y$ 轴就"横过来"对 $y$ 积分</strong>，积分限换成 $y$ 的范围。</p>
+  </details>
+</div>
+
+<h2>四、弧长</h2>
+
+<div class="keypoint">
+  <div class="kp-title">两组公式</div>
+  <p style="margin:0.2rem 0"><strong>直角坐标</strong>：$l=\displaystyle\int_a^{b}\sqrt{1+\left(f'(x)\right)^{2}}\,dx$</p>
+  <p style="margin:0.2rem 0"><strong>参数式</strong>：$l=\displaystyle\int_{\alpha}^{\beta}\sqrt{\left(x'(t)\right)^{2}+\left(y'(t)\right)^{2}}\,dt$</p>
+  <p style="margin:0.2rem 0">记忆：微元是"斜的小段"$dl=\sqrt{dx^{2}+dy^{2}}$。根号别丢。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5（参数式 = 圆弧）</span>$\begin{cases}x=3\sin t\\ y=3\cos t\end{cases}$，$t\in\left[0,\frac\pi2\right]$。（秋讲练习 23）</p>
+  <details><summary>先自己套公式，再展开</summary>
+    <p>$l=\displaystyle\int_0^{\frac\pi2}\sqrt{9\cos^{2}t+9\sin^{2}t}\,dt=\int_0^{\frac\pi2}3\,dt=\dfrac{3\pi}{2}$——半径 3 的四分之一圆周，公式结果与几何常识互相印证。</p>
+  </details>
+</div>
+
+<h2>五、物理应用：总量 = 变化率的积分</h2>
+
+<p>产量 = $\int_{t_1}^{t_2}f(t)\,dt$；细棒质量 = $\int_0^{L}\rho(x)\,A\,dx$。例（夏讲 P70）：$A=2$、$L=4$、$\rho(x)=2x^{2}+3x+6$ 的细棒，$m=2\int_0^4(2x^{2}+3x+6)dx=\dfrac{544}{3}$。<strong>"变化率累积成总量"是定积分最朴素的应用观</strong>。</p>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">曲线 $y=x^{2}$ 与 $y=2x$ 围成图形的面积是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{4}{3}$</button>
+    <button data-k="B">$\dfrac{1}{3}$</button>
+    <button data-k="C">$\dfrac{8}{3}$</button>
+    <button data-k="D">$\dfrac{2}{3}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">交点：$x^2=2x\Rightarrow x=0,2$；$[0,2]$ 上 $2x\ge x^{2}$。$S=\displaystyle\int_0^2(2x-x^{2})dx=4-\dfrac83=\dfrac43$。D 忘了幂函数系数（$\int2x=x^2$，$\int x^2=\frac{x^3}3$）——老老实实两步积分。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$y=\dfrac1x$、$y=0$、$x=1$ 与 $x=2$ 围成的图形绕 $x$ 轴一周的体积是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\pi\ln2$</button>
+    <button data-k="B">$\dfrac{\pi}{2}$</button>
+    <button data-k="C">$\pi$</button>
+    <button data-k="D">$\dfrac12$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$V=\pi\displaystyle\int_1^{2}\frac{1}{x^{2}}dx=\pi\left[-\frac1x\right]_1^2=\frac{\pi}{2}$。A 把 $\frac1{x^2}$ 积成了 $\ln$——$\frac1{x^2}$ 是幂函数（$p=2$），$\frac1x$ 才是对数。<strong>先平方，再认形状</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">用圆盘法求绕 $y$ 轴的旋转体体积时，正确的做法是</p>
+  <div class="quiz-opts">
+    <button data-k="A">仍对 $x$ 积分，公式不变</button>
+    <button data-k="B">把 $f(x)$ 直接平方对 $y$ 积分</button>
+    <button data-k="C">用弧长公式替代</button>
+    <button data-k="D">把曲线写成 $x=\varphi(y)$，$V=\pi\int_c^d\varphi^{2}(y)\,dy$，限用 $y$ 的范围</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">绕谁转就"垂直于谁"切微元：绕 $y$ 轴用横条，曲线反解成 $x=\varphi(y)$，$y$ 从 $c$ 到 $d$。例 4 的 $y=e^x$ 换成 $\ln y$ 就是标准动作。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y=\dfrac23x^{\frac32}$ 从 $x=0$ 到 $x=3$ 的弧长被积函数是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\sqrt{1+x}\,dx$</button>
+    <button data-k="B">$\sqrt{1+x^{3}}\,dx$</button>
+    <button data-k="C">$\sqrt{1+\dfrac23x}\,dx$</button>
+    <button data-k="D">$\dfrac23x^{\frac32}\,dx$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=x^{\frac12}=\sqrt x$，弧长 $=\int_0^3\sqrt{1+(\sqrt x)^{2}}dx=\int_0^3\sqrt{1+x}\,dx=\dfrac23\left(4^{\frac32}-1\right)=\dfrac{14}{3}$。D 是面积微元——弧长的根号 + 平方导数结构别丢。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">某产品总量的变化率 $f(t)=100+12t-0.6t^{2}$，则 $t=2$ 到 $t=4$ 的产量为（夏讲 P69）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f(4)-f(2)$</button>
+    <button data-k="B">$f(4)$</button>
+    <button data-k="C">$\displaystyle\int_2^{4}f(t)\,dt=260.8$</button>
+    <button data-k="D">$\displaystyle\int_0^{4}f(t)\,dt$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">总量 = 变化率的定积分：$\left[100t+6t^{2}-0.2t^{3}\right]_2^4=483.2-222.4=260.8$。A 是"变化率的变化"，不是产量——总量对变化率<strong>积分</strong>，不是代入相减。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>应用题<strong>先画图求交点</strong>：交点就是积分限；"上减下 / 右减左"看图定</li>
+    <li>旋转体公式自带 $\pi$ 与<strong>平方</strong>：$V=\pi\int f^{2}$；绕 $y$ 轴换 $x=\varphi(y)$</li>
+    <li>弧长公式 $\sqrt{1+(f')^{2}}$：<strong>根号别丢</strong>、导数先平方</li>
+    <li>几何面积 vs 代数值：跨 $x$ 轴的图形要分段取 $|f|$</li>
+    <li>物理题："总量 = 变化率的积分"，区间看题目给的时间段</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写四组公式：X 型面积、Y 型面积、绕 $x$ 轴体积、直角坐标弧长。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$S=\int_a^b[f-g]dx$；$S=\int_c^d[\varphi-\psi]dy$；$V=\pi\int_a^bf^{2}dx$；$l=\int_a^b\sqrt{1+f'^{2}}dx$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">元素法三步是什么？$\sqrt x$ 与 $x^2$ 围成面积的标准答案是多少？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">画图 → 写微元 → 定限。$S=\int_0^1(\sqrt x-x^{2})dx=\dfrac13$（交点 $x=0,1$）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 5 单元（0031–0034）收官</strong>——至此一元微积分全部完成！建议：做一套第五章真题 + 一套第一章混编（第 10 单元），检验前后贯通。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《定积分》§七 应用（含秋讲练习 22–23 弧长速查）</li>
+    <li>讲义：《定积分》夏讲 PDF 教材 P112–P114（面积 P59–P61、弧长 P62–P63、旋转体 P64–P68、物理 P69–P70）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："绕 $y$ 轴那题的 $\int(\ln y)^2$ 怎么分部两次"、"'两曲线围成面积'再出 5 道限时做"、"$y=\sqrt{r^2-x^2}$ 转出球的积分限为什么是 $-r$ 到 $r$"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0033-变限积分与广义积分.html" class="prev"><span class="dir">← 上一课</span>0033 变限积分求导 · 广义积分</a>
+  <a href="0035-偏导数与全微分.html" class="next"><span class="dir">下一课 →</span>0035 偏导数与全微分</a>
+</nav>
+</main>
+</body>
+</html>

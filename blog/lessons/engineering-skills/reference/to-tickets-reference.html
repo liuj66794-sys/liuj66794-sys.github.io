@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>to-tickets 速查参考</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>to-tickets 速查参考</h1>
+  <p class="no-print" style="color: var(--muted);">
+    把 spec/计划/对话拆成 tracer bullet（曳光弹）式的垂直切片 ticket，声明阻塞边，发布到 issue tracker（问题追踪系统）。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md">mattpocock/skills · to-tickets/SKILL.md</a>（本地 <code>~/.agents/skills/to-tickets/SKILL.md</code>）
+  </p>
+
+  <h2>一、什么时候用</h2>
+  <ul>
+    <li>已经有一份 spec（通常来自 <code>/to-spec</code>），需要拆成可实现的任务。</li>
+    <li>有一个计划或一段足够清楚的对话，想变成 agent 可领取的 ticket。</li>
+  </ul>
+
+  <h2>二、前置条件</h2>
+  <p>
+    项目已运行 <code>/setup-matt-pocock-skills</code>：知道 issue tracker 在哪里、triage labels（分类标签）怎么叫。
+  </p>
+
+  <h2>三、垂直切片四条规则</h2>
+  <table>
+    <thead>
+      <tr><th>规则</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>窄但完整</td>
+        <td>切穿所有层（schema、API、UI、测试），不是只切某一层的水平切片。</td>
+      </tr>
+      <tr>
+        <td>独立可验证</td>
+        <td>切片完成后可以单独演示或验证。</td>
+      </tr>
+      <tr>
+        <td>适配单个上下文窗口</td>
+        <td>一个全新 session 的 agent 能一次做完。</td>
+      </tr>
+      <tr>
+        <td>先预重构</td>
+        <td>prefactor（预重构）先行：让修改变容易，再做容易的修改。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>四、阻塞边与 frontier</h2>
+  <ul>
+    <li>每个 ticket 声明 <strong>Blocked by</strong>：哪些 ticket 必须先完成。</li>
+    <li><strong>Blocked by: None</strong> = 可立即开始。</li>
+    <li>按 <strong>frontier（前沿）</strong>推进：只做阻塞项全部完成的 ticket。</li>
+    <li>纯线性链条 = 从头到尾；有分叉 = 分叉处可并行。</li>
+  </ul>
+
+  <h2>五、例外：wide refactor → expand–contract</h2>
+  <p>
+    wide refactor（大范围重构）：一个机械修改的 blast radius（爆炸半径）波及整个代码库，
+    无法用垂直切片承载。改用 expand–contract（扩张-收缩）：
+  </p>
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>Expand</strong>：新旧形态并存，什么都不破坏。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>Migrate</strong>：按爆炸半径分批迁移（按包/按目录），每批一个 ticket，都被 expand 阻塞；旧形态还在，批间保持绿灯。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>Contract</strong>：无调用者后删除旧形态，被所有迁移批次阻塞。</p>
+    </div>
+  </div>
+  <p>
+    连批次都无法单独绿灯时：共享一个集成分支，共同阻塞最终的 integrate-and-verify ticket。
+  </p>
+
+  <h2>六、拆分流程</h2>
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>收集上下文</strong>：从对话出发；传入 spec 路径或 issue 编号则去读全文和评论。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>探索代码库（可选）</strong>：用 CONTEXT.md 词汇，尊重 ADR，找 prefactor 机会。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>起草垂直切片</strong>：标出每个 ticket 的阻塞边。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>向你确认</strong>：粒度合适吗？阻塞边对吗？要合并或再拆吗？迭代到批准为止。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">5</div>
+    <div class="step-body">
+      <p><strong>发布</strong>：本地 → <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>（按依赖顺序编号）；真实 tracker → 用原生 blocking/sub-issue 关系，打 <code>ready-for-agent</code> 标签。不要关闭或修改父 issue。</p>
+    </div>
+  </div>
+
+  <h2>七、Ticket 模板</h2>
+  <pre><code># &lt;NN&gt; — &lt;Ticket 标题&gt;
+
+**What to build:** 用户视角的端到端行为（不是逐层实现清单）。
+
+**Blocked by:** 阻塞它的 ticket 编号/标题，或 "None — can start immediately"。
+
+**Status:** ready-for-agent
+
+- [ ] 验收标准 1
+- [ ] 验收标准 2</code></pre>
+  <p>
+    <strong>禁忌</strong>：不写具体文件路径和代码片段（很快过时）。
+    例外：原型产出的决策性代码（状态机、reducer、schema、类型形状）可内联，注明来自原型，只留决策密度高的部分。
+  </p>
+
+  <h2>八、发布之后</h2>
+  <ul>
+    <li>用 <code>/implement</code> 按 frontier 逐个领取 ticket。</li>
+    <li>每个 ticket 之间清空上下文（全新 session）。</li>
+  </ul>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    来源：<a href="file:///C:/Users/38623/.agents/skills/to-tickets/SKILL.md"><code>~/.agents/skills/to-tickets/SKILL.md</code></a> |
+    相关课程：<a href="../lessons/0004-to-tickets.html">第四课：to-tickets</a> |
+    <a href="skill-cheat-sheet.html">总速查表</a>
+  </p>
+</body>
+</html>

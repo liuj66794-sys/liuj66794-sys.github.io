@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0044 · 真题混编 Ⅰ：函数极限 · 导数 · 积分 · 微分方程 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0044">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 10 单元 · 真题实战 · 课 0044</span>
+  <a href="0043-二阶常系数线性方程.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0044 · 真题实战</span>
+<h1>真题混编 Ⅰ：第一至第四章（交错练习）</h1>
+<div class="meta">
+  <span>⏱ 约 20 分钟</span>
+  <span>前置：0010–0043 全部知识课</span>
+  <span>来源：讲义体系章节例题与练习混编（极限·导数·不定积分各章，002/003/04 章笔记）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课玩法（与前 43 课不同）</div>
+  <ul>
+    <li>题<strong>不打乱章节标签</strong>——你要先自己认出"这是哪章哪招"，再动笔</li>
+    <li>每题限时：选择题 1 分钟、计算题 4 分钟；先回忆再揭晓</li>
+    <li>答错不扣分，但要<strong>说出错因类型</strong>（知识缺口 / 方法选择 / 运算 / 审题）</li>
+  </ul>
+</div>
+
+<p>真题从不告诉你"这题考哪招"。交错练习（interleaving）练的就是<strong>认脸选招</strong>——本课 8 题混编第一至四章，做完后请去"推荐精读"里挑一套对应章节真题限时开刷。</p>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">混编 1（先认招：这是哪一章的什么方法？）</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{x^{3}}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">$\dfrac{1}{2}$</button>
+    <button data-k="C">$0$</button>
+    <button data-k="D">不存在</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：第二章极限·三阶差关系</strong>。$\tan x-\sin x\sim\frac12x^{3}$（或乘法合成 $\tan x(1-\cos x)\sim x\cdot\frac{x^{2}}{2}$），答案 $\frac12$。选 C 的人是把 $\tan x$、$\sin x$ 都换成 $x$ 做了减法——加减乱替换的军规又来了。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">混编 2</span>
+  <p class="quiz-q">设 $f(x)=\begin{cases}e^{ax}+b &amp; x&lt;0\\ 2x+1 &amp; x\ge0\end{cases}$ 在 $x=0$ 处可导，则 $a,\ b$ 为</p>
+  <div class="quiz-opts">
+    <button data-k="A">$a=2,\ b=0$</button>
+    <button data-k="B">$a=1,\ b=0$</button>
+    <button data-k="C">$a=2,\ b=1$</button>
+    <button data-k="D">$a=0,\ b=2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：第三章导数·分段点逆求参数两步法</strong>。先连续：$e^{0}+b=1$ ⇒ $b=0$；再左右导数相等：$ae^{0}=2$ ⇒ $a=2$。顺序不能反——连续方程先锁一个未知数。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">混编 3</span>
+  <p class="quiz-q">曲线 $\begin{cases}x=t-\sin t\\ y=1-\cos t\end{cases}$ 在 $t=\dfrac{\pi}{2}$ 处的切线方程为</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=x$</button>
+    <button data-k="B">$y=x-\dfrac{\pi}{2}$</button>
+    <button data-k="C">$y=x+2-\dfrac{\pi}{2}$</button>
+    <button data-k="D">$y=-x+2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：导数·参数方程求导 + 切线三步</strong>。$y'=\dfrac{\sin t}{1-\cos t}\Big|_{t=\frac\pi2}=1$；点 $\left(\frac\pi2-1,\,1\right)$；点斜式 $y-1=1\left(x-\frac\pi2+1\right)$ ⇒ $y=x+2-\frac\pi2$。A 忘了代点的坐标。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">混编 4</span>
+  <p class="quiz-q">$\displaystyle\int_0^{4}\dfrac{dx}{1+\sqrt{x}}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$4-2\ln2$</button>
+    <button data-k="B">$2\ln3$</button>
+    <button data-k="C">$2(1-\ln2)$</button>
+    <button data-k="D">$4-2\ln3$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：定积分·第二换元必换限</strong>。$t=\sqrt x$，限 $0\to2$：$\int_0^2\frac{2t}{1+t}dt=2\left[t-\ln(1+t)\right]_0^2=4-2\ln3$。C 是 $[0,1]$ 区间的答案——换限别代错上界。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">混编 5</span>
+  <p class="quiz-q">证明"$e^{x}=3x$ 在 $(0,1)$ 内有实根"应构造</p>
+  <div class="quiz-opts">
+    <button data-k="A">$F(x)=e^{x}+3x$，用罗尔定理</button>
+    <button data-k="B">$F(x)=e^{x}-3x$，用零点定理</button>
+    <button data-k="C">$F(x)=e^{x}-3$，用介值定理</button>
+    <button data-k="D">$F(x)=e^{x}$，直接观察</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：闭区间定理·零点五步</strong>。移项构造 $F=e^{x}-3x$，验连续、算端点 $F(0)=1&gt;0$、$F(1)=e-3&lt;0$、验异号、套定理。A 是"同边相加"造不出零点等式——0018 课的口诀"相等的两样东西，相减构造"。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">混编 6</span>
+  <p class="quiz-q">$\displaystyle\int x e^{x^{2}}dx=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{2}e^{x^{2}}+C$</button>
+    <button data-k="B">$(x-1)e^{x^{2}}+C$</button>
+    <button data-k="C">$e^{x^{2}}+C$</button>
+    <button data-k="D">$\dfrac{x^{2}}{2}e^{x^{2}}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：不定积分·凑微分</strong>。$x\,dx=\frac12d(x^{2})$，方框 $x^{2}$，套 $e^{\square}$。B 是分部积分的样子——方框的导数明明就在旁边，不需要分部。求导验证：$\left(\frac12e^{x^{2}}\right)'=xe^{x^{2}}$ ✓。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">混编 7</span>
+  <p class="quiz-q">方程 $y''-5y'+6y=0$ 满足 $y(0)=1$，$y'(0)=0$ 的特解是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=e^{2x}+e^{3x}$</button>
+    <button data-k="B">$y=3e^{2x}-2e^{3x}$</button>
+    <button data-k="C">$y=2e^{3x}-e^{2x}$</button>
+    <button data-k="D">$y=2e^{2x}-e^{3x}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：微分方程·特征根 + 初值定常数</strong>。$y=C_1e^{2x}+C_2e^{3x}$；$y(0)=1$：$C_1+C_2=1$；$y'(0)=0$：$2C_1+3C_2=0$ ⇒ $C_2=-2$，$C_1=3$。答案 $3e^{2x}-2e^{3x}$，选 B。A、C、D 都过不了两个初值的联合检验（如 C：$y(0)=1$ ✓ 但 $y'(0)=4\neq0$）——两个初值条件缺一不可。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">混编 8（综合）</span>
+  <p class="quiz-q">若 $\lim\limits_{x\to1}\dfrac{x^{2}+ax+b}{x-1}=3$，则 $a,\ b=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$a=1,\ b=2$</button>
+    <button data-k="B">$a=-1,\ b=2$</button>
+    <button data-k="C">$a=3,\ b=-4$</button>
+    <button data-k="D">$a=1,\ b=-2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp"><strong>认招：极限·逆求参数</strong>。分母 $\to0$ 且极限存在 ⇒ 分子 $\to0$：$1+a+b=0$；因式分解 $(x-1)(x+m)$，极限 $=1+m=3$ ⇒ $m=2$ ⇒ $a=1$，$b=-2$（秋讲练习 14 原题）。套路链：零因子条件 → 十字相乘 → 代入比对。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">复盘模板（每题问三句）</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li><strong>这题考什么</strong>？（章 → 节 → 方法，说不出就是"识别"问题）</li>
+    <li><strong>错在哪一步</strong>？（知识缺口 / 方法选择 / 运算失误 / 审题偏差，四选一）</li>
+    <li><strong>下次靠什么信号想起来</strong>？（把"长相 → 方法"写成一句触发词）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">不看上面，报出本课 8 题各自"认出"的方法名（按顺序 8 个短语）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">三阶差关系；分段点逆求两步法；参数方程切线；定积分换元换限；零点定理五步；凑微分；特征根+初值；逆求参数（零因子+分解）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">错题四分类（知识缺口 / 方法选择 / 运算 / 审题）各自的补救动作是什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">知识缺口→回知识课重测回忆卡；方法选择→练"认脸"混编；运算→限时基础题；审题→圈画条件关键词再动笔。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：本课的 8 道混编题请<strong>三天后闭卷重做</strong>；并从"推荐精读"中选一套第二章或第三章真题 PDF，按 0018/0023 课养成的方式限时开刷——混编课只负责"练选招"，真题负责"练耐力"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（真题源头，按需取用）</div>
+  <ul>
+    <li>真题：《第二章真题（导数与微分，61 题）》PDF 配 canonical 题解</li>
+    <li>真题：《第三章真题（一元积分学）》PDF 配 题解；其余章节见 真题题解索引</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："把我的错题按四分类帮我归因"、"这套混编再出一版难度更高的"、某道题"换个数再考我一遍"，或让它当监考官给你限时出题。
+</div>
+
+<nav class="footnav">
+  <a href="0043-二阶常系数线性方程.html" class="prev"><span class="dir">← 上一课</span>0043 可降阶 · 二阶常系数方程</a>
+  <a href="0045-真题混编二.html" class="next"><span class="dir">下一课 →</span>0045 真题混编 Ⅱ</a>
+</nav>
+</main>
+</body>
+</html>

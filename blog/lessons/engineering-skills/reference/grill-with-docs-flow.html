@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grill-with-docs 流程参考</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>grill-with-docs 流程参考</h1>
+  <p class="no-print" style="color: var(--muted);">
+    有代码库时，用 relentless interview（追问式访谈）把模糊想法磨成清晰计划，同时维护 CONTEXT.md 和 ADR。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">mattpocock/skills · grill-with-docs/SKILL.md</a>（本地 <code>~/.agents/skills/grill-with-docs/SKILL.md</code>）
+  </p>
+
+  <h2>一、什么时候用</h2>
+  <table>
+    <thead>
+      <tr><th>用 /grill-with-docs</th><th>不用 /grill-with-docs</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>有代码库，要设计新功能或改造现有模块</td>
+        <td>没有代码库，只是头脑风暴 → 用 <code>/grill-me</code></td>
+      </tr>
+      <tr>
+        <td>需要把讨论中确定的术语、决策写成文档</td>
+        <td>对话已经结束，只需要整理成 spec → 用 <code>/to-spec</code></td>
+      </tr>
+      <tr>
+        <td>想法还太模糊，直接写 spec 会漏掉关键假设</td>
+        <td>想法已经清楚，要拆任务 → 用 <code>/to-tickets</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>二、grilling 的纪律</h2>
+  <ol>
+    <li><strong>按 round（轮次）问完整个 frontier</strong>。frontier 是前提已确定、现在就能问的所有决策；每轮把它们编号后一次抛出，等用户答完再算下一轮。不再是一次只问一个。</li>
+    <li><strong>问题格式固定</strong>：<code>❓ **Q1** - **标题**:</code>，另起一行 <code>➡️</code> 给出推荐答案；同一轮的多个问题之间用水平线 <code>---</code> 分隔（2026-08-20 起）。决策是你的，但 agent 必须给建议。</li>
+    <li><strong>沿着设计树的分支走</strong>，逐个解决决策之间的依赖关系。答案会重塑这棵树：已定的决策把 frontier 向外推，解锁依赖它们的后续问题。</li>
+    <li><strong>事实查代码，决策问人</strong>。能靠探索代码库确认的事实，不要问用户——需要环境事实时派 sub-agent 去查，且不阻塞：只有它的下游问题等结果，其余 frontier 照问。</li>
+    <li><strong>在达成 shared understanding（共同理解）之前不执行计划</strong>。frontier 清空（没有悬而未决的假设）并经用户确认后，访谈才算结束。</li>
+  </ol>
+
+  <h2>三、会产出什么文档</h2>
+
+  <h3>1. CONTEXT.md（领域词汇表）</h3>
+  <p>
+    只放<strong>项目特有的领域术语</strong>，不放通用编程概念。每个术语包含：定义 + 应避免的说法。
+  </p>
+  <pre><code># Order Context
+
+A system for customers to place and track product orders.
+
+## Language
+
+**Order**:
+A customer's request to purchase one or more items.
+_Avoid_: Purchase, transaction
+
+**Invoice**:
+A request for payment sent to a customer after delivery.
+_Avoid_: Bill, payment request
+
+**Customer**:
+A person or organization that places orders.
+_Avoid_: Client, buyer, account</code></pre>
+
+  <h3>2. ADR（架构决策记录）</h3>
+  <p>
+    只有同时满足下面三点才写 ADR：
+  </p>
+  <ul>
+    <li><strong>难以逆转</strong> —— 改主意成本很高</li>
+    <li><strong>没有上下文会令人惊讶</strong> —— 未来读者会纳闷“为什么这样设计”</li>
+    <li><strong>真实权衡的结果</strong> —— 考虑过替代方案并选了特定的一个</li>
+  </ul>
+  <pre><code># 0001-event-sourced-orders
+
+We decided to use an event-sourced write model for the Order context.
+
+The alternative was a CRUD-style relational model, which would have been
+simpler to implement but harder to audit and reason about for complex
+lifecycle changes. Event sourcing gives us a complete history of every
+order state change, which is critical for customer support and compliance.</code></pre>
+
+  <h2>四、典型流程</h2>
+
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>抛出想法</strong>：你描述一个模糊目标，例如“我想给订单系统加一个部分退款功能”。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>Agent 开始 relentless interview（追问式访谈）</strong>：逐个问边界、术语、依赖。例如：“你说的‘退款’是退到原支付渠道，还是退到余额？”</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>实时维护 CONTEXT.md</strong>：一旦术语确定，立刻写入。比如把“refund”和“partial cancellation”区分开。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>适时写 ADR</strong>：遇到难以逆转的决策时，提议记录。例如“退款状态机采用事件溯源”。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">5</div>
+    <div class="step-body">
+      <p><strong>达成 shared understanding（共同理解）</strong>：双方对范围、术语、关键决策达成一致。此时可以进入 <code>/to-spec</code> 或 <code>/implement</code>。</p>
+    </div>
+  </div>
+
+  <h2>五、常见陷阱</h2>
+  <table>
+    <thead>
+      <tr><th>陷阱</th><th>对策</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Agent 一次问太多问题</td>
+        <td>提醒它：“一次只问一个。”</td>
+      </tr>
+      <tr>
+        <td>术语混用（“account”既指 Customer 又指 User）</td>
+        <td>要求写入 CONTEXT.md 并给出推荐说法。</td>
+      </tr>
+      <tr>
+        <td>每个小决定都写 ADR</td>
+        <td>只写同时满足“难逆转、会惊讶、有权衡”的决策。</td>
+      </tr>
+      <tr>
+        <td>还没想清楚就开始写代码</td>
+        <td>明确说“我们还在 grilling 阶段，不要 implement”。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">记忆口诀</div>
+    <p>
+      <strong>有代码库 → grill-with-docs；没代码库 → grill-me。</strong><br>
+      <strong>术语进 CONTEXT，难逆有权衡的决策进 ADR。</strong><br>
+      <strong>一次一问、给推荐、决策前不执行。</strong>
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    返回 <a href="../lessons/0002-grill-with-docs.html">第二课</a> |
+    <a href="skill-cheat-sheet.html">总速查表</a>
+  </p>
+</body>
+</html>

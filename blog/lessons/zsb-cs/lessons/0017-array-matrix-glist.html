@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 17 课 · 数组、矩阵与广义表</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=080068e7db37">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=080068e7db37"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第二部分 数据结构</span>
+  <span>第 17 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>数组、矩阵与广义表</h1><p class="lesson-meta">对应笔记 数据结构/13-数组、矩阵与广义表 · 教材 P80–88 · 建议按小节分次学习</p><p>能由行列坐标推导偏移，并保留元素大小单位。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 二维地址公式就是先数前面有几个元素</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / 数组地址计算：先定顺序，再数元素</a></li><li><a href="#cs-detail-2">04 / 矩阵压缩：省空间，但失去随机存取</a></li><li><a href="#cs-detail-3">05 / 广义表：长度、深度、表头、表尾</a></li><li><a href="#cs-detail-4">06 / 先回忆，再自测</a></li><li><a href="#cs-practice">07 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-6">08 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">二维地址公式就是先数前面有几个元素</h2><p class="cs-goal">这一节要学会：能由行列坐标推导偏移，并保留元素大小单位。</p><p>把电影院座位按行接成一条长队：先跳过前面的整行，再在当前行向右走。地址公式并不神秘，它只是“元素个数×每个元素大小”。</p><p>设数组 <code>a[R][C]</code> 从下标 <code>0</code> 开始，按行优先连续存储。<code>a[i][j]</code> 前面有 <code>i</code> 个完整行，每行 <code>C</code> 个元素，再加当前行的 <code>j</code> 个，故偏移元素数为 <code>i*C+j</code>。</p><p>若首元素地址为 <code>B</code>、每个元素占 <code>w</code> 字节，地址就是 <code>B+(i*C+j)*w</code>。题目若下标从 <code>1</code> 开始、列优先或矩阵压缩存储，要先调整模型，不能直接套同一公式。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>设 B=1000，w=4，a[3][4]</code></pre><p>目标行：1；目标列：2</p><p>这些地址和元素大小是本例题设，不代表 int 在所有环境都固定 4 字节。</p><h3>第 2 步</h3><pre><code>先跳过 1 个完整行</code></pre><p>跳过元素：1×4=4</p><p>来到 a[1][0]，已跨 16 字节。</p><h3>第 3 步</h3><pre><code>本行再走 2 个元素</code></pre><p>总元素偏移：4+2=6</p><p>来到 a[1][2]。</p><h3>第 4 步</h3><pre><code>1000 + 6×4</code></pre><p>地址：1024</p><p>先数元素，再乘大小，避免漏乘 w。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>同一题设下 <code>a[2][0]</code> 的地址是？</p><ol><li><code>1008</code>：这是把元素偏移直接当成字节偏移。</li><li><code>1032</code>：对。<code>2</code>×<code>4=8</code> 个元素，跨 <code>32</code> 字节。</li><li><code>1024</code>：这是演示中 <code>a[1][2]</code> 的地址。</li></ol><p>正确判断：<code>1032</code></p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task">按行优先压缩存储一个 <code>n</code> 阶下三角（含主对角线），下标从 <code>0</code> 开始。第 <code>i</code> 行之前存了多少元素？</p><details><summary>卡住时看提示</summary><p>第 <code>2</code> 行前面只有第 <code>0</code>、<code>1</code> 两行，压缩后分别占 <code>1</code>、<code>2</code> 个位置。</p></details><details><summary>查看参考过程</summary><p>前面的行长度分别为 <code>1</code>、<code>2</code>、…、<code>i</code>，总数 <code>i(i+1)/2</code>。因此合法的 <code>0&lt;=j&lt;=i</code> 位置 <code>(i,j)</code> 对应压缩下标 <code>i(i+1)/2+j</code>。不要把完整矩阵每行 <code>n</code> 个的模型照搬过来。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>下三角压缩位置 <code>(2,1)</code> 的零起始下标是？</p><ol><li><code>7</code>：完整矩阵和压缩数组的行长度不同。</li><li><code>4</code>：对。前两行 <code>1+2=3</code> 个，再加列偏移 <code>1</code>。</li><li><code>3</code>：<code>3</code> 是这一行第一个元素的位置，还要加 <code>j</code>。</li></ol><p>正确判断：<code>4</code></p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、数组地址计算：先定顺序，再数元素</h2>
+<p>数组元素占用一段连续空间，类型相同、大小固定，支持下标随机访问。对数组只能做两种基本操作：<strong>查找和修改</strong>，不能插入删除。</p>
+
+<h3>1.1 一维数组</h3>
+<p>设首地址为 <code>LOC(a₀)</code>，每个元素占 <code>L</code> 字节：</p>
+<pre><code>LOC(a[i]) = LOC(a[0]) + i × L</code></pre>
+
+<h3>1.2 二维数组的两种存储顺序</h3>
+<p>以 <code>int a[4][5]</code>（4 行 5 列）为例：</p>
+<table>
+  <tr><th>存储方式</th><th>地址公式</th><th>a[2][3] 是第几个元素</th></tr>
+  <tr><td>行优先</td><td><code>LOC = 基地址 + (i×列数 + j)×L</code></td><td>2×5+3+1 = <strong>14</strong></td></tr>
+  <tr><td>列优先</td><td><code>LOC = 基地址 + (j×行数 + i)×L</code></td><td>4×3+2+1 = <strong>15</strong></td></tr>
+</table>
+<div class="callout warn">
+  <p class="callout-title">易错点</p>
+  <p>列优先不是 <code>j×列数</code>，而是 <code>j×行数</code>——因为一列里要"沾满"行数个元素。口诀：先看沾满几行/列，每行/列几个元素，再加上它本身。</p>
+</div>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 手算一维/二维数组在行优先、列优先下的地址与元素序号；② 说出对称矩阵压缩所需单元数 n(n+1)/2 及稀疏矩阵三元组存储的代价；③ 正确求广义表的长度、深度（含空表深度 1）以及 GetHead/GetTail（表尾必须加括号）。</p>
+</div>
+
+<details class="recall warmup">
+  <summary>温故 · 第 16 课「栈和队列」：循环队列的队满、队空条件是什么？元素个数怎么求？大小为 N 的数组最多能存几个元素？</summary>
+  <div class="recall-a">队满 (rear+1)%MaxSize==front，队空 front==rear，元素个数 (rear-front+MaxSize)%MaxSize；因为要牺牲一个存储单元区分空满，大小为 N 的数组最多存 N-1 个元素。</div>
+</details>
+
+<details class="recall warmup">
+  <summary>温故 · 第 15 课「线性表」：把结点 s 插到单链表中结点 p 之后，两句代码怎么写？顺序能反吗？</summary>
+  <div class="recall-a">s->next=p->next; p->next=s;（口诀「先接后断」）。顺序不能反，若先执行 p->next=s，第二句 s->next 会指向 s 自己，造成断链。</div>
+</details>
+
+<div class="callout">
+  <p class="callout-title">为什么这节课值得再过一遍</p>
+  <p>数组地址计算、矩阵压缩、广义表 Head/Tail 是数据结构部分填空与选择的高频组合题，往往一道题连环考两三个概念。巩固阶段的关键不是"看懂"，而是能在一分钟内不出错地推导。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、矩阵压缩：省空间，但失去随机存取</h2>
+<p><strong>压缩存储</strong>：为多个值相同的元素只分配一个空间，对零元素不分配空间，目的是<strong>减少存储空间</strong>。</p>
+
+<h3>2.1 特殊矩阵</h3>
+<p>值相同或零元素分布有规律的矩阵：对称矩阵、上（下）三角矩阵、对角矩阵。</p>
+<ul>
+  <li><strong>对称矩阵</strong>：n 阶方阵满足 aᵢ,ⱼ = aⱼ,ᵢ，只需存下三角（含对角线），共需 <strong>n(n+1)/2</strong> 个存储单元。</li>
+  <li><strong>三角矩阵</strong>：下三角矩阵存下三角+对角线，上三角区为同一常量 c 时额外再存一个 c；上三角矩阵对称同理。</li>
+</ul>
+
+<h3>2.2 稀疏矩阵</h3>
+<ul>
+  <li>非零元素个数 t 相对于总数 m×n 非常少；<strong>稀疏因子 = t/(m×n)</strong>。</li>
+  <li>用<strong>三元组（行标 i、列标 j、值 v）</strong>存储每个非零元素。</li>
+  <li>⚠️ <strong>压缩存储后失去随机存取特性</strong>——这是常考判断点。</li>
+</ul>
+<div class="callout tip">
+  <p class="callout-title">辨析</p>
+  <p>数组是线性数据结构（连续存储、下标访问）；矩阵是数学概念（行列结构），计算机中用二维数组实现。所以"数组就是矩阵，矩阵就是数组"是<strong>错误</strong>的。</p>
+</div>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、广义表：长度、深度、表头、表尾</h2>
+<p>广义表是表元素可以是原子或广义表的线性表的推广。</p>
+<ul>
+  <li><strong>长度</strong> = 最外层元素个数。</li>
+  <li><strong>深度</strong> = 括号最大层数，<strong>子表要展开</strong>后数。</li>
+  <li><strong>空表 A=()</strong>：长度 0，<strong>深度 1</strong>。</li>
+</ul>
+<table>
+  <tr><th>广义表</th><th>长度</th><th>深度</th><th>说明</th></tr>
+  <tr><td>A = ()</td><td>0</td><td>1</td><td>空表</td></tr>
+  <tr><td>B = (d, e)</td><td>2</td><td>1</td><td>元素全是原子</td></tr>
+  <tr><td>C = (b, (c, d))</td><td>2</td><td>2</td><td>原子 b + 子表</td></tr>
+  <tr><td>D = (B, C)</td><td>2</td><td>3</td><td>展开后为 ((d,e),(b,(c,d)))</td></tr>
+  <tr><td>E = (a, E)</td><td>2</td><td>∞</td><td>递归表</td></tr>
+</table>
+
+<h3>3.1 GetHead 与 GetTail</h3>
+<ul>
+  <li><strong>GetHead</strong>：取第一个元素，可以是原子或子表。</li>
+  <li><strong>GetTail</strong>：去掉第一个元素后，<strong>剩余元素加括号组成的表</strong>——表尾一定是广义表。</li>
+</ul>
+<p>例：D = ((a,(b,c)), (d,(e)))</p>
+<ul>
+  <li>GetHead(D) = (a,(b,c))</li>
+  <li>GetTail(D) = ((d,(e)))</li>
+</ul>
+<div class="callout warn">
+  <p class="callout-title">高频错误</p>
+  <p>L=(a,(b,c)) 的表尾不是 (b,c)，而是 <strong>((b,c))</strong>；((a,b,c,d)) 的表尾是空表 <strong>()</strong>，因为外层只有一个元素，去掉后剩余为空。</p>
+</div>
+
+</section>
+<section id="cs-detail-4" data-cs-step><h2 tabindex="-1">四、先回忆，再自测</h2>
+<details class="recall">
+  <summary>合上笔记默写：行优先与列优先地址公式，并说明 a[2][3] 在 int a[4][5] 中分别是第几个元素</summary>
+  <div class="recall-a">行优先：LOC = 基地址 + (i×列数 + j)×L，a[2][3] 是第 2×5+3+1=14 个；列优先：LOC = 基地址 + (j×行数 + i)×L，a[2][3] 是第 4×3+2+1=15 个。列优先不是 j×列数，而是 j×行数。</div>
+</details>
+<details class="recall">
+  <summary>默写：对称矩阵压缩单元数、稀疏矩阵存储结构与代价、空表深度</summary>
+  <div class="recall-a">对称矩阵存下三角（含对角线），需 n(n+1)/2 个单元；稀疏矩阵用三元组 (i,j,v) 存储；压缩后失去随机存取特性；空表 () 的深度是 1，不是 0。</div>
+</details>
+<details class="recall">
+  <summary>判断正误并说明：GetHead 一定是广义表；GetTail 一定是广义表</summary>
+  <div class="recall-a">第一句错误，第二句正确。GetHead 取第一个元素，可以是原子或子表；GetTail 去掉第一个元素后其余元素加括号组成，必定是广义表。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">五、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">1. 对于 <code>int a[4][5]</code>，按行优先存储时 <code>a[2][3]</code> 是第几个元素</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">第 13 个元素</li>
+    <li data-opt="b">第 14 个元素</li>
+    <li data-opt="c">第 15 个元素</li>
+    <li data-opt="d">第 16 个元素</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">行优先公式：i×列数+j+1 = 2×5+3+1 = 14。列优先才是 4×3+2+1 = 15。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">2. n 阶对称矩阵采用压缩存储，至少需要多少个存储单元</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">n² 个存储单元</li>
+    <li data-opt="b">n(n−1)/2 个单元</li>
+    <li data-opt="c">n(n+1)/2 个单元</li>
+    <li data-opt="d">(n+1)²/2 个单元</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">只存下三角（含对角线）：1+2+…+n = n(n+1)/2。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">3. 稀疏矩阵用三元组存储后，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">仍可直接随机存取</li>
+    <li data-opt="b">失去随机存取特性</li>
+    <li data-opt="c">访问速度明显更快</li>
+    <li data-opt="d">必须按行号顺序存取</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">三元组只记录非零元素的行、列、值，无法通过下标直接定位元素，因此失去随机存取特性。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">4. 已知 B=(d,e)，C=(b,(c,d))，则 D=(B,C) 的深度为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">1 层括号深度</li>
+    <li data-opt="b">2 层括号深度</li>
+    <li data-opt="c">3 层括号深度</li>
+    <li data-opt="d">4 层括号深度</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">求深度要把子表展开：D=((d,e),(b,(c,d)))，最内层 (c,d) 有 3 层括号，故深度为 3。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">5. 广义表 L=(a,(b,c))，GetTail(L) 的结果是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">(b,c) 一个子表</li>
+    <li data-opt="b">((b,c)) 一个表</li>
+    <li data-opt="c">b,c 两个原子</li>
+    <li data-opt="d">c 单个原子</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">表尾是去掉第一个元素后其余元素加括号组成的表，因此是 ((b,c))，不是 (b,c)。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">6. 关于空广义表 A=()，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">长度为 0，深度为 0</li>
+    <li data-opt="b">长度为 0，深度为 1</li>
+    <li data-opt="c">长度为 1，深度为 0</li>
+    <li data-opt="d">长度为 1，深度为 1</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">空表最外层元素个数为 0，故长度为 0；但它本身是一对括号构成的表，深度为 1。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 20 分钟）</p>
+  <p>打开 数据结构/13-数组、矩阵与广义表，完成笔记内 24 道练习：随堂练习 12 题（编号 1–10、14–15）、判断题 6 道、自测问题 Q1–Q6（Q4–Q6 稀疏矩阵三元组、长度深度、Head/Tail 正是本课测验重点）。错题用 ⭐️ 标出，重点回看「易错点与对比」表，然后再遮住答案做一次。</p>
+</div>
+
+</section>
+<section id="cs-detail-6" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：数据结构/13-数组、矩阵与广义表（含 12 道随堂练习、6 道判断、自测问答与易错点表）。术语速查：<a href="../reference/glossary.html">课程术语表</a>、<a href="../reference/ds-formula-cheatsheet.html">数据结构公式速查</a>。教材对照：P80–P88。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:17:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-detail-4","cs-practice","cs-detail-6"],"checks":{"core":{"question":"同一题设下 a[2][0] 的地址是？","choices":["1008","1032","1024"],"answer":1,"why":["这是把元素偏移直接当成字节偏移。","对。2×4=8 个元素，跨 32 字节。","这是演示中 a[1][2] 的地址。"]},"transfer":{"question":"下三角压缩位置 (2,1) 的零起始下标是？","choices":["7","4","3"],"answer":1,"why":["完整矩阵和压缩数组的行长度不同。","对。前两行 1+2=3 个，再加列偏移 1。","3 是这一行第一个元素的位置，还要加 j。"]}},"traces":{"core":{"title":"定位 a[1][2]，每行 4 个元素","frames":[{"code":"设 B=1000，w=4，a[3][4]","cells":[["目标行","1"],["目标列","2"]],"note":"这些地址和元素大小是本例题设，不代表 int 在所有环境都固定 4 字节。","pointer":""},{"code":"先跳过 1 个完整行","cells":[["跳过元素","1×4=4"]],"note":"来到 a[1][0]，已跨 16 字节。","pointer":""},{"code":"本行再走 2 个元素","cells":[["总元素偏移","4+2=6"]],"note":"来到 a[1][2]。","pointer":""},{"code":"1000 + 6×4","cells":[["地址","1024"]],"note":"先数元素，再乘大小，避免漏乘 w。","pointer":""}]}},"signature":"f652892b84447cfc"}</script>
+<nav class="footer-nav">
+  <a href="0016-stack-and-queue.html">← 上一课：栈和队列</a>
+  <a href="0018-string.html">下一课：串 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

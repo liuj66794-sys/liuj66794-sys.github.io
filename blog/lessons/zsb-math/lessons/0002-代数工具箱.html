@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0002 · 代数工具箱 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0002">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 0 单元 · 基础预备 · 课 0002</span>
+  <a href="0001-三角函数必背包.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0002 · 基础预备</span>
+<h1>代数工具箱：因式分解 · 不等式 · 数列求和</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：无（查漏补缺课，哪块熟就跳哪块）</span>
+  <span>来源：笔记《基础预备》§三 · §五 · §九</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用<strong>十字相乘</strong>在 10 秒内分解 $x^2+mx+n$，用<strong>立方和差</strong>分解 $x^3\pm b^3$</li>
+    <li>解一元二次 / 分式不等式时<strong>不丢"变号"分</strong></li>
+    <li>默写<strong>裂项三件套</strong>，会求 $\dfrac{1}{n(n+1)}$ 型前 $n$ 项和</li>
+  </ul>
+</div>
+
+<p>这是一节"工具箱"课。三样工具后面<strong>每一章都在用</strong>：十字相乘是求极限、求导数时的因式分解主力；不等式是求定义域的基本功；裂项求和是数列极限的常客。后面章节卡壳时，多半是这里的某件工具不趁手。</p>
+
+<h2>一、因式分解：五种方法一张表</h2>
+
+<table>
+  <tr><th>方法</th><th>要点与公式</th></tr>
+  <tr><td>提公因式法</td><td>各项含相同因式先提出：$a(x-y)+b(y-x)=(x-y)(a-b)$（先把 $y-x$ 变成 $-(x-y)$）</td></tr>
+  <tr><td>公式法</td><td>平方差 $a^2-b^2=(a-b)(a+b)$；完全平方（认准 $\pm2ab$）；<strong>立方和差</strong> $a^3\pm b^3=(a\pm b)(a^2\mp ab+b^2)$</td></tr>
+  <tr><td>分组分解</td><td>$m^2+5n-mn-5m=(m^2-mn)+(5n-5m)=m(m-n)+5(n-m)$……最终 $=(m-n)(m-5)$</td></tr>
+  <tr><td><strong>十字相乘</strong></td><td>$x^2+mx+n=(x+p)(x+q)$，其中 $pq=n$、$p+q=m$。口诀：<strong>首尾分解，交叉相乘，求和凑中，横写因式</strong></td></tr>
+  <tr><td>求根法</td><td>整系数多项式有有理根 $\dfrac qp$ 时，$p$ 整除最高次项系数，$q$ 整除常数项——用来试根</td></tr>
+</table>
+
+<div class="keypoint">
+  <div class="kp-title">必背：立方和差（后续求极限的主力公式）</div>
+  <p style="margin:0.2rem 0">$a^3+b^3=(a+b)(a^2-ab+b^2)$　　$a^3-b^3=(a-b)(a^2+ab+b^2)$</p>
+  <p style="margin:0.2rem 0">记法：展开后"中间项符号"与第一个括号<strong>相反</strong>，且 $a^2-ab+b^2$ 这组<b>永远没有完全平方</b>——别手滑写成 $(a+b)^2$。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（十字相乘）</span>分解：$x^2-5x+6$、$x^2+3x-40$、$7x^2-19x-6$</p>
+  <details><summary>先自己分解完，再展开答案</summary>
+    <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+      <li>$x^2-5x+6$：找两数积为 $6$、和为 $-5$ → $-2$ 与 $-3$ → $(x-2)(x-3)$</li>
+      <li>$x^2+3x-40$：积 $-40$、和 $+3$ → $+8$ 与 $-5$ → $(x+8)(x-5)$</li>
+      <li>$7x^2-19x-6$：首项拆 $7x=x\cdot 7x$，尾项 $-6=2\times(-3)$，交叉验证 $7x\cdot(-3)+2\cdot x=-19x$ → $(7x+2)(x-3)$</li>
+    </ul>
+    <p>前两个是"纯口诀题"，第三个是首项系数不为 1 的升级版——先拆首尾，交叉凑中。这三道都出自讲义原题。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$x^2+x-6=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$(x-2)(x+3)$</button>
+    <button data-k="B">$(x+2)(x-3)$</button>
+    <button data-k="C">$(x-1)(x+6)$</button>
+    <button data-k="D">$(x+6)(x-2)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">积 $=-6$、和 $=+1$ → 取 $-2$ 与 $+3$。（B 的两数和是 $-1$，符号反了——十字相乘最常见失误。）</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$a^3+b^3=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$(a+b)(a^2+ab+b^2)$</button>
+    <button data-k="B">$(a+b)^3$</button>
+    <button data-k="C">$(a+b)(a^2-ab+b^2)$</button>
+    <button data-k="D">$(a-b)(a^2+ab+b^2)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">立方和：第一个括号同号，第二个括号"平方、相反、平方"=$a^2-ab+b^2$。A 错在中间项符号；D 是立方差的形状。</div>
+</div>
+
+<h2>二、不等式：一条铁律 + 四类解法</h2>
+
+<div class="keypoint">
+  <div class="kp-title">铁律</div>
+  <p style="margin:0.2rem 0">两边加减任何数不变号；乘除<strong>正数</strong>不变号；乘除<strong>负数必须变号</strong>——全卷最常见扣分点，没有之一。</p>
+  <p style="margin:0.2rem 0">附带一个常客：基本不等式 $\dfrac{a+b}{2}\ge\sqrt{ab}$（$a,b>0$，$a=b$ 取等）。</p>
+</div>
+
+<table>
+  <tr><th>类型</th><th>解法要点</th></tr>
+  <tr><td>一元一次 / 不等式组</td><td>移项、系数化 1；组内取交集口诀：<strong>同大取大，同小取小，大小交叉取中间，大小分离解为空</strong></td></tr>
+  <tr><td>一元二次</td><td>标根 → 画抛物线 → <strong>"大于看上方，小于看下方"</strong>（别硬背公式，脑中抛物线一画就出）</td></tr>
+  <tr><td>分式不等式</td><td>先<strong>移项化右边为 0</strong>，再 $\dfrac fg>0\iff fg>0$；带"≥/≤"时：分母零点排除、分子零点保留</td></tr>
+  <tr><td>高次不等式</td><td>穿针法："自上而下、从右到左、<strong>奇穿偶回</strong>"（奇数次因子穿过轴，偶数次因子弹回）</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（二次）</span>解 $x^2-4x+3>0$。</p>
+  <details><summary>先自己解，再展开答案</summary>
+    <p>十字相乘：$(x-1)(x-3)>0$。两根 $1,3$，抛物线开口向上，"大于看上方" → $x&lt;1$ 或 $x&gt;3$。</p>
+    <p>顺带记住对偶面：$x^2-4x+3&lt;0$ 的解就是 $1&lt;x&lt;3$（"小于看下方"）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（分式 + 穿针）</span>解 $\dfrac{(x-2)(x-3)}{x-1}>0$。</p>
+  <details><summary>先自己解，再展开答案</summary>
+    <p>右边已是 0，直接化乘积：$(x-1)(x-2)(x-3)>0$。穿针：从右往左，$x=3$ 穿到轴下方、$x=2$ 穿回轴上方、$x=1$ 再穿到轴下方（三个都是单根，个个都穿）→ 取轴上方两段，解集 $(1,2)\cup(3,+\infty)$。</p>
+    <p>若题目改成"≥"：分母零点 $x=1$ 必须挖掉，而使<strong>分子</strong>为零的点要保留——讲义例 7 的解集 $(-\infty,-4)\cup\{1\}\cup[2,+\infty)$ 里那个孤立的 $\{1\}$，就是这么来的。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$-2x\ge 6$ 的解是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$x\ge -3$</button>
+    <button data-k="B">$x\le -3$</button>
+    <button data-k="C">$x\ge 3$</button>
+    <button data-k="D">$x\le 3$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">两边除以 $-2$：<strong>不等号方向要翻转</strong>，得 $x\le-3$。A 是没翻号——考场上这一错就是整题零分。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">不等式组 $\begin{cases}x&gt;-2\\ x\le 3\end{cases}$ 的解集是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$[-2,3]$</button>
+    <button data-k="B">$(-2,3)$</button>
+    <button data-k="C">$[-2,3)$</button>
+    <button data-k="D">$(-2,3]$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">"大小交叉取中间"。端点归属看原不等号：$x&gt;-2$ 不带等号 → 开端点；$x\le3$ 带等号 → 闭端点。区间端点的开闭是填空题的隐蔽失分点。</div>
+</div>
+
+<h2>三、数列：$S_n$ 与 $a_n$ 互求 + 裂项三件套</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背：$a_n$ 与 $S_n$ 的分段关系</div>
+  <p style="margin:0.2rem 0">$$a_n=\begin{cases}S_1, &amp; n=1\\ S_n-S_{n-1}, &amp; n\ge2\end{cases}$$</p>
+  <p style="margin:0.2rem 0">用 $S_n-S_{n-1}$ 算完后，<strong>必须回头验证 $n=1$ 是否也 fit</strong>：fit 则合写成一个式子，不 fit 就保留分段。</p>
+</div>
+
+<table>
+  <tr><th></th><th>等差数列</th><th>等比数列</th></tr>
+  <tr><td>定义</td><td>$a_{n+1}-a_n=d$</td><td>$\dfrac{a_{n+1}}{a_n}=q$</td></tr>
+  <tr><td>通项</td><td>$a_n=a_1+(n-1)d$</td><td>$a_n=a_1q^{n-1}$</td></tr>
+  <tr><td>前 $n$ 项和</td><td>$S_n=\dfrac{n(a_1+a_n)}{2}=na_1+\dfrac{n(n-1)}{2}d$</td><td>$q=1$：$S_n=na_1$；$q\neq1$：$S_n=\dfrac{a_1(1-q^n)}{1-q}$</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">易错</div>
+  <p style="margin:0.2rem 0">等比求和<strong>先讨论 $q=1$</strong> 再用公式——直接套 $\dfrac{a_1(1-q^n)}{1-q}$ 在 $q=1$ 时分母为零。</p>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">必背：裂项三件套（数列极限的直接弹药）</div>
+  <p style="margin:0.2rem 0">① $\dfrac{1}{(n+a)(n+b)}=\dfrac{1}{a-b}\left(\dfrac{1}{n+b}-\dfrac{1}{n+a}\right)$（分母两因子相减放前面）</p>
+  <p style="margin:0.2rem 0">② $\dfrac{1}{\sqrt{n+1}+\sqrt n}=\sqrt{n+1}-\sqrt n$（分母有理化的副产品，倒过来用就是"分母无理化"）</p>
+  <p style="margin:0.2rem 0">③ $\ln\left(1+\dfrac1n\right)=\ln(n+1)-\ln n$</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（裂项求和）</span>已知 $a_n=\dfrac{1}{(n+1)(n+2)}$，求前 $n$ 项和 $S_n$。</p>
+  <details><summary>先自己做，再展开解答（讲义例 4(1)）</summary>
+    <p>裂项：$a_n=\dfrac{1}{n+1}-\dfrac{1}{n+2}$。</p>
+    <p>求和（望远镜）：$S_n=\left(\dfrac12-\dfrac13\right)+\left(\dfrac13-\dfrac14\right)+\cdots+\left(\dfrac1{n+1}-\dfrac1{n+2}\right)=\dfrac12-\dfrac{1}{n+2}=\dfrac{n}{2(n+2)}$。</p>
+    <p>同法可得讲义例 4(2)(3)：$\sum\dfrac{1}{\sqrt{n+1}+\sqrt n}$ 的和为 $\sqrt{n+1}-1$；$\sum\ln\left(1+\frac1n\right)$ 的和为 $\ln(n+1)$——中间项全部相消，只剩头尾。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\sum\limits_{k=1}^{n}\dfrac{1}{k(k+1)}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{1}{n+1}$</button>
+    <button data-k="B">$\dfrac{n}{2(n+2)}$</button>
+    <button data-k="C">$\dfrac{n}{n+1}$</button>
+    <button data-k="D">$\dfrac{n+1}{n}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">裂项 $\dfrac{1}{k(k+1)}=\dfrac1k-\dfrac{1}{k+1}$，望远镜相消剩 $\;1-\dfrac{1}{n+1}=\dfrac{n}{n+1}$。B 是例 4 的答案（分母是 $(n+1)(n+2)$），两题只差一个平移——看清分母再落笔。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>乘除<strong>负数</strong>不等号要变号（随堂测 3 那种题）</li>
+    <li>偶次方根 $\sqrt{a^n}=|a|$（$n$ 为偶），不能直接写 $a$</li>
+    <li>分式不等式带"≥"：分母零点挖掉、分子零点保留</li>
+    <li>等比求和先讨论 $q=1$；$S_n-S_{n-1}$ 求完要验证 $n=1$</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写十字相乘口诀四个短句，以及立方和、立方差两个公式。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">首尾分解，交叉相乘，求和凑中，横写因式。$a^3\pm b^3=(a\pm b)(a^2\mp ab+b^2)$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写不等式组交集口诀（4 句）与二次不等式的 8 字诀。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">同大取大，同小取小，大小交叉取中间，大小分离解为空；二次不等式：大于看上方，小于看下方。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写裂项三件套（三种常见裂项，写成"和/差"形式）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">① $\dfrac{1}{(n+a)(n+b)}=\dfrac{1}{a-b}\left(\dfrac{1}{n+b}-\dfrac{1}{n+a}\right)$；② $\dfrac{1}{\sqrt{n+1}+\sqrt n}=\sqrt{n+1}-\sqrt n$；③ $\ln\left(1+\dfrac1n\right)=\ln(n+1)-\ln n$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测三张回忆卡。之后每次在极限、导数题里遇到因式分解或解不等式，留意自己是不是用上了本课的流程——用一次比重读三遍更管用。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《基础预备》§三 因式分解与有理化 · §五 不等式 · §九 数列（例题解答已补写，可直接自测核对）</li>
+    <li>讲义：《因式分解与有理化》、《不等式》、《数列》</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："再出 5 道十字相乘题"、"穿针法的'奇穿偶回'画图演示一下"、"裂项为什么叫望远镜求和"、或者让它考你本课任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0001-三角函数必背包.html" class="prev"><span class="dir">← 上一课</span>0001 三角函数必背包</a>
+  <a href="0003-函数概念与定义域.html" class="next"><span class="dir">下一课 →</span>0003 函数概念与定义域</a>
+</nav>
+</main>
+</body>
+</html>

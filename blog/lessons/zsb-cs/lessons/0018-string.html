@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 18 课 · 串</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=03e8ae84c1cc">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=03e8ae84c1cc"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第二部分 数据结构</span>
+  <span>第 18 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>串</h1><p class="lesson-meta">对应笔记 数据结构/14-串 · 教材 P33–35 · 建议按小节分次学习</p><p>能区分按位置计数与不同内容计数，并理解空串。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 子串必须连续，计数要说明口径</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / 串的定义与三个基本概念</a></li><li><a href="#cs-detail-2">04 / 子串个数公式</a></li><li><a href="#cs-detail-3">05 / 串的两种存储结构</a></li><li><a href="#cs-detail-4">06 / 串与线性表的区别</a></li><li><a href="#cs-detail-5">07 / 先回忆，再自测</a></li><li><a href="#cs-practice">08 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-7">09 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">子串必须连续，计数要说明口径</h2><p class="cs-goal">这一节要学会：能区分按位置计数与不同内容计数，并理解空串。</p><p>从一句话中剪下一段连续文字就是子串；隔着字挑选得到的是子序列。先明确连续性，很多似是而非的答案就能排除。</p><p>长度为 <code>n</code> 的串，按起止位置计非空子串共有 <code>n(n+1)/2</code> 个：从第一个位置开始有 <code>n</code> 种终点，第二个有 <code>n-1</code> 种，直到最后一个有 <code>1</code> 种。</p><p>如果问“内容不同的子串”，重复文字只能算一次，数量可能更少。空串长度为 <code>0</code>，空格串至少包含一个空格，长度不为 <code>0</code>。是否把空串加进总数也要看题意。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>从下标 0 开始</code></pre><p>子串：a / ab / aba；数量：3</p><p>固定起点，终点可以是 0、1、2。</p><h3>第 2 步</h3><pre><code>从下标 1 开始</code></pre><p>子串：b / ba；累计：5</p><p>终点只能是 1、2。</p><h3>第 3 步</h3><pre><code>从下标 2 开始</code></pre><p>子串：a；累计：6</p><p>这里的 a 与下标 0 的 a 位置不同。</p><h3>第 4 步</h3><pre><code>按内容去重</code></pre><p>不同内容：a / ab / aba / b / ba；数量：5</p><p>六个位置区间只对应五种非空内容。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p><code>aa</code> 的非空子串按位置计数是多少？</p><ol><li><code>2</code>：<code>2</code> 是不同内容 <code>a</code>、<code>aa</code> 的数量。</li><li><code>3</code>：对。两个单字符区间加一个双字符区间。</li><li><code>4</code>：这里不把空串算进去。</li></ol><p>正确判断：<code>3</code></p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task">串 <code>abc</code> 的 <code>ac</code> 是子串吗？若问包含空串的不同子串总数是多少？</p><details><summary>卡住时看提示</summary><p>判断 <code>ac</code> 时先看是否连续；计数时把非空子串和唯一的空串分开。</p></details><details><summary>查看参考过程</summary><p><code>ac</code> 不连续，所以不是子串。<code>abc</code> 的 <code>6</code> 个非空位置区间内容都不同，加上 <code>1</code> 个空串，总计 <code>7</code> 种。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>空串与只含一个空格的串相同吗？</p><ol><li>相同，都看不见：显示效果不能代替字符序列。</li><li>不同，长度分别为 <code>0</code> 和 <code>1</code>：对。空格也是一个字符。</li><li>都没有长度：串有明确长度，空串的长度为 <code>0</code>。</li></ol><p>正确判断：不同，长度分别为 <code>0</code> 和 <code>1</code></p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、串的定义与三个基本概念</h2>
+<p><strong>串（string）</strong>：由<strong>零个或多个字符</strong>组成的<strong>有限序列</strong>，记作 S = 'a₁,a₂,…,aₙ'（n≥0）。</p>
+<ul>
+  <li>S 是<strong>串名</strong>；单引号括起的字符序列是<strong>串的值</strong>；</li>
+  <li><strong>n = 串长</strong>；<strong>n = 0 时为空串</strong>。</li>
+</ul>
+
+<table>
+  <tr><th>概念</th><th>定义</th></tr>
+  <tr><td>子串</td><td>串中<strong>任意多个连续的字符</strong>组成的子序列（<strong>串自身和空串也是串的子串</strong>）</td></tr>
+  <tr><td>串相等</td><td>长度相等且每个对应位置的字符都相等</td></tr>
+  <tr><td>空格串</td><td>由一个或多个空格组成的串——<strong>不是空串</strong>，长度 = 空格个数</td></tr>
+</table>
+
+<div class="callout tip">
+  <p class="callout-title">空串 ≠ 空格串</p>
+  <p>空串长度为 0，里面<strong>一个字符都没有</strong>；空格串里装的是空格，长度 = 空格的个数。两者的唯一共同点是「都算串」，考试就爱在这里挖坑。</p>
+</div>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 说清串名、串值、串长、空串，并一眼分辨空串与空格串；② 背出子串个数公式 <strong>n(n+1)/2 + 1</strong>，算出任意长度串的子串总数；③ 讲出串与线性表的两点区别（数据对象限定字符集、操作以子串为单位）；④ 列出串的两种存储结构（定长顺序存储、堆分配存储）。</p>
+</div>
+
+<details class="recall warmup">
+  <summary>温故 · 第 17 课「数组、矩阵与广义表」：广义表 L=(a,(b,c)) 的表尾 GetTail(L) 是什么？</summary>
+  <div class="recall-a">是 ((b,c)) 而不是 (b,c)。表尾是去掉第一个元素后，剩余元素加括号组成的表，表尾一定是广义表。</div>
+</details>
+
+<details class="recall warmup">
+  <summary>温故 · 第 16 课「栈和队列」：栈和队列分别按什么原则插删？位置在哪里？</summary>
+  <div class="recall-a">栈按后进先出 LIFO，只在栈顶插入和删除；队列按先进先出 FIFO，在队尾 rear 插入、队头 front 删除。</div>
+</details>
+
+<div class="callout">
+  <p class="callout-title">为什么现在复习串</p>
+  <p>串是数据结构里内容最少的一章，但<strong>子串计数公式</strong>是选择题高频点——2025 年真题第 8 题直接考了「串 'studio' 中以 t 为首的子串个数」。这节课把定义、公式、易混点压成一页速查网，10 分钟拿下这一章的分。</p>
+</div>
+
+<div class="callout warn">
+  <p class="callout-title">真实缺口：本章是专项复习课浓缩版</p>
+  <p>串的<strong>精讲课件缺失</strong>，本章内容来自《专项-第2次课》复习课件中串部分的 8 页有效内容（该课件的其余部分为时间复杂度/二叉树复习，已并入第 14、15 章）。笔记已覆盖专项复习课的全部内容，考点够用，但深度不及其他章的精讲——这是课程的真实缺口，如实告诉你。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、子串个数公式</h2>
+<p>以 S='software'（n=8）归纳：</p>
+<table>
+  <tr><th>类型</th><th>公式</th><th>说明</th></tr>
+  <tr><td>子串总数（含空串）</td><td><strong>n(n+1)/2 + 1</strong></td><td>加 1 表示空串</td></tr>
+  <tr><td>非空子串</td><td>n(n+1)/2</td><td>不含空串</td></tr>
+  <tr><td>真子串</td><td>n(n+1)/2</td><td>不含自身（若含空串再讨论）</td></tr>
+</table>
+<p>对 n=8：子串总数 = 8×9/2 + 1 = <strong>37</strong>；非空子串 = 36。</p>
+
+<div class="callout warn">
+  <p class="callout-title">易错点</p>
+  <p>① 子串计数<strong>别忘 +1</strong>（空串也是子串）；② <strong>串自身也是子串</strong>——别把它排除掉；③ 真子串、非空子串的口径要在读题时先分清「含不含空串、含不含自身」。</p>
+</div>
+
+<div class="callout tip">
+  <p class="callout-title">真题印证（2025 年第 8 题）</p>
+  <p>串 'studio' 中以 t 为首的子串个数为（　）A.2　B.5　C.6　D.7，答案 <strong>B</strong>。'studio' 长 6，t 是第 2 个字符，以它开头的连续子串一路延伸到串尾：<strong>t、tu、tud、tudi、tudio</strong>，共 5 个。这正是「连续字符子序列」定义的直接应用。来源：题库/真题-2025年广东省 第 8 题。</p>
+</div>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、串的两种存储结构</h2>
+<table>
+  <tr><th>结构</th><th>说明</th></tr>
+  <tr><td>定长顺序存储</td><td>类似线性表顺序存储——一组地址连续的存储单元存放字符序列</td></tr>
+  <tr><td>变长（堆）分配存储</td><td>仍用地址连续的存储单元，但空间在<strong>程序执行过程中动态分配</strong></td></tr>
+</table>
+
+</section>
+<section id="cs-detail-4" data-cs-step><h2 tabindex="-1">四、串与线性表的区别</h2>
+<ul>
+  <li><strong>逻辑结构</strong>极为相似，区别仅在：<strong>串的数据对象限定为字符集</strong>；</li>
+  <li><strong>操作层面</strong>差别大：<strong>线性表以单个元素为操作对象</strong>（查/插/删某元素），<strong>串通常以子串为操作对象</strong>（查找、插入、删除一个子串）——单个字符也属于子串。</li>
+</ul>
+
+<table>
+  <tr><th>易错点</th><th>正确认识</th></tr>
+  <tr><td>空串 = 空格串</td><td>不同——空格串长度 = 空格个数；空串长度 0</td></tr>
+  <tr><td>子串计数忘了空串</td><td>总数 = n(n+1)/2 + <strong>1</strong></td></tr>
+  <tr><td>串的基本操作按单个字符</td><td>串操作通常以<strong>子串</strong>为单位</td></tr>
+  <tr><td>串自身不算子串</td><td>串自身<strong>和空串都</strong>是它的子串</td></tr>
+</table>
+
+</section>
+<section id="cs-detail-5" data-cs-step><h2 tabindex="-1">五、先回忆，再自测</h2>
+<details class="recall">
+  <summary>串、子串、空串、空格串分别怎么定义？</summary>
+  <div class="recall-a">串：零个或多个字符组成的有限序列，n=0 时为空串；子串：串中任意多个连续字符组成的子序列（串自身和空串也是子串）；空格串：由一个或多个空格组成的串，长度 = 空格个数——它不是空串。</div>
+</details>
+<details class="recall">
+  <summary>长度为 n 的串有多少个子串？非空子串、真子串的口径呢？</summary>
+  <div class="recall-a">子串总数（含空串）n(n+1)/2 + 1；非空子串 n(n+1)/2；真子串 n(n+1)/2，不含自身（若含空串再讨论）。别忘了那个 +1。</div>
+</details>
+<details class="recall">
+  <summary>串与线性表的区别是什么？</summary>
+  <div class="recall-a">两点：① 数据对象限定为字符集；② 线性表以单个元素为操作对象，串通常以子串为操作对象。</div>
+</details>
+<details class="recall">
+  <summary>串的两种存储结构？</summary>
+  <div class="recall-a">定长顺序存储；变长（堆）分配存储——空间在程序执行过程中动态分配。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">六、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">1. 长度为 8 的串（如 'software'），它的子串总数（含空串）为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">36</li>
+    <li data-opt="b">37</li>
+    <li data-opt="c">28</li>
+    <li data-opt="d">64</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">子串总数 = n(n+1)/2 + 1 = 8×9/2 + 1 = 37。选 36 是忘了空串那个 +1；64 是 2ⁿ 的干扰项。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">2.（2025 真题第 8 题）串 'studio' 中以 t 为首的子串个数为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">2</li>
+    <li data-opt="b">5</li>
+    <li data-opt="c">6</li>
+    <li data-opt="d">7</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">以 t 为首的连续子串：t、tu、tud、tudi、tudio，共 5 个，选 B。t 是第 2 个字符，从它到串尾共 6−2+1 = 5 个字符，每个结尾对应一个子串。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">3. 关于空串与空格串，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">空串就是空格串，两者长度都为 0，可互换使用</li>
+    <li data-opt="b">空格串的长度规定为 0，不含任何字符</li>
+    <li data-opt="c">空格串由一个或多个空格组成，长度等于空格个数</li>
+    <li data-opt="d">空串由一个空格组成，长度为 1，也称空白串</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">空格串不是空串：空格串由一个或多个空格组成，长度 = 空格个数；空串长度为 0，不含任何字符。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">4. 串与线性表相比，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">串的逻辑结构与线性表完全不同，属于非线性结构</li>
+    <li data-opt="b">线性表的操作通常以子串为单位进行插入删除</li>
+    <li data-opt="c">串的操作对象只能是单个字符，不能是子串</li>
+    <li data-opt="d">串的数据对象限定为字符集，操作通常以子串为单位</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">两者逻辑结构极为相似，区别仅在于串的数据对象限定为字符集；操作层面线性表按单个元素、串按子串（单个字符也属于子串）。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">5. 串的两种存储结构是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">定长顺序与堆分配存储</li>
+    <li data-opt="b">顺序存储与索引存储</li>
+    <li data-opt="c">链式存储与散列存储</li>
+    <li data-opt="d">定长链式存储与堆链式存储</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">串采用定长顺序存储（类似线性表顺序存储）与变长（堆）分配存储——后者空间在程序执行过程中动态分配。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">6. 关于子串，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">串自身和空串都是串的子串</li>
+    <li data-opt="b">空串不是串的子串</li>
+    <li data-opt="c">子串的字符允许不连续</li>
+    <li data-opt="d">子串的长度必须小于原串</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">子串是串中任意多个连续字符组成的子序列，串自身和空串也都算子串；字符必须连续，长度也可以等于原串。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 10 分钟）</p>
+  <p>① 重读 数据结构/14-串 的 §1–§3 与「易错点与对比」表，把空串/空格串、子串计数口径亲手抄一遍。② 完成笔记末尾 自测问题 Q1–Q4（串/子串/空串/空格串定义、子串个数、串与线性表区别、两种存储结构），口头作答，卡壳的标 ⭐️ 第二天再测——本章无独立题库 PDF，自测问题即本章练习。③ 把 2025 真题第 8 题 的 'studio' 遮住答案再推一遍。</p>
+</div>
+
+</section>
+<section id="cs-detail-7" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：数据结构/14-串（含考点标注与「易错点与对比」表）。公式速查：<a href="../reference/ds-formula-cheatsheet.html">数据结构公式速查表</a>；术语速查：<a href="../reference/glossary.html">课程术语表</a>。真题印证：题库/真题-2025年广东省 第 8 题。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:18:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-detail-4","cs-detail-5","cs-practice","cs-detail-7"],"checks":{"core":{"question":"aa 的非空子串按位置计数是多少？","choices":["2","3","4"],"answer":1,"why":["2 是不同内容 a、aa 的数量。","对。两个单字符区间加一个双字符区间。","这里不把空串算进去。"]},"transfer":{"question":"空串与只含一个空格的串相同吗？","choices":["相同，都看不见","不同，长度分别为 0 和 1","都没有长度"],"answer":1,"why":["显示效果不能代替字符序列。","对。空格也是一个字符。","串有明确长度，空串的长度为 0。"]}},"traces":{"core":{"title":"对 aba 列出按位置选取的子串","frames":[{"code":"从下标 0 开始","cells":[["子串","a / ab / aba"],["数量","3"]],"note":"固定起点，终点可以是 0、1、2。","pointer":""},{"code":"从下标 1 开始","cells":[["子串","b / ba"],["累计","5"]],"note":"终点只能是 1、2。","pointer":""},{"code":"从下标 2 开始","cells":[["子串","a"],["累计","6"]],"note":"这里的 a 与下标 0 的 a 位置不同。","pointer":""},{"code":"按内容去重","cells":[["不同内容","a / ab / aba / b / ba"],["数量","5"]],"note":"六个位置区间只对应五种非空内容。","pointer":""}]}},"signature":"d32fcad6920615f5"}</script>
+<nav class="footer-nav">
+  <a href="0017-array-matrix-glist.html">← 上一课：数组、矩阵与广义表</a>
+  <a href="0019-tree-basics.html">下一课：树与二叉树基础 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0037 · 二元函数极值：驻点与 AC−B² 判别 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0037">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 6 单元 · 多元函数微分学 · 课 0037</span>
+  <a href="0036-复合与隐函数求导.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0037 · 多元函数微分学</span>
+<h1>二元函数的无条件极值：$AC-B^{2}$ 判别法</h1>
+<div class="meta">
+  <span>⏱ 约 14 分钟</span>
+  <span>前置：0035 偏导 · 0036 复合与隐函数 · 0024 一元极值</span>
+  <span>来源：笔记《多元函数微分学》§四</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>按<strong>四步流程</strong>（驻点 → $A,B,C$ → 判别式 → 结论）3 分钟完成一道极值大题</li>
+    <li>默写 $AC-B^{2}$ 判别表（含 $\Delta=0$ 失效）</li>
+    <li>算出 $f(x,y)=x^{3}-y^{3}+3x^{2}+3y^{2}-9x$ 这类"考纲标准件"的全部极值</li>
+  </ul>
+</div>
+
+<p>0024 课一元极值的多元升级版：驻点从解一个方程变成解<strong>两个</strong>，判定从看 $f''$ 符号变成算<strong>$AC-B^{2}$</strong>。流程化程度极高，是本章大题的"送分担当"。</p>
+
+<h2>一、概念与流程</h2>
+
+<div class="keypoint">
+  <div class="kp-title">驻点与判别</div>
+  <p style="margin:0.2rem 0"><strong>第一步</strong>：解驻点方程组 $f_{x}(x,y)=0$，$f_{y}(x,y)=0$（偏导存在的极值点必为驻点，反之不然）。</p>
+  <p style="margin:0.2rem 0"><strong>第二步</strong>：在每个驻点处记 $A=f_{xx}$，$B=f_{xy}$，$C=f_{yy}$，算 $\Delta=AC-B^{2}$。</p>
+  <table style="margin:0.2rem 0">
+    <tr><th>条件</th><th>结论</th></tr>
+    <tr><td>$\Delta&gt;0$，$A&gt;0$</td><td><strong>极小值</strong>（碗底）</td></tr>
+    <tr><td>$\Delta&gt;0$，$A&lt;0$</td><td><strong>极大值</strong>（伞顶）</td></tr>
+    <tr><td>$\Delta&lt;0$</td><td><strong>不是极值</strong>（鞍点）</td></tr>
+    <tr><td>$\Delta=0$</td><td><strong>判别失效</strong>，另行分析</td></tr>
+  </table>
+  <p style="margin:0.2rem 0">对照一元版：$A$ 的角色类似 $f''$（凹碗/凸伞）；$AC-B^{2}&gt;0$ 保证两个方向"弯曲一致"，是"真碗/真伞"而非马鞍。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（标准件）</span>求 $f(x,y)=x^{3}-y^{3}+3x^{2}+3y^{2}-9x$ 的极值。（练习 25 同族）</p>
+  <details><summary>先自己走四步，再展开</summary>
+    <p><strong>① 驻点</strong>：$f_x=3x^{2}+6x-9=3(x-1)(x+3)=0$，$f_y=-3y^{2}+6y=-3y(y-2)=0$ ⇒ 驻点 $(1,0),(1,2),(-3,0),(-3,2)$。</p>
+    <p><strong>② 二阶</strong>：$A=f_{xx}=6x+6$，$B=f_{xy}=0$，$C=f_{yy}=-6y+6$，$\Delta=AC$。</p>
+    <p><strong>③④ 判别</strong>：</p>
+    <ul style="margin:0.2rem 0;padding-left:1.3rem">
+      <li>$(1,0)$：$A=12&gt;0$，$C=6$，$\Delta=72&gt;0$ ⇒ <strong>极小值</strong> $f(1,0)=-5$；</li>
+      <li>$(1,2)$：$A=12$，$C=-6$，$\Delta=-72&lt;0$ ⇒ 非极值；</li>
+      <li>$(-3,0)$：$A=-12$，$C=6$，$\Delta=-72&lt;0$ ⇒ 非极值；</li>
+      <li>$(-3,2)$：$A=-12$，$C=-6$，$\Delta=72&gt;0$ ⇒ <strong>极大值</strong> $f(-3,2)=31$。</li>
+    </ul>
+    <p>大题答卷就按"①②③④"四段写——步骤分全拿。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（$\Delta=0$ 的样子）</span>为什么 $f(x,y)=x^{2}+y^{2}$ 与 $f(x,y)=x^{2}+xy+y^{2}$ 在原点都能过判别、而 $f(x,y)=x^{2}$ 过不了？</p>
+  <details><summary>先自己算三个判别式，再展开</summary>
+    <p>$x^{2}+y^{2}$：$A=2,B=0,C=2$，$\Delta=4&gt;0$，$A&gt;0$ ⇒ 极小 ✓。</p>
+    <p>$x^{2}+xy+y^{2}$：$A=2,B=1,C=2$，$\Delta=3&gt;0$ ⇒ 极小 ✓。</p>
+    <p>$x^{2}$：$A=2,B=0,C=0$，$\Delta=0$ <strong>失效</strong>——事实上原点确是极小值，但判别法看不见，得回定义：$\forall(x,y)\neq(0,0)$，$f=x^{2}\ge0=f(0,0)$ ✓。</p>
+    <p>$\Delta=0$ 时<strong>各种结论都有可能</strong>（极值、非极值都行），必须另行分析。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">驻点 $(x_0,y_0)$ 处 $A=2$，$B=1$，$C=3$，则该点</p>
+  <div class="quiz-opts">
+    <button data-k="A">是极大值点</button>
+    <button data-k="B">是极小值点</button>
+    <button data-k="C">是鞍点，不是极值点</button>
+    <button data-k="D">判别法失效</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\Delta=AC-B^{2}=2\times3-1=5&gt;0$ 且 $A=2&gt;0$ ⇒ 极小值点。判别两件事分开看：<strong>先看 $\Delta$ 的正负定"是不是"，再看 $A$ 的正负定"极大还是极小"</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">驻点处 $AC-B^{2}&lt;0$，则该点</p>
+  <div class="quiz-opts">
+    <button data-k="A">是极小值点</button>
+    <button data-k="B">是极大值点</button>
+    <button data-k="C">一定不是极值点（鞍点）</button>
+    <button data-k="D">可能极大也可能极小</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\Delta&lt;0$ 一票否决：两个主方向弯曲方向相反，是马鞍面形状，无论 $A$ 正负都不是极值。D 是 $\Delta&gt;0$ 时才需要看 $A$ 的情形。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$f(x,y)=x^{2}+y^{2}-2x+4y+6$ 的极小值是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">$6$</button>
+    <button data-k="C">$-5$</button>
+    <button data-k="D">$2$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">驻点：$f_x=2x-2=0$、$f_y=2y+4=0$ ⇒ $(1,-2)$。$A=2,C=2,B=0$，$\Delta=4&gt;0$，$A&gt;0$ ⇒ 极小。$f(1,-2)=1+4-2-8+6=1$。（或配方 $(x-1)^2+(y+2)^2+1$ 心算验证。）这是练习 25(1) 的同族题。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">下列说法正确的是</p>
+  <div class="quiz-opts">
+    <button data-k="A">任何驻点都必是极值点</button>
+    <button data-k="B">极值点必是驻点，无一例外</button>
+    <button data-k="C">$\Delta=0$ 时驻点必为鞍点</button>
+    <button data-k="D">偏导存在的极值点必是驻点，但驻点未必是极值点</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">与一元版（0024 课费马引理）完全平行：必要条件单向成立。A 反例 $z=xy$ 原点；B 忽略不可导点；C 是 $\Delta&lt;0$ 的结论。$\Delta=0$ 的真正含义是"判别法失效"。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">求 $f(x,y)=x^{3}+y^{3}-3xy$ 的极值时，驻点是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$(0,0)$ 与 $(1,1)$</button>
+    <button data-k="B">$(1,0)$ 与 $(0,1)$</button>
+    <button data-k="C">只有 $(1,1)$</button>
+    <button data-k="D">$(-1,-1)$ 与 $(1,1)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$f_x=3x^{2}-3y=0$、$f_y=3y^{2}-3x=0$ ⇒ $y=x^{2}$、$x=y^{2}$ ⇒ $x=x^{4}$ ⇒ $x=0$ 或 $1$：驻点 $(0,0)$ 与 $(1,1)$，选 A。判别：$(0,0)$ 处 $A=0$，$B=-3$，$C=0$，$\Delta=0-9=-9&lt;0$ ⇒ 鞍点；$(1,1)$ 处 $A=6,B=-3,C=6$，$\Delta=27&gt;0$，$A&gt;0$ ⇒ 极小值 $-1$。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>驻点方程组是<strong>两个</strong>方程联立，解出的是<strong>点集</strong>，每个驻点都要分别判别</li>
+    <li>$B=f_{xy}$ 别漏算；$\Delta=AC-B^{2}$ 的顺序是"$AC$ 减 $B^{2}$"</li>
+    <li>$\Delta&lt;0$ 一票否决（不用看 $A$）；$\Delta=0$ <strong>失效另判</strong></li>
+    <li>问的是"极值"要代回 $f(x_0,y_0)$ 报数值，只答驻点不得全分</li>
+    <li>应用背景题（实际最值）可由"唯一驻点 = 最值点"直接下结论，但仍要写明理由</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写 $AC-B^{2}$ 判别表（四种情形四种结论）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\Delta&gt;0$ 且 $A&gt;0$ 极小；$\Delta&gt;0$ 且 $A&lt;0$ 极大；$\Delta&lt;0$ 鞍点非极值；$\Delta=0$ 判别失效另分析。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">二元极值大题四步是什么？$A,B,C$ 各是哪个偏导？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">①解 $f_x=f_y=0$ 定驻点 → ②算 $A=f_{xx}$、$B=f_{xy}$、$C=f_{yy}$ → ③算 $\Delta=AC-B^{2}$ → ④按表下结论并代值。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 6 单元（0035–0037）收官</strong>——建议限时做 3 道极值大题（每道 ≤5 分钟）检验流程熟练度，然后进入第 7 单元二重积分。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《多元函数微分学》§四 无条件极值（含练习 25(1)–(4) 答案）</li>
+    <li>讲义：《多元函数微分学》PDF（极值判别与随堂练习 25）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："鞍点为什么两头高中间低"、"$\Delta=0$ 时怎么'另行分析'"、"再出 5 道极值大题限时 5 分钟一道"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0036-复合与隐函数求导.html" class="prev"><span class="dir">← 上一课</span>0036 复合与隐函数求导</a>
+  <a href="0038-二重积分.html" class="next"><span class="dir">下一课 →</span>0038 二重积分</a>
+</nav>
+</main>
+</body>
+</html>

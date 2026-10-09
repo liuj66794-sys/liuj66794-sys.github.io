@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 8 课 · 分红与除权除息 | A 股入门</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/a-shares/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="lesson-meta">
+  <span>模块 1 · 概念扫盲 | 第 2 周 · 第 8 课</span>
+  <span>三段式：20 分钟读 + 15 分钟动手 + 5 分钟费曼</span>
+</div>
+
+<h1>分红与除权除息：钱是怎么到手的</h1>
+
+<div class="win">学完你能：讲清分红的形式与三个关键日期，亲手算出除息参考价，并解释"分红日股价跌了"为什么不是真亏。</div>
+
+<div class="mission-tie">与考核的关系："持有一家公司的回报从哪来"是姑婆那辈人的核心问题——答案是盈利增长 + 分红，而不是股价波动。模块 5 读巴菲特致股东信时，分红与留存利润的讨论会反复出现，本课是地基。</div>
+
+<h2>课前回炉（凭记忆作答，不许翻旧讲义）</h2>
+
+<div class="quiz review" data-answer="0" data-explain="总市值 = 股价 × 总股本。净利润是 PE 的分母，净资产是 PB 的分母。（回炉第 7 课）">
+  <p class="q">回炉 1. 总市值的计算公式是？</p>
+  <ul class="opts">
+    <li>股价乘以总股本</li>
+    <li>股价乘以净利润</li>
+    <li>净资产乘以收益</li>
+  </ul>
+</div>
+
+<div class="quiz review" data-answer="0" data-explain="9:15-9:25 集合竞价撮合出开盘价，其中 9:20 后不可撤单。（回炉第 4 课）">
+  <p class="q">回炉 2. 集合竞价在什么时间进行？</p>
+  <ul class="opts">
+    <li>开盘前九点一刻</li>
+    <li>开盘后半小时内</li>
+    <li>中午休市的时间</li>
+  </ul>
+</div>
+
+<h2>一、分红：公司把利润分给股东</h2>
+<p>公司赚了钱，一部分留着再投入（留存利润），一部分按持股比例发给股东，就是<b>分红</b>。前提：有可分配利润 + 股东大会通过。两种主要形式：</p>
+<ul>
+  <li><b>现金分红（派现）</b>：真金白银打到你的证券账户。公告写法如"10 派 5"，即每 10 股派 5 元现金（每股 0.5 元）。</li>
+  <li><b>送股 / 转增</b>：把利润或公积金折成股票送你，如"10 送 10"= 每持有 10 股再送 10 股。股数变多，但公司没变，股价会相应调低（见下）。</li>
+</ul>
+<p><b>股息率 = 每股年度现金分红 ÷ 股价</b>。它是"持有回报"的一个度量口径，常拿来和存款利率对照——但记住：高股息不是无风险，公司未来可能减分红、股价也可能跌。</p>
+
+<h2>二、三个关键日期：登记、除息、到账</h2>
+<table>
+  <tr><th>日期</th><th>发生什么</th></tr>
+  <tr><td><b>股权登记日</b></td><td>这天<b>收盘时</b>持有股票的人，才有分红资格</td></tr>
+  <tr><td><b>除权除息日</b></td><td>股价按分红金额下调（下一节算给你看）</td></tr>
+  <tr><td><b>派息日</b></td><td>现金自动到账证券账户（可用不可取取决于 T+1）</td></tr>
+</table>
+
+<h2>三、除权除息：一道记账动作，不是真跌</h2>
+<p>分红的钱是从公司账上转到你账上，公司"瘦身"了，股价就要相应调低，这叫<b>除息</b>：</p>
+
+<div class="example">
+  <span class="tag">算例</span>
+  <p>某股"10 派 5"（每股 0.5 元），股权登记日收盘价 <span class="num">20.00</span> 元：</p>
+  <p>除息参考价 = 20.00 − 0.50 = <b>19.50 元</b></p>
+  <p>你持有 100 股：除息前 = 100 × 20.00 = <span class="num">2000</span> 元；除息后 = 100 × 19.50 + 50 元现金 = <span class="num">2000</span> 元。<b>总资产不变。</b></p>
+</div>
+
+<p>送股则叫<b>除权</b>："10 送 10"后股数翻倍、股价减半，你的总资产同样不变。所以看到行情软件里"股价跌了 2.5%"而你没有亏损感觉时，先看是不是除权除息日——<b>"分红日股价跌了"不是真亏，是记账。</b></p>
+
+<h2>四、红利税：持有越久越便宜</h2>
+<p>现金分红要交红利税，按持股时长<b>差别化征收</b>（以最新政策为准）：持股<b>超过 1 年免征</b>；1 个月至 1 年 10%；不足 1 个月 20%。注意是按卖出时倒推的持股时长在卖出时补扣——这条规则和"长期持有"的价值投资哲学天然同向：拿得久，税不收。</p>
+
+<div class="task">
+  <h3>动手 15 分钟：用问财查一次真实分红</h3>
+  <ol>
+    <li>打开 <a href="https://www.iwencai.com/unifiedwap/result">同花顺问财</a></li>
+    <li>查"贵州茅台 分红方案"和"股息率大于5%的股票"，各记一条：10 派几、股权登记日、除息日</li>
+    <li>对其中一家：查到股权登记日收盘价，亲手算除息参考价，再和行情软件显示的除息价核对</li>
+    <li>回答（写进笔记）：分红前后你的总资产变了吗？那分红对你的真实意义是什么？</li>
+  </ol>
+</div>
+
+<h2>随堂测（回忆作答，不许翻上文）</h2>
+
+<div class="quiz" data-answer="0" data-explain="除息参考价 = 登记日收盘价 − 每股现金分红 = 20.00 − 0.50 = 19.50 元。">
+  <p class="q">1. "10 派 5"，登记日收盘 20.00 元，除息参考价是？</p>
+  <ul class="opts">
+    <li>19.50 元</li>
+    <li>19.95 元</li>
+    <li>20.50 元</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="差别化征收：超 1 年免征、1 个月至 1 年 10%、不足 1 个月 20%（以最新政策为准）。">
+  <p class="q">2. 红利税免征需要持股多久？</p>
+  <ul class="opts">
+    <li>超过一月</li>
+    <li>超过一年</li>
+    <li>超过一天</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="0" data-explain="股价下调的部分恰好等于到账的现金，总资产不变。分红不是额外收入，是资产形态的转换。">
+  <p class="q">3. 除息日当天，你的总资产？</p>
+  <ul class="opts">
+    <li>不变现金增加</li>
+    <li>增加分红金额</li>
+    <li>减少税费部分</li>
+  </ul>
+</div>
+
+<div class="feynman" data-topic="出声讲：分红有哪两种形式？股权登记日、除息日、派息日各发生什么？亲手算一遍 10 派 5 的除息账。分红既然总资产不变，它对股东的真实意义是什么？">
+  <h3>费曼自测（5 分钟）</h3>
+</div>
+
+<h2>推荐一手来源</h2>
+<ul class="src">
+  <li><a href="https://investor.szse.cn/">深交所投资者教育</a>（分红除权除息官方问答口径）</li>
+  <li><a href="https://edu.sse.com.cn/">上交所投资者教育</a>（红利税差别化征收规则，以最新公示为准）</li>
+  <li>同花顺问财："XX 分红方案""股息率大于5%的股票"</li>
+</ul>
+
+<div class="teacher-note">第 8 课结束。下一课进入盘面语言：K 线与成交量（只到"看得懂"级，ADR 0002 划的红线不动）。有任何问题直接问我。</div>
+
+<div class="nav">
+  <span><a href="./0007-market-cap-pe-pb.html">← 第 7 课 · 市值、PE 与 PB</a></span>
+  <span><a href="../reference/a-share-terms.html">术语参考表</a></span>
+  <span><a href="./0009-candlestick-and-volume.html">第 9 课 · K 线与成交量 →</a></span>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

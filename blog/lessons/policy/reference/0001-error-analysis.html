@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>错题逐题分析 - 广东专升本政治</title>
+  <style>
+:root {
+  --color-primary: #9e2f2f;
+  --color-primary-deep: #7a2222;
+  --color-primary-tint: #f9eeee;
+  --color-accent: #2a607c;
+  --color-accent-deep: #1e4a61;
+  --color-accent-tint: #edf4f8;
+  --color-gold: #a67c2e;
+  --color-gold-tint: #faf5ea;
+  --color-success: #2d7a4f;
+  --color-success-tint: #ecf6f0;
+  --color-warning: #a06b1f;
+  --color-warning-tint: #fdf8ee;
+  --color-ink: #2b2724;
+  --color-ink-light: #6b6259;
+  --color-paper: #faf9f7;
+  --color-card: #ffffff;
+  --color-border: #e8e3dc;
+  --color-border-strong: #d4cdc3;
+  --color-ink-panel: #2e2a26;
+  --font-display: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', Georgia, serif;
+  --font-body: 'Noto Sans SC', 'Source Han Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --max-width: 720px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
+  --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 2.5rem; --sp-8: 3rem;
+  --radius-s: 4px; --radius-m: 8px;
+  --shadow-card: 0 1px 3px rgba(43,39,36,0.06), 0 4px 12px rgba(43,39,36,0.04);
+  --shadow-lift: 0 2px 8px rgba(43,39,36,0.1), 0 8px 24px rgba(43,39,36,0.06);
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration: 0.2s;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.85;
+  color: var(--color-ink); background: var(--color-paper);
+  overflow-x: clip; min-height: 100vh; padding: 0 var(--gutter);
+  border-top: 5px solid var(--color-primary);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(158,47,47,0.03), transparent), linear-gradient(var(--color-paper), var(--color-paper));
+}
+.container { max-width: var(--max-width); margin: 0 auto; padding: var(--sp-7) 0 var(--sp-8); }
+::selection { background: rgba(158, 47, 47, 0.14); }
+h1 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 5vw, 2.1rem);
+  font-weight: 700; line-height: 1.4; color: var(--color-ink);
+  margin-bottom: var(--sp-3); padding-bottom: var(--sp-4);
+  position: relative; overflow-wrap: anywhere; min-width: 0;
+}
+h1::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--color-border-strong); }
+h1::before { content: ''; position: absolute; left: 0; bottom: 0; width: 4.5rem; height: 2px; background: var(--color-primary); z-index: 1; }
+h2 {
+  font-family: var(--font-display); font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-weight: 700; line-height: 1.5; color: var(--color-ink);
+  margin-top: var(--sp-8); margin-bottom: var(--sp-4); padding-left: 0.9rem; position: relative;
+}
+h2::before { content: ''; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 4px; border-radius: 2px; background: linear-gradient(to bottom, var(--color-primary), var(--color-gold)); }
+h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; line-height: 1.6; color: var(--color-accent-deep); margin-top: var(--sp-6); margin-bottom: var(--sp-3); }
+p { margin-bottom: var(--sp-4); }
+strong { font-weight: 700; color: var(--color-primary-deep); }
+.subtitle { color: var(--color-ink-light); font-size: 0.88rem; letter-spacing: 0.02em; margin-bottom: var(--sp-6); padding-top: var(--sp-3); }
+ul { padding-left: 1.5rem; }
+.card ul, .quiz ul { padding-left: 0; }
+.card ul { padding-left: 1.5rem; margin-top: var(--sp-2); }
+.card ul.quiz-options { padding-left: 0; margin-top: 0; }
+li { margin-bottom: var(--sp-1); }
+li::marker { color: var(--color-primary); }
+.card {
+  background: var(--color-card); border: 1px solid var(--color-border);
+  border-radius: var(--radius-m); padding: var(--sp-5); margin-bottom: var(--sp-5);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+}
+.card:hover { box-shadow: var(--shadow-lift); }
+.card p:last-child { margin-bottom: 0; }
+.card-error { border-left: 4px solid var(--color-primary); background: linear-gradient(135deg, var(--color-primary-tint) 0%, var(--color-card) 60%); }
+.card-correct { border-left: 4px solid var(--color-success); background: linear-gradient(135deg, var(--color-success-tint) 0%, var(--color-card) 60%); }
+.card-tip { border-left: 4px solid var(--color-gold); background: linear-gradient(135deg, var(--color-gold-tint) 0%, var(--color-card) 60%); }
+.card-key { border-left: 4px solid var(--color-accent); background: linear-gradient(135deg, var(--color-accent-tint) 0%, var(--color-card) 60%); }
+.card .card { box-shadow: none; margin-bottom: var(--sp-3); }
+.card h3 { margin-top: var(--sp-4); margin-bottom: var(--sp-2); font-size: 1rem; }
+.card h3:first-child { margin-top: 0; }
+.tag { display: inline-block; padding: 0.2rem 0.7rem; border-radius: var(--radius-s); font-size: 0.8rem; font-weight: 600; margin-right: var(--sp-2); margin-bottom: var(--sp-1); }
+.tag-wrong { background: var(--color-primary-tint); color: var(--color-primary-deep); border: 1px solid rgba(158,47,47,0.2); }
+.tag-right { background: var(--color-success-tint); color: var(--color-success); border: 1px solid rgba(45,122,79,0.2); }
+.tag-module { background: var(--color-accent-tint); color: var(--color-accent-deep); border: 1px solid rgba(42,96,124,0.2); }
+table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  margin: var(--sp-4) 0 var(--sp-5); font-size: 0.9rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius-m);
+  overflow: hidden; box-shadow: var(--shadow-card); background: var(--color-card);
+}
+th, td { padding: 0.65rem 0.85rem; text-align: left; border-bottom: 1px solid var(--color-border); vertical-align: top; overflow-wrap: break-word; }
+th { background: var(--color-ink-panel); color: #f5f2ee; font-weight: 600; font-size: 0.84rem; letter-spacing: 0.03em; border-bottom: none; }
+td { border-right: 1px solid rgba(232,227,220,0.6); }
+td:last-child { border-right: none; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) { background: rgba(250,249,247,0.7); }
+tbody tr { transition: background var(--duration) var(--ease-out); }
+tbody tr:hover { background: var(--color-accent-tint); }
+.compare { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: var(--sp-3); margin: var(--sp-4) 0 var(--sp-5); }
+.compare-item { padding: var(--sp-4); border-radius: var(--radius-m); font-size: 0.9rem; line-height: 1.75; border: 1px solid var(--color-border); transition: transform var(--duration) var(--ease-out), box-shadow var(--duration) var(--ease-out); }
+.compare-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.compare-wrong { background: var(--color-primary-tint); border-color: rgba(158,47,47,0.25); }
+.compare-right { background: var(--color-success-tint); border-color: rgba(45,122,79,0.25); }
+.timeline { position: relative; padding-left: 2.2rem; margin: var(--sp-4) 0 var(--sp-5); }
+.timeline::before { content: ''; position: absolute; left: 0.55rem; top: 0.4rem; bottom: 0.4rem; width: 2px; background: linear-gradient(to bottom, var(--color-primary), var(--color-accent), var(--color-gold)); border-radius: 1px; }
+.timeline-item { position: relative; margin-bottom: var(--sp-5); padding-left: var(--sp-3); }
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-item::before { content: ''; position: absolute; left: -1.95rem; top: 0.55rem; width: 11px; height: 11px; border-radius: 50%; background: var(--color-card); border: 3px solid var(--color-primary); }
+.timeline-item p { margin-bottom: 0; margin-top: var(--sp-1); font-size: 0.92rem; }
+.timeline-year { display: inline-block; font-weight: 700; color: var(--color-primary-deep); font-size: 0.82rem; font-family: var(--font-mono); background: var(--color-primary-tint); padding: 0.1rem 0.55rem; border-radius: var(--radius-s); }
+.mnemonic { background: var(--color-ink-panel); color: #f0ece6; padding: var(--sp-4) var(--sp-5); border-radius: var(--radius-m); margin: var(--sp-5) 0; font-size: 0.95rem; line-height: 1.9; position: relative; overflow: hidden; box-shadow: var(--shadow-card); }
+.mnemonic::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, var(--color-gold), var(--color-primary)); }
+.mnemonic strong { color: #e8c47c; }
+.nav { margin-top: var(--sp-8); padding-top: var(--sp-5); border-top: 2px solid var(--color-border); font-size: 0.9rem; position: relative; }
+.nav::before { content: ''; position: absolute; top: -2px; left: 0; width: 3rem; height: 2px; background: var(--color-primary); }
+.nav p { margin-bottom: var(--sp-2); }
+.nav a { color: var(--color-accent-deep); text-decoration: none; font-weight: 500; padding: 0.45rem 0; display: inline-block; border-bottom: 1px solid transparent; transition: color var(--duration) var(--ease-out), border-color var(--duration) var(--ease-out); }
+.nav a:hover { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+a { color: var(--color-accent-deep); }
+@media (max-width: 768px) {
+  .container { padding: var(--sp-6) 0 var(--sp-7); }
+  h2 { margin-top: var(--sp-7); }
+}
+@media (max-width: 600px) {
+  body { font-size: 15.5px; }
+  .compare { grid-template-columns: minmax(0, 1fr); }
+  .card { padding: var(--sp-4); }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 0.8rem; }
+  th, td { padding: 0.5rem 0.5rem; }
+  th { font-size: 0.76rem; }
+  .timeline { padding-left: 1.9rem; }
+  .timeline-item::before { left: -1.7rem; width: 9px; height: 9px; }
+  .timeline-item { padding-left: var(--sp-2); }
+  .mnemonic { padding: var(--sp-4); font-size: 0.9rem; }
+  .nav a { padding: 0.55rem 0; display: block; }
+  .card:active { box-shadow: var(--shadow-lift); }
+  .nav a:active { color: var(--color-primary); }
+}
+@media (max-width: 380px) {
+  :root { --gutter: 0.75rem; }
+  table { font-size: 0.75rem; }
+  th, td { padding: 0.4rem 0.35rem; }
+  .tag { font-size: 0.74rem; padding: 0.15rem 0.5rem; }
+}
+@media (hover: none) and (pointer: coarse) {
+  .card:hover { box-shadow: var(--shadow-card); }
+  tbody tr:hover { background: inherit; }
+  .nav a:hover { color: var(--color-accent-deep); border-bottom-color: transparent; }
+  .nav a { min-height: 44px; display: flex; align-items: center; }
+  .card:active { box-shadow: var(--shadow-lift); }
+  .nav a:active { color: var(--color-primary); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+  </style>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/policy/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="container">
+
+<h1>错题逐题分析</h1>
+<p class="subtitle">共11题 | 毛泽东思想概论部分 | 按知识点模块归类</p>
+
+<!-- ========== 模块一：党史重大事件时间线 ========== -->
+<h2>模块一：党史重大事件时间线</h2>
+
+<div class="card card-error">
+  <h3>第1题</h3>
+  <p><strong>题目：</strong>"马克思主义的中国化"命题正式提出于（）</p>
+  <p>A. 党的七大 &nbsp; B. 六届六中全会 &nbsp; C. 遵义会议 &nbsp; D. 十一届六中全会</p>
+  <p><span class="tag tag-wrong">你的答案：A</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>马克思主义中国化命题的首次提出时间和场合。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>混淆了"提出命题"与"确立指导地位"。党的七大（1945）确立毛泽东思想为党的指导思想，而"马克思主义中国化"这个<strong>命题本身</strong>是1938年六届六中全会上毛泽东在《论新阶段》报告中首次提出的。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>关键词"正式提出"→ 找"第一次说出来"的场合 → 六届六中全会（1938）。注意区分：提出命题 ≠ 确立为指导思想。</p>
+  
+  <div class="card card-key">
+    <strong>关键区分：</strong><br>
+    • 六届六中全会（1938）→ <strong>提出</strong>"马克思主义中国化"命题<br>
+    • 党的七大（1945）→ <strong>确立</strong>毛泽东思想指导地位<br>
+    • 遵义会议（1935）→ <strong>纠正</strong>左倾错误，确立毛泽东领导地位<br>
+    • 十一届六中全会（1981）→ <strong>通过</strong>《关于建国以来党的若干历史问题的决议》
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"38提出，45确立" —— 六中全会提命题，七大确立为指导。
+  </div>
+  
+  <p><strong>易错点：</strong>看到"马克思主义中国化"就联想到"毛泽东思想"，进而选七大。但题目问的是"命题提出"而非"思想确立"。</p>
+  <p><strong>得分技巧：</strong>审题时圈出"正式提出"四字，对应"首次说出"的时间点。</p>
+</div>
+
+<div class="card card-error">
+  <h3>第11题</h3>
+  <p><strong>题目：</strong>中国共产党诞生的标志性事件是（）</p>
+  <p>A. 五四运动 &nbsp; B. 中共一大 &nbsp; C. 中共二大 &nbsp; D. 遵义会议</p>
+  <p><span class="tag tag-wrong">你的答案：D</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>中国共产党诞生的标志事件。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>将"遵义会议"的历史意义过度泛化。遵义会议是党的历史上"生死攸关的转折点"，但不是建党标志。可能将"转折"与"诞生"混淆。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>"诞生"= 成立 = 1921年中共一大召开。这是最基础的党史常识。</p>
+  
+  <div class="card card-key">
+    <strong>各事件定位：</strong><br>
+    • 五四运动（1919）→ 为建党奠定<strong>思想和干部</strong>基础<br>
+    • 中共一大（1921）→ 党<strong>正式诞生</strong><br>
+    • 中共二大（1922）→ 第一次提出<strong>反帝反封建</strong>的民主革命纲领<br>
+    • 遵义会议（1935）→ 党的历史上<strong>生死攸关的转折点</strong>
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"一大建党，二大立纲，遵义转折" —— 三个"第一次"不混淆。
+  </div>
+  
+  <p><strong>易错点：</strong>遵义会议意义太"大"，容易被误选为各种"标志"。</p>
+  <p><strong>得分技巧：</strong>"诞生/成立/创建" → 一大；"转折" → 遵义。</p>
+</div>
+
+<!-- ========== 模块二：毛泽东著作与核心论断 ========== -->
+<h2>模块二：毛泽东著作与核心论断对应</h2>
+
+<div class="card card-error">
+  <h3>第19题</h3>
+  <p><strong>题目：</strong>毛泽东提出"没有调查，没有发言权"的著作是（）</p>
+  <p>A. 《实践论》 &nbsp; B. 《反对本本主义》 &nbsp; C. 《论新阶段》 &nbsp; D. 《矛盾论》</p>
+  <p><span class="tag tag-wrong">你的答案：A</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>毛泽东重要著作与其核心论断的对应关系。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>《实践论》讲的是认识论（实践与认识的关系），与"调查"有语义关联，但"没有调查，没有发言权"这句<strong>原话</strong>出自1930年《反对本本主义》。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>"调查"对应"本本主义"（教条主义）的反对 → 《反对本本主义》。该文原名《调查工作》，核心就是强调调查研究。</p>
+  
+  <div class="card card-key">
+    <strong>著作速记：</strong><br>
+    • 《反对本本主义》（1930）→ "没有调查，没有发言权"<br>
+    • 《实践论》（1937）→ 认识与实践的辩证关系<br>
+    • 《矛盾论》（1937）→ 对立统一规律<br>
+    • 《论新阶段》（1938）→ 首次提出"马克思主义中国化"
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"反对本本要调查" —— 书名和论断直接关联。
+  </div>
+  
+  <p><strong>易错点：</strong>《实践论》也强调"实践"，而调查是一种实践，容易产生语义联想。</p>
+  <p><strong>得分技巧：</strong>看到"调查"二字，直接锁定《反对本本主义》（原名《调查工作》）。</p>
+</div>
+
+<div class="card card-error">
+  <h3>第23题</h3>
+  <p><strong>题目：</strong>毛泽东提出新民主主义革命三大法宝以及提出党的建设是一项伟大的工程的著作是（）</p>
+  <p>A. 《〈共产党人〉发刊词》 &nbsp; B. 《新民主主义论》 &nbsp; C. 《论人民民主专政》 &nbsp; D. 《实践论》</p>
+  <p><span class="tag tag-wrong">你的答案：B</span> <span class="tag tag-right">正确答案：A</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>"三大法宝"和"伟大工程"的首次提出出处。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>看到"新民主主义革命"就联想到《新民主主义论》。但《新民主主义论》（1940）系统阐述的是新民主主义革命的<strong>理论体系</strong>（政治、经济、文化纲领），而"三大法宝"的概括出自1939年《〈共产党人〉发刊词》。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>题目有两个关键词："三大法宝" + "伟大工程" → 同时满足的只有《〈共产党人〉发刊词》（1939年10月）。</p>
+  
+  <div class="card card-key">
+    <strong>关键区分：</strong><br>
+    • 《〈共产党人〉发刊词》（1939）→ 三大法宝（统一战线、武装斗争、党的建设）+ "伟大工程"<br>
+    • 《新民主主义论》（1940）→ 系统阐述新民主主义的政治、经济、文化纲领<br>
+    • 《论人民民主专政》（1949）→ 建国方略，人民民主专政理论
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"发刊词里三法宝，伟大工程党建好" —— 发刊词 = 法宝 + 工程。
+  </div>
+  
+  <p><strong>易错点：</strong>《新民主主义论》名字太"正"，容易被当作所有新民主主义相关论断的出处。</p>
+  <p><strong>得分技巧：</strong>看到"三大法宝"或"伟大工程" → 锁定《发刊词》。</p>
+</div>
+
+<div class="card card-error">
+  <h3>第39题</h3>
+  <p><strong>题目：</strong>1948年完整概括新民主主义革命总路线的著作是（）</p>
+  <p>A. 《中国革命和中国共产党》 &nbsp; B. 《在晋绥干部会议上的讲话》 &nbsp; C. 《新民主主义论》 &nbsp; D. 《论联合政府》</p>
+  <p><span class="tag tag-wrong">你的答案：C</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>新民主主义革命总路线的完整概括出处及时间。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>再次将"新民主主义"相关论断归入《新民主主义论》。但题目给了明确时间线索"1948年"，《新民主主义论》是1940年的著作。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>利用时间排除法：1948年 → 排除1940年的《新民主主义论》→ 锁定《在晋绥干部会议上的讲话》。</p>
+  
+  <div class="card card-key">
+    <strong>总路线内容：</strong>无产阶级领导的，人民大众的，反对帝国主义、封建主义、官僚资本主义的革命。<br><br>
+    <strong>时间线：</strong><br>
+    • 1939《中国革命和中国共产党》→ 首次提出"新民主主义革命"概念<br>
+    • 1940《新民主主义论》→ 系统阐述理论体系<br>
+    • 1948《在晋绥干部会议上的讲话》→ <strong>完整概括总路线</strong>
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"39提概念，40成体系，48总路线" —— 三个时间三个层次。
+  </div>
+  
+  <p><strong>易错点：</strong>不看年份，只看"新民主主义"关键词就选C。</p>
+  <p><strong>得分技巧：</strong>题目给了年份就一定要用！1948 → 晋绥讲话。</p>
+</div>
+
+<!-- ========== 模块三：党的建设与党内关系 ========== -->
+<h2>模块三：党的建设与党内关系</h2>
+
+<div class="card card-error">
+  <h3>第24题</h3>
+  <p><strong>题目：</strong>革命年代，党的建设必须放在首位的是（）</p>
+  <p>A. 组织建设 &nbsp; B. 思想建设 &nbsp; C. 作风建设 &nbsp; D. 制度建设</p>
+  <p><span class="tag tag-wrong">你的答案：A</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>党的建设各项内容的地位排序。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>可能认为"组织"是党的基础（有组织才有党），但毛泽东建党思想的核心特色恰恰是<strong>思想建党</strong>——先解决思想问题，再解决组织问题。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>毛泽东建党思想 = 思想建党放在首位 = 党的基础性建设。这是毛泽东对马克思主义建党学说的独创性贡献。</p>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"思想是基础，组织是保证，作风是体现" —— 首位永远是思想。
+  </div>
+  
+  <p><strong>易错点：</strong>直觉上"组织"似乎更"基础"，但政治理论中"思想建设"才是首位。</p>
+  <p><strong>得分技巧：</strong>看到"首位/基础" + "党的建设" → 思想建设，无需犹豫。</p>
+</div>
+
+<div class="card card-error">
+  <h3>第26题</h3>
+  <p><strong>题目：</strong>对待党内斗争，毛泽东提出的方针是（）</p>
+  <p>A. 残酷斗争、无情打击 &nbsp; B. 惩前毖后、治病救人 &nbsp; C. 团结—批评 &nbsp; D. 长期共存、互相监督</p>
+  <p><span class="tag tag-wrong">你的答案：D</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>党内斗争的正确方针。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>"长期共存、互相监督"是处理党与<strong>民主党派</strong>关系的方针（见第27题），不是党内斗争方针。将"党际关系"与"党内关系"混淆。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>"党内斗争" → 对待犯错误的同志 → "惩前毖后、治病救人"（既要纠正错误，又要团结同志）。</p>
+  
+  <div class="card card-key">
+    <strong>方针对照表：</strong><br>
+    • 党内斗争 → <strong>惩前毖后、治病救人</strong><br>
+    • 党与民主党派 → <strong>长期共存、互相监督</strong>（后加"肝胆相照、荣辱与共"）<br>
+    • 科学文化工作 → <strong>百花齐放、百家争鸣</strong><br>
+    • 人民内部矛盾 → <strong>团结—批评—团结</strong>
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"党内治病，党外共存，文化百花，矛盾团结" —— 四个方针各归其位。
+  </div>
+  
+  <p><strong>易错点：</strong>四个方针都是"八字格"，容易张冠李戴。</p>
+  <p><strong>得分技巧：</strong>先判断"对象"（党内/党外/文化/矛盾），再选方针。</p>
+</div>
+
+<div class="card card-error">
+  <h3>第27题</h3>
+  <p><strong>题目：</strong>我国处理党与民主党派关系的方针是（）</p>
+  <p>A. 百花齐放、百家争鸣 &nbsp; B. 长期共存、互相监督 &nbsp; C. 统筹兼顾、适当安排 &nbsp; D. 团结—批评—团结</p>
+  <p><span class="tag tag-wrong">你的答案：A</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>中国共产党与民主党派关系的基本方针。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>"百花齐放、百家争鸣"是科学文化工作方针（"双百方针"），不是党际关系方针。可能因为"百花""百家"联想到"多党派"而误选。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>"民主党派" → 多党合作 → "长期共存、互相监督"。完整表述为"长期共存、互相监督、肝胆相照、荣辱与共"十六字方针。</p>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"百花是文化，共存是党派" —— "百花"对应文艺科学，"共存"对应民主党派。
+  </div>
+  
+  <p><strong>易错点：</strong>"百花齐放"中的"百"容易联想到"多党派"。</p>
+  <p><strong>得分技巧：</strong>看到"民主党派" → 直接选"长期共存、互相监督"。</p>
+</div>
+
+<!-- ========== 模块四：军队建设 ========== -->
+<h2>模块四：军队建设</h2>
+
+<div class="card card-error">
+  <h3>第22题</h3>
+  <p><strong>题目：</strong>从组织上确立党对军队领导，建设新型人民军队开端的是（）</p>
+  <p>A. 秋收起义 &nbsp; B. 三湾改编 &nbsp; C. 古田会议 &nbsp; D. 遵义会议</p>
+  <p><span class="tag tag-wrong">你的答案：A</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>党对军队绝对领导制度的确立过程。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>秋收起义是毛泽东领导的武装起义，三湾改编发生在秋收起义<strong>之后</strong>的撤退途中。可能将"起义"与"建军"混为一谈。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>关键词"从<strong>组织上</strong>确立" → 三湾改编的核心措施是"支部建在连上"，这是组织制度层面的确立。</p>
+  
+  <div class="card card-key">
+    <strong>军队建设时间线：</strong><br>
+    • 南昌起义（1927.8.1）→ 打响武装反抗第一枪，建军节来源<br>
+    • 秋收起义（1927.9）→ 毛泽东领导，后转向农村<br>
+    • 三湾改编（1927.9底）→ <strong>组织上</strong>确立党对军队领导（支部建在连上）<br>
+    • 古田会议（1929）→ <strong>思想上</strong>确立建军原则（思想建党、政治建军）
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"三湾管组织，古田管思想" —— 组织上=三湾，思想上=古田。
+  </div>
+  
+  <p><strong>易错点：</strong>秋收起义和三湾改编时间紧挨，容易混为一体。</p>
+  <p><strong>得分技巧：</strong>"组织上" → 三湾；"思想上/政治建军" → 古田。</p>
+</div>
+
+<!-- ========== 模块五：新民主主义革命理论 ========== -->
+<h2>模块五：新民主主义革命理论</h2>
+
+<div class="card card-error">
+  <h3>第41题</h3>
+  <p><strong>题目：</strong>新民主主义经济纲领中极具特色的内容是（）</p>
+  <p>A. 没收地主土地归农民所有 &nbsp; B. 没收官僚资本归国家所有 &nbsp; C. 保护民族工商业 &nbsp; D. 发展国营经济</p>
+  <p><span class="tag tag-wrong">你的答案：B</span> <span class="tag tag-right">正确答案：C</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>新民主主义经济纲领三项内容中，哪项"极具特色"。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>"没收官僚资本"看起来也很"革命"，但这是一般社会主义革命都会做的事。"保护民族工商业"才是<strong>中国特色</strong>——因为民族资产阶级是革命的同盟者，不是革命对象。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>"极具特色" = 区别于一般社会主义革命 = 只有中国新民主主义革命才有的 → 保护民族工商业（一般社会主义革命是消灭私有制的）。</p>
+  
+  <div class="card card-key">
+    <strong>经济纲领三项：</strong><br>
+    ① 没收封建地主土地归农民所有（反封建）<br>
+    ② 没收官僚资本归新民主主义国家所有（反官僚资本主义）<br>
+    ③ <strong>保护民族工商业</strong>（极具特色！团结民族资产阶级）
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"特色=保护" —— 只有"保护"才是特色，"没收"是常规操作。
+  </div>
+  
+  <p><strong>易错点：</strong>将"特色"理解为"最重要"或"最革命"，从而选"没收"类选项。</p>
+  <p><strong>得分技巧：</strong>"极具特色/独特" → 找"与众不同"的那项 → 保护（而非没收）。</p>
+</div>
+
+<div class="card card-error">
+  <h3>第42题</h3>
+  <p><strong>题目：</strong>新民主主义革命主要内容是（）</p>
+  <p>A. 武装斗争 &nbsp; B. 土地革命 &nbsp; C. 根据地建设 &nbsp; D. 统一战线</p>
+  <p><span class="tag tag-wrong">你的答案：A</span> <span class="tag tag-right">正确答案：B</span></p>
+  
+  <h3>考查知识点</h3>
+  <p>新民主主义革命的"主要内容"。</p>
+  
+  <h3>错误原因分析</h3>
+  <p>"武装斗争"是三大法宝之一，是革命的<strong>主要形式</strong>，但不是"主要内容"。"主要内容"指的是革命要解决的核心问题——农民的土地问题。</p>
+  
+  <h3>正确解题思路</h3>
+  <p>中国革命的核心问题是农民问题，农民问题的核心是土地问题 → 土地革命是主要内容。</p>
+  
+  <div class="card card-key">
+    <strong>关键区分：</strong><br>
+    • 主要<strong>形式</strong> → 武装斗争<br>
+    • 主要<strong>内容</strong> → 土地革命<br>
+    • 主要<strong>法宝/武器</strong> → 统一战线、武装斗争、党的建设<br>
+    • 基本<strong>依托</strong> → 根据地建设
+  </div>
+  
+  <div class="mnemonic">
+    <strong>助记：</strong>"形式用武装，内容搞土地" —— 怎么打=武装，打什么=土地。
+  </div>
+  
+  <p><strong>易错点：</strong>"武装斗争"出现频率太高，容易被当作万能答案。</p>
+  <p><strong>得分技巧：</strong>区分"形式"与"内容"：形式=手段=武装；内容=对象=土地。</p>
+</div>
+
+<!-- ========== 总结 ========== -->
+<h2>错误模式总结</h2>
+
+<table>
+  <tr><th>错误模式</th><th>涉及题号</th><th>改进策略</th></tr>
+  <tr><td>时间线/会议意义混淆</td><td>1, 11</td><td>建立时间轴，每个会议只记一个"最"字标签</td></tr>
+  <tr><td>著作-论断张冠李戴</td><td>19, 23, 39</td><td>制作著作对照卡，利用年份排除法</td></tr>
+  <tr><td>八字方针混淆</td><td>26, 27</td><td>先判断"对象"再选方针</td></tr>
+  <tr><td>关键词抓取偏差</td><td>22, 24, 41, 42</td><td>精确审题，区分"形式/内容/特色/首位"</td></tr>
+</table>
+
+<div class="nav">
+  <p>→ <a href="0002-party-history-timeline.html">党史时间线速查表</a></p>
+  <p>→ <a href="0003-mao-works-mapping.html">毛泽东著作对应表</a></p>
+  <p>→ <a href="../lessons/0001-party-history-events.html">课程1：党史重大事件</a></p>
+</div>
+
+</div>
+</body>
+</html>
