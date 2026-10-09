@@ -23,6 +23,10 @@ jobs:
   build:
     if: github.ref == 'refs/heads/main' && inputs.release_sha == github.sha
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+      actions: read
     steps:
       - uses: actions/checkout@v4
         with:
@@ -41,10 +45,19 @@ jobs:
       # Preserve the original legacy Jekyll homepage/source, not an unrelated
       # VuePress root build. Only the compiled /blog/ subtree is added.
       - uses: actions/configure-pages@v5
+      - name: Keep compiled subtree outside Jekyll processing
+        run: mv blog "$RUNNER_TEMP/zhixu-blog"
       - uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+      - name: Add only the reviewed subtree; preserve current homepage bytes
+        run: |
+          test ! -e _site/blog
+          cp -a "$RUNNER_TEMP/zhixu-blog" _site/blog
+          cp release-baseline/root-index.html _site/index.html
+          mkdir -p _site/assets/css
+          cp release-baseline/style.css _site/assets/css/style.css
       - name: Check static blog copied byte-for-byte
         run: node release-tools/check-static-release.mjs /tmp/environment.json _site/blog
         env:
