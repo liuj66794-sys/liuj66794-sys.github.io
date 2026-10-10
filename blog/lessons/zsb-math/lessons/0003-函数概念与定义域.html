@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0003 · 函数概念与定义域 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0003">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 1 单元 · 函数 · 课 0003</span>
+  <a href="0002-代数工具箱.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0003 · 函数</span>
+<h1>函数概念与定义域</h1>
+<div class="meta">
+  <span>⏱ 约 18 分钟</span>
+  <span>前置：0001 三角函数必背包（$\arcsin$ 的范围会用到）</span>
+  <span>来源：笔记《函数》§一、§二</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用"唯一性"一眼判断一个式子是不是函数（如 $y^2=x$ 为什么不是）</li>
+    <li>背出<strong>定义域六条限制</strong>，并对任意具体函数列不等式组求定义域</li>
+    <li>处理分段函数与"偶次根在分母"这两个高频易错点</li>
+  </ul>
+</div>
+
+<h2>一、什么是函数：抓住"唯一性"</h2>
+
+<p><strong>定义</strong>：设 $D$ 是非空数集，若对每一个 $x\in D$，按确定的对应法则 $f$，都有<strong>唯一确定</strong>的 $y$ 与之对应，则称 $y=f(x)$ 是 $x$ 的函数。</p>
+
+<p>三个要素：定义域 $D$（$x$ 的取值范围）、对应法则 $f$（怎么算）、值域（算出来的 $y$ 全体）。判断"是不是函数"只看一条：<strong>一个 $x$ 是不是只能对应一个 $y$</strong>。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>下列各项中，不是函数的是哪一项？</p>
+  <p style="margin:0.2rem 0">A. $y=2x^2+3x-4$　B. $y^2=x$　C. $y=x^3-4x^2$　D. $y=\sqrt{x}$</p>
+  <details><summary>先自己判断，再展开解答（原题见讲义 6·22 例 1）</summary>
+    <p><strong>答：B</strong>。$y^2=x$ 即 $y=\pm\sqrt{x}$：取 $x=1$，$y$ 可以是 $1$ 也可以是 $-1$，一个 $x$ 对应两个 $y$，违反唯一性。其余三项每个 $x$ 都只算出一个 $y$。</p>
+    <p>注意 D：$y=\sqrt x$ <strong>是</strong>函数（根号规定取算术平方根，只有非负一个值）；但 $y^2=x$ 不是——方向反了。</p>
+  </details>
+</div>
+
+<h2>二、定义域六条限制（必背包）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">见什么，列什么</div>
+  <table style="margin:0.4rem 0 0.2rem">
+    <tr><th>情形</th><th>要求</th></tr>
+    <tr><td>分式</td><td>分母 $\neq 0$</td></tr>
+    <tr><td>偶次根号 $\sqrt{\ \ }$</td><td>被开方式 $\ge 0$；<strong>在分母里则 $>0$</strong></td></tr>
+    <tr><td>对数 $\log_a u$、$\ln u$</td><td>真数 $u>0$</td></tr>
+    <tr><td>零次幂 $u^0$</td><td>$u\neq 0$</td></tr>
+    <tr><td>$\arcsin u$、$\arccos u$</td><td>$-1\le u\le 1$</td></tr>
+    <tr><td>$\tan x$、$\cot x$</td><td>$\tan$：$x\neq\dfrac{\pi}{2}+k\pi$；$\cot$：$x\neq k\pi$</td></tr>
+  </table>
+</div>
+
+<p>方法：<strong>一条限制列一个不等式，全部联立，取交集</strong>。最后答案写成<strong>区间或集合</strong>——填空题只写 $x\neq\pm1$ 不写区间符号，阅卷按答案不完整处理。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>求 $f(x)=\ln\left(1-\sqrt{x}\right)$ 的定义域。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P8）</summary>
+    <p>两层限制，从外到内：</p>
+    <p>真数 $>0$：$1-\sqrt x>0\ \Rightarrow\ \sqrt x&lt;1\ \Rightarrow\ 0\le x&lt;1$；根号本身：$x\ge 0$。</p>
+    <p>联立取交集：$[0,1)$。</p>
+    <p>技巧：<strong>从最外层往里剥</strong>，每剥一层加一条限制，最后一起解。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>求 $f(x)=\dfrac{\arcsin(x-2)}{x^2-x-2}$ 的定义域。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P8）</summary>
+    <p>限制一：$\arcsin$ 的自变量 $-1\le x-2\le 1\Rightarrow 1\le x\le 3$。</p>
+    <p>限制二：分母 $x^2-x-2=(x-2)(x+1)\neq 0\Rightarrow x\neq 2$ 且 $x\neq -1$。</p>
+    <p>交集：$[1,2)\cup(2,3]$。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$y=\dfrac{1}{\sqrt{4-x^2}}$ 的定义域是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$[-2,2]$</button>
+    <button data-k="B">$(-2,2]$</button>
+    <button data-k="C">$[-2,2)$</button>
+    <button data-k="D">$(-2,2)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$4-x^2\ge0$ 只给出 $[-2,2]$，但这个根号<strong>在分母里</strong>，必须严格 $>0$，端点 $x=\pm2$ 使分母为零，必须去掉 → 开区间 $(-2,2)$。"偶次根在分母取 $>0$"是本课第一大易错点。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$y=\ln(x+1)+\arctan\dfrac{1}{x}$ 的定义域是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$(-1,+\infty)$</button>
+    <button data-k="B">$(0,+\infty)$</button>
+    <button data-k="C">$(-1,0)\cup(0,+\infty)$</button>
+    <button data-k="D">$[-1,0)\cup(0,+\infty)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\ln(x+1)$：$x+1>0\Rightarrow x>-1$；$\arctan\dfrac1x$ 本身不限制，但 $\dfrac1x$ 要求 $x\neq0$。交集：$(-1,0)\cup(0,+\infty)$。</div>
+</div>
+
+<h2>三、分段函数：各段取并集</h2>
+
+<p>分段函数的定义域 = <strong>每一段自变量范围的并集</strong>。另外记住单侧极限伏笔：在分段点处，函数值由"这一点的 $x$ 属于哪一段"决定。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 4</span>$f(x)=\begin{cases}x^2 &amp; x&lt;0\\ \ln(x+1) &amp; 0&lt;x\le 2\\ \dfrac{\sin x}{x} &amp; x&gt;3\end{cases}$，求定义域。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲例题组）</summary>
+    <p>第二段里 $\ln(x+1)$ 还要 $x+1>0$，在 $x>0$ 下自动满足。三段：$(-\infty,0)\cup(0,2]\cup(3,+\infty)$。</p>
+    <p>注意 $x=0$ 和 $(2,3]$ 这些"缝"：分段函数的定义域完全可以不连续，别想当然补成整个 $\mathbb{R}$。</p>
+  </details>
+</div>
+
+<h2>四、易错清单</h2>
+
+<div class="warn">
+  <div class="warn-title">考前再读一遍</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>偶次根号<strong>在分母</strong>里：取 $>0$，不是 $\ge 0$（随堂测 1 就是它）</li>
+    <li>定义域最终要写<strong>区间/集合</strong>，别只写不等式</li>
+    <li>$\sqrt{x^2}=|x|$，不等于 $x$——它还会在"相同函数判断"里埋伏你</li>
+    <li>$\arcsin$、$\arccos$ 的限制是<strong>双边</strong>的：$-1\le u\le1$，别只写一半</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写定义域六条限制（分式 / 偶次根 / 对数 / 零次幂 / $\arcsin,\arccos$ / $\tan,\cot$）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">分母 $\neq0$；被开方式 $\ge0$（分母里 $>0$）；真数 $>0$；底 $\neq0$；$-1\le u\le1$；$\tan$ 排除 $\dfrac{\pi}{2}+k\pi$，$\cot$ 排除 $k\pi$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">口算：$y=\sqrt{3x+2}$ 与 $y=\arcsin(x-3)$ 的定义域各是什么？</p>
+  <div class="recall-a">$$\left[-\dfrac23,+\infty\right)\qquad [2,4]$$</div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天先重测两张回忆卡，再挑战"抽象函数定义域"（下一课）；一周后把本课 5 道题盖住解析重做。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《函数》§一、§二（含全部原讲义例题与答案）</li>
+    <li>讲义：《函数》夏讲 PDF 教材 P8–P9（定义域例题组）</li>
+    <li>随堂练习：《函数》秋讲练习 1–4（笔记里已给出答案，先做再对）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："再出 5 道定义域题（带 $\arcsin$ 和分母根号）"、"为什么分母里的偶次根要严格大于 0"、"帮我判断这题我哪里想错了"。
+</div>
+
+<nav class="footnav">
+  <a href="0002-代数工具箱.html" class="prev"><span class="dir">← 上一课</span>0002 代数工具箱</a>
+  <a href="0004-抽象函数与函数表达式.html" class="next"><span class="dir">下一课 →</span>0004 抽象函数与函数表达式</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0007 · 基本初等函数图像库实战 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0007">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 1 单元 · 函数 · 课 0007</span>
+  <a href="0006-单调性有界性周期性.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0007 · 函数</span>
+<h1>基本初等函数图像库实战</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0006 单调性·有界性·周期性 · <a href="../reference/002-基本初等函数图像库.html">速查 002 图像库</a></span>
+  <span>来源：笔记《函数》§六</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>报出六类基本初等函数各自的<strong>定义域、值域、恒过定点</strong></li>
+    <li>看见 $2^x$、$\ln x$、$\sqrt x$ 就能在脑中"放电影"——位置、走势、渐近线</li>
+    <li>用三条<strong>图像位置关系</strong>（底大者高、$e^x$ 在 $y=x+1$ 上方、$\ln x$ 不高于 $y=x-1$，且在 $x=1$ 处相切）秒杀比较大小题</li>
+  </ul>
+</div>
+
+<p>极限、导数、积分所有章节的"零件"都是这六类函数：<strong>常数、幂、指数、对数、三角、反三角</strong>。本课不重画一遍所有图——完整 12 张图放在<a href="../reference/002-基本初等函数图像库.html">速查 002</a> 里随时翻；本课练的是考试要的快问快答。</p>
+
+<h2>一、定点表：三类函数各"钉"在一个点上</h2>
+
+<table>
+  <tr><th>函数</th><th>定义域</th><th>值域</th><th>恒过点</th><th>单调性</th></tr>
+  <tr><td>$y=x^a$（幂）</td><td>随 $a$ 而定</td><td>随 $a$ 而定</td><td>$(1,1)$</td><td>随 $a$ 而定</td></tr>
+  <tr><td>$y=a^x$（指数，$a&gt;0,a\neq1$）</td><td>$R$</td><td>$(0,+\infty)$</td><td>$(0,1)$</td><td>$a&gt;1$ 增；$0&lt;a&lt;1$ 减</td></tr>
+  <tr><td>$y=\log_a x$（对数，$a&gt;0,a\neq1$）</td><td>$(0,+\infty)$</td><td>$R$</td><td>$(1,0)$</td><td>$a&gt;1$ 增；$0&lt;a&lt;1$ 减</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">易错：$(0,1)$ 与 $(1,0)$ 别装反</div>
+  <p style="margin:0.2rem 0">指数过 $(0,1)$——$x$ 代 0 得 1；对数过 $(1,0)$——$x$ 代 1 得 0。记忆钩子：<strong>"指数吃 0 吐 1，对数吃 1 吐 0"</strong>。幂函数则谁都过 $(1,1)$，因为 $1$ 的任何次方都是 $1$。</p>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">函数 $y=\log_a x$（$a&gt;0$，$a\neq1$）的图象恒过点</p>
+  <div class="quiz-opts">
+    <button data-k="A">$(0,1)$</button>
+    <button data-k="B">$(1,0)$</button>
+    <button data-k="C">$(1,1)$</button>
+    <button data-k="D">$(0,0)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">"对数吃 1 吐 0"：$\log_a 1=0$ 对一切底数成立。（$(1,1)$ 是幂函数的定点；$(0,1)$ 是指数函数的定点。）</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">无论 $a$ 取何值（$a\neq0$），幂函数 $y=x^a$ 的图象恒过点</p>
+  <div class="quiz-opts">
+    <button data-k="A">$(0,0)$</button>
+    <button data-k="B">$(0,1)$</button>
+    <button data-k="C">$(1,1)$</button>
+    <button data-k="D">$(-1,1)$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$1^a=1$ 恒成立，所以 $(1,1)$ 是所有幂函数的公共点。（$(0,0)$ 只有 $a&gt;0$ 时过；$(-1,1)$ 只有偶次幂过——都不"恒"。）</div>
+</div>
+
+<h2>二、幂函数六代表：一图一性格</h2>
+
+<table>
+  <tr><th>$a$</th><th>$y=x^a$</th><th>定义域</th><th>奇偶性</th><th>单调性</th></tr>
+  <tr><td>$0$</td><td>$y=x^0=1$</td><td>$x\neq0$</td><td>偶</td><td>常值（挖掉 $x=0$ 一点）</td></tr>
+  <tr><td>$1$</td><td>$y=x$</td><td>$R$</td><td>奇</td><td>增</td></tr>
+  <tr><td>$2$</td><td>$y=x^2$</td><td>$R$</td><td>偶</td><td>$(-\infty,0]$ 减、$[0,+\infty)$ 增</td></tr>
+  <tr><td>$3$</td><td>$y=x^3$</td><td>$R$</td><td>奇</td><td>增</td></tr>
+  <tr><td>$-1$</td><td>$y=\dfrac1x$</td><td>$x\neq0$</td><td>奇</td><td>各区间内分别递减</td></tr>
+  <tr><td>$\dfrac12$</td><td>$y=\sqrt x$</td><td>$[0,+\infty)$</td><td>非奇非偶</td><td>增</td></tr>
+</table>
+
+<div class="plot-row">
+  <div class="plot" data-fn="1/x" data-xmin="-4" data-xmax="4" data-ymin="-4" data-ymax="4" data-w="280" data-h="190" data-vlines="0" data-label="$y=\dfrac1x$：两支双曲线，只减不断"></div>
+  <div class="plot" data-fn="Math.sqrt(x)" data-xmin="-1" data-xmax="6" data-ymin="-1.5" data-ymax="3" data-w="280" data-h="190" data-label="$y=\sqrt x$：从原点出发，越走越缓"></div>
+</div>
+
+<p>注意 $y=\dfrac1x$ 的单调性写法：是"在 $(-\infty,0)$ 和 $(0,+\infty)$ <strong>内分别递减</strong>"，不能说"在定义域上递减"（0006 课例 1 的结论，在图像上看得一清二楚：左支整体比右支低）。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（根式 → 分数指数幂）</span>化简：$y=x\sqrt x$；$y=\sqrt{x\sqrt[3]{x\sqrt x}}$。</p>
+  <details><summary>先自己化，再展开（讲义原题）</summary>
+    <p>$x\sqrt x=x\cdot x^{\frac12}=x^{1+\frac12}=x^{\frac32}$。</p>
+    <p>由内往外逐层换：$\sqrt x=x^{\frac12}$ → $x\cdot x^{\frac12}=x^{\frac32}$ → $\sqrt[3]{x^{\frac32}}=x^{\frac12}$ → $x\cdot x^{\frac12}=x^{\frac32}$ → $\sqrt{x^{\frac32}}=x^{\frac34}$。</p>
+    <p>要领：全部换成 $x^{\frac mn}$ 再用指数运算律 $x^a\cdot x^b=x^{a+b}$、$(x^a)^b=x^{ab}$，不硬算。</p>
+  </details>
+</div>
+
+<h2>三、指数与对数：三条位置关系秒杀比较题</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背三条</div>
+  <p style="margin:0.2rem 0">① 同在 $x&gt;0$：<strong>底大者高</strong>（$3^x&gt;2^x$）；$x&lt;0$ 时反过来。</p>
+  <p style="margin:0.2rem 0">② $y=e^x$ 的图象<strong>恒在直线 $y=x+1$ 上方</strong>（相切于 $(0,1)$）。</p>
+  <p style="margin:0.2rem 0">③ $y=\ln x$ 的图象<strong>不高于直线 $y=x-1$，且在 $x=1$ 处相切</strong>。</p>
+</div>
+
+<div class="plot-row">
+  <div class="plot" data-fn="Math.exp(x)" data-fn2="x+1" data-xmin="-3" data-xmax="2.5" data-ymin="-2" data-ymax="7" data-w="280" data-h="190" data-label="$y=e^x$（蓝）恒在 $y=x+1$（虚线）上方"></div>
+  <div class="plot" data-fn="Math.log(x)" data-fn2="x-1" data-xmin="-1" data-xmax="7" data-ymin="-3" data-ymax="2.5" data-w="280" data-h="190" data-label="$y=\ln x$（蓝）不高于 $y=x-1$（虚线），$x=1$ 处相切"></div>
+</div>
+
+<p>这三条在第二章全是"隐形考点"：比较 $e^{0.3}$ 与 $1.3$ 的大小——$e^{0.3}$ 在 $y=x+1$ 上方，而直线上 $x=0.3$ 处高度是 $1.3$，所以 $e^{0.3}&gt;1.3$，不用按计算器。指数与对数还互为反函数：$y=2^x$ 与 $y=\log_2x$ 的图象关于直线 $y=x$ 对称（0008 课细讲）。</p>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">当 $x&gt;0$ 时，$2^x$ 与 $3^x$ 的大小关系是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$3^x&gt;2^x$</button>
+    <button data-k="B">$2^x&gt;3^x$</button>
+    <button data-k="C">$2^x=3^x$</button>
+    <button data-k="D">无法比较大小</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">右半平面"底大者高"。（$x&lt;0$ 时反转为 $2^x&gt;3^x$；$x=0$ 时同为 1。用 $x=1$ 心算验证：$3&gt;2$，对得上。）</div>
+</div>
+
+<h2>四、反三角函数：值域是它的"身份证"</h2>
+
+<table>
+  <tr><th>函数</th><th>定义域</th><th>值域</th><th>单调性</th><th>奇偶性</th></tr>
+  <tr><td>$y=\arcsin x$</td><td>$[-1,1]$</td><td>$\left[-\dfrac{\pi}{2},\dfrac{\pi}{2}\right]$</td><td>增</td><td>奇</td></tr>
+  <tr><td>$y=\arccos x$</td><td>$[-1,1]$</td><td>$[0,\pi]$</td><td>减</td><td>非奇非偶</td></tr>
+  <tr><td>$y=\arctan x$</td><td>$R$</td><td>$\left(-\dfrac{\pi}{2},\dfrac{\pi}{2}\right)$</td><td>增</td><td>奇</td></tr>
+  <tr><td>$y=\operatorname{arccot} x$</td><td>$R$</td><td>$(0,\pi)$</td><td>减</td><td>非奇非偶</td></tr>
+</table>
+
+<p>反三角是"取了单调区间"的三角反函数，所以值域天然受限，四个函数<strong>个个有界</strong>（0006 清单的一半在这里）。$\arctan x$ 走到无穷远也只是无限贴近 $\pm\dfrac{\pi}{2}$ 两条水平渐近线；$\operatorname{arccot}x$ 的渐近线是 $y=0$ 与 $y=\pi$。</p>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y=\arcsin x$ 的值域是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$[-1,1]$</button>
+    <button data-k="B">$[0,\pi]$</button>
+    <button data-k="C">$\left(-\dfrac{\pi}{2},\dfrac{\pi}{2}\right)$</button>
+    <button data-k="D">$\left[-\dfrac{\pi}{2},\dfrac{\pi}{2}\right]$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$[-1,1]$ 是 arcsin 的<strong>定义域</strong>；$[0,\pi]$ 属于 arccos；$\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ 是 arctan 的值域——四个数长得很像，靠"闭/开、正/负"区分。arcsin 取到 $\pm\frac{\pi}{2}$ 两端（$\sin\frac{\pi}{2}=1$ 有原像），所以是闭区间。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>指数定点 $(0,1)$、对数定点 $(1,0)$、幂函数定点 $(1,1)$——三足鼎立别混</li>
+    <li>$y=\dfrac1x$ 单调性必须写成"各区间内分别递减"</li>
+    <li>$y=\sqrt x$ 只是 $y^2=x$ 的上半支——两者不是同一条曲线</li>
+    <li>$0&lt;a&lt;1$ 时指数、对数都<strong>减</strong>：底的大小同时管增减和图象位置</li>
+    <li>arccos 值域 $[0,\pi]$ 且为减函数——它非奇非偶，$\arccos(-a)=\pi-\arccos a$</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写三类函数的恒过定点：幂、指数、对数各一个，并用"吃几吐几"说出后两个。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">幂 $(1,1)$；指数 $(0,1)$——吃 0 吐 1；对数 $(1,0)$——吃 1 吐 0。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写四条图像位置关系：$x&gt;0$ 时 $2^x$ vs $3^x$；$e^x$ vs $y=x+1$；$\ln x$ vs $y=x-1$；$y=2^x$ vs $y=\log_2x$。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">底大者高（$3^x&gt;2^x$）；$e^x$ 恒在 $y=x+1$ 上方（切于 $(0,1)$）；$\ln x$ 不高于 $y=x-1$，且在 $x=1$ 处相切；互为反函数，图象关于 $y=x$ 对称。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">报出四个反三角函数的定义域与值域（两两成对：sin/cos 一组、tan/cot 一组）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\arcsin x$：$[-1,1]\to\left[-\frac{\pi}{2},\frac{\pi}{2}\right]$；$\arccos x$：$[-1,1]\to[0,\pi]$；$\arctan x$：$R\to\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$；$\operatorname{arccot}x$：$R\to(0,\pi)$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测三张回忆卡；然后把<a href="../reference/002-基本初等函数图像库.html">速查 002</a> 的 12 张图盖住说明文字，逐图说出定义域、值域、定点——说错的图做记号，一周后只重测带记号的。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>速查：<a href="../reference/002-基本初等函数图像库.html">《基本初等函数图像库（12 张必背图）》</a>——本课的随身图库</li>
+    <li>笔记：《函数》§六 基本初等函数（含幂函数表、三角总表、反三角数值表）</li>
+    <li>讲义：《函数》夏讲 PDF（六类函数逐一详解与 P21 反三角数值计算）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："为什么 $e^x$ 恒在 $y=x+1$ 上方"、"再出 5 道定点/值域抢答题"、"$\operatorname{arccot}$ 的图像长什么样"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0006-单调性有界性周期性.html" class="prev"><span class="dir">← 上一课</span>0006 单调性·有界性·周期性</a>
+  <a href="0008-复合函数拆解与反函数三步法.html" class="next"><span class="dir">下一课 →</span>0008 复合函数拆解与反函数三步法</a>
+</nav>
+</main>
+</body>
+</html>

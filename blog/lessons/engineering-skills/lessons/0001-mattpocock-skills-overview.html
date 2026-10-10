@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第一课：Mattpocock Skills 概览与调用方式</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+  <link rel="stylesheet" href="../assets/quiz.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>第一课：Mattpocock Skills 概览与调用方式</h1>
+
+  <p>
+    你已经把 39 个 Mattpocock Skills 安装到了本地。这一课只做一件事：
+    <strong>建立一张心理地图</strong>——知道这些 skill 是干什么的、怎么触发、以及遇到常见任务时该先抓哪一个。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">主源推荐（Primary Source）</div>
+    <p>
+      本课内容基于官方 skill 定义，建议精读原文：
+      <a href="https://github.com/mattpocock/skills">mattpocock/skills · 仓库 README</a>
+      和 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">ask-matt/SKILL.md</a>
+      （本地 <code>~/.agents/skills/ask-matt/SKILL.md</code>）。
+    </p>
+  </div>
+
+  <h2>1. Skill 是什么？</h2>
+  <p>
+    一个 skill 就是一份给 AI 的“工作说明书”：它定义了面对某类任务时，AI 应该遵循的流程、使用的词汇、输出的格式。
+  </p>
+  <p>
+    安装后，skill 会出现在多个 AI 客户端能识别的地方（Kimi Code CLI、Claude Code、Cursor、Codex 等）。
+    有些 skill 是 <span class="skill-tag model-invoked">model-invoked（模型可自动调用）</span>，
+    有些是 <span class="skill-tag user-invoked">user-invoked（用户手动触发）</span>。
+    作为学习者，你暂时只需要关心后者：看到合适的场景，喊出它的名字。
+  </p>
+
+  <h2>2. 主流程：idea → ship</h2>
+  <p>
+    Matt 把大部分工程工作抽象成一条主流程。记住这条线，你就记住了 half of the skills：
+  </p>
+
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>打磨想法</strong>：用 <code>/grill-with-docs</code>（有代码库）或 <code>/grill-me</code>（无代码库）进行 relentless interview（追问式访谈）。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>生成 spec</strong>：想法清楚后，用 <code>/to-spec</code> 把它写成 PRD/spec，发布到 issue tracker（问题追踪系统）。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>拆 ticket</strong>：用 <code>/to-tickets</code> 把 spec 拆成 tracer-bullet（曳光弹）垂直切片，标出 blocking edges（阻塞边/依赖关系）。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>实现</strong>：用 <code>/implement</code> 逐个 ticket 实现，内部走 <code>/tdd</code>，最后跑 <code>/code-review</code>。</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">关键原则：context hygiene（上下文卫生）</div>
+    <p>
+      步骤 1–3 尽量放在<strong>同一个未中断的 <a href="https://github.com/mattpocock/skills">context window（上下文窗口）</a></strong>里完成，直到 <code>/to-tickets</code> 结束。
+      每个 <code>/implement</code> 再开新 context，从 ticket 出发，避免上下文污染。
+    </p>
+  </div>
+
+  <h2>3. 三个入口场景</h2>
+  <p>
+    不是每次工作都从“新想法”开始。Matt 还设计了三个入口 skill：
+  </p>
+  <ul>
+    <li><code>/triage</code> —— 处理别人报来的 bug / 需求，整理成 agent-ready 的 issue。</li>
+    <li><code>/diagnosing-bugs</code> —— 难 bug 的诊断流程，核心是“先建 <a href="https://github.com/mattpocock/skills">tight feedback loop（紧密反馈回路）</a>，再假设”。</li>
+    <li><code>/wayfinder</code> —— 项目太大、路径不清时，先在 issue tracker 上画 map，逐个解决决策。</li>
+  </ul>
+
+  <h2>4. 代码库健康</h2>
+  <p>
+    除了功能开发，还有一些 skill 用来保持代码库健康：
+  </p>
+  <ul>
+    <li><code>/code-review</code> —— <a href="https://github.com/mattpocock/skills">Standards（规范） + Spec（需求）双轴审查</a>。</li>
+    <li><code>/improve-codebase-architecture</code> —— 扫描 deepening opportunities（加深机会），生成 HTML 报告。</li>
+    <li><code>/codebase-design</code> —— deep module（深模块）共享词汇。</li>
+    <li><code>/domain-modeling</code> —— 维护 CONTEXT.md 和 ADR（架构决策记录）。</li>
+  </ul>
+
+  <h2>5. 怎么调用？</h2>
+  <table>
+    <thead>
+      <tr><th>客户端</th><th>调用方式</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Kimi Code CLI</td>
+        <td><code>/skill-name</code> 或直接用 skill 名；触发词匹配时会自动加载。</td>
+      </tr>
+      <tr>
+        <td>Claude Code</td>
+        <td><code>/skill-name</code></td>
+      </tr>
+      <tr>
+        <td>Cursor / Copilot / Cline</td>
+        <td>取决于客户端的 prompt/skill 机制；这些 skill 以 symlink/universal 形式存在。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>6. 快速小测验</h2>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">你有一个模糊的新功能想法，但还没想清楚细节，应该先调用哪个 skill？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q1" value="A"> /implement</label>
+      <label><input type="radio" name="q1" value="B"> /grill-with-docs</label>
+      <label><input type="radio" name="q1" value="C"> /code-review</label>
+      <label><input type="radio" name="q1" value="D"> /to-tickets</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">/code-review 的双轴审查是哪两个轴？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q2" value="A"> Speed &amp; Style</label>
+      <label><input type="radio" name="q2" value="B"> Standards &amp; Spec</label>
+      <label><input type="radio" name="q2" value="C"> Syntax &amp; Semantics</label>
+      <label><input type="radio" name="q2" value="D"> Tests &amp; Types</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">当前对话已经积累了大量上下文，你需要换一个新 session 继续，应该用？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q3" value="A"> /compact</label>
+      <label><input type="radio" name="q3" value="B"> /handoff</label>
+      <label><input type="radio" name="q3" value="C"> /prototype</label>
+      <label><input type="radio" name="q3" value="D"> /research</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">一个项目太大、路径不清晰，应该先启动哪个 skill 来规划？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q4" value="A"> /wayfinder</label>
+      <label><input type="radio" name="q4" value="B"> /triage</label>
+      <label><input type="radio" name="q4" value="C"> /implement</label>
+      <label><input type="radio" name="q4" value="D"> /diagnosing-bugs</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <h2>7. 本课收获</h2>
+  <ul>
+    <li>Mattpocock Skills 是结构化的 AI 工作流，不是随机提示词。</li>
+    <li>核心主线：grill → to-spec → to-tickets → implement（内部 tdd + code-review）。</li>
+    <li>入口 skill：triage、diagnosing-bugs、wayfinder。</li>
+    <li>代码库健康 skill：code-review、improve-codebase-architecture、codebase-design、domain-modeling。</li>
+    <li>不确定时，先喊 <code>/ask-matt</code>。</li>
+  </ul>
+
+  <h2>8. 术语表</h2>
+  <table>
+    <thead>
+      <tr><th>术语</th><th>解释</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="glossary-term">model-invoked</span></td>
+        <td>AI 模型可以根据上下文自动决定是否调用该 skill。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">user-invoked</span></td>
+        <td>必须由用户手动输入 skill 名称才能触发。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">slash command</span></td>
+        <td>以 <code>/</code> 开头的命令形式，用于触发 skill。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">context window</span></td>
+        <td>AI 一次能处理的文本总量。超出后早期内容会被压缩或遗忘。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">tracer-bullet</span></td>
+        <td>曳光弹。一种贯穿所有层的垂直切片，用来快速验证完整路径是否可行。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">blocking edges</span></td>
+        <td>阻塞边。表示一个 ticket 必须先完成哪些其他 ticket 才能开始。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">relentless interview</span></td>
+        <td> relent 追问式访谈。 agent 持续、细致地追问，直到把模糊想法磨清楚。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">deep module</span></td>
+        <td>深模块。接口小、实现大的模块，调用方学习成本低、隐藏复杂度高。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">shared understanding</span></td>
+        <td>共同理解。双方对范围、术语、关键决策达成一致的状态。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">issue tracker</span></td>
+        <td>问题追踪系统。比如 GitHub Issues、Linear、Jira 等，用于管理 ticket。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>9. 实战任务</h2>
+  <p>
+    光学不练等于没学。请打开你自己常用的一个 AI 客户端，用你手头的一个真实任务完成下面的练习：
+  </p>
+  <ol>
+    <li>选一个你现在手头真实存在的任务（新功能想法、bug、或整理 issue 都可以）。</li>
+    <li>对照 <a href="../reference/skill-cheat-sheet.html">速查表</a>，按本课主流程判断这个任务处在哪个阶段、该调用哪个 skill。</li>
+    <li>在你的 AI 客户端里实际调用一次这个 skill（比如 <code>/grill-with-docs</code> 或 <code>/triage</code>）。</li>
+    <li>观察它的实际行为：它是怎么追问/产出的？和你预期的一致吗？</li>
+    <li>用两三句话记录调用结果，包括你选它的理由和实际效果。</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">自检标准</div>
+    <ul>
+      <li>你能一句话说清楚这个任务处在主流程的哪个阶段。</li>
+      <li>你能说出为什么选择这个 skill，而不是其他几个候选。</li>
+      <li>你实际完成了一次调用，而不是只看了文档。</li>
+      <li>你能判断这次调用的产出是否符合预期，并说出好在哪里或差在哪里。</li>
+    </ul>
+  </div>
+  <p>
+    完成后回来告诉我结果（贴出产出或描述过程），我会给你反馈。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">下一步</div>
+    <p>
+      打开 <a href="../reference/skill-cheat-sheet.html">速查表</a> 熟悉场景映射，
+      然后告诉我你想深入哪一课：grill-with-docs、code-review、diagnosing-bugs，
+      还是直接走一遍 to-spec → to-tickets → implement 的完整流程？
+      学习中有任何不清楚的地方，随时直接问我——我是你的老师，可以针对任何一点展开讲。
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    参考：<a href="../reference/skill-cheat-sheet.html">Mattpocock Skills 速查表</a> |
+    <a href="../RESOURCES.md">RESOURCES.md</a> |
+    <a href="../MISSION.md">MISSION.md</a>
+  </p>
+
+  <script>
+    const explanations = {
+      q1: { A: "implement 是想法清楚之后才干的事。", B: "正确。grill-with-docs 用追问式访谈打磨想法。", C: "code-review 是代码写完后审查代码。", D: "to-tickets 是 spec 有了之后才拆 ticket。" },
+      q2: { A: "不是速度和风格。", B: "正确。Standards 审查是否遵循规范，Spec 审查是否实现需求。", C: "不是语法和语义。", D: "不是测试和类型。" },
+      q3: { A: "compact 是在同一个会话内压缩历史，不是跨 session。", B: "正确。handoff 生成文档供新 session 读取。", C: "prototype 用于验证设计问题。", D: "research 用于后台调研。" },
+      q4: { A: "正确。wayfinder 用于大型/模糊项目的规划。", B: "triage 用于处理 incoming issues。", C: "implement 用于明确 ticket 的实现。", D: "diagnosing-bugs 用于调试 bug。" }
+    };
+
+    function checkAnswer(button) {
+      const quiz = button.closest('.quiz');
+      const answer = quiz.dataset.answer;
+      const name = quiz.querySelector('input[type="radio"]').name;
+      const selected = quiz.querySelector('input[name="' + name + '"]:checked');
+      const feedback = quiz.querySelector('.quiz-feedback');
+
+      if (!selected) {
+        feedback.textContent = '请先选择一个答案。';
+        feedback.className = 'quiz-feedback wrong';
+        return;
+      }
+
+      const chosen = selected.value;
+      feedback.textContent = explanations[name][chosen];
+      feedback.className = chosen === answer ? 'quiz-feedback correct' : 'quiz-feedback wrong';
+    }
+  </script>
+</body>
+</html>

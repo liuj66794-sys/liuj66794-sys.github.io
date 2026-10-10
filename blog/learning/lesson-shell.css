@@ -1,0 +1,192 @@
+@import url('./study-session.css');
+@import url('./learning-guide.css');
+html[data-study-shell] :is(.callout,.goal,.task,.recall) { overflow-wrap:anywhere; }
+html[data-study-shell] {
+  --paper:var(--study-bg); --surface:var(--study-panel); --card:var(--study-panel); --ink:var(--study-text);
+  --ink-soft:var(--study-muted); --muted:var(--study-muted); --line:var(--study-line); --line-strong:var(--study-line);
+  --accent:var(--study-accent); --accent-soft:var(--study-tint); --teal:var(--study-accent);
+  --indigo:var(--study-accent); --indigo-soft:var(--study-tint); --cinnabar:var(--study-accent); --cinnabar-soft:var(--study-tint);
+  --color-paper:var(--study-bg); --color-ink:var(--study-text); --color-ink-muted:var(--study-muted);
+  --color-ink-soft:var(--study-muted); --color-line:var(--study-line); --color-border:var(--study-line);
+  --color-accent:var(--study-accent); --color-accent-soft:var(--study-tint);
+  --color-surface:var(--study-panel); --color-muted:var(--study-muted);
+  --color-desk:var(--study-bg); --color-paper-2:var(--study-tint); --color-card:var(--study-panel);
+  --color-rule:var(--study-line); --color-rule-soft:var(--study-line); --color-ink-2:var(--study-muted); --color-ink-light:var(--study-muted);
+  --color-primary:var(--study-accent); --color-primary-deep:var(--study-hover); --color-primary-tint:var(--study-tint);
+  --color-accent-tint:var(--study-tint); --color-accent-line:var(--study-line); --color-border-strong:var(--study-line);
+  --color-error:var(--study-error); --color-error-soft:var(--study-error-bg);
+  --color-success:var(--study-success); --color-success-soft:var(--study-success-bg); --color-success-tint:var(--study-success-bg);
+  --color-warning:var(--study-warning); --color-warning-soft:var(--study-warning-bg); --color-warning-tint:var(--study-warning-bg);
+  --color-gold:var(--study-warning); --color-gold-tint:var(--study-warning-bg); --rule:var(--study-line); --hl:var(--study-tint);
+  --ok:var(--study-success); --ok-bg:var(--study-success-bg); --green:var(--study-success); --green-soft:var(--study-success-bg);
+  --ok-soft:var(--study-success-bg); --gold:var(--study-warning); --gold-soft:var(--study-warning-bg);
+  --mark:var(--study-error); --mark-soft:var(--study-error-bg); --accent-line:var(--study-line);
+  --bad:var(--study-error); --bad-bg:var(--study-error-bg); --red-soft:var(--study-error-bg);
+  --tip-bg:var(--study-tint); --tip-edge:var(--study-accent); --ans-bg:var(--study-tint); --ans-edge:var(--study-accent);
+  --warn-bg:var(--study-warning-bg); --warn-edge:var(--study-warning); --mn-bg:var(--study-tint); --mn-edge:var(--study-accent);
+  --serif:var(--study-font); --sans:var(--study-font); --font-body:var(--study-font); --font-display:var(--study-font);
+  --blog-nav-height:56px;
+  scroll-padding-top:76px;
+  color-scheme:light;
+}
+html[data-study-shell][data-theme='dark'] { color-scheme:dark; }
+html[data-study-shell] body { margin:0 auto; width:100%; background:var(--study-bg); color:var(--study-text); font:16px/1.85 var(--study-font); }
+html[data-study-shell] body:has(>h1) { box-sizing:border-box; max-width:800px; padding:28px 28px 64px; }
+html[data-study-shell] :is(main,body>.wrap,body>article) { box-sizing:border-box; max-width:800px; width:100%; margin-inline:auto; padding:36px 28px 64px; }
+html[data-study-shell] :is(h1,h2,h3) { color:var(--study-text); font-family:var(--study-font); font-style:normal; letter-spacing:-.025em; line-height:1.5; scroll-margin-top:0; }
+html[data-study-shell] h1 { font-size:clamp(26px,3.1vw,36px); margin-top:0; }
+html[data-study-shell] h2 { font-size:23px; margin-top:2.5em; }
+html[data-study-shell] h3 { font-size:19px; }
+html[data-study-shell] :is(p,li) { overflow-wrap:anywhere; }
+html[data-study-shell] :is(strong,b) { color:inherit; }
+html[data-study-shell] a { color:var(--study-accent); }
+html[data-study-shell] :is(a,button,summary,input,select,[tabindex]):focus-visible { outline:3px solid var(--study-accent); outline-offset:3px; border-radius:5px; }
+html[data-study-shell] :is(button,.btn,.quiz-opts li,summary) { font-family:var(--study-font); min-height:44px; cursor:pointer; }
+html[data-study-shell] :is(.btn,button.opt,.quiz-opts li,.opts button,.qopts button) { background:var(--study-panel); color:var(--study-text); border-color:var(--study-line); border-radius:var(--study-control-radius); }
+html[data-study-shell] :is(.quiz,.qcard,.q-item,.cards-shell,.recall,.quiz-log,.map,.callout,.box,.further,details) { border-color:var(--study-line); }
+html[data-study-shell] :is(.quiz,.qcard,.q-item,.cards-shell,.recall,.quiz-log,.map) { background:var(--study-panel); color:var(--study-text); border-radius:var(--study-card-radius); }
+html[data-study-shell] :is(.win,.example,.task,.feynman),html[data-study-shell] .quiz.review { background:var(--study-panel); color:var(--study-text); border-color:var(--study-line); border-radius:var(--study-card-radius); }
+html[data-study-shell] :is(.win,.feynman) { background:var(--study-tint); }
+html[data-study-shell] :is(.feynman button,.quiz .opts li:hover) { color:var(--study-text); background:var(--study-panel); }
+html[data-study-shell] :is(.tip,.ans,.mn,.callout.info,.callout.note) { background:var(--study-tint); border-color:var(--study-accent); color:var(--study-text); }
+html[data-study-shell] :is(.warn,.callout.warn,.warning) { background:var(--study-warning-bg); color:var(--study-text); }
+html[data-study-shell] :is(.mn .cap,.mn b,.warn .cap) { color:var(--study-accent); }
+html[data-study-shell] :is(.correct,.is-ok,.opt.correct,.quiz-opts li.correct) { background:var(--study-success-bg)!important; color:var(--study-success)!important; border-color:var(--study-success)!important; }
+html[data-study-shell] :is(.wrong,.is-no,.opt.wrong,.quiz-opts li.wrong) { background:var(--study-error-bg)!important; color:var(--study-error)!important; border-color:var(--study-error)!important; }
+html[data-study-shell] .picked { outline:2px solid var(--study-accent); outline-offset:-2px; }
+html[data-study-shell] :is(.qwhy,.q-judge,.quiz-feedback,.quiz-expl,.quiz-score) { color:var(--study-text); border-color:var(--study-line); }
+html[data-study-shell] :is(.qwhy,.quiz-expl) { background:var(--study-tint); }
+html[data-study-shell] :is(.q-judge.ok,.quiz-feedback.ok) { color:var(--study-success); }
+html[data-study-shell] :is(.q-judge.no,.quiz-feedback.bad) { color:var(--study-error); }
+html[data-study-shell][data-theme='dark'] [style*='color:#dc2626'] { color:var(--study-error)!important; }
+html[data-study-shell][data-theme='dark'] [style*='color:#16a34a'] { color:var(--study-success)!important; }
+html[data-study-shell] :is(.face,.front,.back) { background:var(--study-panel); color:var(--study-text); border-color:var(--study-line); }
+/* Both faces participate in sizing. Flipping remains a transform on the parent;
+   a card switch replaces that parent atomically instead of reversing old content. */
+html[data-study-shell] .flashcard { display:grid; min-height:13.5rem; height:auto; }
+html[data-study-shell] .flashcard .face { grid-area:1 / 1; position:relative; inset:auto; min-width:0; box-sizing:border-box; padding:3.4rem 1.4rem 1.6rem; overflow-wrap:anywhere; }
+html[data-study-shell] .flashcard .face .label { top:1rem; left:1.4rem; }
+html[data-study-shell] .flashcard .ctx { white-space:normal; line-height:1.6; max-width:100%; box-sizing:border-box; }
+html[data-study-shell] .flashcard .q,html[data-study-shell] .flashcard .a { white-space:pre-wrap; }
+html[data-study-shell] .cards-shell [hidden] { display:none!important; }
+html[data-study-shell] .cards-shell button:disabled { cursor:default; opacity:.5; }
+html[data-study-shell] .cards-completion { padding:1.2rem; background:var(--study-tint); border-radius:var(--study-card-radius); }
+html[data-study-shell] .q-metadata { color:var(--study-muted); font-size:.85rem; }
+html[data-study-shell] body>.topbar { position:static; background:var(--study-panel); color:var(--study-muted); border-color:var(--study-line); }
+html[data-study-shell] body>.topbar :is(.topbar-inner,nav.topnav) { flex-wrap:wrap; }
+/* Paint containment also keeps KaTeX's hidden MathML inside wide tables from widening the page. */
+.study-table-scroll { max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; contain:paint; margin-block:20px; }
+.study-table-scroll table { width:100%; margin:0; }
+.study-table-scroll:focus-visible { outline:3px solid var(--study-focus,var(--study-accent)); outline-offset:2px; }
+html[data-study-shell] :is(th,td) { border-color:var(--study-line); }
+html[data-study-shell] th { background:var(--study-tint); color:var(--study-text); }
+html[data-study-shell] td { background:var(--study-panel); color:var(--study-text); }
+html[data-study-shell] pre { max-width:100%; overflow:auto; }
+html[data-study-shell] .katex-display { max-width:100%; overflow-x:auto; overflow-y:hidden; padding-block:8px; }
+html[data-study-shell] :not(.katex-display)>.katex { display:inline-block; max-width:100%; overflow-x:auto; overflow-y:hidden; vertical-align:middle; padding-block:4px; }
+html[data-study-shell] .katex { font-size:1.1em; }
+html[data-study-shell] :is(.footnav,.lesson-nav) { flex-wrap:wrap; gap:12px; }
+[data-blog-nav-spacer] { height:var(--blog-nav-height); }
+[data-blog-nav-bar] { position:fixed; inset:0 0 auto; z-index:1000; box-sizing:border-box; height:56px; border-bottom:1px solid var(--study-line); background:var(--study-panel); color:var(--study-text); font:14px/1.4 var(--study-font); }
+.blog-lesson-nav-inner { display:flex; align-items:center; gap:20px; height:100%; max-width:1180px; padding:0 24px; margin:auto; }
+[data-blog-nav-bar] :is(a,button,summary) { box-sizing:border-box; min-height:44px; display:flex; align-items:center; padding:8px 10px; white-space:nowrap; border:0; background:transparent; color:var(--study-muted); text-decoration:none; font:inherit; cursor:pointer; border-radius:var(--study-control-radius); }
+[data-blog-nav-bar] :is(a,button,summary):hover { color:var(--study-accent); background:var(--study-tint); }
+[data-blog-nav-bar] .blog-lesson-home { color:var(--study-muted); }
+[data-blog-nav-bar] .blog-lesson-nav-back { padding-left:0; font-weight:650; color:var(--study-text); }
+.blog-lesson-actions { display:flex; align-items:center; gap:4px; margin-left:auto; }
+[data-lesson-theme] { width:44px; justify-content:center; font-size:20px!important; }
+[data-blog-nav-bar] [hidden] { display:none; }
+.blog-lesson-more { position:relative; }
+.blog-lesson-more>summary { list-style:none; }
+.blog-lesson-more>summary::-webkit-details-marker { display:none; }
+.blog-lesson-more>div { position:absolute; right:0; top:48px; min-width:170px; padding:6px; border:1px solid var(--study-line); border-radius:12px; background:var(--study-panel); box-shadow:var(--study-card-shadow); }
+html[data-study-shell] .study-contents { box-sizing:border-box; width:min(420px,calc(100vw - 32px)); max-height:80vh; padding:0; border:1px solid var(--study-line); border-radius:18px; background:var(--study-panel); color:var(--study-text); }
+.study-contents::backdrop { background:rgb(10 20 40 / .45); }
+html[data-study-shell] .study-contents header { display:flex; justify-content:space-between; align-items:center; padding:18px 22px; border-bottom:1px solid var(--study-line); }
+html[data-study-shell] .study-contents h2 { margin:0; font-size:20px; }
+.study-contents button { border:0; background:var(--study-tint); color:var(--study-accent); border-radius:8px; padding:8px 14px; }
+.study-contents nav { padding:12px; }
+.study-contents a { display:block; min-height:44px; padding:10px 14px; border-radius:8px; text-decoration:none; }
+.study-contents a:hover { background:var(--study-tint); }
+.study-contents a[aria-current] { background:var(--study-tint); color:var(--study-accent); font-weight:650; }
+.study-contents .is-child { padding-left:28px; font-size:14px; }
+/* 阅读进度条：固定在课页导航下缘，不拦截点击 */
+.study-reading-progress { position:fixed; top:var(--blog-nav-height); left:0; right:0; height:3px; z-index:999; pointer-events:none; }
+.study-reading-progress>span { display:block; height:100%; width:0; background:var(--study-accent); }
+.study-reading-progress[hidden] { display:none; }
+[data-lesson-theme] svg { display:block; }
+@media(max-width:600px) {
+  .blog-lesson-nav-inner { gap:6px; padding:0 12px; }
+  [data-blog-nav-bar] .blog-lesson-home { display:none; }
+  [data-blog-nav-bar] :is(a,button,summary) { font-size:13px; padding-inline:8px; }
+  html[data-study-shell] :is(main,body>.wrap,body>article) { padding:24px 20px 48px; }
+  html[data-study-shell] body:has(>h1) { padding:24px 20px 48px; }
+  html[data-study-shell] h2 { font-size:21px; }
+  html[data-study-shell] body>.topbar { font-size:12px; }
+}
+@media(max-width:350px) { .blog-lesson-nav-inner { padding-inline:8px; }.blog-lesson-actions { gap:0; }[data-lesson-theme] { width:36px; } }
+@media(prefers-reduced-motion:reduce) { html[data-study-shell] { scroll-behavior:auto; }html[data-study-shell] * { transition:none!important; animation:none!important; } }
+@media print { [data-blog-nav-bar],[data-blog-nav-spacer],.study-contents,.study-reading-progress { display:none; } html[data-study-shell] { --blog-nav-height:0px; } }
+
+/* 答题与翻卡反馈：短促、不循环；系统要求减少动效时整体关闭 */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-study-shell] :is(.q-judge.ok,.q-judge.no,.q-judge.warn,.quiz-verdict.ok,.quiz-verdict.no,.quiz-feedback.ok,.quiz-feedback.bad,.quiz-score) { animation:study-verdict .18s ease-out; }
+  html[data-study-shell] :is(.qwhy,.quiz-expl) { animation:study-rise .22s ease-out; }
+  html[data-study-shell] .recall.shown :is(.recall-a,.self-msg) { animation:study-rise .22s ease-out; }
+  html[data-study-shell] :is(.quiz-opts button,.quiz-opts li,.opts button,.qopts button,.opt) { transition:background var(--study-duration),color var(--study-duration),border-color var(--study-duration),transform var(--study-duration); }
+  html[data-study-shell] :is(.opt.is-ok,.opt.is-no,.quiz-opts .correct,.quiz-opts .wrong) { animation:study-pop .18s ease-out; }
+  html[data-study-shell] .flashcard .face { transition:transform .28s ease,opacity .28s ease; }
+}
+@keyframes study-verdict { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+@keyframes study-rise { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+@keyframes study-pop { 0% { transform:scale(.97); } 60% { transform:scale(1.015); } 100% { transform:scale(1); } }
+
+/* Brand identity sits in the shared shell; lesson content stays in its own layout. */
+[data-blog-nav-bar] .blog-lesson-home { gap:8px; color:var(--study-text); font:600 19px/1.4 var(--study-display-font); letter-spacing:1px; }
+.study-nav-mark { width:28px; height:28px; object-fit:contain; flex-shrink:0; }
+.study-nav-mark.is-mobile { display:none; }
+[data-theme='dark'] .study-nav-mark { background:#f5f4ee; border-radius:5px; box-shadow:0 0 0 1px rgb(245 244 238 / .28); }
+html[data-study-shell] h1 { font-family:var(--study-display-font); font-weight:600; }
+html[data-study-shell] :is(a,button,summary,input,select,[tabindex]):focus-visible { outline-color:var(--study-focus); }
+[data-blog-nav-bar] :is(a,button,summary) { transition:background var(--study-duration),color var(--study-duration); }
+@media(max-width:600px) {
+  /* Keep examples readable: the wrapper scrolls instead of crushing every cell. */
+  .study-table-scroll table { min-width:32rem; }
+  .study-table-scroll.is-multicolumn table { min-width:42rem; }
+  .study-table-scroll::before { content:'表格可左右滑动查看 →'; display:block; width:max-content; margin-bottom:6px; color:var(--study-muted); font-size:12px; line-height:1.5; }
+  .study-nav-mark.is-mobile { display:block; width:24px; height:24px; margin-right:7px; }
+  [data-blog-nav-bar] .blog-lesson-nav-back { padding-right:2px; font-size:12px; }
+  .blog-lesson-nav-inner { gap:3px; padding-inline:8px; }
+  [data-blog-nav-bar] .blog-lesson-actions :is(button,summary) { padding-inline:6px; font-size:12px; }
+}
+
+/* 移动端首屏压缩：框架让位，正文第一节尽快进入视野 */
+@media(max-width:600px) {
+  html[data-study-shell] :is(main,body>.wrap,body>article) { padding-top:14px; }
+  html[data-study-shell] body:has(>h1) { padding-top:14px; }
+  html[data-study-shell] body>.topbar { padding-block:2px; }
+  html[data-study-shell] body>.topbar .topbar-inner { gap:4px 12px; }
+  html[data-study-shell] h1 { margin-block:.35em .5em; }
+  html[data-study-shell] .meta { display:flex; flex-wrap:wrap; gap:2px 14px; font-size:13px; line-height:1.7; }
+  html[data-study-shell] :is(.goal,.win) { padding:14px 16px!important; margin-block:14px!important; }
+  /* 状态胶囊默认一行，点按展开全文 */
+  html[data-study-shell] .lesson-progress { margin-block:10px!important; }
+  html[data-study-shell] .lesson-progress[data-collapsed] {
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; overflow:hidden;
+    cursor:pointer; padding-right:34px; position:relative;
+  }
+  html[data-study-shell] .lesson-progress[data-collapsed]::after {
+    content:'展开'; position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    font-size:12px; color:var(--study-accent);
+  }
+  html[data-study-shell] .lesson-progress[data-collapsed]:focus-visible { outline:3px solid var(--study-focus,var(--study-accent)); outline-offset:2px; }
+  /* 学习任务导航单行横滑，不再折行占位 */
+  html[data-study-shell] .study-session-actions {
+    flex-wrap:nowrap; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none;
+    gap:16px; margin:8px 0 14px; font-size:13px;
+  }
+  html[data-study-shell] .study-session-actions::-webkit-scrollbar { display:none; }
+  html[data-study-shell] .study-session-actions a { white-space:nowrap; }
+  html[data-study-shell] .lesson-restart { margin-block:4px 10px!important; }
+}
+@media(prefers-reduced-motion:reduce) { [data-blog-nav-bar] :is(a,button,summary) { transition:none; } }

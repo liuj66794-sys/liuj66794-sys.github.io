@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 2 课 · TypeScript 类型与接口</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/recall.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">阶段 0 · 模块 A（TypeScript 起步）· 第 2 课 ｜ 预计 35 分钟 ｜ 前置：第 1 课</div>
+
+<h1>TypeScript 类型与接口</h1>
+
+<p>这节课结束时，你会用 <code>interface</code> 定义一个"工具"的形状，并写出一个类型安全的工具注册表——这是 PatchPilot 的 Tool 系统的雏形。</p>
+
+<div class="callout">
+  <span class="label">为什么学这个 · Mission 关联</span>
+  Agent 的核心能力之一就是<strong>工具调用</strong>：读文件、改代码、跑命令……每个工具都有名字、描述、参数格式、执行函数。TypeScript 的 <code>interface</code> 正是描述"一个工具长什么样"的最佳工具。学完这节课，你看 pi 源码里的 <code>Tool</code> 定义时就不会懵。
+</div>
+
+<h2>温故：先回忆，再学新内容</h2>
+
+<div class="recall">
+  <p class="q">1.（第 1 课）默写：直接运行一个 TypeScript 文件的完整命令。</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p><code>npx tsx 文件名.ts</code></p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2.（第 1 课）用一句话回答：Node.js 解决了什么问题？为什么说它是 Agent 的运行底座？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>它让 JavaScript 脱离浏览器、直接在电脑上运行——读文件、跑命令、发网络请求。Agent 要做的正是这些事，所以 Coding Agent 普遍建在 Node.js 之上。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">3.（第 1 课）<code>package.json</code> 记录哪两类信息？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>项目的依赖清单，以及 <code>scripts</code> 可运行脚本（命令别名）。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>1. 从生活中的"形状"说起</h2>
+
+<p>想象你要寄一个快递，快递公司规定包裹必须包含：收件人姓名、手机号、地址。如果缺一个，系统就拒收。这个"必须包含哪些字段"的规定，就是包裹的<strong>形状（shape）</strong>。</p>
+
+<p>在 TypeScript 里，<code>interface</code> 就是用来描述对象形状的：</p>
+
+<pre><code>interface Package {
+  receiver: string;
+  phone: string;
+  address: string;
+}</code></pre>
+
+<p>一旦有了 <code>Package</code>，你就可以规定"这个变量必须是一个 Package"：</p>
+
+<pre><code>const pkg: Package = {
+  receiver: "L1U.J",
+  phone: "13800138000",
+  address: "火星市软件园"
+};</code></pre>
+
+<p>如果你漏写 <code>phone</code>，TypeScript 会在保存/运行前就告诉你："你的对象不符合 Package 的形状。"这就是类型安全。</p>
+
+<h2>2. 常用基础类型</h2>
+
+<p>这些类型你在写 Agent 代码时会天天见到：</p>
+
+<table>
+  <tr><th>类型</th><th>含义</th><th>例子</th></tr>
+  <tr><td><code>string</code></td><td>字符串</td><td><code>"hello"</code></td></tr>
+  <tr><td><code>number</code></td><td>数字</td><td><code>42</code>, <code>3.14</code></td></tr>
+  <tr><td><code>boolean</code></td><td>布尔</td><td><code>true</code>, <code>false</code></td></tr>
+  <tr><td><code>string[]</code></td><td>字符串数组</td><td><code>["a", "b"]</code></td></tr>
+  <tr><td><code>any</code></td><td>任意类型（关闭类型检查）</td><td>尽量少用，作为临时占位</td></tr>
+</table>
+
+<h2>3. 用 interface 描述一个 Tool</h2>
+
+<p>现在我们来定义 PatchPilot 里的一个工具应该长什么样：</p>
+
+<pre><code>interface Tool {
+  name: string;
+  description: string;
+  execute: (args: Record&lt;string, any&gt;) => string;
+}</code></pre>
+
+<p>逐行看懂它：</p>
+
+<ul>
+  <li><code>name: string</code> —— 工具名，字符串。</li>
+  <li><code>description: string</code> —— 工具描述，也是字符串。Agent 会把这个描述塞给大模型，告诉它这个工具能干什么。</li>
+  <li><code>execute: (args: Record&lt;string, any&gt;) => string</code> —— 工具的执行函数。它接收一个参数对象（<code>args</code>），返回一个字符串。<code>Record&lt;string, any&gt;</code> 表示"键是字符串、值暂时不限"的参数包；<code>=&gt; string</code> 表示函数返回字符串。</li>
+</ul>
+
+<p>注意：这里用 <code>any</code> 是临时妥协。后续我们会学到更安全的 <code>unknown</code> 和具体参数 schema，现在先用 <code>any</code> 把形状搭起来。</p>
+
+<h2>4. 实现两个工具并放进注册表</h2>
+
+<p>有了 <code>Tool</code> 形状，我们可以造两个真正的工具：</p>
+
+<pre><code>const calculator: Tool = {
+  name: "calculator",
+  description: "计算两个数的和",
+  execute: (args) => {
+    const result = Number(args.a) + Number(args.b);
+    return `结果是 ${result}`;
+  }
+};
+
+const greeter: Tool = {
+  name: "greeter",
+  description: "向指定的人问好",
+  execute: (args) => {
+    return `你好，${args.name}！`;
+  }
+};</code></pre>
+
+<p>再把它们放进一个<strong>注册表（registry）</strong>里——这是 Agent 查"我有哪些工具"的地方：</p>
+
+<pre><code>const toolRegistry: Record&lt;string, Tool&gt; = {
+  calculator,
+  greeter,
+};</code></pre>
+
+<p>然后写一个调度函数，按名字找到工具并执行：</p>
+
+<pre><code>function runTool(name: string, args: Record&lt;string, any&gt;): string {
+  const tool = toolRegistry[name];
+  if (!tool) {
+    return `错误：找不到名为 "${name}" 的工具`;
+  }
+  return tool.execute(args);
+}
+
+console.log(runTool("calculator", { a: 3, b: 5 }));
+console.log(runTool("greeter", { name: "L1U.J" }));</code></pre>
+
+<h2>5. 可选属性与 readonly</h2>
+
+<p>有些字段不是必须的。比如工具可以有一个 <code>category</code> 分类，没有也行：</p>
+
+<pre><code>interface ToolV2 {
+  name: string;
+  description: string;
+  category?: string;          // ? 表示可选
+  readonly id: string;        // readonly 表示创建后不可修改
+  execute: (args: Record&lt;string, any&gt;) => string;
+}</code></pre>
+
+<p><code>readonly</code> 在 Agent 代码里很重要：比如工具 ID 注册后不应该被中途改掉。TS 会替你守着这条规则。</p>
+
+<div class="task">
+<h3>动手任务（验收清单）</h3>
+<ol>
+  <li>在 <code>ts-playground</code> 目录下新建 <code>tools.ts</code>。</li>
+  <li>定义一个 <code>Tool</code> interface，包含 <code>name</code>、<code>description</code>、<code>execute</code>。</li>
+  <li>实现至少两个工具：<code>calculator</code>（两数相加）和 <code>greeter</code>（按名字问好）。</li>
+  <li>用 <code>Record&lt;string, Tool&gt;</code> 把它们放进 <code>toolRegistry</code>。</li>
+  <li>写 <code>runTool(name, args)</code>，并调用两次：一次 <code>calculator</code>（a=10, b=20），一次 <code>greeter</code>（name=你的名字）。</li>
+  <li>运行 <code>npx tsx tools.ts</code>，看到两条输出。</li>
+  <li><strong>加一个类型错误实验</strong>：把 <code>runTool("calculator", { a: 10, b: 20 })</code> 改成 <code>runTool("calculator", 10)</code>，运行 <code>npx tsx tools.ts</code>，看看报错说了什么，再把代码改回去。</li>
+</ol>
+<p><strong>贴回给我</strong>：① <code>npx tsx tools.ts</code> 的正常运行输出（两条）；② 第 7 步的类型报错信息；③ 用一句话解释 <code>Record&lt;string, Tool&gt;</code> 是什么意思。</p>
+</div>
+
+<h2>小测</h2>
+
+<div class="quiz" data-answer="b" data-explain="interface 专门描述对象的结构形状，是 Agent Tool 定义的最佳选择。">
+  <p class="q">1. TypeScript 中 <code>interface</code> 最适合描述什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">任意的类型别名</button>
+    <button class="option" data-key="b">对象的结构形状</button>
+    <button class="option" data-key="c">函数的异步行为</button>
+    <button class="option" data-key="d">代码的执行顺序</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="a" data-explain="string[] 是 TS 中字符串数组的写法，方括号是数组类型标记。">
+  <p class="q">2. 下面哪个说法是正确的字符串数组类型？</p>
+  <div class="options">
+    <button class="option" data-key="a">字符串数组用方括号</button>
+    <button class="option" data-key="b">字符串数组用小括号</button>
+    <button class="option" data-key="c">数组类型必须加逗号</button>
+    <button class="option" data-key="d">数组元素不能赋值</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="d" data-explain="类型标注在编译期就能发现参数错误，是 Agent 工具系统可靠性的第一道防线。">
+  <p class="q">3. Agent 工具系统里为什么要给 tool schema 做类型标注？</p>
+  <div class="options">
+    <button class="option" data-key="a">运行时让代码更快</button>
+    <button class="option" data-key="b">使打包体积更小</button>
+    <button class="option" data-key="c">自动生成 API 文档</button>
+    <button class="option" data-key="d">编译期发现参数错误</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="c" data-explain="function greet(name: string): string 中第二个 : string 表示函数返回值的类型。">
+  <p class="q">4. <code>function greet(name: string): string</code> 中第二个 <code>: string</code> 表示？</p>
+  <div class="options">
+    <button class="option" data-key="a">参数类型字符串</button>
+    <button class="option" data-key="b">函数名是字符串</button>
+    <button class="option" data-key="c">函数返回字符串</button>
+    <button class="option" data-key="d">调用时才报错</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>回忆挑战（遮住上文，先默写再对照）</h2>
+
+<div class="recall">
+  <p class="q">1. 默写 <code>Tool</code> interface 的完整定义（三个字段及各自类型）。</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><pre><code>interface Tool {
+  name: string;
+  description: string;
+  execute: (args: Record&lt;string, any&gt;) =&gt; string;
+}</code></pre></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2. 面试模拟：用一两句话向面试官解释，什么是对象的"形状"？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>形状是一个对象"必须包含哪些字段、每个字段是什么类型"的整体结构；TypeScript 用 interface 描述形状，不符合形状的对象在运行前就会被拦下。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="callout">
+  <span class="label">面试怎么考</span>
+  面试里不会直接考 "interface 是什么"，但会考"你怎么保证 Agent 调用工具时参数不报错"——答案之一就是：用 TS interface / schema 在编译期和运行时两层校验参数形状。这节课是你回答这类问题的底层基础。
+</div>
+
+<div class="further">
+<h2>延伸阅读（一手资料）</h2>
+<ul>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html">TypeScript Handbook: Everyday Types</a> —— 官方对基础类型的权威讲解。</li>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/2/objects.html">TypeScript Handbook: Object Types</a> —— interface、可选属性、readonly 的详细说明。</li>
+</ul>
+<p>课程导航：<a href="0001-typescript-setup-first-program.html">← 上一课</a> ｜ <a href="../ROADMAP.md">路线图</a> ｜ <a href="../RESOURCES.md">资料清单</a> ｜ <a href="../reference/ts-types-and-interfaces.html">本课速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a> ｜ <a href="0003-modules-and-npm-scripts.html">下一课 →</a></p>
+</div>
+
+<p class="teacher-note">第 1 课做得很好——特别是你亲眼见到了模板字符串和类型报错。第 2 课的关键是"把 interface 当作对象的形状合同"。完成后把三项输出贴回来，我审查后进入第 3 课（模块与 npm）。</p>
+
+</main>
+</body>
+</html>

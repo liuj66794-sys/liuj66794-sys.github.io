@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 11 课 · 指针基础与一维数组</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=26252ed77a61">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=26252ed77a61"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第一部分 C 语言</span>
+  <span>第 11 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro">
+  <p class="cs-eyebrow">计算机 · 第 11 课 / 从理解到独立解题</p>
+  <h1>指针，先弄清它指向哪里。</h1>
+  <p class="lesson-meta">指针基础与一维数组 · 分 7 小节学习，可随时暂停</p>
+  <p>这节课从变量和地址讲起。先观察一段很短的代码，再亲手预测变化，最后用同一套方法读懂数组与交换函数。</p>
+  <p class="cs-interactive-note">按顺序学习，也可以通过左侧目录直接查阅。小练习和所在小节保存在此浏览器；原课测验保留在最后一节。</p>
+</header>
+<section class="cs-course">
+<aside class="cs-path" aria-label="指针学习路径">
+  <p class="cs-eyebrow">本课路径</p>
+  <ol>
+    <li><a href="#cs-address">01 变量、地址与指针</a></li>
+    <li><a href="#cs-write">02 改值，还是改指向</a></li>
+    <li><a href="#cs-array">03 指针怎样走过数组</a></li>
+    <li><a href="#cs-increment">04 看懂三个自增表达式</a></li>
+    <li><a href="#cs-swap">05 为什么 swap 要用指针</a></li>
+    <li><a href="#cs-transfer">06 换一道题自己做</a></li>
+    <li><a href="#cs-practice">07 原课测验与复习</a></li>
+  </ol>
+</aside>
+<section class="cs-content">
+<section id="cs-address" data-cs-step>
+  <h2 tabindex="-1">01 / 变量、地址与指针</h2>
+  <p class="cs-goal">这一节只解决一件事：分清 <code>a</code>、<code>&amp;a</code>、<code>p</code> 和 <code>*p</code>。</p>
+  <details><summary>基础补充：变量、赋值和声明分别是什么？</summary>
+    <p><code>int a = 10;</code> 声明一个名叫 a 的整数变量，并把初值设为 10。之后的 <code>a = 20;</code> 是修改已经存在的变量。赋值号 <code>=</code> 表示把右边的值存到左边指定的位置，不是数学里的“相等”。</p>
+  </details>
+  <h3>先把内存想成有编号的储物格</h3>
+  <p>变量 a 像一个储物格，里面放着整数 10；地址像格子的编号。另一张放在格子 p 里的纸条，写着 a 的编号。根据纸条找到 a，就是“通过指针访问变量”。</p>
+  <p>正式地说，<strong>指针变量保存指针值，可以指向某个对象</strong>。本课先讨论指向 int 变量的指针。地址示意图只画对象之间的关系，不假定你的电脑使用某个固定地址。</p>
+  <pre><code>int a = 10;
+int *p = &amp;a;</code></pre>
+  <ol>
+    <li><code>int a = 10;</code>：创建变量 a，值为 10。</li>
+    <li><code>&amp;a</code>：取出 a 的地址；此处 <code>&amp;</code> 读作“取地址”。</li>
+    <li><code>int *p</code>：声明 p 是指向 int 的指针。这里的星号是声明的一部分，并没有读取某个变量。</li>
+    <li><code>= &amp;a</code>：把 a 的地址保存到 p 中。现在 p 指向 a。</li>
+  </ol>
+  <table><tr><th>表达式</th><th>读法</th><th>当前含义</th></tr>
+    <tr><td><code>a</code></td><td>a 中的值</td><td>10</td></tr>
+    <tr><td><code>&amp;a</code></td><td>a 的地址</td><td>找到 a 所需的位置</td></tr>
+    <tr><td><code>p</code></td><td>p 中保存的指针值</td><td>与 &amp;a 相同，指向 a</td></tr>
+    <tr><td><code>*p</code></td><td>沿着 p 访问它指向的变量</td><td>访问 a；读取时得到 10</td></tr>
+  </table>
+  <p><strong>解引用（dereference）</strong>就是沿指针访问目标。在表达式 <code>*p</code> 中，星号才是解引用运算符。<code>p</code> 与 <code>*p</code> 不能互换：一个是指针值，一个用于访问它指向的对象。</p>
+  <section data-cs-lab="address"></section>
+  <section data-cs-check="address"></section>
+  <details><summary>核对：为什么 *p 与 a 都能读到 10？</summary><p>因为 p 保存的是 a 的地址。两种写法访问的是同一个变量，并没有把 10 再复制成一个独立的 int 变量。</p></details>
+  <details><summary>深入一点：&amp;p 是什么？</summary><p>p 自己也是一个变量，也有存储位置。<code>&amp;p</code> 是 p 自身的地址，<code>p</code> 中保存的则是 a 的地址。先记住这两者不是一回事；二级指针留待后续学习。</p></details>
+</section>
+
+<section id="cs-write" data-cs-step>
+  <h2 tabindex="-1">02 / 改值，还是改指向</h2>
+  <p class="cs-goal">读赋值语句时，先看左边：是 <code>p</code>，还是 <code>*p</code>？</p>
+  <pre><code>int a = 10;
+int b = 30;
+int *p = &amp;a;
+*p = 20;
+p = &amp;b;
+*p = 40;</code></pre>
+  <p><code>*p = 20;</code> 的左边是“p 指向的变量”。此时它是 a，所以把 a 改成 20。随后 <code>p = &amp;b;</code> 的左边是 p 自己，改的是指向，a 和 b 的值都不因此改变。最后再执行 <code>*p = 40;</code>，被修改的便是 b。</p>
+  <table><tr><th>执行完的语句</th><th>a</th><th>b</th><th>p 指向</th></tr>
+    <tr><td><code>int *p = &amp;a;</code></td><td>10</td><td>30</td><td>a</td></tr>
+    <tr><td><code>*p = 20;</code></td><td>20</td><td>30</td><td>a</td></tr>
+    <tr><td><code>p = &amp;b;</code></td><td>20</td><td>30</td><td>b</td></tr>
+    <tr><td><code>*p = 40;</code></td><td>20</td><td>40</td><td>b</td></tr>
+  </table>
+  <section data-cs-lab="write"></section>
+  <section data-cs-check="write"></section>
+  <details><summary>安全边界：还不知道指向哪里时怎么办？</summary>
+    <p><code>int *p;</code> 定义的自动局部指针没有被初始化，不能直接用 <code>*p = 10;</code> 写入。可以先让它指向一个仍然存在、类型合适的变量。</p>
+    <p>也可以在包含 <code>&lt;stddef.h&gt;</code> 等提供 NULL 的头文件后写 <code>int *p = NULL;</code>，表示暂不指向对象。<strong>空指针不代表一个可以读写的“零号储物格”</strong>；它也不能被解引用。<code>int *p = 0;</code> 同样初始化为空指针。</p>
+    <p>本课直接用 <code>int *</code> 指向 int 变量。不要把 <code>float *</code> 直接初始化为 int 变量的地址，再按 float 读写。</p>
+  </details>
+</section>
+
+<section id="cs-array" data-cs-step>
+  <h2 tabindex="-1">03 / 指针怎样走过数组</h2>
+  <p class="cs-goal">把“算地址”和“访问元素”分成两步。</p>
+  <pre><code>int a[3] = {10, 20, 30};
+int *p = a;
+int value = *(p + 1);</code></pre>
+  <p>数组的三个元素连续存放，下标从 0 开始。在 <code>int *p = a;</code> 这种表达式中，a 转换为指向首元素的指针，与 <code>&amp;a[0]</code> 对应。因此 p 最初指向 a[0]。</p>
+  <ol><li><code>p + 1</code>：从当前元素算出下一个元素的地址。<strong>这个表达式没有修改 p</strong>。</li>
+    <li><code>*(p + 1)</code>：访问该地址对应的元素 a[1]，读取时得到 20。</li>
+    <li>把 20 存入 value。此时 p 仍然指向 a[0]。</li></ol>
+  <table><tr><th>地址写法</th><th>访问值的写法</th><th>结果（p 仍指向 a[0]）</th></tr>
+    <tr><td><code>p</code> / <code>&amp;a[0]</code></td><td><code>*p</code> / <code>a[0]</code></td><td>10</td></tr>
+    <tr><td><code>p + 1</code> / <code>&amp;a[1]</code></td><td><code>*(p + 1)</code> / <code>p[1]</code></td><td>20</td></tr>
+    <tr><td><code>p + 2</code> / <code>&amp;a[2]</code></td><td><code>*(p + 2)</code> / <code>p[2]</code></td><td>30</td></tr>
+  </table>
+  <p>指针加 1 按一个目标元素前进。若本题约定 <code>sizeof(int) == 4</code>，相邻 int 元素相隔 4 字节；不要把“int 永远占 4 字节”当成 C 语言的保证。</p>
+  <section data-cs-lab="array"></section>
+  <section data-cs-check="array"></section>
+  <h3>再看一个完整循环</h3>
+  <pre><code>for (int i = 0; i &lt; 3; i++) {
+    printf("%d ", *(p + i));
+}</code></pre>
+  <p>在 p 指向 a[0] 的前提下，i 依次是 0、1、2，于是依次输出 10、20、30。每轮变化的是 i，p 没有被赋新值。</p>
+  <details><summary>边界与易混点：a 是指针变量吗？</summary>
+    <p>a 是数组，不是可以随意改指向的指针变量，所以不能写 <code>a++</code>。数组名在许多表达式中会转换为指向首元素的指针，但 <code>sizeof a</code> 得到整个数组的大小，<code>&amp;a</code> 则是指向整个数组的指针。</p>
+    <p>可以形成尾后指针 <code>a + 3</code> 用于比较，但本数组没有 a[3]，不能解引用它。同数组内指针相减得到相隔的元素个数；不要拿两个无关数组的指针做这种减法。</p>
+  </details>
+</section>
+
+<section id="cs-increment" data-cs-step>
+  <h2 tabindex="-1">04 / 看懂三个自增表达式</h2>
+  <p class="cs-goal">先补括号，再检查自增作用于指针还是元素，最后记录语句执行后的状态。</p>
+  <p>下面每一行都是<strong>独立实验</strong>：重新从 <code>int a[3] = {10,20,30}; int *p = a;</code> 开始，使用 <code>int result = 表达式;</code> 接住结果。</p>
+  <table><tr><th>表达式</th><th>补括号</th><th>result</th><th>语句结束后</th></tr>
+    <tr><td><code>*p++</code></td><td><code>*(p++)</code></td><td>10</td><td>p 指向 a[1]；元素不变</td></tr>
+    <tr><td><code>*++p</code></td><td><code>*(++p)</code></td><td>20</td><td>p 指向 a[1]；元素不变</td></tr>
+    <tr><td><code>(*p)++</code></td><td><code>(*p)++</code></td><td>10</td><td>a[0] 变成 11；p 不变</td></tr>
+    <tr><td><code>++(*p)</code></td><td><code>++(*p)</code></td><td>11</td><td>a[0] 变成 11；p 不变</td></tr>
+  </table>
+  <p><code>*(p++)</code> 使用自增前的指针值找到元素，同时让 p 在本完整表达式结束前前进；<code>*(++p)</code> 使用自增后的指针值。<code>(*p)++</code> 的括号把被自增的对象明确成了数组元素。</p>
+  <section data-cs-check="increment"></section>
+  <details><summary>遇到这类题，按哪三问检查？</summary><ol><li>自增的是 p，还是 *p？</li><li>表达式取自增前的值，还是自增后的值？</li><li>语句结束时，p 的指向和数组内容各是什么？</li></ol><p>不要在同一个复杂表达式里对同一变量进行多次未排序的读写。初学时拆成单独语句更容易判断，也避免把未定义行为当作固定输出。</p></details>
+</section>
+
+<section id="cs-swap" data-cs-step>
+  <h2 tabindex="-1">05 / 为什么 swap 要用指针</h2>
+  <p class="cs-goal">理解“传入地址的副本”为什么仍能修改外面的变量。</p>
+  <details><summary>基础补充：形参是实参值的副本</summary><p>C 的函数参数按值传递。调用 <code>f(a)</code> 时，形参拿到 a 的值；只改形参，不会改 a。调用 <code>f(&amp;a)</code> 时，形参拿到 a 地址的副本；沿这个地址仍能访问外面的 a。</p></details>
+  <pre><code>void swap(int *x, int *y) {
+    int t = *x;
+    *x = *y;
+    *y = t;
+}
+
+/* 在 main 中 */
+int a = 10, b = 20;
+swap(&amp;a, &amp;b);</code></pre>
+  <ol><li>调用时把 a、b 的地址分别复制给 x、y。于是 x 指向 a，y 指向 b。</li>
+    <li><code>int t = *x;</code>：先把 a 原来的值 10 备份到 t，防止下一步覆盖后丢失。</li>
+    <li><code>*x = *y;</code>：读取 b 的值 20，写入 a。此时 a、b 都是 20。</li>
+    <li><code>*y = t;</code>：把备份的 10 写入 b。交换完成，a 为 20、b 为 10。</li></ol>
+  <section data-cs-lab="swap"></section>
+  <h3>为什么另外两种写法不行？</h3>
+  <table><tr><th>函数内部做的事</th><th>实际改变</th><th>调用者中的 a、b</th></tr>
+    <tr><td><code>int t=x; x=y; y=t;</code>（x、y 是 int）</td><td>两个整数形参副本</td><td>不变</td></tr>
+    <tr><td><code>int *t=x; x=y; y=t;</code>（x、y 是 int*）</td><td>两个指针形参的指向</td><td>不变</td></tr>
+    <tr><td><code>int t=*x; *x=*y; *y=t;</code></td><td>指针指向的外部变量</td><td>交换</td></tr>
+  </table>
+  <section data-cs-check="swap"></section>
+  <details><summary>迁移到数组参数：为什么函数内改 arr[i] 会生效？</summary><p>数组实参在这里转换为首元素指针，函数形参得到这个指针值的副本。<code>arr[i]</code> 沿它访问原数组元素，所以赋值会改变原数组。形参得到的不是整个数组副本，也不会自动携带数组长度；长度通常另传。</p></details>
+</section>
+
+<section id="cs-transfer" data-cs-step>
+  <h2 tabindex="-1">06 / 换一道题自己做</h2>
+  <p class="cs-goal">先独立预测。卡住时只展开一条提示，再继续尝试。</p>
+  <pre><code>int a[3] = {2, 4, 6};
+int *p = a;
+int x = *p++;
+*p = x + 5;
+int y = *(p + 1);</code></pre>
+  <p>执行后，x、y、数组 a 的内容分别是什么？p 指向哪个元素？</p>
+  <details><summary>提示 1：先补括号</summary><p><code>*p++</code> 是 <code>*(p++)</code>。x 取原来 p 指向的元素，语句结束时 p 前进一个元素。</p></details>
+  <details><summary>提示 2：写出第三行结束时的状态</summary><p>x 为 2，p 指向 a[1]，数组仍是 {2,4,6}。接下来 <code>*p = x + 5;</code> 修改哪一格？</p></details>
+  <section data-cs-check="transfer"></section>
+  <details><summary>完整推演：做完后再核对</summary>
+    <table><tr><th>执行完</th><th>x</th><th>y</th><th>a</th><th>p 指向</th></tr>
+      <tr><td><code>int *p = a;</code></td><td>尚未声明</td><td>尚未声明</td><td>{2,4,6}</td><td>a[0]</td></tr>
+      <tr><td><code>int x = *p++;</code></td><td>2</td><td>尚未声明</td><td>{2,4,6}</td><td>a[1]</td></tr>
+      <tr><td><code>*p = x + 5;</code></td><td>2</td><td>尚未声明</td><td>{2,7,6}</td><td>a[1]</td></tr>
+      <tr><td><code>int y = *(p + 1);</code></td><td>2</td><td>6</td><td>{2,7,6}</td><td>a[1]</td></tr>
+    </table>
+    <p>最后一步的 p+1 只是计算地址，没有修改 p。这里的下标以 p 的当前位置为起点，不是重新从 a[0] 开始。</p>
+  </details>
+  <h3>把它变成能运行的程序</h3>
+  <pre><code>#include &lt;stdio.h&gt;
+int main(void) {
+    int a[3] = {2, 4, 6};
+    int *p = a;
+    int x = *p++;
+    *p = x + 5;
+    int y = *(p + 1);
+    printf("x=%d y=%d a={%d,%d,%d}\n", x, y, a[0], a[1], a[2]);
+    return 0;
+}</code></pre>
+  <p>预期输出：<code>x=2 y=6 a={2,7,6}</code>。先手算，再在你现有的 C 环境中运行核对。</p>
+  <details><summary>再练一题：把 *p = x + 5 改成 p = a + 2，会怎样？</summary><p>只看替换后的这一句：p 改为指向 a[2]，数组保持 {2,4,6}。但若继续执行原来的 <code>int y = *(p + 1);</code>，就会解引用尾后指针，产生未定义行为，不能预测一个固定输出。应先检查访问边界。</p></details>
+  <p>复习时，尝试用自己的话解释：p 与 *p 有什么区别；p+1 是否改变 p；为什么交换函数需要访问 *x 与 *y。</p>
+  <details><summary>内容依据与本课范围</summary>
+    <p>本教学版以原课指针基础与一维数组为范围，补充示例和分步练习。关于地址与解引用、数组和指针、指针运算，可对照 <a href="https://learn.microsoft.com/en-us/cpp/c-language/indirection-and-address-of-operators?view=msvc-170">Microsoft C 语言文档</a>、<a href="https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Pointers-and-Arrays.html">GNU C：指针与数组</a>及<a href="https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Pointer-Arithmetic.html">指针运算</a>。示例限定在有效对象和数组边界内，不依赖 GNU 的额外扩展。</p>
+  </details>
+</section>
+<section id="cs-practice" data-cs-step>
+<h2 tabindex="-1">07 / 原课测验与复习</h2>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">1. 下列指针定义或初始化中，正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">int a; float *p = &amp;a;</li>
+    <li data-opt="b">int *p = 200;</li>
+    <li data-opt="c">int a; int *p = &amp;a;</li>
+    <li data-opt="d">int *p; *p = 10;</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">A 基类型不一致；B 把普通整数赋给指针；D 中 p 未指向具体地址就解引用赋值。C 基类型一致且用 &amp; 取地址。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">2. 已知 int a[5], *p = a; 下列代表 a[2] 地址的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">p + 2</li>
+    <li data-opt="b">*(p + 2)</li>
+    <li data-opt="c">a[2]</li>
+    <li data-opt="d">p[2]</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">p + 2 ≡ &amp;a[2] 是地址；*(p+2)、a[2]、p[2] 都是元素的值。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">3. 能真正交换 main 函数中两个 int 变量值的 swap 是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">void swap(int x,int y){int t=x;x=y;y=t;}</li>
+    <li data-opt="b">void swap(int *x,int *y){int *t=x;x=y;y=t;}</li>
+    <li data-opt="c">void swap(int *x,int *y){int t=*x;*x=*y;*y=t;}</li>
+    <li data-opt="d">void swap(int x,int y){int *t=&amp;x;*t=y;t=&amp;y;*t=x;}</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">A 是传值，只改副本；B 只交换形参指针的指向；D 仍是对形参副本操作。C 用 *x、*y 修改了实参地址里的值。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">4. 执行 int a[3]={1,3,5},*p=a; printf("%d",*p++); 输出为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">1</li>
+    <li data-opt="b">3</li>
+    <li data-opt="c">5</li>
+    <li data-opt="d">不确定</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">*p++ 是后置形式：先取当前 *p（即 a[0]=1）输出，然后再把 p 后移一位。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">5. 对同一数组内的两个 int* 指针 p1、p2，p2 - p1 的值表示</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">两地址的字节差</li>
+    <li data-opt="b">两元素的下标差</li>
+    <li data-opt="c">两指针占用的字节数</li>
+    <li data-opt="d">数组元素的总字节数</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">指针相减按基类型步长折算，结果是两指针之间相隔的元素个数，不是字节数。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">6. 关于数组名作函数参数，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">数组名传递的是整个数组的副本</li>
+    <li data-opt="b">形参数组名完全等价于同长度数组</li>
+    <li data-opt="c">在函数中改 arr[i] 即改 a[i]</li>
+    <li data-opt="d">实参只能写数组名不能写指针</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">数组名作实参传的是首元素地址，形参本质是指针；因此 arr[i] 与 a[i] 是同一单元。实参可以是数组名或指针，四组组合均合法。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 20 分钟）</p>
+  <p>① 打开 C语言/08-指针 自测问题，遮住答案完成随堂 9 题中的第 1–5 题，错题标 ⭐️。② 回到笔记 易错点与对比，逐条遮住右栏默写正确认识，卡壳的记入错题本。③ 用指针重写一遍传址版 swap，再对传值、交换形参指向、交换值三个版本手写逐行执行推演，并默写各自的输出。</p>
+</div>
+
+<h2>参考资料</h2>
+<p>首选精读：C语言/08-指针（§1 指针变量、§2 指针和数组）。术语速查：<a href="../reference/glossary.html">课程术语表</a>、<a href="../reference/c-syntax-cheatsheet.html">C 语法速查表</a>。</p>
+
+
+
+</section></section></section>
+<nav class="footer-nav">
+  <a href="0010-functions-advanced.html">← 上一课：函数进阶</a>
+  <a href="0012-pointers-advanced.html">下一课：指针进阶 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

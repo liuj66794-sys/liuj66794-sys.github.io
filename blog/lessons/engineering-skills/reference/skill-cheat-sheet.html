@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mattpocock Skills 速查表</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>Mattpocock Skills 速查表</h1>
+  <p class="no-print" style="color: var(--muted);">
+    一份按场景索引的路由表：遇到任务时，先用「触发信号」列对号入座，再看该 skill 的 SKILL.md 了解完整流程。
+    收录 Matt Pocock 仓库（github.com/mattpocock/skills）全部正式版 skills；实验性（in-progress）单列在第七节，已从仓库删除的见文末说明。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills">mattpocock/skills</a>（本地 <code>~/.agents/skills/</code> 下各 skill 的 SKILL.md）· 最近与仓库同步：2026-08-07（v1.2.3）
+  </p>
+
+  <h2>一、不知道用哪个 skill 时</h2>
+  <table>
+    <thead>
+      <tr><th>场景</th><th>Skill</th><th>一句话说明</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>完全不知道现在该调用哪个 skill</td>
+        <td><span class="skill-tag user-invoked">/ask-matt</span></td>
+        <td>skills 的路由器，描述你的处境，它会告诉你下一步该用什么。附 PHASE-BOUNDARIES.md 决策树：帮你判断处在哪个阶段边界。</td>
+        <td>“这么多 skill，我现在到底该用哪个？”</td>
+      </tr>
+      <tr>
+        <td>刚进入一个新项目，准备使用 Matt 的 engineering skills</td>
+        <td><span class="skill-tag user-invoked">/setup-matt-pocock-skills</span></td>
+        <td>配置 issue tracker（问题追踪系统）、triage labels（分类标签）、CONTEXT.md / ADR 目录结构。首次使用前跑一次。</td>
+        <td>“我想在这个项目里用 Matt 的 skills，帮我配好环境。”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>二、从想法到交付（Main Flow）</h2>
+  <table>
+    <thead>
+      <tr><th>阶段</th><th>Skill</th><th>触发时机</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. 打磨想法（有代码库）</td>
+        <td><span class="skill-tag user-invoked">/grill-with-docs</span></td>
+        <td>通过 relentless interview（追问式访谈）把想法磨清楚，同时维护 CONTEXT.md 和 ADR。</td>
+        <td>“我有个想法，帮我盘清楚。”</td>
+      </tr>
+      <tr>
+        <td>1a. 打磨想法（无代码库）</td>
+        <td><span class="skill-tag user-invoked">/grill-me</span></td>
+        <td>没有 repo 时，纯对话版 grill，不保存任何本地文档。</td>
+        <td>“仓库还没建，先帮我把这个想法问清楚。”</td>
+      </tr>
+      <tr>
+        <td>（底层引擎）</td>
+        <td><span class="skill-tag model-invoked">/grilling</span></td>
+        <td>grill-with-docs / grill-me 内部调用的追问引擎；出现 "grill" 触发词时自动加载，一般不需要直接调用。现为 round-by-round 分轮采访：每轮问完整个 frontier，问题格式 ❓+编号+加粗标题+➡️推荐答案，同轮问题之间用水平线分隔（2026-08-20 起）。</td>
+        <td>“grill 我一下这个方案。”</td>
+      </tr>
+      <tr>
+        <td>2. 多 session 构建：生成 spec</td>
+        <td><span class="skill-tag user-invoked">/to-spec</span></td>
+        <td>对话已经足够清楚，把它合成为一份 PRD/spec 并发布到 issue tracker。不再访谈，只做合成。</td>
+        <td>“聊得差不多了，把它整理成 spec 吧。”</td>
+      </tr>
+      <tr>
+        <td>3. 拆 ticket</td>
+        <td><span class="skill-tag user-invoked">/to-tickets</span></td>
+        <td>把 spec 拆成 tracer-bullet（曳光弹）垂直切片，每个 ticket 声明 blocking edges（阻塞边）。</td>
+        <td>“把这个 spec 拆成可以分工做的 ticket。”</td>
+      </tr>
+      <tr>
+        <td>4. 实现</td>
+        <td><span class="skill-tag user-invoked">/implement</span></td>
+        <td>按 spec/ticket 实现，内部驱动 /tdd，最后跑 /code-review。</td>
+        <td>“照着这些 ticket 实现。”</td>
+      </tr>
+      <tr>
+        <td>（实现期底层规则）</td>
+        <td><span class="skill-tag model-invoked">/tdd</span></td>
+        <td>测试驱动开发：red-green 循环、seams（测试边界）、anti-patterns。提到"先写测试"时自动加载。</td>
+        <td>“先写测试” / “用 TDD 来做。”</td>
+      </tr>
+      <tr>
+        <td>5. 代码审查</td>
+        <td><span class="skill-tag user-invoked">/code-review</span></td>
+        <td>针对某个 commit/branch/tag 做 Standards（规范） + Spec（需求）双轴审查，两个子 agent 并行。</td>
+        <td>“review 一下这个分支” / “review since X。”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>三、入口与分流（On-ramps）</h2>
+  <table>
+    <thead>
+      <tr><th>你遇到的情况</th><th>Skill</th><th>说明</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>有人报 bug / 提需求，需要先分类整理</td>
+        <td><span class="skill-tag user-invoked">/triage</span></td>
+        <td>把 issue/PR 推过一个状态机：分类 → 验证 → 必要时 grill → 输出 agent-ready brief（可直接交给 agent 的简报）。</td>
+        <td>“有人提了个 issue，帮我分类处理一下。”</td>
+      </tr>
+      <tr>
+        <td>有东西坏了，而且不是一眼能看出的 bug</td>
+        <td><span class="skill-tag user-invoked">/diagnosing-bugs</span></td>
+        <td>先建 tight feedback loop（紧密反馈回路），再 reproduce → hypothesise → instrument → fix → post-mortem。</td>
+        <td>“这个 bug 我复现不了” / “帮我 debug 一下，它莫名其妙地慢。”</td>
+      </tr>
+      <tr>
+        <td>项目/功能太大，一个 session 装不下</td>
+        <td><span class="skill-tag user-invoked">/wayfinder</span></td>
+        <td>在 issue tracker 上画 shared map（共享地图），把调研拆成决策型 ticket，逐个解决直到路径清晰。</td>
+        <td>“这个项目太大了，我都不知道从哪下手。”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>四、代码库健康</h2>
+  <table>
+    <thead>
+      <tr><th>目标</th><th>Skill</th><th>说明</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>扫描架构问题，找出 deepening 机会</td>
+        <td><span class="skill-tag user-invoked">/improve-codebase-architecture</span></td>
+        <td>扫描代码库找出 deepening opportunities（深化机会），生成 HTML 报告，然后进入 grilling 循环。</td>
+        <td>“扫一下这个代码库有什么架构问题。”</td>
+      </tr>
+      <tr>
+        <td>设计/讨论模块接口的共享词汇</td>
+        <td><span class="skill-tag model-invoked">/codebase-design</span></td>
+        <td>deep module（深模块）、interface（接口）、seam（测试边界）、adapter（适配器）、leverage（杠杆）、locality（局部性）。</td>
+        <td>“这个模块的接口该怎么设计？”</td>
+      </tr>
+      <tr>
+        <td>维护领域术语 / 写 ADR</td>
+        <td><span class="skill-tag model-invoked">/domain-modeling</span></td>
+        <td>更新 CONTEXT.md（术语表），为难以逆转的架构决策记录 ADR。2026-08-13 起触发点明确覆盖“正在写 CONTEXT.md / ADR”这件事本身。</td>
+        <td>“我们在讨论术语怎么定” / “该更新 CONTEXT.md 了” / “这个决策值得记个 ADR。”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>五、工程配置与测试工具</h2>
+  <table>
+    <thead>
+      <tr><th>目标</th><th>Skill</th><th>说明</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>给仓库加 pre-commit 钩子</td>
+        <td><span class="skill-tag user-invoked">/setup-pre-commit</span></td>
+        <td>配置 Husky + lint-staged（Prettier）、type check、测试，提交时自动跑。</td>
+        <td>“给我配个 pre-commit，提交前自动格式化和跑测试。”</td>
+      </tr>
+      <tr>
+        <td>防止 AI 执行危险 git 操作</td>
+        <td><span class="skill-tag user-invoked">/git-guardrails-claude-code</span></td>
+        <td>给 Claude Code 配 hooks，在 git push、reset --hard、clean、branch -D 等命令执行前拦截。</td>
+        <td>“别让 AI 乱跑 git push / reset。”</td>
+      </tr>
+      <tr>
+        <td>测试里的 as 断言换成 shoehorn</td>
+        <td><span class="skill-tag user-invoked">/migrate-to-shoehorn</span></td>
+        <td>把测试文件中的 as 类型断言迁移到 @total-typescript/shoehorn（部分测试数据）。</td>
+        <td>“把测试里的 as 断言都换成 shoehorn。”</td>
+      </tr>
+      <tr>
+        <td>搭建课程/练习题目录</td>
+        <td><span class="skill-tag user-invoked">/scaffold-exercises</span></td>
+        <td>创建带 sections、problems、solutions、explainers 的练习目录结构，并通过 lint。</td>
+        <td>“帮我搭一套练习题的目录结构。”</td>
+      </tr>
+      <tr>
+        <td>把手工配置流程做成交互式向导</td>
+        <td><span class="skill-tag model-invoked">/wizard</span></td>
+        <td>生成 bash 向导脚本，带人完成只有人能做的步骤：开通基础设施、配凭证/CI secrets、一次性迁移。按阶段数报进度，不给时间预估。</td>
+        <td>“把这套手工配置流程做成一个向导。”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>六、跨 session、写作与辅助</h2>
+  <table>
+    <thead>
+      <tr><th>场景</th><th>Skill</th><th>说明</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>当前对话太长，要开新 session 继续</td>
+        <td><span class="skill-tag user-invoked">/handoff</span></td>
+        <td>把当前对话压缩成 handoff 文档，新 session 读取它继续工作。</td>
+        <td>“对话太长了，交接给新 session 吧。”</td>
+      </tr>
+      <tr>
+        <td>需要把阅读/调研工作丢给后台 agent</td>
+        <td><span class="skill-tag user-invoked">/research</span></td>
+        <td>基于 primary sources（一手资料）研究问题，输出带引用的 Markdown 到仓库里。</td>
+        <td>“帮我调研一下 X，要看一手资料。”</td>
+      </tr>
+      <tr>
+        <td>快速验证一个设计问题（状态模型 / UI）</td>
+        <td><span class="skill-tag user-invoked">/prototype</span></td>
+        <td>写一次性原型回答设计问题，得到答案后删除或归档代码。</td>
+        <td>“先写个原型，看看这个状态模型感觉对不对。”</td>
+      </tr>
+      <tr>
+        <td>学习某个概念，跨多个 session</td>
+        <td><span class="skill-tag user-invoked">/teach</span></td>
+        <td>在当前目录建立学习工作区（就像你现在看到的这个）。</td>
+        <td>“教我学会 X。”</td>
+      </tr>
+      <tr>
+        <td>git merge/rebase 冲突解决中</td>
+        <td><span class="skill-tag model-invoked">/resolving-merge-conflicts</span></td>
+        <td>解决进行中的 merge/rebase 冲突。</td>
+        <td>“merge 冲突了，帮我解决。”</td>
+      </tr>
+      <tr>
+        <td>agent 说了一句你没看懂的话</td>
+        <td><span class="skill-tag user-invoked">/wait-what</span></td>
+        <td>立刻触发，agent 用大白话 + 你 CONTEXT.md 里的词汇重新解释那句话。</td>
+        <td>“等等，你刚才那句是什么意思？”</td>
+      </tr>
+      <tr>
+        <td>把答不上来的决策变成问卷</td>
+        <td><span class="skill-tag user-invoked">/to-questionnaire</span></td>
+        <td>把你无法完全回答的决策转成 Markdown 问卷，交给能回答的人异步填写；/grill-me 的反向操作。</td>
+        <td>“这个决策我答不上来，做成问卷给别人填。”</td>
+      </tr>
+      <tr>
+        <td>写给 agent 看的文档（skill、AGENTS.md 等）</td>
+        <td><span class="skill-tag model-invoked">/writing-for-agents</span></td>
+        <td>原 writing-great-skills：predictability、context load vs cognitive load、information hierarchy、leading words。范围已扩到所有 agent 可读文档。</td>
+        <td>“我想自己写一个 skill / 改进 AGENTS.md，怎么写才好？”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>七、实验性 skills（in-progress）</h2>
+  <p style="color: var(--muted);">
+    以下来自仓库的 <code>skills/in-progress</code> 目录，行为可能不稳定，调用前先读各自的 SKILL.md。
+  </p>
+  <table>
+    <thead>
+      <tr><th>场景</th><th>Skill</th><th>说明</th><th>触发信号（用户原话）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>立刻交接给后台 agent 继续干</td>
+        <td><span class="skill-tag user-invoked">/claude-handoff</span></td>
+        <td>把当前对话交接给一个全新后台 agent，马上接手工作。</td>
+        <td>“马上交接给一个后台 agent 接着干。”</td>
+      </tr>
+      <tr>
+        <td>把工作流需求盘成 spec</td>
+        <td><span class="skill-tag user-invoked">/loop-me</span></td>
+        <td>在当前工作区内，针对你想构建的 workflows 做 grill，产出 spec。</td>
+        <td>“帮我把要做的工作流盘成 spec。”</td>
+      </tr>
+      <tr>
+        <td>把 TS 仓库改造成 deep modules</td>
+        <td><span class="skill-tag user-invoked">/setup-ts-deep-modules</span></td>
+        <td>接入 dependency-cruiser，让每个 package 的实现藏在子目录里，只经入口文件访问。</td>
+        <td>“把这个 TS 仓库改造成 deep modules 结构。”</td>
+      </tr>
+      <tr>
+        <td>把 spec + tickets 并行实现成一个 PR</td>
+        <td><span class="skill-tag user-invoked">/implement-spec</span></td>
+        <td>（2026-08-21 新增）把 spec 的 tickets 当任务图（含阻塞边），并行派发 implementer 子 agent 各自在 worktree 干活，合并成单个 PR，收尾跑 code-review。</td>
+        <td>“把这个 spec 和它的 tickets 实现掉。”</td>
+      </tr>
+      <tr>
+        <td>复盘一次编码会话</td>
+        <td><span class="skill-tag user-invoked">/retro</span></td>
+        <td>（2026-08-24 新增）回顾指定会话（默认当前会话），从导航、自动检查、编码规范、AGENTS.md 瘦身、工具经济、空转指令、信息获取七个维度提出改进建议，按严重度排序。</td>
+        <td>“帮我给这次会话做个复盘。”</td>
+      </tr>
+      <tr>
+        <td>写作第 1 阶段：挖掘素材</td>
+        <td><span class="skill-tag model-invoked">/writing-fragments</span></td>
+        <td>explore 阶段——从原始材料中挖 fragments（碎片），还没有结构。</td>
+        <td>“帮我把这些素材挖成碎片。”</td>
+      </tr>
+      <tr>
+        <td>写作第 2 阶段：按节奏组装</td>
+        <td><span class="skill-tag model-invoked">/writing-beats</span></td>
+        <td>exploit 阶段——把素材组装成 beats（节奏点）的旅程，每个术语先落地再使用。</td>
+        <td>“把这些素材按节奏组装起来。”</td>
+      </tr>
+      <tr>
+        <td>写作第 3 阶段：成文</td>
+        <td><span class="skill-tag model-invoked">/writing-shape</span></td>
+        <td>exploit 阶段——把材料逐段塑造成文章。</td>
+        <td>“把这些材料写成文章。”</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>八、调用方式对照</h2>
+  <table>
+    <thead>
+      <tr><th>客户端</th><th>调用方式</th><th>备注</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Kimi Code CLI</td>
+        <td><code>/skill-name</code> 或 <code>skill-name</code></td>
+        <td>当前客户端；model-invoked 的 skill 会在匹配触发词时自动加载。</td>
+      </tr>
+      <tr>
+        <td>Claude Code</td>
+        <td><code>/skill-name</code></td>
+        <td>Claude Code 原生支持 slash commands（斜杠命令）。</td>
+      </tr>
+      <tr>
+        <td>Cursor / Copilot / Cline 等</td>
+        <td>通常需手动把 skill 内容粘贴进聊天，或配置为 prompt 文件</td>
+        <td>这些客户端的 skill 一般以 symlink/universal 形式存在，调用方式取决于客户端本身。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">记忆口诀</div>
+    <p>
+      <strong>想法不清楚 → grill；要落地 → to-spec → to-tickets → implement（内部 tdd）；</strong><br>
+      <strong>东西坏了 → diagnosing-bugs；太大太模糊 → wayfinder；</strong><br>
+      <strong>代码质量 → code-review / improve-codebase-architecture；</strong><br>
+      <strong>工程配置 → setup-pre-commit / git-guardrails / migrate-to-shoehorn；</strong><br>
+      <strong>跨 session → handoff；不知道用啥 → ask-matt。</strong>
+    </p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">已从仓库删除（2026-08-05）</div>
+    <p>
+      以下 skills 已被 Matt 从仓库中彻底移除，本表不再收录：
+      <code>ubiquitous-language</code>（能力已由 domain-modeling 覆盖）、
+      <code>design-an-interface</code>、<code>qa</code>、<code>request-refactor-plan</code>，
+      以及整个 personal 桶的 <code>edit-article</code>、<code>obsidian-vault</code>。
+      <code>skills/deprecated/</code> 现在只剩一个 README 作墓碑。
+      另外 <code>batch-grill-me</code>（原 in-progress）也已不在仓库任何分类中。
+      本地 <code>~/.agents/skills/</code> 可能仍安装着它们，但不要再用于新工作。
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    返回 <a href="../lessons/0001-mattpocock-skills-overview.html">第一课</a>
+  </p>
+</body>
+</html>

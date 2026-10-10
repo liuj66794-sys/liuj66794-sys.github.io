@@ -1,0 +1,7 @@
+.study-session-actions {display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:12px 0 24px;font-size:14px}
+.study-session-actions a {display:inline-flex;align-items:center;min-height:44px;color:var(--study-accent);text-decoration:underline;text-underline-offset:4px}
+.study-session-result {margin:36px 0 18px;padding:24px;border:1px solid var(--study-line);border-radius:18px;background:var(--study-panel);color:var(--study-text)}
+.study-session-result h2 {font-size:22px!important;margin:0 0 12px!important}
+.study-session-result p {margin:10px 0}
+[data-study-session] {scroll-margin-top:84px}
+@media(max-width:480px){.study-session-result{padding:18px}.study-session-actions{gap:6px 14px}}

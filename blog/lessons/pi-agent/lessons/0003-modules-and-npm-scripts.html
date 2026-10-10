@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 3 课 · 模块与 npm 脚本</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/recall.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">阶段 0 · 模块 A（TypeScript 起步）· 第 3 课 ｜ 预计 40 分钟 ｜ 前置：第 2 课</div>
+
+<h1>模块与 npm 脚本</h1>
+
+<p>这节课结束时，你会把上一课的 <code>tools.ts</code> 拆成三个文件，用 <code>import/export</code> 组织，并通过 <code>npm run start</code> 运行整个项目。同时你还会搞懂一个上一课留下的关键问题：<strong>为什么 tsx 不报错，但 TypeScript 其实会报错？</strong></p>
+
+<div class="callout">
+  <span class="label">为什么学这个 · Mission 关联</span>
+  你看 <a href="https://github.com/badlogic/pi-mono">pi-mono</a> 仓库时，会发现它不是一个巨大文件，而是按职责拆成 <code>packages/ai</code>、<code>packages/agent</code>、<code>packages/coding-agent</code> 等包。你即将写的 PatchPilot 也会拆成 <code>agent/</code>、<code>tools/</code>、<code>context/</code> 等目录。<strong>模块化和 npm 脚本就是组织这些文件的基础。</strong>
+</div>
+
+<h2>温故：先回忆，再学新内容</h2>
+
+<div class="recall">
+  <p class="q">1.（第 2 课）用一句话说：<code>Record&lt;string, Tool&gt;</code> 描述的是什么？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>"键为字符串、值为 Tool 的对象"——它描述的是注册表这个<strong>容器的形状</strong>，不是"获取所有工具"这个动作。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2.（第 1 课）<code>npm init -y</code> 做了什么？生成的文件叫什么？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>在当前目录生成 <code>package.json</code>——项目的"身份证"，记录依赖清单与可运行脚本。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">3.（第 1 课）tsx 运行一个 TS 文件时做了哪两件事？（今天会看到它没做的第三件事）</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>转译（把 TS 翻译成 JS）+ 运行。它没做的第三件事是<strong>类型检查</strong>——这正是本课第 5 节的主角 <code>tsc --noEmit</code> 的工作。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>1. 为什么要把代码拆成多个文件</h2>
+
+<p>想象你搬到一个新城市，所有东西——衣服、厨具、书本、自行车——全部塞进一个巨型行李箱。每次找东西都要翻半天，这就是"所有代码写在一个文件里"的感觉。</p>
+
+<p>模块化就是把代码按职责放进不同"房间"：</p>
+
+<ul>
+  <li><code>tool-types.ts</code>：只放 <code>Tool</code> 接口定义</li>
+  <li><code>tools.ts</code>：只放具体工具（calculator、greeter）</li>
+  <li><code>main.ts</code>：程序的入口，负责组装和运行</li>
+</ul>
+
+<p>这样你找东西更快，改东西也不容易影响 unrelated 的部分。</p>
+
+<h2>2. import / export：模块之间的门</h2>
+
+<p>一个文件要"暴露"什么给别人用，就用 <code>export</code>：</p>
+
+<pre><code>// tool-types.ts
+export interface Tool {
+  name: string;
+  description: string;
+  execute: (args: Record&lt;string, any&gt;) => string;
+}</code></pre>
+
+<p>另一个文件想用它，就用 <code>import</code>：</p>
+
+<pre><code>// tools.ts
+import { Tool } from "./tool-types";
+
+export const calculator: Tool = {
+  name: "calculator",
+  description: "计算两个数的和",
+  execute: (args) => `结果是 ${Number(args.a) + Number(args.b)}`
+};
+
+export const greeter: Tool = {
+  name: "greeter",
+  description: "向指定的人问好",
+  execute: (args) => `你好，${args.name}！`
+};</code></pre>
+
+<p>注意 <code>./tool-types</code> 前面的 <code>./</code> 表示"当前目录下的文件"。如果省略 <code>./</code>，Node 会以为你要找 npm 包。</p>
+
+<h2>3. 程序入口 main.ts</h2>
+
+<pre><code>// main.ts
+import { Tool } from "./tool-types";
+import { calculator, greeter } from "./tools";
+
+const toolRegistry: Record&lt;string, Tool&gt; = {
+  calculator,
+  greeter,
+};
+
+function runTool(name: string, args: Record&lt;string, any&gt;): string {
+  const tool = toolRegistry[name];
+  if (!tool) return `错误：找不到名为 "${name}" 的工具`;
+  return tool.execute(args);
+}
+
+console.log(runTool("calculator", { a: 10, b: 20 }));
+console.log(runTool("greeter", { name: "L1U.J" }));</code></pre>
+
+<h2>4. npm 脚本：给常用命令起个名字</h2>
+
+<p>每次输入 <code>npx tsx main.ts</code> 很麻烦。我们可以在 <code>package.json</code> 里给常用命令起别名：</p>
+
+<pre><code>{
+  "name": "ts-playground",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "tsx main.ts"
+  }
+}</code></pre>
+
+<p>然后运行：</p>
+
+<pre><code>npm run start</code></pre>
+
+<p><code>npm run</code> 会到 <code>package.json</code> 的 <code>scripts</code> 里找对应的命令并执行。这是真实项目的标准启动方式。</p>
+
+<h2>5. tsx 不报错，但 TypeScript 会报错</h2>
+
+<p>上节课你故意把 <code>runTool("calculator", 10)</code> 传进去，结果程序跑出了 <code>结果是 NaN</code>，而不是类型错误。这是因为：</p>
+
+<ul>
+  <li><code>npx tsx</code> 负责<strong>转译 + 运行</strong>：它把你的 TS 代码翻译成 JS，然后执行。它默认不检查类型。</li>
+  <li><code>npx tsc --noEmit</code> 负责<strong>类型检查</strong>：<code>tsc</code> 是 TypeScript 官方编译器，<code>--noEmit</code> 表示"只检查，不生成 JS 文件"。</li>
+</ul>
+
+<p>在 <code>ts-playground</code> 目录下新建一个 <code>tsconfig.json</code> 文件，内容如下：</p>
+
+<pre><code>{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}</code></pre>
+
+<p>然后执行：</p>
+
+<pre><code>npx tsc --noEmit</code></pre>
+
+<p>如果代码里有类型错误（比如 <code>runTool("calculator", 10)</code>），就会看到红色报错。把错误改回去后再次运行，应该没有任何输出——没有输出就是"全部通过"。</p>
+
+<div class="task">
+<h3>动手任务（验收清单）</h3>
+<ol>
+  <li>在 <code>ts-playground</code> 里把上一课的 <code>tools.ts</code> 拆成三个文件：
+    <ul>
+      <li><code>tool-types.ts</code>：只放 <code>interface Tool</code></li>
+      <li><code>tools.ts</code>：只放 <code>calculator</code> 和 <code>greeter</code> 两个工具</li>
+      <li><code>main.ts</code>：放注册表和 <code>runTool</code> 调度逻辑</li>
+    </ul>
+  </li>
+  <li>确保三个文件之间用 <code>import/export</code> 正确连接。</li>
+  <li>修改 <code>package.json</code>，添加 <code>"start": "tsx main.ts"</code> 脚本。</li>
+  <li>运行 <code>npm run start</code>，看到两条正常输出。</li>
+  <li>新建 <code>tsconfig.json</code>（内容见上文），然后运行 <code>npx tsc --noEmit</code>，确认没有报错。</li>
+  <li><strong>类型检查实验</strong>：在 <code>main.ts</code> 里临时加一行 <code>runTool("calculator", 10)</code>，运行 <code>npx tsc --noEmit</code>，把报错贴出来；然后删除这行，再次运行 <code>npx tsc --noEmit</code> 确认通过。</li>
+</ol>
+<p><strong>贴回给我</strong>：① <code>npm run start</code> 的输出；② <code>npx tsc --noEmit</code> 在故意写错参数时的报错信息；③ 用一句话解释 <code>export</code> 和 <code>import</code> 的关系。</p>
+</div>
+
+<h2>小测</h2>
+
+<div class="quiz" data-answer="d" data-explain="export 用于从文件向外暴露内容，import 用于从其他文件引入内容。">
+  <p class="q">1. 一个文件想让别的文件用自己的接口，应该写什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">用 import 引入它</button>
+    <button class="option" data-key="b">用 return 返回它</button>
+    <button class="option" data-key="c">用 console 打印它</button>
+    <button class="option" data-key="d">用 export 暴露它</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="c" data-explain="tsx 默认只转译运行，不检查类型；tsc --noEmit 才是专门做类型检查的命令。">
+  <p class="q">2. 想看到 TypeScript 类型错误，应该运行哪个命令？</p>
+  <div class="options">
+    <button class="option" data-key="a">npx tsx main.ts</button>
+    <button class="option" data-key="b">npm run start</button>
+    <button class="option" data-key="c">npx tsc --noEmit</button>
+    <button class="option" data-key="d">node main.ts</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="a" data-explain="./ 表示当前目录下的本地文件；省略 ./ 会被当成 npm 包名。">
+  <p class="q">3. 导入当前目录下的 <code>tool-types.ts</code>，正确的写法是？</p>
+  <div class="options">
+    <button class="option" data-key="a">import from "./tool-types"</button>
+    <button class="option" data-key="b">import from "tool-types"</button>
+    <button class="option" data-key="c">import from "/tool-types"</button>
+    <button class="option" data-key="d">import from "../tool-types"</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="b" data-explain="package.json 的 scripts 用于给常用命令起别名，npm run 执行它。">
+  <p class="q">4. <code>package.json</code> 里的 <code>scripts</code> 字段主要作用是什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">记录项目作者信息</button>
+    <button class="option" data-key="b">给常用命令起别名</button>
+    <button class="option" data-key="c">声明运行时许可证</button>
+    <button class="option" data-key="d">列出项目所有文件</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>回忆挑战（遮住上文，先默写再对照）</h2>
+
+<div class="recall">
+  <p class="q">1. 默写"只做类型检查、不运行代码"的命令；再说一遍 tsx 和 tsc 的分工。</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p><code>npx tsc --noEmit</code>。tsx 负责转译 + 运行（不查类型），tsc --noEmit 负责只检查类型（不产生输出、不运行）。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2. 默写：把 <code>Tool</code> 从 <code>tool-types.ts</code> 暴露出来、并在 <code>tools.ts</code> 中引入它的两行语法。</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><pre><code>export interface Tool { /* ... */ }        // tool-types.ts
+import { Tool } from "./tool-types";       // tools.ts</code></pre></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="callout">
+  <span class="label">面试怎么考</span>
+  面试中如果让你"介绍一下项目结构"，模块化思路就是得分点："我把工具定义、具体工具实现、入口逻辑拆到不同文件，用 ESM import/export 组织，并用 npm scripts 管理启动命令。"这节课让你能说出这样的话。
+</div>
+
+<div class="further">
+<h2>延伸阅读（一手资料）</h2>
+<ul>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/modules.html">TypeScript Handbook: Modules</a> —— 官方对 ESM 模块的完整说明。</li>
+  <li><a href="https://docs.npmjs.com/cli/v10/configuring-npm/package-json">npm 官方文档：package.json</a> —— scripts、dependencies 等字段的权威解释。</li>
+</ul>
+<p>课程导航：<a href="0002-types-and-interfaces-for-tools.html">← 上一课</a> ｜ <a href="0004-async-await.html">下一课 →</a> ｜ <a href="../ROADMAP.md">路线图</a> ｜ <a href="../RESOURCES.md">资料清单</a> ｜ <a href="../reference/ts-commands-and-setup.html">本课速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a></p>
+</div>
+
+<p class="teacher-note">第 2 课的关键纠正已经写进 learning record：tsx 不检查类型，要用 tsc --noEmit。第 3 课把这一点变成你的主动工具。完成后贴回三项输出，下一课进入 Node.js 异步与文件系统——那是 Agent 真正能"动手"的开始。</p>
+
+</main>
+</body>
+</html>

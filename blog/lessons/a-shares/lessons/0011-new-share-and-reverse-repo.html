@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 11 课 · 打新与国债逆回购 | A 股入门</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/a-shares/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<div class="lesson-meta">
+  <span>模块 1 · 概念扫盲 | 第 2 周 · 第 11 课</span>
+  <span>三段式：20 分钟读 + 15 分钟费曼</span>
+</div>
+
+<h1>打新与国债逆回购：账户开好后的两个可选动作</h1>
+
+<div class="win">学完你能：讲清主板打新的市值配售规则与中签缴款规则、国债逆回购的机制与起步金额，并对照自己的预算判断哪个用得上。</div>
+
+<div class="mission-tie">与考核的关系：两个都是 ● 实操概念——打新是"开户后可选动作"，逆回购是你那 1000 元现金仓（铁律 3）的停泊港。9 月开户（模块 2）后这两个功能都会出现在券商 APP 里，先懂规则再动手。</div>
+
+<h2>课前回炉（凭记忆作答，不许翻旧讲义）</h2>
+
+<div class="quiz review" data-answer="0" data-explain="每笔成交都有买卖双方，放量 = 分歧加大；成交量是分歧的温度计。（回炉第 9 课）">
+  <p class="q">回炉 1. 多空分歧的"温度计"是？</p>
+  <ul class="opts">
+    <li>成交量</li>
+    <li>市盈率</li>
+    <li>股息率</li>
+  </ul>
+</div>
+
+<div class="quiz review" data-answer="2" data-explain="印花税仅卖出时单边收 0.05%（以最新公告为准）；佣金和过户费才是双向。（回炉第 5 课）">
+  <p class="q">回炉 2. 印花税的收取方式是？</p>
+  <ul class="opts">
+    <li>买卖双边各收</li>
+    <li>买入时单边收</li>
+    <li>卖出时单边收</li>
+  </ul>
+</div>
+
+<h2>一、打新：申购新发行的股票</h2>
+<p><b>打新</b> = 在新股上市前按发行价申购，中签后缴款持有。主板规则要点（以交易所最新规则为准）：</p>
+<ul>
+  <li><b>市值配售</b>：申购资格看你的持仓市值——<b>沪市每 1 万元市值可申购 1000 股，深市每 5000 元市值可申购 500 股</b>（沪深市值分开计算；场外基金不算市值，场内基金也不计入配售基数）</li>
+  <li><b>信用申购</b>：申购时不需要预缴资金，中签才缴款（T+2 日足额）</li>
+  <li><b>违规代价</b>：连续 12 个月内累计 3 次中签未缴款，会被限制 6 个月不能打新</li>
+</ul>
+<p>两个清醒剂：中签率通常只有<b>万分之几</b>（彩票属性）；注册制之后<b>破发（上市即跌破发行价）不再罕见</b>——"打新稳赚"是旧印象，不是规则。</p>
+
+<div class="example">
+  <span class="tag">对照你的预算</span>
+  <p>铁律 3：个股预算 ≤3000 元。沪市门槛 1 万元、深市门槛 5000 元——<b>按现预算你够不到市值配售门槛，暂时打不了主板新股</b>。所以本课对现在的你属于"知道规则"层：等预算变大，或只是看懂别人讨论时不再陌生。诚实面对约束，比凑钱凑资格重要。</p>
+</div>
+
+<h2>二、国债逆回购：让闲钱过夜生息</h2>
+<p>机制一句话：你把钱通过交易所<b>短期借出去</b>，借款方用<b>国债作抵押</b>，到期还本付息——抵押品是最硬的资产之一，属于低风险现金管理工具。</p>
+<ul>
+  <li><b>品种</b>：按期限命名，沪市 GC001（204001）= 1 天期，深市 R-001（131810）同期限，最长 182 天</li>
+  <li><b>起步</b>：1000 元起（沪深均已统一为 1000 元及其整数倍，以最新公示为准）</li>
+  <li><b>操作</b>：方向是"卖出"（借出资金 = 卖出回购），输代码、输价格（利率）、输数量即可</li>
+  <li><b>利率什么时候高</b>：月末、季末、长假前市场缺钱时常见飙升</li>
+  <li><b>到期</b>：本息自动回到账户，资金当日可用、次日可取</li>
+</ul>
+
+<div class="example">
+  <span class="tag">量级感受</span>
+  <p>1000 元 × 年化 3% ÷ 365 ≈ <b>0.08 元/天</b>。它是<b>停泊港</b>不是赚钱工具——赚的是零钱级利息，买的是"现金也不闲着"的习惯。</p>
+</div>
+
+<div class="task">
+  <h3>动手 15 分钟：看一次真实逆回购行情</h3>
+  <ol>
+    <li>打开 <a href="https://www.eastmoney.com/">东方财富</a>，搜索 <span class="num">204001</span>（GC001）</li>
+    <li>记下当前利率（%），换算成 1000 元一天的利息</li>
+    <li>同花顺<a href="https://www.iwencai.com/unifiedwap/result">问财</a>查"本周新股申购"，看一眼近期发行价和中签率（感受万分之几是什么量级）</li>
+    <li>回答（写进笔记）：你的 1000 元现金仓适合停在哪？逆回购和"现金不动"矛盾吗？</li>
+  </ol>
+</div>
+
+<h2>随堂测（回忆作答，不许翻上文）</h2>
+
+<div class="quiz" data-answer="1" data-explain="沪市每 1 万元市值可申购 1000 股、深市每 5000 元可申购 500 股；以最新规则为准。">
+  <p class="q">1. 沪市打新的市值门槛是？</p>
+  <ul class="opts">
+    <li>五千元市值</li>
+    <li>一万元市值</li>
+    <li>十万元市值</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="2" data-explain="连续 12 个月内累计 3 次中签未缴款 → 限制 6 个月不能打新。">
+  <p class="q">2. 12 个月内 3 次中签不缴款会？</p>
+  <ul class="opts">
+    <li>永久取消资格</li>
+    <li>罚款市值一成</li>
+    <li>半年禁止打新</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="沪深均 1000 元起（以最新公示为准）；定位是现金停泊港，赚零钱级利息。">
+  <p class="q">3. 国债逆回购的起步金额是？</p>
+  <ul class="opts">
+    <li>一百元</li>
+    <li>一千元</li>
+    <li>一万元</li>
+  </ul>
+</div>
+
+<div class="feynman" data-topic="出声讲：打新的市值配售怎么算、中签后要做什么、违约代价是什么？国债逆回购把钱借给谁、抵押品是什么、起步多少元？对照你的预算，哪个动作现在用得上、哪个用不上？">
+  <h3>费曼自测（5 分钟）</h3>
+</div>
+
+<h2>推荐一手来源</h2>
+<ul class="src">
+  <li><a href="https://edu.sse.com.cn/">上交所投资者教育</a>（新股申购、债券逆回购专区——规则一手口径）</li>
+  <li><a href="https://investor.szse.cn/">深交所投资者教育</a>（深市申购单位与配售规则）</li>
+  <li>东方财富：搜索 204001 看实时利率</li>
+</ul>
+
+<div class="teacher-note">第 11 课结束。下一课是模块 1 的收官概念：复利——整个计划的数学灵魂。有任何问题直接问我。</div>
+
+<div class="nav">
+  <span><a href="./0010-suspension-and-bulls-bears.html">← 第 10 课 · 停牌与多空</a></span>
+  <span><a href="../reference/a-share-terms.html">术语参考表</a></span>
+  <span><a href="./0012-compound-interest.html">第 12 课 · 复利 →</a></span>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

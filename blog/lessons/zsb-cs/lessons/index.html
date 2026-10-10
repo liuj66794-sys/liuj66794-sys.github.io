@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-guide-index="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程大纲 · 专升本《计算机基础与程序设计》29 课</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<style>
+  .part { margin-top: 2.2rem; }
+  .part h2 { border-bottom: 2px solid var(--accent); }
+  ol.lessons { list-style: none; padding: 0; margin: 0.8rem 0; counter-reset: lesson; }
+  ol.lessons li { counter-increment: lesson; display: flex; gap: 0.7rem; padding: 0.45rem 0.2rem; border-bottom: 1px dashed var(--rule); align-items: baseline; }
+  ol.lessons li::before { content: counter(lesson, decimal-leading-zero); font-family: var(--mono); color: var(--muted); font-size: 0.85rem; min-width: 2.1em; }
+  ol.lessons .lnum { display: none; }
+  ol.lessons a { font-weight: 600; }
+  ol.lessons .src { margin-left: auto; font-size: 0.82rem; color: var(--muted); text-align: right; white-space: nowrap; }
+  .refcard { display: grid; gap: 0.6rem; }
+  @media (max-width: 640px) { ol.lessons li { flex-wrap: wrap; } ol.lessons .src { margin-left: 0; width: 100%; white-space: normal; } }
+</style>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span>课程大纲</span>
+  <span>共 29 课 · 三部分</span>
+</nav>
+
+<h1>专升本《计算机基础与程序设计》课程大纲</h1>
+<p class="lesson-meta">目标：2027 年 3 月广东统考 · C 语言 13 课 + 数据结构 13 课 + 冲刺 3 课 · 按小节学习 · 支持暂停与继续</p>
+
+<div class="goal"><p class="goal-title">先理解过程，再独立尝试</p><p>29 课都可以逐节学习，也可以展开全文查阅。先用生活类比理解核心概念，逐步查看变量或数据结构的变化，再完成带理由反馈的小判断和迁移练习，最后深入各知识点与原课测验。每课的学习位置、演示进度与判断保存在此浏览器，可通过学习记录备份转移。</p><p>C 语言侧重代码执行与变量变化；数据结构侧重操作、访问顺序与边界；第 27–29 课侧重复习与模拟复盘。先看<a href="0007-loops.html">循环</a>、<a href="0011-pointers-basics.html">指针</a>或<a href="0023-graph-basics-traversal.html">图遍历</a>，也可从第 1 课依次开始。</p></div>
+
+<div class="callout">
+  <p class="callout-title">速查组件（全课程通用，考前打印）</p>
+  <p><a href="../reference/c-syntax-cheatsheet.html">C 语法速查表</a> · <a href="../reference/ds-formula-cheatsheet.html">数据结构公式速查表</a> · <a href="../reference/glossary.html">课程术语表</a>——每课末尾都会链接到它们，术语以术语表为准。</p>
+  <p>另外：<a href="mistakes.html">错题本</a> 自动记录你在各课测验里答错的题（存在浏览器本地），答对一次即自动「已订正」——二轮复习优先刷它，考前清零。</p>
+</div>
+
+<div class="part">
+  <h2>第一部分 C 语言程序设计（第 1–13 课）</h2>
+  <ol class="lessons">
+    <li><span><a href="0001-c-program-lifecycle.html">C 程序的全貌与编译四步骤</a></span><span class="src">题库·程序设计章节练习</span></li>
+    <li><span><a href="0002-data-representation.html">数据的表示：数制、补码与常量</a></span><span class="src">题库·数据存储章节练习</span></li>
+    <li><span><a href="0003-operators-expressions.html">运算符与表达式</a></span><span class="src">题库·数据存储章节练习</span></li>
+    <li><span><a href="0004-sequential-io.html">顺序结构：printf 与 scanf</a></span><span class="src">题库·顺序程序设计练习</span></li>
+    <li><span><a href="0005-selection-basics.html">选择结构：条件、短路规则与 if</a></span><span class="src">题库·选择结构章节练习</span></li>
+    <li><span><a href="0006-selection-advanced.html">选择进阶：else 配对、switch 穿透与位运算</a></span><span class="src">题库·选择结构章节练习</span></li>
+    <li><span><a href="0007-loops.html">循环结构</a></span><span class="src">笔记 05·自测题</span></li>
+    <li><span><a href="0008-arrays-and-strings.html">数组与字符串</a></span><span class="src">笔记 06·自测题</span></li>
+    <li><span><a href="0009-functions-basics.html">函数基础</a></span><span class="src">笔记 07·自测题</span></li>
+    <li><span><a href="0010-functions-advanced.html">函数进阶：数组传址、static 与递归</a></span><span class="src">笔记 07·自测题</span></li>
+    <li><span><a href="0011-pointers-basics.html">指针基础与一维数组</a></span><span class="src">笔记 08·随堂 9 题</span></li>
+    <li><span><a href="0012-pointers-advanced.html">指针进阶：二维数组、字符串与复杂声明</a></span><span class="src">笔记 08·随堂 9 题</span></li>
+    <li><span><a href="0013-structs-and-files.html">结构体与文件</a></span><span class="src">笔记 09·自测题</span></li>
+  </ol>
+</div>
+
+<div class="part">
+  <h2>第二部分 数据结构（第 14–26 课）</h2>
+  <ol class="lessons">
+    <li><span><a href="0014-ds-intro-and-complexity.html">数据结构绪论与时间复杂度</a></span><span class="src">笔记 10·随堂题</span></li>
+    <li><span><a href="0015-linear-list.html">线性表</a></span><span class="src">笔记 11·小试牛刀</span></li>
+    <li><span><a href="0016-stack-and-queue.html">栈和队列</a></span><span class="src">笔记 12·小试牛刀</span></li>
+    <li><span><a href="0017-array-matrix-glist.html">数组、矩阵与广义表</a></span><span class="src">笔记 13·随堂题</span></li>
+    <li><span><a href="0018-string.html">串</a></span><span class="src">笔记 14·自测 Q1–Q4</span></li>
+    <li><span><a href="0019-tree-basics.html">树与二叉树基础</a></span><span class="src">笔记 15·随堂 15 题</span></li>
+    <li><span><a href="0020-binary-tree-traversal.html">二叉树的遍历与还原</a></span><span class="src">笔记 15·随堂 4/11–15</span></li>
+    <li><span><a href="0021-tree-conversion-storage.html">树、森林与二叉树的转换和存储</a></span><span class="src">笔记 15·随堂 15 题</span></li>
+    <li><span><a href="0022-huffman-tree.html">赫夫曼树与编码</a></span><span class="src">笔记 15·随堂 6/9/14</span></li>
+    <li><span><a href="0023-graph-basics-traversal.html">图的基础与遍历</a></span><span class="src">笔记 16·随堂 1–6</span></li>
+    <li><span><a href="0024-graph-applications.html">图的应用</a></span><span class="src">笔记 16·自测 Q5–Q7</span></li>
+    <li><span><a href="0025-searching.html">查找</a></span><span class="src">笔记 17·自测 Q1–Q7</span></li>
+    <li><span><a href="0026-sorting.html">排序算法对比与选择</a></span><span class="src">笔记 18·自测 Q1–Q7</span></li>
+  </ol>
+</div>
+
+<div class="part">
+  <h2>第三部分 冲刺（第 27–29 课）</h2>
+  <ol class="lessons">
+    <li><span><a href="0027-sprint-recitation.html">冲刺一：简答题背诵策略与复习题模板</a></span><span class="src">题库·简答 90 问</span></li>
+    <li><span><a href="0028-mock-exam-2025.html">2025 年真题模拟</a></span><span class="src">题库·真题 2025</span></li>
+    <li><span><a href="0029-mock-exam-2024.html">2024 年真题模拟（结课）</a></span><span class="src">题库·真题 2024</span></li>
+  </ol>
+</div>
+
+<h2>完成这门课的标准（与目标对齐）</h2>
+<ul>
+  <li>限时完成 2024 / 2025 真题卷，正确率 ≥ 85%；</li>
+  <li>约 90 道简答题能脱稿作答（第 27 课 14 天打卡表全勾完）；</li>
+  <li>高频考点（编译流程、补码、短路规则、指针、树遍历、复杂度……）隔天回忆仍能答出；</li>
+  <li>能手写应用题代码：链表插删、冒泡/选择排序、树的遍历。</li>
+</ul>
+
+<div class="callout warn">
+  <p class="callout-title">资料真实缺口（涉及时按教材补充，不要硬背）</p>
+  <p>归并/基数排序（第 26 课已给结论总表）、文件 fread/fwrite 等高级操作、选择【二】/数组【二】/指针【三】【五】课件——各课内已用 ⚠️ 标注，详见 pdf/覆盖报告。</p>
+</div>
+
+<div class="teacher-note">想调整课程顺序、加课或改节奏？直接告诉我——我是你的课程老师，大纲可以随时按你的进度重排。</div>
+
+<nav class="footer-nav">
+  <a href="0001-c-program-lifecycle.html">从第 1 课开始 →</a>
+  知识库学习路径（原四步循环）
+</nav>
+
+</body>
+</html>

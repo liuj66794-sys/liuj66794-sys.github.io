@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第七课：使用 wayfinder 规划大型模糊项目</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>第七课：使用 wayfinder 规划大型模糊项目</h1>
+
+  <p>
+    上一课的 <code>/diagnosing-bugs</code> 处理的是「东西坏了」的入口。这一课是入口场景系列的第二课，
+    处理另一种开局：<strong>一个想法太大了，一个 agent session 装不下，而且从这里到目的地的路还看不见</strong>。
+    直接 grill → to-spec 的主流程走不动它——spec 的前提是路已经清晰。
+    这种时候用 <code>/wayfinder</code>：先把「路」本身画出来，再谈施工。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">主源推荐（Primary Source）</div>
+    <p>
+      本课内容基于官方 skill 定义，建议精读原文：
+      <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder/SKILL.md</a>
+      （本地 <code>~/.agents/skills/wayfinder/SKILL.md</code>）。
+      建议完整读一遍原文，尤其是 Ticket Types 和 Fog of war 两节。
+    </p>
+  </div>
+
+  <h2>1. wayfinder 是什么？</h2>
+  <p>
+    <code>/wayfinder</code> 把一大块模糊的工作绘制成 issue tracker 上的一张<strong>共享地图（shared map）</strong>，
+    然后一张一张地解决地图上的<strong>决策票（decision ticket）</strong>——
+    决议的结果是「一个决定」，而不是「一片要施工的功能切片」——直到通往目的地的路清晰为止。
+  </p>
+  <p>
+    原文有一个定位性原则：<strong>plan, don't do（只规划，不施工）</strong>。
+    地图画完的标志是「出发之前再没有什么需要决定的了」。如果你感到一股「别画了直接干吧」的冲动，
+    那恰恰是信号：你已经走到地图边缘，该交接给主流程（to-spec → to-tickets → implement）了。
+    个别工程可以在地图的 Notes 里声明例外（把施工也带进地图），但默认产出的是决策，不是交付物。
+  </p>
+
+  <h2>2. 地图：先命名目的地</h2>
+  <p>
+    绘制地图的第一个动作是<strong>命名 destination（目的地）</strong>——它塑造之后的每一张票。
+    目的地因工程而异：可能是要交接迭代的一份 spec、规划前必须锁定的一个决策、
+    或一次就地完成的变更（比如数据结构迁移）。地图本身与领域无关，工程、课程内容，任何符合这个形状的事都行。
+  </p>
+  <p>地图是 tracker 上的一个 issue（标签 <code>wayfinder:map</code>），正文是整张地图的低分辨率视图，每个 session 开头加载一次：</p>
+  <ul>
+    <li><strong>Destination</strong>：到达终点长什么样，一两行。每个 session 选票前先对准它。</li>
+    <li><strong>Notes</strong>：领域、每个 session 都该查阅的 skills、本工程的长期偏好。</li>
+    <li><strong>Decisions so far</strong>：索引——每张已关闭的票一行：一句话 gist + 链接。</li>
+    <li><strong>Not yet specified</strong>：战争迷雾区（见第 4 节）。</li>
+    <li><strong>Out of scope</strong>：被有意识地排除在目的地之外的工作。</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-title">地图是索引，不是仓库</div>
+    <p>
+      一个决策只住在一个地方——它的票里。地图只 gist 和链接，从不复述细节。
+      <strong>进行中的票也不列在地图上</strong>：它们是打开的 child issue，靠查询找到。
+      引用任何地图或票时<strong>用名字</strong>（标题即链接），不要甩一串 <code>#42, #43</code>——名字一眼可读，编号墙不能。
+    </p>
+  </div>
+
+  <h2>3. 决策票：四种类型与 frontier</h2>
+  <p>
+    每张票是地图的 child issue，正文就是一个 <code>## Question</code>——
+    <strong>大小适配单个 100K token 的 agent session</strong>（和第四课 ticket 适配上下文窗口是同一把尺子）。
+    每张票带一个 <code>wayfinder:&lt;type&gt;</code> 标签，四种类型：
+  </p>
+  <table>
+    <thead>
+      <tr><th>类型</th><th>人在回路？</th><th>干什么</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>research</strong></td><td>AFK</td><td>读文档、第三方 API、本地知识库，把决策等待的事实挖出来。由 <code>/research</code> subagent 解决，可并行派发。</td></tr>
+      <tr><td><strong>prototype</strong></td><td>HITL</td><td>关键问题是「该长什么样 / 该怎么表现」时，用 <code>/prototype</code> 做个便宜粗糙的具体东西给大家 react。</td></tr>
+      <tr><td><strong>grilling</strong></td><td>HITL</td><td>对话，默认类型。总是配合 <code>/grilling</code> 和 <code>/domain-modeling</code>。</td></tr>
+      <tr><td><strong>task</strong></td><td>HITL 或 AFK</td><td>唯一「做」而非「决定」的类型：开通服务拿 API 凭证、迁移数据好让人看清形状。它存在的资格是<strong>为某个决策解锁</strong>，不是交付目的地。</td></tr>
+    </tbody>
+  </table>
+  <p>
+    HITL（human in the loop，人在回路）的票只能通过与真人的实时交流解决——
+    <strong>agent 绝不能代替真人回答</strong>（一个自问自答的 grilling agent 就破坏了这条）。
+  </p>
+  <p>
+    认领规则：<strong>干活之前先把票 assign 给自己</strong>，这样并发的其他 session 会跳过它——
+    assignee 就是认领标记。阻塞用 tracker 的<strong>原生依赖关系</strong>表达（能在 tracker 自己的 UI 上把前沿画出来）。
+    <strong>frontier（前沿）</strong> = 打开的、未被阻塞的、未被认领的票——已知的边缘。
+  </p>
+
+  <h2>4. 战争迷雾与范围之外</h2>
+  <p>
+    地图是<strong>故意不完整的</strong>：看不见的东西不要硬画。在活票之外是
+    <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md"><strong>fog of war（战争迷雾）</strong></a>——
+    你能感觉到会来、但还钉不死的决策和调查，因为它们挂在尚未解决的问题上。
+    每解决一张票，就清掉它前方的雾，把现在能具体化的部分「毕业」成新票——一次一张，直到路清晰、票耗尽。
+  </p>
+  <div class="callout">
+    <div class="callout-title">雾还是票？一个判别式</div>
+    <p>
+      标准是<strong>你现在能否精确表述这个问题</strong>——而不是能否回答它。
+      能精确表述（哪怕被阻塞、暂时动不了）→ 立票；表述不了 → 写进地图的 <strong>Not yet specified</strong>。
+      不要预先把雾切成票大小的片：雾比票粗，前沿推进到那里时，一片雾可能毕业成几张票，也可能一张都不用。
+    </p>
+  </div>
+  <p>
+    <strong>Out of scope（范围之外）</strong>是另一回事：雾只会朝目的地方向聚集，目的地定了范围。
+    超出目的地的工作不是雾，不进 Not yet specified，而是进 Out of scope——
+    它<strong>永不毕业</strong>，只有重画目的地（作为全新工程）才会回来。
+    如果一张已存在的票被发现越过了目的地：<strong>关掉它</strong>（关闭的票就明确离开前沿了），
+    在 Out of scope 里留一行 gist + 原因 + 链接；它不进 Decisions so far——那里记录的是实际走过的路线，
+    而划范围不是路线上的一步。
+  </p>
+
+  <h2>5. 两种调用模式</h2>
+  <p><strong>模式一：chart the map（绘制地图）</strong>——用户带着一个模糊想法来：</p>
+  <ol>
+    <li><strong>命名目的地</strong>：先跑 <code>/grilling</code> + <code>/domain-modeling</code>，把这张地图要找到的东西钉死。目的地决定范围，所以最先定。</li>
+    <li><strong>广度优先画出前沿</strong>：再 grill 一轮，这次是<strong>广度优先</strong>——铺满整个空间，而不是单点深挖，浮出所有开放的决策和现在就能迈的第一步。<strong>如果没浮出任何雾</strong>——路已经清晰、一个 session 装得下——那就不需要地图，停下来问用户想怎么走。</li>
+    <li><strong>建地图</strong>（标签 <code>wayfinder:map</code>）：填好 Destination 和 Notes，Decisions-so-far 留空，雾写进 Not yet specified。</li>
+    <li><strong>立现在就能具体化的票</strong>，然后<strong>第二遍再连阻塞边</strong>（票先有了 id 才能互相引用）。连线把它们分成前沿和被阻塞两组。</li>
+    <li><strong>派发 research subagent</strong>：每张 research 票起一个 <code>/research</code> subagent 并行解决，成果落在一次性的 <code>research/&lt;name&gt;</code> 分支上，票里留上下文指针。</li>
+    <li><strong>停手</strong>——绘制地图就是一个 session 的全部工作，它一张票都不亲手解决。</li>
+  </ol>
+  <p><strong>模式二：work through the map（沿图推进）</strong>——用户带着地图（URL 或编号）来，可以点名票，也可以让你挑：</p>
+  <ol>
+    <li>加载<strong>地图</strong>——低分辨率视图，不是每张票的正文。</li>
+    <li>选票：用户点名就用点名的；否则取前沿第一张。<strong>先认领</strong>（assign 给自己）再干活。</li>
+    <li>解决它——按需 zoom：相关票、已关闭票的正文随用随取；调用 Notes 里点名的 skills；拿不准就用 <code>/grilling</code> + <code>/domain-modeling</code>。</li>
+    <li>记录结果：答案作为 <strong>resolution comment（结案评论）</strong>发出，<strong>关闭</strong> issue，在地图的 Decisions-so-far <strong>追加一条上下文指针</strong>（gist + 链接）。</li>
+    <li>补新票（先建后连线）；把答案所清晰的雾毕业成票、从 Not yet specified 里划掉；发现某张票越过目的地就<strong>判出范围</strong>而不是顺手解决；答案推翻了地图其他部分就更新或删掉那些票。</li>
+  </ol>
+  <div class="callout">
+    <div class="callout-title">铁律：一个 session 最多解决一张票</div>
+    <p>
+      两种模式都适用（research 票除外）。这保证了每一步都有新鲜的上下文和明确的检查点。
+      用户可以让多张未阻塞的票并行跑在不同 session 里——所以要预期别的 session 正在同时编辑 tracker，先认领再干活。
+    </p>
+  </div>
+
+  <h2>6. 实战场景：给妈妈音乐播放器加「歌单云同步」</h2>
+  <p>
+    你的「妈妈音乐播放器」MVP 已经跑通（第 5 课的实战项目）。现在来一个典型的模糊大想法：
+    <strong>「想让歌单在多设备间同步」</strong>。一个 session 装不下，路也看不见——正好套 wayfinder：
+  </p>
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>命名目的地</strong>：grill 一轮把目的地钉成「一份可以交接给 implement 的同步方案 spec」——
+        注意目的地不是「同步功能上线」，那是施工；这张地图只要走到「路清晰」。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>广度优先浮出决策</strong>：自建后端还是用现成的 BaaS？匿名设备标识还是账号体系？
+        冲突怎么合并？离线期间的操作怎么排队？哪些能现在精确表述，哪些还是雾。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>建地图 + 立票</strong>：「调研两个候选后端」立 research 票（派 subagent 并行查）；
+        「账号体系怎么选」立 grilling 票；「歌单合并策略的交互感觉」立 prototype 票；
+        「先开通候选服务的账号拿 API 凭证」立 task 票（它存在的资格是为后端选型解锁）。
+        第二遍连阻塞边：合并策略的讨论被后端选型阻塞。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>逐票推进</strong>：之后的每个 session 只取前沿一张票，认领、解决、结案评论、
+        在 Decisions-so-far 留指针。后端选型定了，被阻塞的票解锁，雾里的「数据加密要不要做」
+        此刻能精确表述了——毕业成新票。直到有一天前沿清空：spec 所需的决定全部就绪，
+        交接给 <code>/to-spec</code> 主流程施工。</p>
+    </div>
+  </div>
+
+  <h2>7. 小测验</h2>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">什么情况下该用 /wayfinder，而不是直接走 grill → to-spec 主流程？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q1" value="A"> 需求已经清晰，只差拆成可执行 ticket</label>
+      <label><input type="radio" name="q1" value="B"> 想法大而模糊，路在一个 session 之外</label>
+      <label><input type="radio" name="q1" value="C"> 线上报来一个时好时坏的难 bug</label>
+      <label><input type="radio" name="q1" value="D"> 功能已经写完，要跨 session 交接上下文</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">「Not yet specified（雾）」和正式 ticket 的分界线是什么？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q2" value="A"> 能否精确表述问题——能就立刻立票</label>
+      <label><input type="radio" name="q2" value="B"> 能否立即回答问题——不能就进雾里</label>
+      <label><input type="radio" name="q2" value="C"> 是否被其他票所阻塞——阻塞就进雾</label>
+      <label><input type="radio" name="q2" value="D"> 是否在目的地范围内——在外就进雾</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="C">
+    <div class="quiz-question">沿图推进时，一个 session 最多解决几张票？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q3" value="A"> 不限数量，上下文装得下就一直做</label>
+      <label><input type="radio" name="q3" value="B"> 最多两张，前提是它们互不阻塞</label>
+      <label><input type="radio" name="q3" value="C"> 只一张，research 票是例外可并行</label>
+      <label><input type="radio" name="q3" value="D"> 最多三张，超过就要重画整个地图</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="D">
+    <div class="quiz-question">四种票类型里，唯一「做」而不是「决定」、靠为决策解锁来获得存在资格的是？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q4" value="A"> research：派 subagent 去查外部事实</label>
+      <label><input type="radio" name="q4" value="B"> prototype：做个粗糙工件提高保真度</label>
+      <label><input type="radio" name="q4" value="C"> grilling：用对话把模糊决策问清楚</label>
+      <label><input type="radio" name="q4" value="D"> task：先开通服务拿到 API 的凭证</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">【复习·第6课】诊断「锁屏后音乐停了」时，回路达到 red-capable 的标准是？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q5" value="A"> 断言用户的精确症状，能在其上变红</label>
+      <label><input type="radio" name="q5" value="B"> 每次运行结果都一致，且秒级跑完</label>
+      <label><input type="radio" name="q5" value="C"> 在模拟器上无人值守也可自动跑完</label>
+      <label><input type="radio" name="q5" value="D"> 覆盖播放模块百分之八十以上代码</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">【复习·第2课】grilling 现在的提问制式是哪一种？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q6" value="A"> 一次只问一个问题，答完再问下个</label>
+      <label><input type="radio" name="q6" value="B"> 每轮问完 frontier，问题带推荐答案</label>
+      <label><input type="radio" name="q6" value="C"> 先出一份完整问卷让用户自己去填</label>
+      <label><input type="radio" name="q6" value="D"> 只问是非判断题，降低用户作答负担</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <h2>8. 本课收获</h2>
+  <ul>
+    <li><code>/wayfinder</code> 处理「太大、太模糊、一个 session 装不下」的工程：把路绘成 tracker 上的共享地图，逐票解决决策，直到路清晰。</li>
+    <li>默认 plan, don't do：地图产出的是决策不是交付物；「想直接动手」的冲动就是该交接给主流程的信号。</li>
+    <li>地图是索引不是仓库：决策住在票里，地图只 gist + 链接；引用一律用名字，不用编号墙。</li>
+    <li>票分 research / prototype / grilling / task 四类；task 是唯一「做」的类型，资格是为决策解锁。</li>
+    <li>雾与票的判别式：能否<strong>精确表述</strong>问题（不是能否回答）；Out of scope 永不毕业，越界的票要关掉并记录。</li>
+    <li>铁律：一个 session 最多解决一张票（research 除外）；先认领再干活；结案要留 resolution comment 和 Decisions-so-far 指针。</li>
+  </ul>
+
+  <h2>9. 术语表</h2>
+  <table>
+    <thead>
+      <tr><th>术语</th><th>解释</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="glossary-term">destination</span></td>
+        <td>目的地。这张地图要找到的东西——一份 spec、一个待锁的决策、一次就地变更。绘制地图的第一个动作，它决定范围、塑造每张票。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">shared map</span></td>
+        <td>共享地图。tracker 上带 <code>wayfinder:map</code> 标签的单个 issue，是整项工程的权威 artifact；它是索引不是仓库。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">decision ticket</span></td>
+        <td>决策票。地图的 child issue，正文是一个 <code>## Question</code>，决议结果是一个决定而非功能切片，大小适配单个 agent session。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">frontier</span></td>
+        <td>前沿。打开的、未被阻塞的、未被认领的票——已知的边缘，下一个 session 从这里取票。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">claim</span></td>
+        <td>认领。干活前先把票 assign 给驱动地图的人；assignee 就是认领标记，并发 session 会跳过已认领的票。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">fog of war</span></td>
+        <td>战争迷雾。能感觉到会来、但还钉不死的决策与调查。地图故意不完整，雾随前沿推进逐渐「毕业」成票。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">Not yet specified</span></td>
+        <td>尚未具体化。地图正文中记录雾的区块——范围内但还不足以立票的疑似问题，也是协作者看方向的指路牌。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">Out of scope</span></td>
+        <td>范围之外。被有意识排除在本次目的地之外的工作；永不毕业，只有重画目的地（作为新工程）才会回来。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">HITL / AFK</span></td>
+        <td>人在回路 / 离开键盘。HITL 的票只能通过与真人的实时交流解决，agent 不得代替真人作答；AFK 的票 agent 可独立完成。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">resolution comment</span></td>
+        <td>结案评论。票被解决时把答案作为评论发出、关闭 issue，并在地图 Decisions-so-far 追加一条 gist + 链接的上下文指针。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">plan, don't do</span></td>
+        <td>只规划不施工。wayfinder 的默认姿态：路清晰即地图完成，施工交接给 to-spec → implement 主流程。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>10. 实战任务</h2>
+  <p>
+    找一个你自己真实「大而模糊」的工程——比如给妈妈音乐播放器加歌单云同步、给产品做国际化、
+    一次犹豫很久的数据迁移——任何「一个 session 装不下、路还看不见」的事。
+    调用 <code>/wayfinder</code>，亲手 chart 一张地图：
+  </p>
+  <ol>
+    <li><strong>命名目的地</strong>：先用 grilling 把目的地钉死，一两行写清「到达长什么样」（多半是「一份可交接的 spec」）。</li>
+    <li><strong>广度优先浮出决策</strong>：把整个空间扫一遍，能精确表述的立票，说不清的写进 Not yet specified，范围之外的写进 Out of scope。</li>
+    <li><strong>建地图</strong>：有 issue tracker 就建带 <code>wayfinder:map</code> 标签的 issue；本地项目则用 local-markdown tracker——<code>.scratch/&lt;effort&gt;/map.md</code> + 每票一个 <code>issues/NN-&lt;slug&gt;.md</code>（<code>Type:</code> / <code>Status:</code> / <code>Blocked by:</code> 行）。</li>
+    <li><strong>立票 + 连线</strong>：第一批票各标类型，第二遍再连阻塞边；research 票派 <code>/research</code> subagent 并行去查。</li>
+    <li><strong>停手</strong>：这个 session 到此为止；另开新 session 从 frontier 取第一张票，走「认领 → 解决 → 结案评论 → 更新地图」的完整循环一次。</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">自检标准</div>
+    <ul>
+      <li>地图上的 Destination 一两行能讲清「到达长什么样」，且范围之外的东西在 Out of scope 里，而不是混在雾里。</li>
+      <li>每张票是一个「问题」而不是功能切片，大小适配单个 session，四种类型标注正确。</li>
+      <li>阻塞边用 tracker 原生依赖（或本地的 <code>Blocked by:</code> 行）连好，frontier 一眼可查。</li>
+      <li>绘制地图的 session 没有亲手解决任何票；推进的 session 只解决了一张票，且留下了 resolution comment 和地图指针。</li>
+    </ul>
+  </div>
+
+  <p>
+    完成后回来告诉我结果（贴出产出或描述过程），我会给你反馈。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">下一步</div>
+    <p>
+      入口场景系列还剩一课：<code>/handoff</code>（跨 session 怎么交接上下文）。
+      想学的时候告诉我即可。
+      学习中有任何不清楚的地方，随时直接问我——我是你的老师，可以针对任何一点展开讲。
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    参考：<a href="../reference/wayfinder-reference.html">wayfinder 速查参考</a> |
+    <a href="../reference/skill-cheat-sheet.html">总速查表</a> |
+    <a href="0006-diagnosing-bugs.html">上一课</a>
+  </p>
+
+  <script src="../assets/quiz.js"></script>
+  <script>
+    window.quizExplanations = {
+      q1: {
+        A: "不对。需求清晰、只差拆票，正是主流程 to-spec → to-tickets 的入口，不需要地图。",
+        B: "正确。wayfinder 的触发形状就是：太大、一个 session 装不下、从这里到目的地的路还看不见。",
+        C: "不对。时好时坏的难 bug 走 /diagnosing-bugs（第六课）。",
+        D: "不对。跨 session 交接上下文是 /handoff 的场景。"
+      },
+      q2: {
+        A: "正确。判别式是能否精确表述问题——能（哪怕被阻塞）就立票，不能就写进 Not yet specified。",
+        B: "不对。能否回答不是标准：很多立票的决策现在恰恰回答不了，那正是要解决它的原因。",
+        C: "不对。被阻塞但问题清晰的决策照样立票，用阻塞边表达等待关系。",
+        D: "不对。范围之外的东西进 Out of scope，永不毕业；雾全部是范围内的。"
+      },
+      q3: {
+        A: "不对。装得下也不能一直做——一票一 session 保证每步有新鲜上下文和明确检查点。",
+        B: "不对。互不阻塞的票可以并行跑在不同 session 里，但单个 session 仍只解决一张。",
+        C: "正确。铁律：一个 session 最多解决一张票，research 票例外（绘制地图时可并行派发多个 subagent）。",
+        D: "不对。没有这个数量规则；地图也只在决策推翻它时才局部更新，不是按票数重画。"
+      },
+      q4: {
+        A: "不对。research 挖出的是决策等待的事实，它本身仍然服务于「决定」。",
+        B: "不对。prototype 做的是讨论用的粗糙工件，目的是提高决策的保真度。",
+        C: "不对。grilling 是默认的决策方式：通过对话把决定做出来。",
+        D: "正确。task 是唯一「做」的类型——开通服务、迁移数据——它靠为某个决策解锁来获得存在资格，而不是交付目的地。"
+      },
+      q5: {
+        A: "正确。red-capable 的核心是断言用户描述的那个精确症状，能在这个 bug 上变红、修好后变绿。",
+        B: "不对。确定且快速是另外两条判据，但一个确定地测错东西的回路毫无价值。",
+        C: "不对。真机问题往往走 adb 或 HITL 脚本；agent-runnable 允许人在回路，与 red-capable 无关。",
+        D: "不对。覆盖率不构成判据——回路只要驱动 bug 所在的那条代码路径即可。"
+      },
+      q6: {
+        A: "不对。「一次只问一个问题」是旧制式，2026-07 起已改为分轮制。",
+        B: "正确。round-by-round：每轮问完整个 frontier，问题格式为 ❓ **Q1** - **标题**: + ➡️ 推荐答案。",
+        C: "不对。那是 /to-questionnaire 的形状——把答不上来的决策做成问卷异步填。",
+        D: "不对。grilling 的问题常带开放式追问，推荐答案只是给用户一个可改的默认项。"
+      }
+    };
+  </script>
+</body>
+</html>

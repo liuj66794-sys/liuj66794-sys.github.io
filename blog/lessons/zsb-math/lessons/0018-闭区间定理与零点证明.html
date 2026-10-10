@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0018 · 闭区间定理与零点证明 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0018">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0018</span>
+  <a href="0017-连续与间断点.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0018 · 极限与连续</span>
+<h1>闭区间连续函数定理与零点证明</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0017 连续与间断点</span>
+  <span>来源：笔记《极限与连续》§七</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写闭区间上连续函数的<strong>四大定理</strong></li>
+    <li>用<strong>五步套路</strong>写出零点定理证明题（构造 → 连续 → 端点值 → 异号 → 套定理），拿满分</li>
+    <li>对付"移项构造"与"不动点"两种变式</li>
+  </ul>
+</div>
+
+<p>这是第 2 单元的<strong>证明题专属考点</strong>：判断"方程在区间内有实根"的大题，套路高度固定，是全卷最容易拿满的证明题——值得把它练成默写。</p>
+
+<h2>一、四大定理（都要求"闭区间上连续"）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背</div>
+  <p style="margin:0.2rem 0"><strong>① 有界性定理</strong>：$f(x)$ 在 $[a,b]$ 上连续 ⇒ 必有界。</p>
+  <p style="margin:0.2rem 0"><strong>② 最值定理</strong>：$f(x)$ 在 $[a,b]$ 上连续 ⇒ 必取得最大值 $M$ 与最小值 $m$。</p>
+  <p style="margin:0.2rem 0"><strong>③ 介值定理</strong>：对任意 $\mu\in[m,M]$，存在 $\xi\in[a,b]$ 使 $f(\xi)=\mu$——曲线从最低爬到最高，中间每个高度都要路过。</p>
+  <p style="margin:0.2rem 0"><strong>④ 零点定理</strong>：若 $f(a)\cdot f(b)&lt;0$（端点异号），则存在 $\xi\in(a,b)$ 使 $f(\xi)=0$。</p>
+</div>
+
+<p>注意前提都是"<strong>闭区间 + 连续</strong>"，缺一不可：开区间内 $f(x)=\frac1x$ 连续但无界；不连续（如取整函数）可能跳过某些值。零点定理是介值定理取 $\mu=0$ 的特例——前提是 $0$ 夹在 $m,M$ 之间，端点异号正好保证这点。</p>
+
+<h2>二、零点定理证根五步（秋讲总结的满分模板）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">五步：构造 → 连续 → 端点值 → 异号 → 套定理</div>
+  <p style="margin:0.2rem 0">① <strong>构造</strong> $F(x)$：把方程一边移成 $F(x)=0$；</p>
+  <p style="margin:0.2rem 0">② 说明 $F$ 在闭区间 $[a,b]$ 上<strong>连续</strong>（初等函数一句话）；</p>
+  <p style="margin:0.2rem 0">③ 计算 $F(a)$、$F(b)$ 的值；</p>
+  <p style="margin:0.2rem 0">④ 验证 $F(a)\cdot F(b)&lt;0$（<strong>端点异号</strong>）；</p>
+  <p style="margin:0.2rem 0">⑤ 引用零点定理下结论：存在 $\xi\in(a,b)$ 使 $F(\xi)=0$，即方程在 $(a,b)$ 内至少有一个实根。∎</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（标准示范）</span>证明方程 $x^{3}-4x^{2}+1=0$ 在 $(0,1)$ 内至少有一个实根。（夏连续教材 P49）</p>
+  <details><summary>先自己按五步写，再对照</summary>
+    <p>令 $F(x)=x^{3}-4x^{2}+1$，$F(x)$ 在 $[0,1]$ 上连续；</p>
+    <p>$F(0)=1&gt;0$，$F(1)=1-4+1=-2&lt;0$，端点异号。</p>
+    <p>由零点定理，存在 $\xi\in(0,1)$ 使 $F(\xi)=0$，即方程在 $(0,1)$ 内至少有一个实根。∎</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（移项构造）</span>证明 $e^{x}=3x$ 在 $(0,1)$ 内至少有一个实根。（秋连续练习 6）</p>
+  <details><summary>先自己构造，再展开</summary>
+    <p>移项：令 $F(x)=e^{x}-3x$，在 $[0,1]$ 上连续；</p>
+    <p>$F(0)=1&gt;0$，$F(1)=e-3\approx-0.28&lt;0$，异号 ✓。</p>
+    <p>由零点定理，存在 $\xi\in(0,1)$ 使 $e^{\xi}=3\xi$。∎</p>
+    <p>估值小技巧：$e\approx2.718&lt;3$，能直接断负号；实在不好估就说"$F(1)=e-3&lt;0$"（$e&lt;3$ 是常识）。</p>
+  </details>
+</div>
+
+<h2>三、两个变式</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（不动点问题）</span>$f(x)$ 在 $[a,b]$ 上连续，$f(a)&lt;a$，$f(b)&gt;b$。证明存在 $c\in(a,b)$ 使 $f(c)=c$。（秋连续练习 9）</p>
+  <details><summary>先想"怎么造出=0 的式子"，再展开</summary>
+    <p>"$f(c)=c$"即"$f(c)-c=0$"——构造 $F(x)=f(x)-x$。</p>
+    <p>$F$ 在 $[a,b]$ 上连续；$F(a)=f(a)-a&lt;0$，$F(b)=f(b)-b&gt;0$，异号。</p>
+    <p>由零点定理，存在 $c\in(a,b)$ 使 $F(c)=0$，即 $f(c)=c$。∎</p>
+    <p>口诀：<strong>结论里要什么等式，就把等式一边移过来构造 $F$</strong>。"方程 $g(x)=h(x)$ 有根" ⟺ "$F=g-h$ 有零点"。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（介值定理推论）</span>$f(x)$ 在 $[a,b]$ 上连续，$x_1,x_2,x_3\in[a,b]$。证明存在 $\xi\in[a,b]$ 使 $f(\xi)=\dfrac{f(x_1)+f(x_2)+f(x_3)}{3}$。（夏连续教材 P49）</p>
+  <details><summary>先自己串最值+介值，再展开</summary>
+    <p>由最值定理，$f$ 取到最小值 $m$、最大值 $M$。对 $i=1,2,3$：$m\le f(x_i)\le M$，三式相加：</p>
+    <p>$m\le\dfrac{f(x_1)+f(x_2)+f(x_3)}{3}\le M$——平均值也夹在 $[m,M]$ 内。</p>
+    <p>由介值定理，存在 $\xi\in[a,b]$ 使 $f(\xi)$ 等于这个平均值。∎</p>
+    <p>套路：<strong>"平均值/中间值"结论 = 最值定理夹出范围 + 介值定理命中</strong>。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">零点定理的条件是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f(x)$ 在 $(a,b)$ 内连续，且 $f(a)=f(b)$</button>
+    <button data-k="B">$f(x)$ 在 $[a,b]$ 上连续，且 $f(a)+f(b)&lt;0$</button>
+    <button data-k="C">$f(x)$ 在 $[a,b]$ 上连续，且 $f(a)\cdot f(b)&lt;0$</button>
+    <button data-k="D">$f(x)$ 在 $[a,b]$ 上可导，且 $f(a)\cdot f(b)&gt;0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">两个条件缺一不可：<strong>闭区间连续 + 端点异号（积为负）</strong>。B 的"和为负"不代表异号（$-2+1=-1&lt;0$ 但同号）；D 的前提和符号全不对。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">证明"$x^{3}-3x+1=0$ 在 $(1,2)$ 内有根"的正确构造是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$F(x)=x^{3}-3x+1$，$F(1)=-1&lt;0$，$F(2)=3&gt;0$</button>
+    <button data-k="B">$F(x)=x^{3}-3x$，$F(1)=-2$，$F(2)=2$</button>
+    <button data-k="C">$F(x)=x^{3}+1$，$F(1)=2$，$F(2)=9$</button>
+    <button data-k="D">$F(x)=x^{3}-3x+1$ 在开区间 $(1,2)$ 内看连续性</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">方程已经是"左边 $=0$"，构造就是它自己（A）；B 丢掉了常数项 1，$F(1)=-2,F(2)=2$ 虽异号但零点不再对应原方程——构造必须与方程等价。D 的错误：零点定理要<strong>闭区间</strong>连续。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">证明"$\ln x=x-2$ 在 $(3,4)$ 内有根"，应构造并计算</p>
+  <div class="quiz-opts">
+    <button data-k="A">$F=\ln x+x-2$，$F(3)&gt;0$，$F(4)&gt;0$</button>
+    <button data-k="B">$F=\ln x-x+2$，$F(3)=\ln3-1&gt;0$，$F(4)=\ln4-2&lt;0$</button>
+    <button data-k="C">$F=\ln x-2$，$F(3)&lt;0$，$F(4)&gt;0$</button>
+    <button data-k="D">$F=x-2-\ln x$，$F(3)=1-\ln3&gt;0$，$F(4)=2-\ln4&gt;0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">移项成 $\ln x-x+2=0$（B）。A 是"同边相加"，造不出零点等式；D 构造等价但端点算错号（$1-\ln3\approx-0.10&lt;0$，$\ln3\approx1.10$）。注意 $\ln3&gt;1$（$e&lt;3$）、$\ln4&lt;2$（$e^2&gt;4$）这两个估值锚点。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">四大定理共同的前提是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$f(x)$ 在 $(a,b)$ 内连续</button>
+    <button data-k="B">$f(x)$ 在 $[a,b]$ 上可导</button>
+    <button data-k="C">$f(x)$ 在 $(-\infty,+\infty)$ 连续</button>
+    <button data-k="D">$f(x)$ 在闭区间 $[a,b]$ 上连续</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">四个定理全部建在"<strong>闭区间 + 连续</strong>"上。A 开区间不够（$1/x$ 在 $(0,1)$ 连续但无界、无最值）；B 的可导太强也没必要。写证明时这句前提要<strong>原样写进卷面</strong>，阅卷按步给分。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">证明不动点问题（$f(a)&lt;a$，$f(b)&gt;b$ ⇒ 存在 $c$ 使 $f(c)=c$）的构造是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$F(x)=f(x)$</button>
+    <button data-k="B">$F(x)=f(x)+x$</button>
+    <button data-k="C">$F(x)=f(x)-x$</button>
+    <button data-k="D">$F(x)=f(x)\cdot x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">目标等式 $f(c)=c$ 移项得 $f(c)-c=0$，零点就属于 $F(x)=f(x)-x$。构造心法：<strong>见到"相等的两样东西"，相减构造</strong>。此时 $F(a)&lt;0$、$F(b)&gt;0$，恰好异号。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>五步一步不能省：<strong>尤其"闭区间上连续"这句前提话</strong>——阅卷按步给分</li>
+    <li>结论写"存在 $\xi\in\boldsymbol{(a,b)}$"（开区间），条件里 $f(a)\cdot f(b)&lt;0$ 用的是端点值</li>
+    <li>构造必须与方程<strong>等价</strong>：移项后一边为 0，另一边整体就是 $F(x)$</li>
+    <li>端点值估号常用锚点：$\ln2\approx0.69$、$\ln3\approx1.10$、$e\approx2.72$、$\pi\approx3.14$</li>
+    <li>"平均值"型结论走<strong>最值定理 + 介值定理</strong>组合，不走零点定理</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写四大定理（名称 + 条件 + 结论各一句）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$[a,b]$ 上连续 ⇒ ①有界；②取到最大值 $M$、最小值 $m$；③对任意 $\mu\in[m,M]$ 存在 $\xi$ 使 $f(\xi)=\mu$（介值）；④若 $f(a)f(b)&lt;0$，则存在 $\xi\in(a,b)$ 使 $f(\xi)=0$（零点）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写零点定理证根五步，并说出"平均值型"证明用哪两个定理组合。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">构造 $F$ → 闭区间连续 → 算端点值 → 验异号 → 引零点定理下结论。平均值型：最值定理夹范围 + 介值定理命中。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 2 单元（0010–0018）至此收官</strong>——本周任务：① 九课回忆卡混测一遍；② 去做一套第二章真题（第 10 单元），检验"认脸选招"是否过关。之后进入第 3 单元"导数与微分"（全卷权重最高）。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§七 闭区间性质与零点定理（含秋连续练习 5–9 与不动点证明）</li>
+    <li>讲义：《连续二》夏讲 PDF 教材 P49、《连续与间断》秋讲 PDF</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："零点定理和介值定理什么关系"、"端点值算不出精确值怎么办"、"再出 5 道'证方程有根'的题给我限时做"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0017-连续与间断点.html" class="prev"><span class="dir">← 上一课</span>0017 连续与间断点</a>
+  <a href="0019-导数定义与可导性.html" class="next"><span class="dir">下一课 →</span>0019 导数定义与可导性</a>
+</nav>
+</main>
+</body>
+</html>

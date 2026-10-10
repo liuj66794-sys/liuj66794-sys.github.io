@@ -1,0 +1,348 @@
+/*
+ * Shared learning guide and practice rhythm.
+ * All colors come from learning-tokens.css so the four course mirrors keep
+ * their existing content and theme while sharing one interaction hierarchy.
+ */
+
+html[data-learning-guide] .learning-guide {
+  --learning-guide-surface: var(--study-panel, #fffef9);
+  --learning-guide-bg: var(--study-tint, #e8eddf);
+  --learning-guide-text: var(--study-text, #253c35);
+  --learning-guide-muted: var(--study-muted, #5c7066);
+  --learning-guide-line: var(--study-line, #d7ded2);
+  --learning-guide-accent: var(--study-accent, #214e45);
+  --learning-guide-focus: var(--study-focus, #64863c);
+  box-sizing: border-box;
+  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--learning-guide-line);
+  border-radius: 16px;
+  background: var(--learning-guide-surface);
+  color: var(--learning-guide-text);
+  box-shadow: var(--study-card-shadow, 0 4px 18px rgb(30 57 44 / .035));
+  overflow: hidden;
+}
+
+html[data-learning-guide] .learning-guide > summary {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 11px clamp(14px, 2.6vw, 22px);
+  cursor: pointer;
+  list-style: none;
+  color: var(--learning-guide-text);
+  font: 600 1rem/1.45 var(--study-font, system-ui, sans-serif);
+}
+
+html[data-learning-guide] .learning-guide > summary::-webkit-details-marker { display: none; }
+html[data-learning-guide] .learning-guide > summary::before {
+  flex: 0 0 auto;
+  width: 22px;
+  color: var(--learning-guide-accent);
+  content: '+';
+  font-size: 1.25rem;
+  line-height: 1;
+  text-align: center;
+}
+html[data-learning-guide] .learning-guide[open] > summary::before { content: '−'; }
+html[data-learning-guide] .learning-guide > summary:hover { background: var(--learning-guide-bg); }
+html[data-learning-guide] .learning-guide > summary:focus-visible {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: -3px;
+}
+
+html[data-learning-guide] .learning-guide-summary-title { flex: 0 0 auto; }
+html[data-learning-guide] .learning-guide-summary-trail {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--learning-guide-muted);
+  font-size: .82rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+html[data-learning-guide] .learning-guide-body {
+  box-sizing: border-box;
+  padding: 0 clamp(14px, 2.6vw, 22px) 18px;
+  border-top: 1px solid var(--learning-guide-line);
+}
+html[data-learning-guide] .learning-guide-intro {
+  margin: 14px 0 12px;
+  color: var(--learning-guide-muted);
+  font-size: .9rem;
+  line-height: 1.7;
+}
+
+html[data-learning-guide] .learning-guide-section-title {
+  margin: 12px 0 6px;
+  color: var(--learning-guide-text);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+html[data-learning-guide] .learning-guide-highlight-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html[data-learning-guide] .learning-guide-highlight-item { min-width: 0; }
+html[data-learning-guide] .learning-guide-highlight {
+  display: block;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 9px 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: var(--learning-guide-text);
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+html[data-learning-guide] .learning-guide-highlight:hover {
+  border-color: var(--learning-guide-line);
+  background: var(--learning-guide-bg);
+}
+html[data-learning-guide] .learning-guide-highlight:focus-visible {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 1px;
+}
+
+html[data-learning-guide] .learning-guide-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 10px;
+}
+html[data-learning-guide] :is(.learning-guide-step) {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-width: 0;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid var(--learning-guide-line);
+  border-radius: 10px;
+  background: var(--learning-guide-surface);
+  color: var(--learning-guide-text);
+  font: inherit;
+  line-height: 1.4;
+  text-align: left;
+  text-decoration: none;
+}
+html[data-learning-guide] button.learning-guide-step {
+  width: 100%;
+  cursor: pointer;
+}
+html[data-learning-guide] :is(a.learning-guide-step,button.learning-guide-step):hover:not(:disabled) {
+  border-color: var(--learning-guide-accent);
+  background: var(--learning-guide-bg);
+}
+html[data-learning-guide] :is(a.learning-guide-step,button.learning-guide-step):focus-visible {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 2px;
+}
+html[data-learning-guide] button.learning-guide-step:disabled {
+  cursor: default;
+  opacity: .66;
+}
+html[data-learning-guide] .learning-guide-step-number {
+  flex: 0 0 auto;
+  color: var(--learning-guide-accent);
+  font: 700 .73rem/1.4 var(--study-font, system-ui, sans-serif);
+  letter-spacing: .05em;
+}
+html[data-learning-guide] .learning-guide-step-copy {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+html[data-learning-guide] .learning-guide-step-copy strong {
+  display: block;
+  font-size: .88rem;
+}
+html[data-learning-guide] .learning-guide-step-detail {
+  display: block;
+  margin-top: 2px;
+  color: var(--learning-guide-muted);
+  font-size: .75rem;
+  font-weight: 400;
+}
+
+html[data-learning-guide] .learning-guide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 8px 0 16px;
+}
+html[data-learning-guide] :is(.learning-guide-focus,.learning-guide-review-link) {
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font: 600 .86rem/1.4 var(--study-font, system-ui, sans-serif);
+}
+html[data-learning-guide] .learning-guide-focus {
+  border: 1px solid var(--learning-guide-accent);
+  background: var(--learning-guide-accent);
+  color: var(--study-on-action, #fffef9);
+  cursor: pointer;
+}
+html[data-learning-guide] .learning-guide-focus:hover { filter: brightness(.94); }
+html[data-learning-guide] .learning-guide-focus:focus-visible {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 2px;
+}
+html[data-learning-guide] .learning-guide-focus[aria-pressed='true'] {
+  background: transparent;
+  color: var(--learning-guide-accent);
+}
+html[data-learning-guide] .learning-guide-review-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--learning-guide-accent);
+  text-underline-offset: 3px;
+}
+html[data-learning-guide] .learning-guide-review-link:focus-visible {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 2px;
+}
+
+html[data-learning-guide] .learning-guide-reflection {
+  display: grid;
+  gap: 4px;
+  padding-top: 13px;
+  border-top: 1px dashed var(--learning-guide-line);
+}
+html[data-learning-guide] .learning-guide-note-label {
+  color: var(--learning-guide-text);
+  font-size: .85rem;
+  font-weight: 700;
+}
+html[data-learning-guide] .learning-guide-note-hint,
+html[data-learning-guide] .learning-guide-note-status {
+  color: var(--learning-guide-muted);
+  font-size: .78rem;
+  line-height: 1.5;
+}
+html[data-learning-guide] .learning-guide-note {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 64px;
+  margin-top: 3px;
+  padding: 9px 11px;
+  resize: vertical;
+  border: 1px solid var(--learning-guide-line);
+  border-radius: 8px;
+  background: var(--learning-guide-surface);
+  color: var(--learning-guide-text);
+  font: .9rem/1.65 var(--study-font, system-ui, sans-serif);
+}
+html[data-learning-guide] .learning-guide-note::placeholder { color: var(--learning-guide-muted); opacity: .8; }
+html[data-learning-guide] .learning-guide-note:focus-visible {
+  border-color: var(--learning-guide-accent);
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 1px;
+}
+
+/* Focus mode adds a visual cue and a useful scroll target. It never hides
+   prose, answer context, or any existing control. */
+html[data-learning-guide][data-learning-focus='true']
+  :is(.quiz[data-answer],.qcard,.q-item,.recall,.cards-shell) {
+  border-color: var(--learning-guide-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--learning-guide-accent) 18%, transparent);
+  scroll-margin-top: calc(var(--blog-nav-height, 56px) + 18px);
+}
+html[data-learning-guide][data-learning-focus='true']
+  :is(.quiz[data-answer],.qcard,.q-item,.recall,.cards-shell):focus {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 4px;
+}
+
+html[data-learning-guide] :is(.quiz,.qcard,.q-item,.recall,.cards-shell) {
+  max-width: 100%;
+  min-width: 0;
+  margin-block: clamp(1rem, 2.5vw, 1.5rem);
+  scroll-margin-top: calc(var(--blog-nav-height, 56px) + 18px);
+}
+html[data-learning-guide] :is(.quiz,.qcard,.q-item,.recall) {
+  padding: clamp(14px, 2.2vw, 20px);
+}
+html[data-learning-guide] :is(.quiz,.qcard,.q-item,.recall) > :is(.quiz-q,.qtext,.stem,.recall-q,.recall-a) {
+  overflow-wrap: anywhere;
+}
+html[data-learning-guide] :is(.quiz-opts,.qopts,.opts,.quiz-options,.recall-actions,.cards-ctrl) {
+  gap: 9px;
+}
+html[data-learning-guide] :is(.recall,.qexp,.ansbox) > summary {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  overflow-wrap: anywhere;
+}
+html[data-learning-guide] :is(.quiz-opts button,.quiz-opts li,.qopts button,.opts button,.opt,.recall-actions button,.cards-ctrl button) {
+  box-sizing: border-box;
+  min-height: 44px;
+  min-width: 44px;
+  overflow-wrap: anywhere;
+}
+html[data-learning-guide] :is(.quiz-opts li,.qopts button,.opts button,.opt,.recall-actions button,.cards-ctrl button):focus-visible {
+  outline: 3px solid var(--learning-guide-focus);
+  outline-offset: 2px;
+}
+html[data-learning-guide] :is(.qwhy,.q-judge,.quiz-feedback,.quiz-verdict,.quiz-expl,.quiz-score) {
+  margin-top: 10px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+html[data-learning-guide] :is(.quiz-expl,.qwhy,.q-judge) {
+  padding-block: 8px;
+}
+
+@media (max-width: 520px) {
+  html[data-learning-guide] .learning-guide-summary-trail {
+    font-size: .76rem;
+  }
+  html[data-learning-guide] .learning-guide-path {
+    grid-template-columns: 1fr;
+  }
+  html[data-learning-guide] .learning-guide-step { min-height: 50px; }
+}
+
+@media (max-width: 350px) {
+  html[data-learning-guide] .learning-guide > summary {
+    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding-inline: 12px;
+  }
+  html[data-learning-guide] .learning-guide-summary-trail {
+    grid-column: 2;
+    text-align: left;
+  }
+  html[data-learning-guide] .learning-guide-body { padding-inline: 12px; }
+  html[data-learning-guide] .learning-guide-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  html[data-learning-guide] :is(.learning-guide-focus,.learning-guide-review-link) {
+    justify-content: center;
+    width: 100%;
+  }
+  html[data-learning-guide] :is(.quiz,.qcard,.q-item,.recall,.cards-shell) {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-learning-guide] .learning-guide-focus { transition: none; }
+  html[data-learning-guide][data-learning-focus='true']
+    :is(.quiz[data-answer],.qcard,.q-item,.recall,.cards-shell) {
+    scroll-behavior: auto;
+  }
+}

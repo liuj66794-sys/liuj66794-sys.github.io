@@ -1,0 +1,87 @@
+/* Mattpocock Skills 学习工作区 · 设计 token（唯一事实源）
+ * 系统定义见项目根目录 design.md —— 新颜色/字体先入本文件，再按名引用。
+ * 暖纸锚点 hue ≈ 80–95；accent 朱砂（vermilion）hue 45。
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Noto+Serif+SC:wght@400;600;700&display=swap");
+
+:root {
+  color-scheme: light;
+
+  /* 色彩 · 四层：纸 / 墨 / 中性 / accent */
+  --color-paper:    oklch(97.2% 0.006 95);
+  --color-paper-2:  oklch(94.5% 0.009 95);
+  --color-rule:     oklch(87%   0.008 90);
+  --color-muted:    oklch(46%   0.010 80);
+  --color-ink:      oklch(24%   0.012 75);
+  --color-accent:   oklch(47%   0.120 45);
+  --color-accent-ink: var(--color-paper); /* accent 填充面上的文字色（gate 41） */
+  --color-focus:    oklch(55%   0.130 45);
+
+  /* 功能色（quiz 反馈；文字符号并用，非纯颜色信号） */
+  --color-success:    oklch(42% 0.090 155);
+  --color-success-bg: oklch(94% 0.018 155);
+  --color-error:      oklch(47% 0.130 28);
+  --color-error-bg:   oklch(94.5% 0.018 28);
+
+  /* 字体：衬线为主，mono 作 outlier（仅 code / tag / 术语） */
+  --font-serif: "Newsreader", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-mono:  ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* 4pt 间距标尺 */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* 字阶（major third 1.25，基 17px） */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   1.375rem;
+  --text-xl:   1.75rem;
+  --text-2xl:  clamp(1.9rem, 2.5vw + 1rem, 2.4rem);
+
+  /* 缓动与时长（Newsprint 0×：仅颜色/透明度微过渡） */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+
+  --radius-sm: 2px;
+
+  /* 旧 token 别名：HTML 内联样式（如 var(--muted)）继续可用 */
+  --bg:           var(--color-paper);
+  --text:         var(--color-ink);
+  --muted:        var(--color-muted);
+  --accent:       var(--color-accent);
+  --accent-light: var(--color-paper-2);
+  --border:       var(--color-rule);
+  --code-bg:      var(--color-paper-2);
+  --font-body:    var(--font-serif);
+  --font-sans:    var(--font-serif);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-paper:    oklch(19% 0.007 80);
+    --color-paper-2:  oklch(23% 0.008 80);
+    --color-rule:     oklch(33% 0.008 80);
+    --color-muted:    oklch(68% 0.008 85);
+    --color-ink:      oklch(92% 0.006 90);
+    --color-accent:   oklch(70% 0.110 50);
+    --color-focus:    oklch(74% 0.110 50);
+
+    --color-success:    oklch(74% 0.090 155);
+    --color-success-bg: oklch(29% 0.030 155);
+    --color-error:      oklch(72% 0.120 30);
+    --color-error-bg:   oklch(31% 0.040 30);
+  }
+}

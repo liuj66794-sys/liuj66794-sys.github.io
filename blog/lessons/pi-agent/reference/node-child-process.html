@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查表 · Node.js 子进程（child_process）</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">速查表 · 压缩自第 6 课 ｜ 随课程推进持续更新</div>
+
+<h1>Node.js 子进程（child_process）</h1>
+
+<p>程序里跑终端命令卡住时先查这里。回调式 API 统一用 <code>promisify</code> 转成 Promise 再 <code>await</code>。</p>
+
+<h2>核心用法</h2>
+
+<pre><code>import { exec } from "node:child_process";
+import { promisify } from "node:util";
+
+const execAsync = promisify(exec);   // 回调式 → Promise 版
+
+try {
+  const { stdout, stderr } = await execAsync("node -v");
+  console.log(stdout);
+} catch (error: any) {
+  // 退出码非 0 时 Promise rejected，错误对象带 code / stdout / stderr
+  console.log(error.code, error.stderr);
+}</code></pre>
+
+<h2>命令结果三件套</h2>
+
+<table>
+  <tr><th>名字</th><th>是什么</th><th>怎么拿</th></tr>
+  <tr><td><code>stdout</code></td><td>命令的正常输出</td><td>成功时解构 <code>{ stdout }</code></td></tr>
+  <tr><td><code>stderr</code></td><td>命令的错误输出</td><td>成功时解构 <code>{ stderr }</code>；失败时在 <code>error.stderr</code></td></tr>
+  <tr><td>退出码</td><td>结束时报告的数字：<strong>0 = 成功，非 0 = 失败</strong></td><td>失败时在 <code>error.code</code></td></tr>
+</table>
+
+<h2>run_command 工具骨架（Agent 设计：错误作为结果返回）</h2>
+
+<pre><code>export const commandRunner: Tool = {
+  name: "run_command",
+  description: "运行一条终端命令，返回它的输出",
+  execute: async (args) =&gt; {
+    try {
+      const { stdout, stderr } = await execAsync(args.command);
+      return stdout.trim() || stderr.trim() || "（命令成功，没有输出）";
+    } catch (error: any) {
+      return `错误：命令失败，退出码 ${error.code}\n${error.stderr}`;
+    }
+  }
+};</code></pre>
+
+<h2>exec vs spawn（面试常考）</h2>
+
+<table>
+  <tr><th></th><th><code>exec</code></th><th><code>spawn</code></th></tr>
+  <tr><td>输出方式</td><td>全部攒到最后一次性给</td><td>流式，边跑边给</td></tr>
+  <tr><td>适合场景</td><td>短命令：node -v、git diff</td><td>长命令：npm install、跑测试套件</td></tr>
+</table>
+
+<h2>常见现象速查</h2>
+
+<table>
+  <tr><th>现象 / 报错</th><th>原因与对策</th></tr>
+  <tr><td><code>'xxx' 不是内部或外部命令</code>（Windows）</td><td>命令不存在或拼错——退出码 1，报错在 stderr；先自己在终端敲一遍验证</td></tr>
+  <tr><td>成功但拿到 <code>[object Object]</code></td><td>忘了解构 <code>{ stdout, stderr }</code>，把整个结果对象直接拼了字符串</td></tr>
+  <tr><td>打印出 <code>Promise { &lt;pending&gt; }</code></td><td>忘了写 await——拿到的是小票不是命令结果</td></tr>
+  <tr><td><code>ls</code> 在 Windows 上失败</td><td>exec 在 Windows 走 cmd.exe，没有 ls——用 dir，或选跨平台命令</td></tr>
+</table>
+
+<div class="callout">
+  <span class="label">一句话记住</span>
+  <code>promisify(exec)</code> 转 Promise → <code>await</code> 取 <code>{ stdout, stderr }</code> → 退出码非 0 走 <code>catch</code>，读 <code>error.code</code> 和 <code>error.stderr</code>。工具失败不抛错，把退出码 + 错误输出作为结果返回。
+</div>
+
+<div class="further">
+<h2>出处与导航</h2>
+<ul>
+  <li><a href="https://nodejs.org/api/child_process.html">Node.js 官方文档：child_process</a> ｜ <a href="https://nodejs.org/api/util.html#utilpromisifyoriginal">util.promisify</a></li>
+</ul>
+<p>课程导航：<a href="../lessons/0006-nodejs-child-process.html">第 6 课</a> ｜ <a href="node-fs.html">文件系统速查表</a> ｜ <a href="ts-async-and-await.html">异步速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a> ｜ <a href="../ROADMAP.md">路线图</a></p>
+</div>
+
+</main>
+</body>
+</html>

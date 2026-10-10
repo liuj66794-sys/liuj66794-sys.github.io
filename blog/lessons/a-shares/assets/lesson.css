@@ -1,0 +1,144 @@
+/* gupiao 课程共享样式 — Tufte 风格 · 中文衬线 · 打印友好 */
+:root {
+  --ink: #1a1a1a;
+  --paper: #fdfcf7;
+  --accent: #8c2f1b;      /* 朱砂红，A股涨色 */
+  --accent-green: #1a6b3c; /* A股跌色 */
+  --muted: #6b6b6b;
+  --rule: #ddd6c3;
+  --hl: #fff3c2;
+}
+* { box-sizing: border-box; }
+html { font-size: 17px; }
+body {
+  margin: 0 auto;
+  max-width: 720px;
+  padding: 3rem 1.5rem 6rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  line-height: 1.85;
+}
+h1, h2, h3 { font-weight: 700; line-height: 1.4; }
+h1 { font-size: 1.7rem; margin: 0.4em 0 0.2em; }
+h2 { font-size: 1.25rem; margin-top: 2.2em; border-bottom: 1px solid var(--rule); padding-bottom: 0.25em; }
+h3 { font-size: 1.05rem; margin-top: 1.6em; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+a:hover { border-bottom-style: solid; }
+code, .num { font-family: "Sarasa Mono SC", "JetBrains Mono", Consolas, monospace; font-size: 0.92em; }
+
+.lesson-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 0.6em;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;
+}
+.win {
+  background: var(--hl);
+  border-left: 4px solid var(--accent);
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  font-weight: 600;
+}
+.mission-tie {
+  color: var(--muted);
+  font-size: 0.92rem;
+  border-left: 3px solid var(--rule);
+  padding-left: 1em;
+  margin: 1.2em 0;
+}
+table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule); padding: 0.45em 0.8em; text-align: left; }
+th { background: #f3eedd; }
+tr:nth-child(even) td { background: #faf7ec; }
+.example {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1em 1.3em;
+  margin: 1.2em 0;
+}
+.example .tag { color: var(--accent); font-weight: 700; font-size: 0.85rem; }
+
+/* 动手任务 */
+.task {
+  border: 2px dashed var(--accent);
+  border-radius: 8px;
+  padding: 1em 1.3em;
+  margin: 1.5em 0;
+  background: #fffdf5;
+}
+.task h3 { margin-top: 0; color: var(--accent); }
+.task ol, .task ul { margin: 0.4em 0; padding-left: 1.4em; }
+
+/* 测验 */
+.quiz {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1em 1.3em;
+  margin: 1.2em 0;
+}
+.quiz .q { font-weight: 700; margin: 0 0 0.6em; }
+.quiz .opts { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.45em; }
+.quiz .opts li {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.5em 0.9em;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+.quiz .opts li:hover { background: #f6f1e2; }
+.quiz .opts li.correct { background: #e3f2e8; border-color: var(--accent-green); }
+.quiz .opts li.wrong { background: #fbe6e2; border-color: var(--accent); }
+.quiz .fb { display: none; margin-top: 0.7em; font-size: 0.92rem; color: var(--muted); }
+.quiz.done .fb { display: block; }
+.quiz .opts li.locked { cursor: default; }
+/* 课前回炉：间隔复习旧课的测验，视觉上与新课随堂测区分 */
+.quiz.review { border-style: dashed; background: #faf8f0; }
+
+/* 费曼自测 */
+.feynman {
+  background: #f2f0e9;
+  border-radius: 8px;
+  padding: 1em 1.3em;
+  margin: 1.5em 0;
+}
+.feynman h3 { margin-top: 0; }
+.feynman .btns { display: flex; gap: 0.6em; flex-wrap: wrap; margin-top: 0.6em; }
+.feynman button {
+  font-family: inherit; font-size: 0.95rem;
+  border: 1px solid var(--muted); background: #fff;
+  border-radius: 20px; padding: 0.35em 1.1em; cursor: pointer;
+}
+.feynman button:hover { border-color: var(--ink); }
+.feynman .verdict { display: none; margin-top: 0.7em; font-size: 0.92rem; }
+.feynman .verdict.show { display: block; }
+
+/* 页脚导航 */
+.nav {
+  margin-top: 3.5em;
+  padding-top: 1em;
+  border-top: 2px solid var(--ink);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6em;
+  font-size: 0.92rem;
+}
+.teacher-note {
+  margin-top: 2em;
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-top: 1px dashed var(--rule);
+  padding-top: 1em;
+}
+.src { font-size: 0.88rem; color: var(--muted); }
+.src li { margin: 0.25em 0; }
+
+@media print {
+  body { max-width: none; padding: 0 1cm; background: #fff; font-size: 11pt; }
+  .quiz .opts li { cursor: default; }
+  .feynman .btns, .nav a { display: none; }
+  a { color: var(--ink); border: none; }
+}

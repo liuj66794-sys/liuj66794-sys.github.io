@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查 005 · 等价无穷小与极限速查 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="ref-005">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">速查手册 · 005</span>
+  <a href="../lessons/0013-等价无穷小替换.html">配讲课 0013</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Reference 005 · 打印友好</span>
+<h1>等价无穷小与极限速查表</h1>
+<div class="meta">
+  <span>📄 建议打印随身</span>
+  <span>适用：$x\to0$（另有标注除外）</span>
+  <span>来源：笔记《极限与连续》§三 · §四</span>
+</div>
+
+<h2>① 等价无穷小基础八条（$x\to0$）</h2>
+<table>
+  <tr><th>公式</th><th>公式</th></tr>
+  <tr><td>$\sin x\sim x$</td><td>$\tan x\sim x$</td></tr>
+  <tr><td>$\arcsin x\sim x$</td><td>$\arctan x\sim x$</td></tr>
+  <tr><td>$e^{x}-1\sim x$</td><td>$\ln(1+x)\sim x$</td></tr>
+  <tr><td>$1-\cos x\sim\dfrac12x^{2}$</td><td>$(1+x)^{\alpha}-1\sim\alpha x$</td></tr>
+</table>
+<p><strong>方框规则</strong>：把 $x$ 换成任何 $\to0$ 的方框都成立，如 $1-\cos 2x\sim\dfrac12(2x)^2=2x^2$。</p>
+
+<h2>② 三阶差关系（加减题专用六条，$x\to0$）</h2>
+<table>
+  <tr><th>公式</th><th>公式</th></tr>
+  <tr><td>$\tan x-x\sim\dfrac13x^{3}$</td><td>$x-\arctan x\sim\dfrac13x^{3}$</td></tr>
+  <tr><td>$x-\sin x\sim\dfrac16x^{3}$</td><td>$\arcsin x-x\sim\dfrac16x^{3}$</td></tr>
+  <tr><td>$\tan x-\sin x\sim\dfrac12x^{3}$</td><td>$x-\ln(1+x)\sim\dfrac12x^{2}$</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">军规</div>
+  <p style="margin:0.2rem 0"><strong>乘除因子可整体替换；加减中不能随意替换</strong>（$\tan x-\sin x\sim\frac12x^3$，乱换得 0）。加减结构先套②的整体结论，或变形（提取/共轭/凑方框）化成乘除再换。</p>
+</div>
+
+<h2>③ 两个重要极限与 $1^{\infty}$</h2>
+<table>
+  <tr><th>名称</th><th>公式</th><th>备注</th></tr>
+  <tr><td>重要极限一</td><td>$\lim\limits_{\square\to0}\dfrac{\sin\square}{\square}=1$</td><td>推论：$\dfrac{\tan\square}{\square}\to1$，$\dfrac{1-\cos x}{x^2}\to\dfrac12$</td></tr>
+  <tr><td>重要极限二</td><td>$\lim\limits_{x\to\infty}\left(1+\dfrac1x\right)^{x}=e$</td><td>等价：$\lim\limits_{\alpha\to0}(1+\alpha)^{1/\alpha}=e$</td></tr>
+  <tr><td>$1^{\infty}$ 三步法</td><td>$\lim u^{v}=e^{\lim v(u-1)}$</td><td>先验 $u\to1$、$v\to\infty$；算出指数 $k$ 答案即 $e^k$</td></tr>
+</table>
+
+<h2>④ 抓大头（$x\to\infty$）</h2>
+<table>
+  <tr><th>情形</th><th>结论</th></tr>
+  <tr><td>$\dfrac{a_0x^m+\cdots}{b_0x^n+\cdots}$</td><td>$n&gt;m$ 得 $0$；$n=m$ 得 $\dfrac{a_0}{b_0}$；$n&lt;m$ 得 $\infty$</td></tr>
+  <tr><td>速度链（$x\to+\infty$）</td><td>$\ln x\ll x^{a}\ll c^{x}\ll x^{x}$（指数吊打幂，幂吊打对数）</td></tr>
+  <tr><td>负方向陷阱</td><td>$x\to-\infty$ 时 $\sqrt{x^{2}}=|x|=-x$——偶次根先提 $|x|$ 再抓头</td></tr>
+</table>
+
+<h2>⑤ 七种未定式与假未定式</h2>
+<p>$\dfrac00$、$\dfrac\infty\infty$、$\infty-\infty$、$0\cdot\infty$、$1^{\infty}$、$0^{0}$、$\infty^{0}$。<br>
+<strong>假未定式</strong>：底/指数是真常数就不算——$\lim\limits_{x\to\infty}1^{x}=1$（底是常数 1）；$\lim\limits_{x\to\infty}\left(1+\dfrac ax\right)^{5}=1$（指数是常数）。对照：$\left(1+\dfrac ax\right)^{bx}$ 当 $x\to\infty$ 是<strong>真</strong> $1^{\infty}$，三步法得 $e^{ab}$；当 $x\to0$ 是 $\infty^{0}$ 型（底 $\to\infty$），算出来为 $1$。</p>
+
+<h2>⑥ 求极限九法选择器（按长相找方法）</h2>
+<table>
+  <tr><th>长相 / 型号</th><th>用哪招</th></tr>
+  <tr><td>连续点直接代入</td><td>方法① 直接代入（初等函数定义域内恒可）</td></tr>
+  <tr><td>$\frac00$，多项式</td><td>方法② 去零因式（十字相乘 / 立方和差 → 约分）</td></tr>
+  <tr><td>$\infty-\infty$，分式差</td><td>方法③ 通分 → 化 $\frac00$ → 去零因式</td></tr>
+  <tr><td>根式差 $\sqrt{\ }-\sqrt{\ }$</td><td>方法④ 有理化（乘共轭根式）</td></tr>
+  <tr><td>$\frac\infty\infty$，多项式 / 混合</td><td>方法⑤ 抓大头（三结论 + 速度链）</td></tr>
+  <tr><td>含 $\sin\square$ 且方框 $\to0$</td><td>方法⑥ 重要极限一（凑方框）</td></tr>
+  <tr><td>$1^{\infty}$</td><td>方法⑦ 三步法 $e^{\lim v(u-1)}$</td></tr>
+  <tr><td>$x\to0$，可替换的乘除因子</td><td>方法⑧ 等价无穷小替换（军规！）</td></tr>
+  <tr><td>$\frac00$ / $\frac\infty\infty$，导数好求</td><td>方法⑨ 洛必达法则（先验型；与其他招混用最快）</td></tr>
+  <tr><td>含参数、已知极限值</td><td>逆求：分子须 $\to0$ / 抓大头比次数 / 指数比对</td></tr>
+</table>
+
+<h2>⑦ 数列极限专用</h2>
+<table>
+  <tr><th>公式</th><th>内容</th></tr>
+  <tr><td>$q^{n}$ 四情形</td><td>$|q|&lt;1\to0$；$q&gt;1\to+\infty$；$q=1\to1$；$q\le-1$ 不存在</td></tr>
+  <tr><td>裂项</td><td>$\dfrac{1}{n(n+1)}=\dfrac1n-\dfrac{1}{n+1}$</td></tr>
+  <tr><td>根式有理化</td><td>$\sqrt{n+a}-\sqrt{n}=\dfrac{a}{\sqrt{n+a}+\sqrt n}$</td></tr>
+  <tr><td>$e$ 定义式</td><td>$\lim\limits_{n\to\infty}\left(1+\dfrac1n\right)^{n}=e$</td></tr>
+  <tr><td>夹逼（$n$ 项和）</td><td>每项放最大 / 缩最小，两端夹出极限</td></tr>
+  <tr><td>取大公式</td><td>$\lim\limits_{n\to\infty}\sqrt[n]{a_1^{n}+\cdots+a_m^{n}}=\max\{a_i\}$（$a_i&gt;0$）</td></tr>
+</table>
+
+<h2>⑧ 必背走向表（$x\to\pm\infty$ / $x\to0$ 分左右）</h2>
+<table>
+  <tr><th>极限</th><th>结果</th><th>极限</th><th>结果</th></tr>
+  <tr><td>$\lim\limits_{x\to-\infty}e^{x}$</td><td>$0$</td><td>$\lim\limits_{x\to+\infty}e^{x}$</td><td>$+\infty$（整体不存在）</td></tr>
+  <tr><td>$\lim\limits_{x\to-\infty}\arctan x$</td><td>$-\dfrac{\pi}{2}$</td><td>$\lim\limits_{x\to+\infty}\arctan x$</td><td>$\dfrac{\pi}{2}$（整体不存在）</td></tr>
+  <tr><td>$\lim\limits_{x\to0^-}e^{1/x}$</td><td>$0$</td><td>$\lim\limits_{x\to0^+}e^{1/x}$</td><td>$+\infty$（不存在）</td></tr>
+  <tr><td>$\lim\limits_{x\to\infty}\dfrac1x$</td><td>$0$</td><td>$\lim\limits_{x\to+\infty}\sin x$</td><td>不存在（振荡）</td></tr>
+</table>
+
+<p style="margin-top:2rem"><strong>配讲课</strong>：0012（重要极限）· 0013（等价替换）· 0015（阶与渐近线）· 0016（数列极限）。<br>
+<strong>打印建议</strong>：A4 横向两页；⑧ 号表建议裁下贴在草稿本首页。</p>
+</main>
+</body>
+</html>

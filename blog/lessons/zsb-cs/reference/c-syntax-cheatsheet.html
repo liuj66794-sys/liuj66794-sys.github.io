@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<title>C 语法速查表</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<nav class="lesson-nav"><span><a href="../lessons/index.html">课程大纲</a> · 参考速查</span><span>打印友好</span></nav>
+
+<h1>C 语法速查表</h1>
+<p class="lesson-meta">广东专升本《计算机基础与程序设计》参考速查 · 覆盖 C 语言第 1～9 课核心语法</p>
+
+<h2>1. 数据类型与常量</h2>
+
+<h3>1.1 常用基本数据类型（字节数与范围，必背）</h3>
+<table>
+<tr><th>类型（符号）</th><th>关键字</th><th>字节</th><th>位数</th><th>表示范围</th></tr>
+<tr><td>字符型（有）</td><td>char</td><td>1</td><td>8</td><td>-2⁷ ~ 2⁷-1</td></tr>
+<tr><td>字符型（无）</td><td>unsigned char</td><td>1</td><td>8</td><td>0 ~ 2⁸-1</td></tr>
+<tr><td>短整型（有）</td><td>(signed)short</td><td>2</td><td>16</td><td>-2¹⁵ ~ 2¹⁵-1</td></tr>
+<tr><td>整型（有）</td><td>(signed)int</td><td>4</td><td>32</td><td>-2³¹ ~ 2³¹-1</td></tr>
+<tr><td>长整型（有）</td><td>(signed)long</td><td>4</td><td>32</td><td>-2³¹ ~ 2³¹-1</td></tr>
+<tr><td>整型（无）</td><td>unsigned</td><td>4</td><td>32</td><td>0 ~ 2³²-1</td></tr>
+<tr><td>短整型（无）</td><td>unsigned short</td><td>2</td><td>16</td><td>0 ~ 2¹⁶-1</td></tr>
+<tr><td>长整型（无）</td><td>unsigned long</td><td>4</td><td>32</td><td>0 ~ 2³²-1</td></tr>
+<tr><td>单精度实型</td><td>float</td><td>4</td><td>32</td><td>6 位有效数字</td></tr>
+<tr><td>双精度实型</td><td>double</td><td>8</td><td>64</td><td>约 15 位有效数字</td></tr>
+</table>
+<ul>
+<li>修饰顺序：<strong>先符号（signed/unsigned），后长短（short/long）</strong>。</li>
+<li>n 位无符号整数范围 <strong>0 ~ 2ⁿ-1</strong>；n 位有符号补码范围 <strong>-2ⁿ⁻¹ ~ 2ⁿ⁻¹-1</strong>。</li>
+<li>实型常量一律按 <strong>double</strong> 处理（3.14 是 double，6.28f/F 才是 float）。</li>
+<li>char 溢出回绕：上溢 128→<strong>-128</strong>，下溢 -129→<strong>127</strong>；<code>unsigned char c = -1;</code> 输出 <strong>255</strong>。</li>
+<li>存储形式：无符号整数按二进制，有符号整数按<strong>补码</strong>（负数补码＝反码+1），字符按 ASCII。</li>
+</ul>
+
+<h3>1.2 常量合法性要点</h3>
+<table>
+<tr><th>类别</th><th>规则</th><th>合法例 / 非法例</th></tr>
+<tr><td>十进制整型</td><td>普通写法</td><td>100、0、-12 ✓</td></tr>
+<tr><td>八进制整型</td><td><strong>以数字 0 开头</strong>，后接 0~7（不含 8/9）</td><td>066、0101 ✓；08C2 ✗（含 8/C）</td></tr>
+<tr><td>十六进制整型</td><td><strong>以 0x/0X 开头</strong>，后接 0~9/A~F/a~f</td><td>0x66、0X1A2 ✓；A8 ✗（缺前缀）</td></tr>
+<tr><td>整型后缀</td><td>L/l 长整型，U/u 无符号</td><td>66L、88U、63UL ✓</td></tr>
+<tr><td>实型（十进制）</td><td><strong>点的一侧要有数</strong></td><td>.2、-9.、-.3 ✓；.-2 ✗</td></tr>
+<tr><td>实型（指数 aEn）</td><td><strong>e 前 e 后要有数，e 后必须是整数</strong></td><td>3.14e3、.7e-2、6e0 ✓；-2e3、7e0.0、6e、e3 ✗</td></tr>
+<tr><td>字符 / 字符串</td><td>'a' 占 1 字节；"a" 占 2 字节（多一个 '\0'）</td><td>'love c' ✗（只能单字符）</td></tr>
+</table>
+
+<h2>2. ASCII 与转义字符</h2>
+
+<h3>2.1 必背 ASCII 值</h3>
+<table>
+<tr><th>字符</th><th>码值</th><th>字符</th><th>码值</th><th>字符</th><th>码值</th></tr>
+<tr><td>'A'</td><td><strong>65</strong></td><td>'a'</td><td><strong>97</strong></td><td>'0'</td><td><strong>48</strong></td></tr>
+<tr><td>'B'</td><td>66</td><td>'b'</td><td>98</td><td>'1'</td><td>49</td></tr>
+<tr><td>'C'</td><td>67</td><td>'c'</td><td>99</td><td>'2'</td><td>50</td></tr>
+</table>
+<ul>
+<li><strong>大写 = 小写 - 32</strong>（大写转小写 +32）；数字字符 = '0' + 数值。</li>
+<li>字符以 ASCII 码存储、可与整数通用：'A'+3 = 68 = 'D'；<code>printf("%c",97)</code> 输出 a。</li>
+</ul>
+
+<h3>2.2 常用转义字符（反斜杠开头，一个占 1 字节）</h3>
+<table>
+<tr><th>字符</th><th>含义</th><th>字符</th><th>含义</th></tr>
+<tr><td>\n</td><td>换行</td><td>\\</td><td>反斜杠</td></tr>
+<tr><td>\t</td><td>水平制表符（Tab）</td><td>\'</td><td>单引号</td></tr>
+<tr><td>\r</td><td>回车（移到本行开头）</td><td>\"</td><td>双引号</td></tr>
+<tr><td>\b</td><td>退格</td><td>\a</td><td>警告声</td></tr>
+<tr><td>\f</td><td>换页</td><td>\v</td><td>垂直制表符</td></tr>
+</table>
+<ul>
+<li>八进制转义 <code>\ddd</code>（1~3 位）：'\101' = 'A'；十六进制转义 <code>\xhh</code>：'\x41' = 'A'。</li>
+<li>区分：'\101' 是<strong>字符型</strong>（1 字节）；<code>0101</code> 是<strong>整型八进制常量</strong>（4 字节）。</li>
+<li>零值逻辑值（if 判断）：0、0.0、NULL、'\0' 为 0；<strong>'0'（ASCII 48）与 "0" 为 1</strong>。</li>
+</ul>
+
+<h2>3. 运算符与表达式</h2>
+
+<h3>3.1 运算符优先级（15 级，1 最高）</h3>
+<table>
+<tr><th>优先级</th><th>运算符</th><th>含义</th><th>结合方向</th></tr>
+<tr><td>1</td><td>( ) [ ] -&gt; .</td><td>圆括号、下标、指向成员、成员</td><td>从左至右</td></tr>
+<tr><td>2</td><td>! ~ ++ -- - (类型) * &amp; sizeof</td><td>逻辑非/取反/自增/自减/负号/强制转换/指针/取地址/长度</td><td><strong>从右至左</strong>（单目）</td></tr>
+<tr><td>3</td><td>* / %</td><td>乘、除、取余</td><td>从左至右</td></tr>
+<tr><td>4</td><td>+ -</td><td>加、减</td><td>从左至右</td></tr>
+<tr><td>5</td><td>&lt;&lt; &gt;&gt;</td><td>左移、右移</td><td>从左至右</td></tr>
+<tr><td>6</td><td>&lt; &lt;= &gt; &gt;=</td><td>关系</td><td>从左至右</td></tr>
+<tr><td>7</td><td>== !=</td><td>等于、不等于</td><td>从左至右</td></tr>
+<tr><td>8</td><td>&amp;</td><td>按位与</td><td>从左至右</td></tr>
+<tr><td>9</td><td>^</td><td>按位异或</td><td>从左至右</td></tr>
+<tr><td>10</td><td>|</td><td>按位或</td><td>从左至右</td></tr>
+<tr><td>11</td><td>&amp;&amp;</td><td>逻辑与</td><td>从左至右</td></tr>
+<tr><td>12</td><td>||</td><td>逻辑或</td><td>从左至右</td></tr>
+<tr><td>13</td><td>?:</td><td>条件（三目，唯一）</td><td><strong>从右至左</strong></td></tr>
+<tr><td>14</td><td>= += -= *= /= %= 等</td><td>赋值、复合赋值</td><td><strong>从右至左</strong></td></tr>
+<tr><td>15</td><td>,</td><td>逗号</td><td>从左至右</td></tr>
+</table>
+<p>记忆抓手：<strong>单目 &gt; 算术 &gt; 移位 &gt; 关系 &gt; 位运算（与&gt;异或&gt;或）&gt; 逻辑 &gt; 条件 &gt; 赋值 &gt; 逗号</strong>；不同级看级别，同级看结合方向。</p>
+
+<h3>3.2 / 与 % 的规则【必考】</h3>
+<table>
+<tr><th>运算符</th><th>规则</th><th>例</th></tr>
+<tr><td><code>/</code></td><td>右侧不能为 0；两侧均为整数 → 只保留整数部分；有一侧是小数 → 结果为 double</td><td>1/3=0，7/3=2，7/2.0=3.5</td></tr>
+<tr><td><code>%</code></td><td><strong>运算对象必须是整型</strong>（经典选择答案）；余数符号与被除数一致</td><td>7%3=1，-5%3=-2</td></tr>
+<tr><td><code>++</code> <code>--</code></td><td>只能用于<strong>变量</strong>：6++、(a+1)++ 均不合法；++i 先加后用，i++ 先用后加</td><td>i=10：a=i++ → a=10,i=11；a=++i → a=11,i=11</td></tr>
+<tr><td>复合赋值</td><td>优先级 14、<strong>右结合</strong>；x *= a+b ≡ x = x*(a+b)</td><td>a=10：a += a -= a*a → 先 -90 再 <strong>-180</strong></td></tr>
+<tr><td>逗号表达式</td><td>从左到右逐个算，整体值为<strong>最后一个</strong>表达式的值</td><td>a=(10,20,30) → a=30</td></tr>
+</table>
+
+<h3>3.3 自增自减 × 指针：四个表达式辨析【08 笔记】</h3>
+<table>
+<tr><th>表达式</th><th>含义</th></tr>
+<tr><td><code>*p++</code> / <code>*(p++)</code>（后置，等价）</td><td>先取当前指向的值，<strong>指针再后移</strong></td></tr>
+<tr><td><code>*(++p)</code></td><td><strong>指针先移动</strong>，再取值</td></tr>
+<tr><td><code>++(*p)</code></td><td>取出值后<strong>值自增</strong>，指针不动</td></tr>
+<tr><td><code>(*p)++</code></td><td>取出值参与运算后值自增，指针不动</td></tr>
+</table>
+
+<h2>4. printf / scanf</h2>
+
+<h3>4.1 printf 格式字符（必背）</h3>
+<table>
+<tr><th>格式字符</th><th>作用</th><th>示例</th></tr>
+<tr><td>%d</td><td>有符号十进制整数（正数不输出 +）</td><td>printf("%d",-100) → -100</td></tr>
+<tr><td>%md</td><td>指定列宽 m（含负号）</td><td>%5d 输出 100 → □□100</td></tr>
+<tr><td>%ld</td><td>long 型整数</td><td>—</td></tr>
+<tr><td>%c</td><td>单个字符（不带单引号）</td><td>printf("%c",97) → a</td></tr>
+<tr><td>%s</td><td>字符串（不带双引号），输出到 '\0' 止</td><td>printf("%s","hi") → hi</td></tr>
+<tr><td>%f</td><td>实型，<strong>默认 6 位小数</strong>（输出时 float/double 都可用）</td><td>printf("%f",1/2.0) → 0.500000</td></tr>
+<tr><td>%m.nf</td><td>宽度 m、<strong>n 位小数四舍五入</strong>【常考易错】</td><td>%6.3f 输出 -3.1415 → □-3.142</td></tr>
+<tr><td>%.nf</td><td>只保留 n 位小数（≡ %0.nf）</td><td>—</td></tr>
+<tr><td>%e / %m.ne</td><td>指数形式，默认 6 位小数</td><td>213.124 → 2.131240e+02</td></tr>
+<tr><td>%o</td><td>八进制输出，<strong>不带前缀 0、不带符号</strong>（%#o 带前缀）</td><td>—</td></tr>
+<tr><td>%x</td><td>十六进制输出（%#x 带前缀 0x）</td><td>—</td></tr>
+<tr><td>%u</td><td>无符号十进制</td><td>2 字节 unsigned a=-1 → 65535</td></tr>
+<tr><td>%%</td><td>输出一个 %</td><td>printf("a=%%d",a) → a=%d</td></tr>
+</table>
+<ul>
+<li>列宽补空格：<strong>m 为正左补、m 为负右补；数据宽度 ≥ |m| 原样输出</strong>。</li>
+<li>格式声明符与输出项个数不匹配：多出的项不输出；缺项输出随机值。</li>
+<li>C 语言本身没有输入输出语句，I/O 靠 stdio.h 库函数。</li>
+</ul>
+
+<h3>4.2 scanf 输入匹配规则【必考易错】</h3>
+<table>
+<tr><th>格式串写法</th><th>输入方法</th></tr>
+<tr><td>%d%d</td><td>用<strong>空格、回车或 Tab</strong> 分隔两个数</td></tr>
+<tr><td>%d,%d</td><td><strong>逗号必须原样输入</strong>：10,20</td></tr>
+<tr><td>a=%d</td><td><strong>普通字符原样输入</strong>：a=2</td></tr>
+<tr><td>%c%c%c</td><td><strong>连续输入，切勿加空格/回车</strong>（空格回车本身会被接收）</td></tr>
+<tr><td>%3d</td><td>截取指定宽度：输入 12345 只取 123，剩余留给下一变量</td></tr>
+</table>
+<ul>
+<li>地址列表必须是<strong>变量的地址（&amp;变量名）</strong>，缺 &amp; 无法正确输入。</li>
+<li><strong>double 必须用 %lf 输入</strong>（%f 对 double 无效）；<strong>C 不提供 %m.nf 形式的输入</strong>（选项直接排除）。</li>
+<li><code>scanf("%c%d",&amp;ch,&amp;a)</code> 输入 123 → ch='1'，a=23。</li>
+</ul>
+
+<h2>5. 控制结构</h2>
+
+<h3>5.1 语法骨架</h3>
+<pre><code>if (表达式) 语句1;              /* 单分支：表达式非 0 执行 */
+else 语句2;                     /* 双分支：只能走其中一条  */
+
+switch (表达式)                 /* 表达式只能是整型/字符型 */
+{
+    case 常量1: 语句组1; break; /* case 后是整型/字符型常量，值必须唯一 */
+    default: 语句组n;
+}
+
+while (表达式) 语句;            /* 先判断后执行，最少 0 次 */
+
+do 语句; while (表达式);        /* 先执行后判断，最少 1 次；分号必须有 */
+
+for (表达式1; 表达式2; 表达式3) 语句;
+/* e1 只执行一次；e2 循环体前判断，省略则恒真死循环；e3 循环体之后执行 */</code></pre>
+<ul>
+<li><code>if(x)</code> ≡ <code>if(x!=0)</code>；<code>if(!x)</code> ≡ <code>if(x==0)</code>；<code>if(a=b)</code> 是赋值不是比较。</li>
+<li><strong>else 配对</strong>：else 总与它<strong>前面最近的且未配对的 if</strong> 配对，与缩进无关；花括号可改变配对。</li>
+<li><strong>短路规则</strong>：<code>&amp;&amp;</code> 左边为假右边不算；<code>||</code> 左边为真右边不算（右侧自增/自减/赋值不执行）。</li>
+<li><code>(ch=getchar())!='\n'</code> 的括号不可省（!= 优先级高于 =）。</li>
+</ul>
+
+<h3>5.2 switch 规则要点</h3>
+<ul>
+<li>switch 表达式只能是<strong>整型或字符型</strong>（不能实型）；case 后只能整型/字符型<strong>常量</strong>且值必须唯一（case 'a' 与 case 97 重复报错）。</li>
+<li><strong>case 是"入口"，break 是"出口"</strong>：语句组无 break → 继续执行下一个 case 的语句组＝<strong>case 穿透</strong>【必考】。</li>
+<li>default 只能一个、位置不影响匹配（先匹配所有 case，都不中才走 default）；全不中且无 default → 执行 switch 的下一条语句。</li>
+<li>嵌套 switch：内层 break <strong>只结束内层</strong>（就近原则）。</li>
+</ul>
+
+<h3>5.3 break 与 continue【常考】</h3>
+<table>
+<tr><th></th><th>break</th><th>continue</th></tr>
+<tr><td>作用范围</td><td><strong>结束整个</strong>所属循环（嵌套时只结束所属层）</td><td>只提前<strong>结束本次</strong>，循环不终止</td></tr>
+<tr><td>for 中去向</td><td>循环的下一条语句（<strong>不经过表达式 3</strong>）</td><td><strong>表达式 3</strong> → 再判表达式 2</td></tr>
+<tr><td>可用位置</td><td>switch + 循环</td><td>仅循环体中</td></tr>
+</table>
+<p>while / do-while 的 continue 直接回到条件表达式。循环体内 switch 的 break 只跳出 switch、不跳出循环。</p>
+
+<h2>6. 位运算（对补码运算）</h2>
+<table>
+<tr><th>运算符</th><th>优先级</th><th>规则</th><th>例</th></tr>
+<tr><td>~</td><td>2（单目）</td><td>按位取反（<strong>符号位也变</strong>）；规律 ~x = -x-1</td><td>~3 = -4；~-3 = 2</td></tr>
+<tr><td>&lt;&lt;</td><td>5</td><td>左移右侧补 0：<strong>m&lt;&lt;n = m×2ⁿ</strong></td><td>6&lt;&lt;1=12，6&lt;&lt;2=24</td></tr>
+<tr><td>&gt;&gt;</td><td>5</td><td>右移：<strong>正数左补 0，负数左补 1</strong>；m&gt;&gt;n = m÷2ⁿ</td><td>6&gt;&gt;1=3，-16&gt;&gt;2=-4</td></tr>
+<tr><td>&amp;</td><td>8</td><td>按位与：一 0 则 0</td><td>3&amp;6=2</td></tr>
+<tr><td>^</td><td>9</td><td>异或：<strong>相同 0 不同 1</strong></td><td>3^6=5</td></tr>
+<tr><td>|</td><td>10</td><td>按位或：一 1 则 1</td><td>3|6=7</td></tr>
+</table>
+
+<h2>7. 数组与字符串</h2>
+
+<h3>7.1 一维 / 二维数组规则</h3>
+<ul>
+<li>定义：<code>类型 数组名[常量表达式];</code>，下标从 <strong>0</strong> 开始；<code>int a[n]</code>（变量）不合法、<code>int a[2.3]</code> 不合法；<strong>定义后大小不可改变</strong>。</li>
+<li>初始化：部分初始化其余自动为 0；<code>int a[5]={0}</code> 全零；<code>int a[]={…}</code> 省略长度按个数定；<strong>不指定长度又不初始化 → 报错</strong>；列表个数 &gt; 长度 → 警告。</li>
+<li><strong>数组名 = 首元素地址 = &amp;a[0]，是地址常量</strong>：<code>a++</code>、<code>a=a+1</code> 非法；<code>a+i ≡ &amp;a[i]</code>；a+1 实际加 sizeof(元素类型) 字节。</li>
+<li>引用只能逐个元素；<strong>下标越界不报错不警告</strong>，输出随机值。</li>
+<li>二维 <code>int a[M][N]</code>：内存线性连续存储；<code>a[i][j]</code> 之前有 <strong>i×N+j</strong> 个元素（是第 i×N+j+1 个）；初始化<strong>只能省第一维（行数），列数不可省</strong>；主对角线 i==j，副对角线 i+j==N-1。</li>
+<li>冒泡排序：n 个数比 <strong>n-1 趟，第 x 趟比 n-x-1 次</strong>；选择排序：n 个数据 n-1 轮。</li>
+</ul>
+
+<h3>7.2 字符数组与字符串</h3>
+<ul>
+<li>C 没有字符串类型，用<strong>字符数组或字符指针</strong>存放；处理字符串<strong>遇 '\0' 停止</strong>。</li>
+<li><code>char c[]="abc"</code> 长度 4（含 '\0'）；<code>char c[5]={'a','b','c'}</code> 长度 5、c[3]=c[4]='\0'。</li>
+<li><code>scanf("%s",c)</code> 参数 2 不能写 &amp;c（数组名即地址）；%s <strong>遇空格停</strong>，要收空格用 gets。</li>
+</ul>
+
+<h3>7.3 六大字符串处理函数</h3>
+<table>
+<tr><th>函数</th><th>头文件</th><th>形式</th><th>功能与考点</th></tr>
+<tr><td>puts</td><td>stdio.h</td><td>puts(字符数组)</td><td>输出字符串，<strong>输出后自动换行</strong>；只能一个参数</td></tr>
+<tr><td>gets</td><td>stdio.h</td><td>gets(字符数组)</td><td>输入字符串，<strong>空格也收入</strong>；只能一个参数</td></tr>
+<tr><td>strcat</td><td>string.h</td><td>strcat(数组1, 串2)</td><td>连接：串 2 接到串 1 后（从串 1 的 '\0' 处接），<strong>数组 1 要足够大</strong></td></tr>
+<tr><td>strcpy</td><td>string.h</td><td>strcpy(数组1, 串2)</td><td>复制串 2（含 '\0'）进数组 1，<strong>数组 1 要足够大</strong>；解决数组名不能整体赋值（s="qwe" ✗）的问题</td></tr>
+<tr><td>strcmp</td><td>string.h</td><td>strcmp(串1, 串2)</td><td>按 ASCII 逐字符比较：大返回<strong>正数</strong>、相等 <strong>0</strong>、小<strong>负数</strong>；字符串不能用关系运算符比较</td></tr>
+<tr><td>strlen</td><td>string.h</td><td>strlen(串)</td><td>测长度<strong>不含 '\0'</strong>（遇 '\0' 停）；strlen("abc\0def")=3</td></tr>
+</table>
+<p><strong>strlen vs sizeof</strong>：strlen 测字符串长度（不含 '\0'）；sizeof 求占内存字节数（含 '\0'）——问"占几个字节"用 sizeof。</p>
+
+<h2>8. 指针</h2>
+
+<h3>8.1 基础规则</h3>
+<ul>
+<li><strong>指针就是地址；指针变量是存放地址的变量</strong>；<strong>基类型必须一致</strong>（int 指针不能指 float 变量）。</li>
+<li>指针变量只能赋<strong>地址</strong>（或 0/NULL 表示零号地址），赋整型常量非法；&amp; 后只能跟变量、* 后只能跟地址。</li>
+<li>p+1 实际加 <strong>sizeof(基类型)</strong> 字节；同数组内 p2-p1 = <strong>元素个数差</strong>；指针相加/乘/除无意义。</li>
+<li>指针变量同字长下大小一样：32 位机 4 字节、64 位机 8 字节。</li>
+</ul>
+
+<h3>8.2 核心等价关系（必背）</h3>
+<p>一维：<code>a ≡ &amp;a[0]</code>，<code>a+i ≡ &amp;a[i]</code>，<code>*(a+i) ≡ a[i]</code>，<code>*(p+i) ≡ p[i]</code>（p 先指 a[0]）。</p>
+<table>
+<tr><th>表达式（二维）</th><th>含义</th></tr>
+<tr><td>a</td><td>二维数组名（首行地址 &amp;a[0]）</td></tr>
+<tr><td>a+i / &amp;a[i]</td><td>第 i <strong>行</strong>的地址</td></tr>
+<tr><td>*(a+i) / a[i]</td><td>第 i 行首元素地址 &amp;a[i][0]</td></tr>
+<tr><td>*(a+i)+j / a[i]+j</td><td>i 行 j 列元素的<strong>地址</strong> &amp;a[i][j]</td></tr>
+<tr><td>*(*(a+i)+j) / *(a[i]+j)</td><td>i 行 j 列元素的<strong>值</strong> a[i][j]</td></tr>
+<tr><td>*a / a[0]</td><td>0 行 0 列元素地址 &amp;a[0][0]</td></tr>
+</table>
+<p>a 与 &amp;a[0][0] 数值相同但类型不同：a 是指向一行的指针 int(*)[n]，a[0]、&amp;a[0][0] 是 int*。</p>
+
+<h3>8.3 五种带 * 的定义辨析（必背）</h3>
+<table>
+<tr><th>定义</th><th>含义</th><th>属性</th></tr>
+<tr><td>int (*p)[4]</td><td>指向"含 4 个 int 的一行数组"</td><td>指针变量（数组指针）</td></tr>
+<tr><td>int *p[4]</td><td>含 4 个元素，每个元素都是指针</td><td>数组（指针数组）</td></tr>
+<tr><td>int (*p)()</td><td>指向函数的指针（不能做 p+1 运算）</td><td>指针变量（函数指针）</td></tr>
+<tr><td>int *p()</td><td>返回值是地址（指针）的函数</td><td><strong>函数</strong></td></tr>
+<tr><td>int **p</td><td>指向指针的指针（二级指针），**p 才是值</td><td>指针变量</td></tr>
+</table>
+<p>判断口诀：p 先与 <code>[ ]</code> 结合是<strong>数组</strong>，先与 <code>( )</code> 结合是<strong>函数</strong>。</p>
+
+<h3>8.4 传值 vs 传址【必考对比】</h3>
+<table>
+<tr><th>方式</th><th>写法</th><th>能否交换 main 的 a、b</th></tr>
+<tr><td>传值</td><td>swap(int x,int y)，调用 swap(a,b)</td><td><strong>失败</strong>——形参拿副本，改形参不影响实参</td></tr>
+<tr><td>传址 + 交换值</td><td>swap(int *x,int *y)，体内 <code>t=*x; *x=*y; *y=t;</code></td><td><strong>成功</strong></td></tr>
+<tr><td>传址 + 只换指向</td><td>体内 <code>t=x; x=y; y=t;</code></td><td><strong>失败</strong>——只交换了形参指针的指向</td></tr>
+</table>
+<p>数组名作实参＝传首元素地址（传址）：形参数组与实参数组共用内存，形参元素变了实参跟着变；形参数组名按指针处理（<code>void f(int arr[],int n)</code> 等价 <code>void f(int *arr,int n)</code>）。</p>
+<p>字符串：<code>char *s="hello"</code>（声明初始化）合法；<code>*s="hello"</code>、<code>s={"abcd"}</code>（赋值语句）、<code>char s[10]; s="abcd";</code> 均非法——数组名是常量，用 <strong>strcpy</strong>。</p>
+
+<h2>9. 函数</h2>
+<ul>
+<li><strong>先定义后使用</strong>；被调函数定义在下方时需在调用前<strong>声明</strong>：</li>
+</ul>
+<pre><code>int fun(int x, int y);   /* 写法一：带形参名 */
+int fun(int, int);       /* 写法二：只写参数类型（形参名可省） */</code></pre>
+<ul>
+<li><strong>return 规则</strong>：只能返回一个值；<code>return(a,b);</code> 返回逗号表达式的值（b）；执行到 return 函数即结束、其后代码不再执行；返回值类型与函数类型不一致时自动转换；void 函数名没有值。</li>
+<li><strong>传值单向 vs 数组名传址</strong>：普通实参传值（单向赋值，形参变实参不变）；数组名作实参传首地址（形参数组变、实参数组跟着变）；形参数组大小 = 指针大小（4/8 字节）；二维形参<strong>可省第一维、不可省第二维</strong>（<code>int a[][3]</code>）。</li>
+<li><strong>static 静态局部变量四要点【必考】</strong>：① 整个运行期间不释放（调用结束值保留）；② 编译时赋初值、<strong>只赋一次</strong>；③ 不赋初值自动为 0（数值型）或 '\0'（字符型）；④ 调用结束后仍存在，但<strong>只能被本函数引用</strong>。</li>
+<li><strong>全局变量不初始化默认 0</strong>（局部自动变量才是随机值）；与局部变量同名时函数内<strong>局部屏蔽全局</strong>；作用域 = 定义处到源文件结束。</li>
+<li>存储类别：auto（默认，动态存储区）、register（CPU 寄存器）、static（静态存储区）、extern（声明扩展全局变量作用域，<strong>不分配空间、不可再初始化</strong>）。</li>
+<li>函数间<strong>平行</strong>不能嵌套定义；函数未调用不占内存（形参也不占）。递归必须有<strong>终止条件</strong>、逐层返回（f(n)=f(n-1)*n，f(1)=1 → 5!=120）。</li>
+</ul>
+
+<h2>10. 结构体与文件</h2>
+
+<h3>10.1 结构体</h3>
+<pre><code>struct Student          /* struct 是关键字 */
+{
+    int num;
+    char name[20];
+    float score;
+};                      /* ← 这个分号不能少 */</code></pre>
+<ul>
+<li>成员<strong>只能定义变量</strong>：不可直接初始化、不可出现常量；"类型"不可赋值不可初始化。</li>
+<li><strong>类型不占空间，定义变量才开辟</strong>；变量大小 = 各成员之和（考试无特别说明选理论值，如 4+20+4=28 字节）。</li>
+<li>只能在<strong>定义变量的同时</strong>整体初始化（常量次序与成员一致）；先定义再 <code>lisi={…}</code> 非法，只能逐成员赋值。</li>
+<li><strong>字符数组成员必须用 strcpy</strong>：<code>lisi.name="lisi";</code> ✗ → <code>strcpy(lisi.name,"lisi");</code> ✓（name 是地址常量）。</li>
+<li>scanf 时数值成员加 &amp;、数组名成员不加：<code>scanf("%d%s%f",&amp;lisi.num,lisi.name,&amp;lisi.score);</code></li>
+<li>同类结构体变量可相互赋值：<code>zhangsan = lisi;</code></li>
+</ul>
+<table>
+<tr><th colspan="3">三种成员访问（p 指向 lisi 时等价）【易考】</th></tr>
+<tr><td>lisi.num</td><td>(*p).num（必须加括号）</td><td>p-&gt;num（指向运算符）</td></tr>
+</table>
+<p><code>*p.num</code> 非法——≡ *(p.num)，因 <code>.</code> 和 <code>-&gt;</code> 优先级高于 <code>*</code>。</p>
+
+<h3>10.2 文件</h3>
+<table>
+<tr><th>fopen 打开方式</th><th>含义</th><th>打开失败时</th></tr>
+<tr><td>r</td><td><strong>只读</strong>，从文件读数据</td><td>返回 <strong>NULL</strong></td></tr>
+<tr><td>w</td><td><strong>只写</strong>，向文件写数据</td><td><strong>新建文件</strong></td></tr>
+<tr><td>a</td><td><strong>追加</strong>，向文件末尾添加数据</td><td>返回 <strong>NULL</strong></td></tr>
+</table>
+<table>
+<tr><th>函数</th><th>调用方式</th><th>功能</th><th>失败/结束</th></tr>
+<tr><td>fgetc</td><td>fgetc(文件指针);</td><td>从文件读一个字符</td><td>返回 <strong>EOF</strong>（文件结束标志）</td></tr>
+<tr><td>fputc</td><td>fputc(字符, 文件指针);</td><td>向文件写一个字符</td><td>返回 <strong>EOF</strong></td></tr>
+</table>
+<pre><code>FILE *fp;
+fp = fopen("a.txt", "r");        /* 打开失败返回 NULL，先判空再用 */
+char c;
+while ((c = fgetc(fp)) != EOF)   /* 常用循环写法 */
+    putchar(c);</code></pre>
+
+<p class="lesson-meta">整理依据：知识库笔记《C语言》01～09 共 9 篇（数据类型/优先级表取自 02 笔记 §3.1、§7.1，格式字符取自 03 笔记 §2.3，位运算取自 04 笔记，字符串函数取自 06 笔记 §4，指针等价表与 *p++ 辨析取自 08 笔记 §2.3/§3.2/§5，结构体与文件取自 09 笔记）。</p>
+</body>
+</html>

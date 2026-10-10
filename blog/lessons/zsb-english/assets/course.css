@@ -1,0 +1,135 @@
+/* 专升本英语课程 · 共享样式 —— 所有 lesson 引用本文件，保持一套课程观感 */
+:root {
+  --paper: #fbfaf6;
+  --ink: #26221b;
+  --muted: #8a8171;
+  --line: #e6e1d4;
+  --teal: #0e6b5c;
+  --accent: #9a4a12;
+  --tip-bg: #edf6ee;   --tip-edge: #4a8f60;
+  --warn-bg: #fbf3e2;  --warn-edge: #c9881a;
+  --mn-bg: #f2eefa;    --mn-edge: #7a5cc4;
+  --ans-bg: #edf3f9;   --ans-edge: #44739f;
+  --ok: #2f7d4f;  --ok-bg: #e8f3ec;
+  --bad: #b8423c; --bad-bg: #faeceb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.8 "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+}
+main { max-width: 46rem; margin: 0 auto; padding: 2.2rem 1.25rem 4rem; }
+
+/* 页眉 */
+.crumb { font-size: .84rem; color: var(--muted); margin-bottom: 2.2rem; }
+.crumb a { color: var(--muted); }
+.kicker { font-size: .78rem; letter-spacing: .18em; color: var(--accent); margin: 0 0 .3rem; }
+h1 { font-size: 1.72rem; line-height: 1.3; margin: 0 0 .5rem; }
+.lede { color: var(--muted); margin: 0 0 1.6rem; font-size: .98rem; }
+
+/* 标题节奏 */
+h2 { font-size: 1.24rem; margin: 2.7rem 0 .9rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+h3 { font-size: 1.04rem; margin: 1.5rem 0 .5rem; }
+p { margin: .55rem 0; }
+a { color: var(--teal); }
+strong { color: #000; }
+
+/* 英文例句 */
+.en { font-family: Georgia, "Times New Roman", serif; }
+.ex { margin: .35rem 0 .35rem 1rem; padding-left: .8rem; border-left: 3px solid var(--line); }
+.ex .en { font-size: 1.02rem; }
+.ex b, .ex strong { color: var(--teal); }
+.ex .zh { color: var(--muted); font-size: .92rem; }
+
+/* 表格 */
+table { border-collapse: collapse; width: 100%; margin: .8rem 0 1.1rem; font-size: .93rem; line-height: 1.6; }
+th, td { border: 1px solid var(--line); padding: .42rem .65rem; text-align: left; vertical-align: top; }
+th { background: #f2efe6; font-weight: 600; white-space: nowrap; }
+
+/* 调用框 */
+.callout { margin: .9rem 0; padding: .7rem 1rem .7rem .9rem; border-left: 4px solid; border-radius: 0 6px 6px 0; font-size: .95rem; }
+.callout .cap { display: block; font-weight: 700; font-size: .84rem; letter-spacing: .06em; margin-bottom: .15rem; }
+.tip  { background: var(--tip-bg);  border-color: var(--tip-edge); }
+.tip .cap  { color: var(--tip-edge); }
+.warn { background: var(--warn-bg); border-color: var(--warn-edge); }
+.warn .cap { color: #a06c0f; }
+.mn   { background: var(--mn-bg);   border-color: var(--mn-edge); }
+.mn .cap   { color: var(--mn-edge); }
+.mn b { color: #5b3fa8; }
+.ans  { background: var(--ans-bg);  border-color: var(--ans-edge); }
+.ans .cap  { color: var(--ans-edge); }
+
+/* 考点地图（条目可点击跳转到对应章节） */
+html { scroll-behavior: smooth; }
+h2[id], h3[id] { scroll-margin-top: .8rem; }
+.map { background: #f4f1e9; border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1.2rem; margin: 0 0 1.4rem; font-size: .96rem; }
+.map .cap { font-weight: 700; color: var(--accent); display: block; margin-bottom: .3rem; }
+.map ol { margin: .2rem 0; padding-left: 1.3rem; }
+.map li { margin: .15rem 0; }
+.map li a { color: inherit; text-decoration: none; }
+.map li a::after { content: " ↷"; font-size: .85em; color: var(--muted); }
+.map li a:hover { color: var(--teal); text-decoration: underline; }
+.map li a:hover::after { color: var(--teal); }
+h2[id]:target, h3[id]:target { color: var(--teal); }
+
+/* 互动练习 */
+.quiz-score { font-size: .92rem; color: var(--muted); background: #f4f1e9; border: 1px solid var(--line); border-radius: 6px; padding: .4rem .8rem; margin-bottom: 1rem; }
+.quiz-score b { color: var(--ink); font-size: 1.05rem; }
+.qcard { border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1.1rem 1rem; margin: 0 0 1rem; background: #fff; }
+.qtext { margin: 0 0 .6rem; font-weight: 600; }
+/* 常见中文字体和 Georgia 只有 400/700 两档：600 会被渲染成粗体，导致题干里的 <b> 与周围文字同重、看不出加粗。
+   因此题干英文句用常规字重，加粗词再上强调色，保证任何设备上都能一眼看出考点词。 */
+.qtext .en { font-weight: 400; }
+.qtext b, .qtext strong { font-weight: 700; color: var(--accent); }
+.qno { color: var(--accent); margin-right: .2rem; }
+.qopts { display: grid; gap: .45rem; }
+button.opt {
+  text-align: left; font: inherit; font-size: .95rem; line-height: 1.6;
+  padding: .42rem .8rem; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--paper); cursor: pointer; transition: background .15s, border-color .15s;
+}
+button.opt:hover:not(:disabled) { border-color: var(--teal); background: #eef4f2; }
+button.opt:disabled { cursor: default; opacity: .82; }
+button.opt.is-ok { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); font-weight: 600; opacity: 1; }
+button.opt.is-no { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); opacity: 1; }
+.qwhy { margin-top: .7rem; font-size: .9rem; line-height: 1.7; padding: .55rem .8rem; border-radius: 6px; background: var(--ans-bg); border-left: 3px solid var(--ans-edge); }
+
+/* 阅读文章块（题型技巧课） */
+.passage { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 1rem 1.2rem; margin: .8rem 0 1rem; font-size: .95rem; }
+.passage p { margin: .5rem 0; }
+.passage .en { font-family: Georgia, "Times New Roman", serif; }
+
+/* 整卷题目列表（模拟卷/押题卷课） */
+ol.paper { padding-left: 1.6rem; margin: .4rem 0 .6rem; }
+ol.paper > li { margin: .55rem 0; line-height: 1.75; }
+ol.paper .en { font-family: Georgia, "Times New Roman", serif; }
+
+/* 答案折叠（模拟卷/押题卷课） */
+details.ansbox { margin: .9rem 0 1.2rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+details.ansbox summary { cursor: pointer; padding: .55rem .9rem; font-size: .92rem; font-weight: 600; color: var(--ans-edge); user-select: none; }
+details.ansbox[open] summary { border-bottom: 1px dashed var(--line); }
+details.ansbox .ansbody { padding: .6rem 1rem .9rem; font-size: .93rem; line-height: 1.75; }
+details.ansbox .ansbody table { margin: .5rem 0; }
+details.ansbox .ansbody .en { font-family: Georgia, "Times New Roman", serif; }
+
+/* 页脚 */
+footer { margin-top: 3.2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: .92rem; color: var(--muted); }
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1.1rem; }
+.lesson-nav a { text-decoration: none; }
+.lesson-nav .spacer { flex: 1; }
+.ask { font-size: .88rem; }
+#mark-done {
+  font: inherit; font-size: .92rem; padding: .45rem 1.2rem; cursor: pointer;
+  border: 1.5px solid var(--teal); color: var(--teal); background: transparent; border-radius: 999px;
+}
+#mark-done:hover { background: #eef4f2; }
+#mark-done.is-done { border-color: var(--ok); color: var(--ok); background: var(--ok-bg); }
+
+@media print {
+  body { background: #fff; font-size: 12px; }
+  .crumb, #mark-done, button.opt { display: none; }
+  .qwhy, .ans { display: block !important; }
+  main { max-width: none; padding: 0; }
+}

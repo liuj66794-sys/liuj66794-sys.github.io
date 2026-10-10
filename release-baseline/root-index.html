@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>L1U.J 的学习宇宙 | liuj66794-sys</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="L1U.J 的学习宇宙" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="L1U.J 的学习宇宙 —— 个人技术博客：五门课程、博客、知识库与项目墙" />
+<meta property="og:description" content="L1U.J 的学习宇宙 —— 个人技术博客：五门课程、博客、知识库与项目墙" />
+<link rel="canonical" href="https://liuj66794-sys.github.io/" />
+<meta property="og:url" content="https://liuj66794-sys.github.io/" />
+<meta property="og:site_name" content="liuj66794-sys" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="L1U.J 的学习宇宙" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"L1U.J 的学习宇宙 —— 个人技术博客：五门课程、博客、知识库与项目墙","headline":"L1U.J 的学习宇宙","name":"liuj66794-sys","url":"https://liuj66794-sys.github.io/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7b9b76134d31a7f6f1b18b4bc57d09331eb772ec">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://liuj66794-sys.github.io/">liuj66794-sys</a></h1>
+      
+
+      <h1 id="l1uj-的学习宇宙">L1U.J 的学习宇宙</h1>
+
+<p>个人技术博客站点（<a href="https://liuj66794-sys.github.io">liuj66794-sys.github.io</a>）：学习内容 + 课程 + GitHub 项目 + 个人主页，四合一。</p>
+
+<ul>
+  <li><strong>框架</strong>：VuePress 2 + <a href="https://theme-plume.vuejs.press/">vuepress-theme-plume</a></li>
+  <li><strong>部署</strong>：GitHub Actions → GitHub Pages（推送 <code class="language-plaintext highlighter-rouge">main</code> 自动发布）</li>
+</ul>
+
+<h2 id="目录结构">目录结构</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docs/
+├── .vuepress/
+│   ├── config.ts          # VuePress 配置
+│   ├── theme.ts           # Plume 主题配置（集合/导航/搜索）
+│   └── public/lessons/    # 讲义 HTML 原样托管（sync-learn 生成）
+├── README.md              # 首页
+├── blog/                  # 博客（post 集合，学习记录）
+├── courses/               # 课程目录页（doc 集合 × 5 门课）
+├── knowledge/             # 知识库（doc 集合：总纲/术语/ADR）
+└── projects/              # 项目墙（fetch-projects 生成）
+scripts/
+├── sync-learn.mjs         # D:\01-Documents\learn → 站点内容
+└── fetch-projects.mjs     # GitHub API → 项目墙
+</code></pre></div></div>
+
+<h2 id="常用命令">常用命令</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pnpm <span class="nb">install</span>          <span class="c"># 安装依赖</span>
+pnpm <span class="nb">sync</span>             <span class="c"># 同步学习仓库（讲义/学习记录/知识库/课程目录）</span>
+pnpm fetch-projects   <span class="c"># 刷新 GitHub 项目墙</span>
+pnpm docs:dev         <span class="c"># 本地开发（http://localhost:8080）</span>
+pnpm docs:build       <span class="c"># 构建</span>
+pnpm build            <span class="c"># sync + fetch-projects + build 全流程</span>
+</code></pre></div></div>
+
+<h2 id="内容更新流程">内容更新流程</h2>
+
+<ol>
+  <li>在学习仓库产出新的讲义 / 学习记录</li>
+  <li><code class="language-plaintext highlighter-rouge">pnpm sync</code> → 检查 <code class="language-plaintext highlighter-rouge">git status</code> 确认变更</li>
+  <li>提交并推送到 <code class="language-plaintext highlighter-rouge">main</code>，GitHub Actions 自动构建发布</li>
+</ol>
+
+<p>讲义为独立 HTML（含随堂测交互），过渡期原样托管在 <code class="language-plaintext highlighter-rouge">/lessons/&lt;课程&gt;/</code>；后续逐步转为 Markdown 纳入主题体系（见 方案.md §4.1 方案 C）。</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

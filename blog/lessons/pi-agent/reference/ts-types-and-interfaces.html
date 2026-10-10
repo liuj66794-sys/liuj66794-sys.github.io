@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查表 · TS 类型与接口</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">速查表 · 压缩自第 2 课 ｜ 随课程推进持续更新</div>
+
+<h1>TS 类型与接口</h1>
+
+<p>这页是"类型系统"的压缩精华：写工具、读 pi 源码时随手查。</p>
+
+<h2>基础类型</h2>
+
+<table>
+  <tr><th>类型</th><th>含义</th><th>例子</th></tr>
+  <tr><td><code>string</code></td><td>字符串</td><td><code>"hello"</code></td></tr>
+  <tr><td><code>number</code></td><td>数字</td><td><code>42</code>, <code>3.14</code></td></tr>
+  <tr><td><code>boolean</code></td><td>布尔</td><td><code>true</code>, <code>false</code></td></tr>
+  <tr><td><code>string[]</code></td><td>字符串数组</td><td><code>["a", "b"]</code></td></tr>
+  <tr><td><code>any</code></td><td>关闭类型检查</td><td>尽量少用，临时占位</td></tr>
+</table>
+
+<h2>interface：对象的形状合同</h2>
+
+<pre><code>interface Package {
+  receiver: string;
+  phone: string;
+  address: string;
+}</code></pre>
+
+<p>一旦声明 <code>const pkg: Package = {...}</code>，缺字段或多字段都会在运行前被 TypeScript 拦下。</p>
+
+<h2>可选属性与 readonly</h2>
+
+<pre><code>interface ToolV2 {
+  name: string;
+  category?: string;   // ? 可选：没有也行
+  readonly id: string; // readonly：创建后不可修改
+}</code></pre>
+
+<h2>Record&lt;string, T&gt;：容器的形状</h2>
+
+<p><code>Record&lt;string, Tool&gt;</code> 读作"键为字符串、值为 Tool 的对象"——它描述的是<strong>容器长什么样</strong>，不是"获取所有工具"这个动作。</p>
+
+<h2>Agent 工具骨架（背下来）</h2>
+
+<pre><code>interface Tool {
+  name: string;
+  description: string;
+  execute: (args: Record&lt;string, any&gt;) => string;
+}
+
+const toolRegistry: Record&lt;string, Tool&gt; = {
+  calculator,
+  greeter,
+};
+
+function runTool(name: string, args: Record&lt;string, any&gt;): string {
+  const tool = toolRegistry[name];
+  if (!tool) return `错误：找不到名为 "${name}" 的工具`;
+  return tool.execute(args);
+}</code></pre>
+
+<div class="callout">
+  <span class="label">面试怎么考</span>
+  "你怎么保证 Agent 调用工具时参数不报错？"——答案骨架：用 interface / schema 在编译期校验参数形状（运行时的第二层校验后续课程会补）。
+</div>
+
+<div class="further">
+<h2>出处与导航</h2>
+<ul>
+  <li><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html">TypeScript Handbook: Everyday Types</a> ｜ <a href="https://www.typescriptlang.org/docs/handbook/2/objects.html">TypeScript Handbook: Object Types</a></li>
+</ul>
+<p>课程导航：<a href="../lessons/0002-types-and-interfaces-for-tools.html">第 2 课</a> ｜ <a href="../GLOSSARY.md">词汇表</a> ｜ <a href="../ROADMAP.md">路线图</a></p>
+</div>
+
+</main>
+</body>
+</html>

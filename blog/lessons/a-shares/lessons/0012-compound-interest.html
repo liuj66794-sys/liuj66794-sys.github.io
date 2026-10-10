@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 12 课 · 复利 | A 股入门</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/a-shares/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<div class="lesson-meta">
+  <span>模块 1 · 概念扫盲 | 第 2 周 · 第 12 课</span>
+  <span>三段式：20 分钟读 + 15 分钟动手 + 5 分钟费曼</span>
+</div>
+
+<h1>复利：整个计划的数学灵魂</h1>
+
+<div class="win">学完你能：讲清单利与复利的差别来源，用 72 法则心算翻倍年数，说出复利的三个敌人。</div>
+
+<div class="mission-tie">与考核的关系：复利 ★ 是 22 个概念里唯一贯穿全部 6 个模块的——指数基金定投（模块 2）、长期持有（模块 4）、巴菲特精读（模块 5）背后都是同一条数学。你知识库里的 compound-interest 页面已有哲学版，本课补上数字版。</div>
+
+<h2>课前回炉（凭记忆作答，不许翻旧讲义）</h2>
+
+<div class="quiz review" data-answer="1" data-explain="逆回购是现金管理工具，定位是 1000 元现金仓的停泊港，不是赚钱工具。（回炉第 11 课）">
+  <p class="q">回炉 1. 国债逆回购的定位是？</p>
+  <ul class="opts">
+    <li>高杠杆的合约</li>
+    <li>现金停泊港口</li>
+    <li>快速致富工具</li>
+  </ul>
+</div>
+
+<div class="quiz review" data-answer="2" data-explain="分红是资产形态的转换（股价下调 + 现金到账），不是额外收入。（回炉第 8 课）">
+  <p class="q">回炉 2. 对分红最容易犯的错觉是？</p>
+  <ul class="opts">
+    <li>股价必然大涨</li>
+    <li>免税免手续费</li>
+    <li>是额外的收入</li>
+  </ul>
+</div>
+
+<h2>一、单利 vs 复利：差在"收益是否再投入"</h2>
+<p><b>单利</b>：只有本金生息，利息不参与生息。<b>复利</b>：每一期收益滚入本金，一起生息（"利滚利"）。公式：<span class="num">终值 = 本金 × (1 + r)ⁿ</span>。</p>
+
+<div class="example">
+  <span class="tag">算例：1 万元 × 年化 8% × 30 年</span>
+  <p>单利：10000 + 10000 × 8% × 30 = <b>3.4 万</b></p>
+  <p>复利：10000 × 1.08³⁰ ≈ <b>10.06 万</b></p>
+  <p>同样本金、同样利率，只差一件事：<b>收益有没有再投入</b>。30 年后差距约 3 倍。</p>
+</div>
+
+<h2>二、72 法则：心算翻倍年数</h2>
+<p><b>72 ÷ 年化收益率的百分数 ≈ 翻倍所需年数</b>。8% → 约 9 年翻倍；6% → 约 12 年；12% → 约 6 年。反过来用：想在 9 年翻倍，需要约 8% 的年化。它不精确（是近似法则），但足够你在心里给一切"收益率故事"快速定价。</p>
+
+<h2>三、定投的复利：模块 2 你会亲手算</h2>
+<p>每月 500 元、年化 8%、坚持 30 年：投入本金共 <span class="num">18 万</span>，期末约 <b>74.5 万</b>——中间差的 56 万全是复利生的。模块 2 的复利计算器作业会换不同年化、不同年数让你亲手算一遍，这里先记住结论的量级：<b>时间和纪律贡献的钱，比本金多。</b></p>
+
+<h2>四、复利的三个敌人</h2>
+<ol>
+  <li><b>摩擦成本</b>（回炉第 5 课）：每笔交易的费用是确定性损耗，长期持有在数学上就是省费策略。</li>
+  <li><b>中断</b>：降级模式的设计哲学——连续执行 &gt; 完美执行。15 分钟维持剂量保住的不是进度，是"雪球不停滚"这件事本身。专升本每天 2-3 小时 × 2 年，同样是复利。</li>
+  <li><b>大亏</b>：亏损和收益数学上不对称——先亏 50%，需要涨 100% 才回本。这就是为什么不碰杠杆、不追热点：复利最怕的不是慢，是清零重来。</li>
+</ol>
+
+<h2>五、时间才是最大的杠杆</h2>
+<p>同样是投 1 万元、年化 8%：<b>20 岁投</b>，到 60 岁 ≈ 1.08⁴⁰ ≈ <b>21.7 万</b>；<b>30 岁投</b>，到 60 岁 ≈ 1.08³⁰ ≈ <b>10.1 万</b>。晚开始 10 年，结果差出一倍多——补课禁令里"缺的课作废"很严格，但"从今天继续"永远比"从明天完美开始"划算。巴菲特的比喻：人生就像滚雪球，重要的是找到<b>很湿的雪</b>（收益率）和<b>很长的坡</b>（时间）。</p>
+
+<div class="task">
+  <h3>动手 15 分钟：亲手滚一遍雪球</h3>
+  <ol>
+    <li>用手机计算器（或 Excel）连算三个数：<span class="num">1.08^10</span>、<span class="num">1.08^30</span>、<span class="num">1.08^40</span>，记下来</li>
+    <li>用 72 法则验算：8% 几年翻倍？和你算的 1.08⁹ ≈ 2 对得上吗</li>
+    <li>给自己也列一行：你的"很湿的雪"（正在积累的技能/本金）和"很长的坡"（年限）各是什么，写一句话</li>
+  </ol>
+</div>
+
+<h2>随堂测（回忆作答，不许翻上文）</h2>
+
+<div class="quiz" data-answer="0" data-explain="72 ÷ 8 = 9 年翻倍；4 年翻倍需要年化约 18%。">
+  <p class="q">1. 72 法则下，8% 年化几年翻倍？</p>
+  <ul class="opts">
+    <li>9年</li>
+    <li>4年</li>
+    <li>8年</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="复利与单利的全部差别来自收益的再投入——利滚利。">
+  <p class="q">2. 复利超越单利的来源是？</p>
+  <ul class="opts">
+    <li>更高的收益率</li>
+    <li>收益的再投入</li>
+    <li>更长的锁仓期</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="100 → 50 后回本需涨 100%。亏 50% 与涨 50% 不对称，这是复利最怕大亏的原因。">
+  <p class="q">3. 先亏五成，回本需要？</p>
+  <ul class="opts">
+    <li>涨五成</li>
+    <li>翻一倍</li>
+    <li>涨一成</li>
+  </ul>
+</div>
+
+<div class="feynman" data-topic="出声讲：单利和复利差在哪？72 法则怎么用？复利的三个敌人是什么、分别对应课程里的哪条规则？为什么说时间比本金更重要？">
+  <h3>费曼自测（5 分钟）</h3>
+</div>
+
+<h2>推荐一手来源</h2>
+<ul class="src">
+  <li>《巴菲特致股东的信》（坎宁安 编）——复利与"湿雪长坡"的一手表述（模块 5 精读材料）</li>
+  <li>《聪明的投资者》（格雷厄姆）——第 1-2 章：投资收益的合理预期</li>
+  <li>你自己的知识库：compound-interest 页面（哲学版，本课是数字版）</li>
+</ul>
+
+<div class="teacher-note">第 12 课结束。22 个概念到此全部讲完。下一课是模块 1 证据课：22 概念大闯关——过了就入库，没过的进未懂清单。有任何问题直接问我。</div>
+
+<div class="nav">
+  <span><a href="./0011-new-share-and-reverse-repo.html">← 第 11 课 · 打新与逆回购</a></span>
+  <span><a href="../reference/a-share-terms.html">术语参考表</a></span>
+  <span><a href="./0013-module-1-final-review.html">证据课 · 22 概念大闯关 →</a></span>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

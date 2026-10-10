@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0042 · 一阶方程：可分离 · 齐次 · 一阶线性 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0042">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 9 单元 · 常微分方程 · 课 0042</span>
+  <a href="0041-交错级数与绝对条件收敛.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0042 · 常微分方程</span>
+<h1>一阶方程：可分离变量 · 齐次 · 一阶线性</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：第 4 单元不定积分</span>
+  <span>来源：笔记《常微分方程》§一–§五</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>看方程长相 10 秒归类：<strong>可分离 / 齐次（$y'=F\frac yx$）/ 一阶线性</strong></li>
+    <li>三种方程各配一套标准解法，含<strong>积分因子</strong>公式</li>
+    <li>记住"先除后查"：分离变量时除掉的因子可能藏着<strong>常数解</strong></li>
+  </ul>
+</div>
+
+<p>微分方程的玩法是"<strong>先认类型，再套模板</strong>"：所有一阶方程最终都化成不定积分。三种类型对应三把钥匙，认对类型就赢了一半。</p>
+
+<h2>一、基本概念：阶、线性、通解</h2>
+
+<div class="keypoint">
+  <div class="kp-title">概念速览</div>
+  <p style="margin:0.2rem 0"><strong>阶</strong> = 最高阶导数的阶数（$(y')^{2}+y=0$ 仍是<strong>一阶</strong>——看导数的阶，不看幂次）；<strong>线性</strong> = $y$ 及各阶导数都只有一次幂、互不相乘、不进非线性函数。</p>
+  <p style="margin:0.2rem 0"><strong>通解</strong>含独立任意常数（个数 = 阶数）；代入初值条件定常数后得<strong>特解</strong>。如 $y'=2x$ 通解 $y=x^{2}+C$，过 $(1,4)$ 得特解 $y=x^{2}+3$。</p>
+</div>
+
+<h2>二、类型一：可分离变量</h2>
+
+<div class="keypoint">
+  <div class="kp-title">解法</div>
+  <p style="margin:0.2rem 0">能写成 $g(y)\,dy=f(x)\,dx$ 就<strong>两边积分</strong>：$\displaystyle\int g(y)dy=\int f(x)dx+C$。</p>
+  <p style="margin:0.2rem 0"><strong>先除后查</strong>：分离时若除了含 $y$ 的因子，回头检查该因子为零是否给出被丢失的常数解。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（标准件）</span>解 $y'=2xy$。</p>
+  <details><summary>先自己分离，再展开（练习 2(1)）</summary>
+    <p>分离（$y\neq0$）：$\dfrac{dy}{y}=2x\,dx$，积分 $\ln|y|=x^{2}+C_1$，即 $y=Ce^{x^{2}}$。</p>
+    <p>补查：$y=0$ 恰好对应 $C=0$——没丢。<strong>回代验证</strong>：$y'=2xCe^{x^{2}}=2xy$ ✓。</p>
+    <p>同族速查：$y'=y\tan x$ 型 ⇒ $y=C\sec x$；$\frac{dy}{dx}=e^{x-y}$ ⇒ $e^{y}=e^{x}+C$。</p>
+  </details>
+</div>
+
+<h2>三、类型二：齐次方程 $y'=F\!\left(\dfrac yx\right)$</h2>
+
+<div class="keypoint">
+  <div class="kp-title">换元降维</div>
+  <p style="margin:0.2rem 0">令 $v=\dfrac yx$，即 $y=vx$，则 $y'=v+x\dfrac{dv}{dx}$（<strong>乘积求导，$v$ 别丢</strong>），方程化为可分离变量。</p>
+  <p style="margin:0.2rem 0">辨析：这种"<strong>齐次型</strong>"（右端是 $\frac yx$ 的函数）与"<strong>线性齐次</strong>"$y'+p(x)y=0$ 是两回事，解法完全不同。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（代表详解）</span>解 $y'=\dfrac yx+\tan\dfrac yx$。（练习 3(1)）</p>
+  <details><summary>先自己换元，再展开</summary>
+    <p>令 $y=vx$：$v+xv'=v+\tan v$ ⇒ $xv'=\tan v$。</p>
+    <p>分离：$\cot v\,dv=\dfrac{dx}{x}$，积分 $\ln|\sin v|=\ln|x|+C$，即 $\sin v=Cx$。</p>
+    <p>回代：$$\sin\frac yx=Cx$$</p>
+    <p>流程四拍：<strong>换元 → 分离 → 积分 → 回代 $v=\frac yx$</strong>。答案保留隐式即可。</p>
+  </details>
+</div>
+
+<h2>四、类型三：一阶线性 $y'+p(x)y=q(x)$</h2>
+
+<div class="keypoint">
+  <div class="kp-title">积分因子法（必背）</div>
+  <p style="margin:0.2rem 0">积分因子 $\mu(x)=e^{\int p(x)dx}$，则 $(\mu y)'=\mu q$，通解</p>
+  <p style="margin:0.2rem 0">$$y=e^{-\int p(x)dx}\left[\int q(x)\,e^{\int p(x)dx}dx+C\right]$$</p>
+  <p style="margin:0.2rem 0">先用必须<strong>化标准形</strong>（$y'$ 系数化为 1）；对数里的绝对值按区间处理。非齐次通解结构：$y=y_c+y_p$（齐次通解 + 一个特解）。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（代表详解）</span>解 $y'+2y=e^{x}$。（练习 4(1)）</p>
+  <details><summary>先自己算积分因子，再展开</summary>
+    <p>$\mu=e^{\int2dx}=e^{2x}$。方程两边乘 $\mu$：$\left(e^{2x}y\right)'=e^{3x}$，积分：</p>
+    <p>$e^{2x}y=\dfrac13e^{3x}+C$ ⇒ $y=\dfrac13e^{x}+Ce^{-2x}$。</p>
+    <p>验算：$y'+2y=\dfrac13e^{x}-2Ce^{-2x}+\dfrac23e^{x}+2Ce^{-2x}=e^{x}$ ✓。<strong>解完代回是免费保险</strong>。</p>
+    <p>同族速查：$y'+\dfrac1x y=x$ ⇒ $y=\dfrac{x^{2}}{3}+\dfrac{C}{x}$；$y'+y\sin x=\sin x$ ⇒ $y=1+Ce^{\cos x}$（先化标准形再看 $p=\sin x$！积分因子 $e^{-\cos x}$ 恰好吃掉右端）。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">方程 $(y')^{2}+y=\sin x$ 的类型是（练习 1(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">一阶非线性</button>
+    <button data-k="B">二阶线性</button>
+    <button data-k="C">一阶线性</button>
+    <button data-k="D">二阶非线性</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">最高阶导数是 $y'$ ⇒ 一阶（阶数看导数的阶，不看 $(y')^{2}$ 的幂次）；$y'$ 出现平方 ⇒ 非线性。两个判断互相独立，逐个下。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">解 $y'=y$，通解是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=x+C$</button>
+    <button data-k="B">$y=Ce^{x}$ 之外的 $e^{x}+C$</button>
+    <button data-k="C">$y=Ce^{x}$</button>
+    <button data-k="D">$y=e^{x}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">分离变量 $\frac{dy}{y}=dx$ ⇒ $\ln|y|=x+C_1$ ⇒ $y=Ce^{x}$。D 的形状不对（$e^x+C$ 求导是 $e^x$，代回要求 $C=0$，不是通解）——常数必须"长在"指数因子上。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">解齐次型方程 $y'=\dfrac yx+\tan\dfrac yx$ 时的正确换元是（练习 3(1)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$v=y$，则 $y'=v'$</button>
+    <button data-k="B">$v=\dfrac yx$，则 $y'=v+xv'$</button>
+    <button data-k="C">$v=\dfrac yx$，则 $y'=v'$</button>
+    <button data-k="D">$v=x$，则 $y'=v+\dfrac yv$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y=vx$ 两边对 $x$ 求导：<strong>乘积法则</strong> $y'=v+xv'$——漏掉单独的 $v$ 是本型第一大错（那样方程就"解不动"了）。C 忘了 $v$ 本身也随 $x$ 变。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y'+\dfrac{1}{x}y=x$ 的通解是（练习 4(3)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=3+\dfrac{C}{x}$</button>
+    <button data-k="B">$y=\dfrac{3}{x}+C$</button>
+    <button data-k="C">$y=\dfrac{C}{x}$</button>
+    <button data-k="D">$y=\dfrac{x^{2}}{3}+\dfrac{C}{x}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">积分因子 $\mu=e^{\int\frac{dx}{x}}=x$：两边乘 $x$ 得 $(xy)'=x^{2}$，积分 $xy=\dfrac{x^{3}}{3}+C_1$，即 $y=\dfrac{x^{2}}{3}+\dfrac{C}{x}$。齐次部分 $y_c=\dfrac{C}{x}$、特解 $y_p=\dfrac{x^{2}}{3}$——结构 $y_c+y_p$ 清晰可见。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">用积分因子法解 $y'+p(x)y=q(x)$ 时，积分因子 $\mu(x)=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e^{\int p(x)dx}$</button>
+    <button data-k="B">$\int p(x)dx$</button>
+    <button data-k="C">$e^{p(x)}$</button>
+    <button data-k="D">$e^{\int q(x)dx}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\mu=e^{\int p\,dx}$，作用是把左端打包成 $(\mu y)'=\mu q$。B 少了指数；D 把 $p$、$q$ 用反——$p$ 配 $y$、$q$ 是右端。前置动作：先把 $y'$ 的系数化成 1。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>阶数看<strong>最高阶导数</strong>；线性看 $y$ 及导数是否"只以一次幂干净出现"</li>
+    <li>分离变量<strong>先除后查</strong>：被除因子的零点可能给出常数解（如 $y=0$）</li>
+    <li>齐次型换元 $y=vx$ ⇒ $y'=v+xv'$，<strong>别丢 $v$</strong>；算完回代 $v=\frac yx$</li>
+    <li>两种"齐次"不是一个东西：$F(y/x)$ 型 vs $y'+py=0$ 型</li>
+    <li>积分因子法先<strong>化标准形</strong>（$y'$ 系数 = 1）；$\mu=e^{\int p dx}$</li>
+    <li>解完<strong>求导代回原方程</strong>验算——微分方程最便宜的满分保险</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">三种一阶方程（可分离 / 齐次型 / 一阶线性）各认什么脸、用什么钥匙？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">可分离 $g(y)dy=f(x)dx$ ⇒ 两边积分；齐次型 $y'=F(y/x)$ ⇒ 令 $y=vx$，$y'=v+xv'$；一阶线性 $y'+py=q$ ⇒ 积分因子 $e^{\int p dx}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写一阶线性方程的通解公式，并说出使用前的两个准备动作。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$y=e^{-\int p dx}\left[\int q e^{\int p dx}dx+C\right]$。准备：①化标准形（$y'$ 系数为 1）；②认准 $p$ 与 $q$（$p$ 乘 $y$、$q$ 在右端）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。每道解出的方程都求导代回验一遍——微分方程最便宜的满分保险。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《常微分方程》§一–§五（含冬练练习 1–5 速查表）</li>
+    <li>讲义：《常微分方程》夏讲 PDF（概念 P2–P9、三类一阶方程 P10–P31）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："$y=vx$ 后为什么多出一个 $v$"、"积分因子法完整推一遍"、"$e^{z}$ 型隐函数方程怎么解"，或让它出 10 道一阶方程"认型 + 通解"限时 15 分钟。
+</div>
+
+<nav class="footnav">
+  <a href="0041-交错级数与绝对条件收敛.html" class="prev"><span class="dir">← 上一课</span>0041 交错级数 · 绝对与条件收敛</a>
+  <a href="0043-二阶常系数线性方程.html" class="next"><span class="dir">下一课 →</span>0043 可降阶 · 二阶常系数方程</a>
+</nav>
+</main>
+</body>
+</html>

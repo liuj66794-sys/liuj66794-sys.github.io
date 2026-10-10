@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 6 课 · 进程与子进程：Agent 跑命令的能力</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/recall.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">阶段 0 · 模块 B（Node.js 核心）· 第 6 课 ｜ 预计 40 分钟 ｜ 前置：第 5 课</div>
+
+<h1>进程与子进程：Agent 跑命令的能力</h1>
+
+<p>这节课结束时，你的注册表里会多出第三个真实工具：<code>run_command</code>——让程序替你跑一条终端命令（比如 <code>npm test</code>、<code>git diff</code>），并把结果拿回来。这是 Coding Agent 最强大、也最危险的能力。</p>
+
+<div class="callout">
+  <span class="label">为什么学这个 · Mission 关联</span>
+  Coding Agent 改完代码之后干什么？<strong>跑测试、跑构建、看 git diff</strong>——全靠启动子进程。pi 的 <code>bash</code> 工具、Kimi Code 跑命令时弹出的权限确认，底层全是 Node 的 <code>child_process</code> 模块。PatchPilot 出口标准里的"改代码 → 跑测试 → diff"闭环，这节课补齐最后一块基石。
+</div>
+
+<h2>温故：先回忆，再学新内容</h2>
+
+<div class="recall">
+  <p class="q">1.（第 4 课复测）不看答案：<code>readFile</code> 返回 <code>Promise&lt;string&gt;</code>，忘了写 <code>await</code> 时 <code>console.log</code> 打出什么？<code>await</code> 做了哪两件事？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>打出 <code>Promise { &lt;pending&gt; }</code>——小票本身，不是文件内容。<code>await</code> 做两件事：<strong>等 Promise 兑现</strong>（只暂停当前函数，不冻住整个程序）＋<strong>把结果从小票里取出来</strong>。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2.（第 1 课复测）<code>'${name}'</code>、<code>"${name}"</code>、<code>`${name}`</code>——哪种引号会把 <code>name</code> 替换成变量的值？另外两种打出什么？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>只有<strong>反引号</strong>（模板字符串）会替换。单引号和双引号都是普通字符串，会把 <code>${name}</code> 四个字符原样打出来。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">3.（第 5 课）<code>writeFile</code> 写一个已存在的文件，旧内容会怎样？真实 Agent 为什么不敢直接整文件覆盖？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>旧内容被<strong>直接覆盖</strong>——不追加、不备份。所以真实 Agent 的"改文件"工具用 diff / 补丁机制保护现场（pi 的 <code>apply_patch</code>），阶段 1+2 会学到。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>1. 进程：正在运行的程序，就是一个进程</h2>
+
+<p>你在终端敲 <code>npm run start</code>，操作系统启动 tsx，tsx 跑起你的 <code>main.ts</code>——这个<strong>正在运行的程序实例</strong>，就叫一个<strong>进程</strong>（process）。进程是操作系统分配资源的单位：每个进程有自己的内存，彼此隔离。</p>
+
+<p>关键动作来了：你的进程可以让操作系统<strong>再启动一个程序</strong>——比如跑 <code>node -v</code>、<code>npm test</code>、<code>git diff</code>。被你启动的那个新进程，叫<strong>子进程</strong>（child process）；你是它的父进程。父进程能看到子进程的输出，也能知道它跑得成不成功。</p>
+
+<p>Agent 干的重活全在子进程里：跑测试看改对没有、跑构建看能不能编译、跑 git 看改了哪些行。不会启动子进程的 Agent，只是个聊天机器人。</p>
+
+<h2>2. exec + promisify：让"跑命令"返回 Promise</h2>
+
+<p>Node 把启动子进程的能力收在内置模块 <code>child_process</code> 里。我们用它最简单的一个函数 <code>exec</code>（execute，执行）：</p>
+
+<pre><code>import { exec } from "node:child_process";
+import { promisify } from "node:util";
+
+const execAsync = promisify(exec);
+
+const { stdout, stderr } = await execAsync("node -v");
+console.log(stdout);   // v22.…（你机器上的 Node 版本号）</code></pre>
+
+<p>逐行读：</p>
+
+<ul>
+  <li><code>exec</code> 是<strong>回调风格</strong>的老 API：它不返回 Promise，而是命令跑完后"打电话通知你"。第 4 课学的 <code>await</code> 没法直接用在它身上。</li>
+  <li><code>promisify</code>（<code>node:util</code> 模块）是一台<strong>转换器</strong>：吃进一个回调式函数，吐出一个<strong>返回 Promise 的函数</strong>。转换结果存进 <code>execAsync</code>——从此跑命令也能 <code>await</code> 了。</li>
+  <li><code>await execAsync(...)</code> 取出的结果是一个对象，装着 <code>stdout</code> 和 <code>stderr</code> 两个字段。<code>{ stdout, stderr } = ...</code> 这种写法叫<strong>解构</strong>：把对象里的两个字段直接拆成两个同名变量。</li>
+</ul>
+
+<h2>3. 命令结果三件套：stdout / stderr / 退出码</h2>
+
+<p>一条命令跑完，你实际拿到三样东西：</p>
+
+<ul>
+  <li><code>stdout</code>（standard output，标准输出）：命令的<strong>正常输出</strong>。<code>node -v</code> 打印的版本号就走这里。</li>
+  <li><code>stderr</code>（standard error，标准错误）：命令的<strong>错误输出</strong>。命令出错时的抱怨走这里——注意，报错文字在 stderr 里，<strong>不在 stdout 里</strong>，只看 stdout 会漏掉失败原因。</li>
+  <li><strong>退出码</strong>（exit code）：命令结束时向操作系统报告的一个数字。<strong>0 = 成功</strong>；<strong>非 0 = 失败</strong>，具体数字的含义由程序自己定（1、2、127 都可能）。</li>
+</ul>
+
+<p><code>exec</code> 的规矩：退出码非 0 → Promise 直接 <strong>rejected</strong>。被 reject 时，错误对象上挂着 <code>code</code>（退出码）、<code>stdout</code>、<code>stderr</code> 三个字段。所以第 5 课的 <code>try / catch</code> 原样搬过来用：</p>
+
+<pre><code>try {
+  const { stdout } = await execAsync("node -v");
+  console.log("成功：", stdout);
+} catch (error: any) {
+  console.log("失败，退出码：", error.code);
+  console.log("错误输出：", error.stderr);
+}</code></pre>
+
+<p>新语法一处：<code>catch</code> 后面括号里可以接一个变量名，把被抛出的<strong>错误对象</strong>接住——第 5 课用 <code>catch {</code> 不接，是因为当时不需要看错误内容；这次我们要读 <code>error.code</code> 和 <code>error.stderr</code>，所以接。错误对象的形状由 Node 决定，暂时用 <code>any</code> 标注，以后学了类型守卫再收紧。</p>
+
+<div class="callout">
+  <span class="label">Windows 小提示</span>
+  <code>exec</code> 在 Windows 上通过 cmd.exe 执行命令。这节课用的 <code>node -v</code>、<code>npm -v</code> 全平台通用；但 <code>ls</code>（Mac/Linux）和 <code>dir</code>（Windows）这类命令各系统不一样——先记住有这回事，真遇到再查。
+</div>
+
+<h2>4. 动手：给注册表加 run_command 工具</h2>
+
+<p><strong>第一步</strong>，<code>tools.ts</code>：顶部加两行 import 和一行转换，再加一个工具：</p>
+
+<pre><code>import { exec } from "node:child_process";
+import { promisify } from "node:util";
+
+const execAsync = promisify(exec);
+
+export const commandRunner: Tool = {
+  name: "run_command",
+  description: "运行一条终端命令，返回它的输出",
+  execute: async (args) =&gt; {
+    try {
+      const { stdout, stderr } = await execAsync(args.command);
+      return stdout.trim() || stderr.trim() || "（命令成功，没有输出）";
+    } catch (error: any) {
+      return `错误：命令失败，退出码 ${error.code}\n${error.stderr}`;
+    }
+  }
+};</code></pre>
+
+<p>注意它和第 5 课 <code>fileReader</code> 一模一样的设计：<strong>失败不抛错，把失败原因（退出码 + 错误输出）作为工具结果返回</strong>——模型看到"退出码 1 + 报错文字"，自己决定下一步，整个 Agent 不崩。</p>
+
+<p><strong>第二步</strong>，<code>main.ts</code>：注册工具，然后在 <code>main()</code> 里跑两条命令——一条成功的、一条注定失败的：</p>
+
+<pre><code>import { calculator, greeter, slowGreeter, fileReader, fileWriter, commandRunner } from "./tools";
+
+const toolRegistry: Record&lt;string, Tool&gt; = {
+  calculator,
+  greeter,
+  "slow-greeter": slowGreeter,
+  "read_file": fileReader,
+  "write_file": fileWriter,
+  "run_command": commandRunner,
+};</code></pre>
+
+<pre><code>// main() 里，文件读写那三行之后加：
+console.log(await runTool("run_command", { command: "node -v" }));
+console.log(await runTool("run_command", { command: "不存在的命令xyz" }));</code></pre>
+
+<div class="task">
+<h3>动手任务（验收清单）</h3>
+<ol>
+  <li>按上面两步改造 <code>tools.ts</code> / <code>main.ts</code>。</li>
+  <li>运行 <code>npm run start</code>：看到 Node 版本号 → "命令失败，退出码 1"（附报错文字）→ <strong>程序没有崩</strong>，"全部完成"照常出现。</li>
+  <li>把 <code>"node -v"</code> 换成 <code>"npm -v"</code> 再跑一次，确认能拿到 npm 的版本号。</li>
+  <li>运行 <code>npx tsc --noEmit</code>，确认没有任何输出。</li>
+</ol>
+<p><strong>贴回给我</strong>：① <code>npm run start</code> 的完整输出；② 一句话：<code>promisify</code> 解决了什么问题？③ 一句话：命令的报错文字在 stdout 还是 stderr 里？</p>
+</div>
+
+<h2>小测</h2>
+
+<div class="quiz" data-answer="a" data-explain="退出码 0 表示成功，非 0 表示失败，具体数字含义由程序自己定。">
+  <p class="q">1. 一条命令跑完，退出码是 0，说明什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">命令执行成功了</button>
+    <button class="option" data-key="b">命令执行失败了</button>
+    <button class="option" data-key="c">命令还在运行中</button>
+    <button class="option" data-key="d">命令没有任何输出</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="b" data-explain="promisify 吃进回调式函数，吐出返回 Promise 的函数，于是可以 await。">
+  <p class="q">2. <code>promisify(exec)</code> 做了什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">把 Promise 函数还原成回调函数</button>
+    <button class="option" data-key="b">把回调式函数包成 Promise 函数</button>
+    <button class="option" data-key="c">把同步的函数变成多线程执行</button>
+    <button class="option" data-key="d">把命令的输出直接打印到屏幕</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="c" data-explain="stdout 装正常输出，stderr 装错误输出——只看 stdout 会漏掉失败原因。">
+  <p class="q">3. <code>stdout</code> 和 <code>stderr</code> 的区别是什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">中文输出与英文输出之分</button>
+    <button class="option" data-key="b">屏幕输出与文件输出之分</button>
+    <button class="option" data-key="c">正常输出与错误输出之分</button>
+    <button class="option" data-key="d">同步输出与异步输出之分</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="d" data-explain="工具失败不该让 Agent 崩掉：把退出码与错误输出作为结果返回，模型自己决定下一步。">
+  <p class="q">4. <code>run_command</code> 跑的命令退出码是 2，工具该怎么反应？</p>
+  <div class="options">
+    <button class="option" data-key="a">让整个 Agent 程序崩溃退出</button>
+    <button class="option" data-key="b">忽略这次失败返回空的结果</button>
+    <button class="option" data-key="c">自动换一条命令重新执行</button>
+    <button class="option" data-key="d">把退出码和错误输出作为结果返回</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>回忆挑战（遮住上文，先默写再对照）</h2>
+
+<div class="recall">
+  <p class="q">1. 默写 <code>run_command</code> 工具的 <code>execute</code>（含 promisify 那一行和 try / catch），以及 main 里调用它跑 <code>node -v</code> 的一行。</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><pre><code>const execAsync = promisify(exec);
+
+execute: async (args) =&gt; {
+  try {
+    const { stdout, stderr } = await execAsync(args.command);
+    return stdout.trim() || stderr.trim() || "（命令成功，没有输出）";
+  } catch (error: any) {
+    return `错误：命令失败，退出码 ${error.code}\n${error.stderr}`;
+  }
+}
+
+console.log(await runTool("run_command", { command: "node -v" }));</code></pre></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2. 不看正文：命令跑完的"三件套"——stdout、stderr、退出码，各自是什么？退出码几代表成功？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p><code>stdout</code>：命令的正常输出；<code>stderr</code>：命令的错误输出；<strong>退出码</strong>：命令结束时报告给操作系统的数字，<strong>0 = 成功，非 0 = 失败</strong>。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="callout">
+  <span class="label">安全要点：Agent 最危险的工具</span>
+  <code>run_command</code> 什么命令都能跑——包括删文件、改系统配置。真实 Coding Agent 的做法：<strong>跑命令前让用户确认</strong>（你在 Kimi Code 里见过的权限弹窗就是它），危险命令直接拦截。给你的规则：永远不要把没读过的命令交给 <code>exec</code>。PatchPilot 阶段会专门写"危险命令拦截"的 Hook 插件。
+</div>
+
+<div class="callout">
+  <span class="label">面试怎么考</span>
+  "Node 里怎么执行 shell 命令？""exec 和 spawn 有什么区别？"是常见问题。后半问的答案先剧透一半：<code>exec</code> 把输出<strong>全部攒到最后</strong>一次性给你；要<strong>边跑边看输出</strong>（比如 npm install 的进度条）得用 <code>spawn</code> 加"流"——这正是第 7 课的主题。加分项还是那句设计："我的 run_command 把退出码和 stderr 作为工具结果返回给模型，而不是让 Agent 崩掉。"
+</div>
+
+<div class="further">
+<h2>延伸阅读（一手资料）</h2>
+<ul>
+  <li><a href="https://nodejs.org/api/child_process.html">Node.js 官方文档：child_process</a> —— exec / spawn 的权威参考（英文，查到具体函数名即可）。</li>
+  <li><a href="https://nodejs.org/api/util.html#utilpromisifyoriginal">Node.js 官方文档：util.promisify</a> —— 回调转 Promise 的官方说明（英文）。</li>
+</ul>
+<p>课程导航：<a href="0005-nodejs-file-system.html">← 上一课</a> ｜ 下一课：第 7 课 · 流与超时（待产出） ｜ <a href="../ROADMAP.md">路线图</a> ｜ <a href="../RESOURCES.md">资料清单</a> ｜ <a href="../reference/node-child-process.html">本课速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a></p>
+</div>
+
+<p class="teacher-note">温故第 1、2 题是按 learning record 0005 安排的复测（await 小票、三种引号）——如果这次自评还有"没想起来"，直接告诉我，我们单独补一小节，不硬往前赶。完成动手任务后贴回三项输出，下一课进入第 7 课 · 流与超时：边跑边看输出、给命令装" timeout 刹车"，pi 处理长命令的方式。有任何一步卡住，直接把报错贴给我。</p>
+
+</main>
+</body>
+</html>

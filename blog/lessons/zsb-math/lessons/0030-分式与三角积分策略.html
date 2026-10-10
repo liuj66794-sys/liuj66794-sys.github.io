@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0030 · 分式与三角积分策略 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0030">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 4 单元 · 不定积分 · 课 0030</span>
+  <a href="0029-分部积分法.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0030 · 不定积分</span>
+<h1>分式与三角积分策略</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0027 凑微分 · 0029 分部积分 · 配套速查 <a href="../reference/004-积分公式与凑微分速查.html">004</a></span>
+  <span>来源：笔记《不定积分》§六 · §七 · §八</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>对分式按<strong>四策略</strong>（长除 / 裂项 / 凑分母导数 / 凑 $\arctan$）30 秒判型</li>
+    <li>用三角积分五技巧处理 $\dfrac{1}{1-\sin x}$、$\dfrac{1}{\sin x\cos x}$ 型</li>
+    <li>会引用<strong>复杂函数积分表</strong>（10 条）直取结论</li>
+  </ul>
+</div>
+
+<p>单元收官课：把剩下的两大"形状家族"——分式与三角——各自配好流水线。考场上这单元的大题，多半是本课两套策略 + 前三课方法的组合拳。</p>
+
+<h2>一、分式积分四策略</h2>
+
+<div class="keypoint">
+  <div class="kp-title">判型流程（先看分子分母次数！）</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>类型</th><th>策略</th></tr>
+    <tr><td><strong>假分式</strong>（分子次数 ≥ 分母）</td><td><strong>长除法</strong>拆成"多项式 + 真分式"，或加一项减一项</td></tr>
+    <tr><td>真分式，分母<strong>能</strong>因式分解</td><td><strong>裂项</strong>（待定系数：单因式 $\frac{A}{x+a}$；重根多设几层；二次因式设 $\frac{Ax+B}{\cdot}$）</td></tr>
+    <tr><td>真分式，分母<strong>不能</strong>分解，分子含变量</td><td>分子凑<strong>分母的导数</strong>（剩常数部分配 $\arctan$）</td></tr>
+    <tr><td>真分式，分子是常数</td><td>分母配方，<strong>凑 $\arctan$</strong> 或基本公式</td></tr>
+  </table>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（长除）</span>$\displaystyle\int\dfrac{4x^{3}+8x^{2}+5x+5}{2x+3}dx$。（夏讲 P25）</p>
+  <details><summary>先自己长除，再展开</summary>
+    <p>长除逐步除：$4x^3\div2x=2x^2$，乘回减去后剩 $2x^2+5x+5$；$2x^2\div2x=x$，剩 $2x+5$；$2x\div2x=1$，余 $2$。即原式 $=2x^{2}+x+1+\dfrac{2}{2x+3}$。</p>
+    <p>积分：$\dfrac{2x^{3}}{3}+\dfrac{x^{2}}{2}+x+\ln|2x+3|+C$。</p>
+    <p>要点：<strong>假分式不拆直接裂项 = 白给</strong>；长除每步"除、乘回、相减、落下一位"，或用"加一项减一项"绕行。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（裂项标准版）</span>$\displaystyle\int\dfrac{x+1}{x^{2}-2x-15}dx$。（夏讲 P33）</p>
+  <details><summary>先分解、设项、定系数，再展开</summary>
+    <p>分母 $=(x-5)(x+3)$。设 $\dfrac{x+1}{(x-5)(x+3)}=\dfrac{A}{x-5}+\dfrac{B}{x+3}$，通分比对：$x+1=A(x+3)+B(x-5)$。</p>
+    <p>代 $x=5$：$6=8A$，$A=\dfrac34$；代 $x=-3$：$-2=-8B$，$B=\dfrac14$。</p>
+    <p>积分 $=\dfrac34\ln|x-5|+\dfrac14\ln|x+3|+C$。</p>
+    <p>技巧：<strong>代根定系数</strong>比解方程组快；求完代一个特殊值回验。同款：$\dfrac{3x+1}{x^{2}-x-6}=\dfrac{2}{x-3}+\dfrac{1}{x+2}$（练习 12(5)）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（分母不可分解）</span>$\displaystyle\int\dfrac{x+3}{x^{2}+2x+2}dx$。（夏讲 P35–P36）</p>
+  <details><summary>先自己拆分子，再展开</summary>
+    <p>分母导数 $2x+2$。把分子写成"$\dfrac12(2x+2)+2$"：</p>
+    <p>$=\dfrac12\displaystyle\int\dfrac{2x+2}{x^{2}+2x+2}dx+2\int\dfrac{d(x+1)}{(x+1)^{2}+1}=\dfrac12\ln(x^{2}+2x+2)+2\arctan(x+1)+C$。</p>
+    <p>两段流水线：<strong>凑分母导数段 → $\ln$；常数段 → 配方后 $\arctan$</strong>。同款速查：$\int\dfrac{dx}{x^{2}+2x+2}=\arctan(x+1)+C$、$\int\dfrac{dx}{4x^{2}+4x+5}=\dfrac14\arctan\dfrac{2x+1}{2}+C$。</p>
+  </details>
+</div>
+
+<h2>二、三角积分五技巧</h2>
+
+<table>
+  <tr><th>技巧</th><th>适用长相</th><th>动作</th></tr>
+  <tr><td>① 凑微分 + 降幂</td><td>幂 × 三角、纯 $\cos^{2}x$</td><td>$\sin x\,dx=-d(\cos x)$；$\sin^{2}x=\dfrac{1-\cos2x}{2}$ 降幂</td></tr>
+  <tr><td>② 齐次化（乘共轭）</td><td>分母 $1\pm\sin x$ 型</td><td>乘 $1\mp\sin x$，用 $\cos^{2}x=1-\sin^{2}x$ 打开</td></tr>
+  <tr><td>③ 弦割化切</td><td>正弦余弦<strong>对称</strong>出现</td><td>分子分母同除 $\cos^{n}x$，化成 $\tan x$</td></tr>
+  <tr><td>④ 一次项重组</td><td>$\dfrac{a\sin x+b\cos x}{c\sin x+d\cos x}$</td><td>分子 = $A\times$(分母) + $B\times$(分母导数)</td></tr>
+  <tr><td>⑤ 万能公式</td><td>以上全失效</td><td>$t=\tan\dfrac x2$ 全部有理化（兜底，计算量大）</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（②齐次化）</span>$\displaystyle\int\dfrac{dx}{1-\sin x}$。（夏讲 P53）</p>
+  <details><summary>先自己乘共轭，再展开</summary>
+    <p>乘 $\dfrac{1+\sin x}{1+\sin x}$：$=\displaystyle\int\dfrac{1+\sin x}{\cos^{2}x}dx=\int(\sec^{2}x+\sec x\tan x)dx=\tan x+\sec x+C$。</p>
+    <p>同款：$\int\dfrac{dx}{1+\sin x}=\tan x-\sec x+C$（练习 13(8)）——共轭方向反、结果符号反。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5（③弦割化切）</span>$\displaystyle\int\dfrac{dx}{\sin x\cos x}$。（夏讲 P54）</p>
+  <details><summary>先自己除以 $\cos^2x$，再展开</summary>
+    <p>分子分母同除 $\cos^{2}x$：$=\displaystyle\int\dfrac{\sec^{2}x}{\tan x}dx=\int\dfrac{d(\tan x)}{\tan x}=\ln|\tan x|+C$。</p>
+    <p>同款：$\int\dfrac{dx}{4\sin^{2}x+\cos^{2}x}=\int\dfrac{\sec^{2}x}{4\tan^{2}x+1}dx=\dfrac12\arctan(2\tan x)+C$。<strong>上下齐除 $\cos^2x$，世界变成 $\tan$ 的</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 6（④重组）</span>$\displaystyle\int\dfrac{\sin x+8\cos x}{2\sin x+3\cos x}dx$。（夏讲 P55）</p>
+  <details><summary>先自己待定系数，再展开</summary>
+    <p>分母导数 $=2\cos x-3\sin x$。设分子 $=A(2\sin x+3\cos x)+B(2\cos x-3\sin x)$，比对系数：$\sin$：$1=2A-3B$；$\cos$：$8=3A+2B$。解得 $A=2$，$B=1$。</p>
+    <p>$=\displaystyle\int\left[2+\dfrac{2\cos x-3\sin x}{2\sin x+3\cos x}\right]dx=2x+\ln|2\sin x+3\cos x|+C$。</p>
+    <p>同款：$\int\dfrac{\sin x}{\sin x+\cos x}dx=\dfrac x2-\dfrac12\ln|\sin x+\cos x|+C$（练习 13(10)）。<strong>"分母 + 分母导数"两件套拆分子</strong>。</p>
+  </details>
+</div>
+
+<h2>三、复杂函数积分表（10 条，直接引用）</h2>
+
+<div class="keypoint">
+  <div class="kp-title">高频四条（全表见速查 004）</div>
+  <p style="margin:0.2rem 0">$\int\dfrac{dx}{a^{2}+x^{2}}=\dfrac1a\arctan\dfrac xa+C$　　$\int\dfrac{dx}{x^{2}-a^{2}}=\dfrac{1}{2a}\ln\left|\dfrac{x-a}{x+a}\right|+C$</p>
+  <p style="margin:0.2rem 0">$\int\sec x\,dx=\ln|\sec x+\tan x|+C$　　$\int\sqrt{a^{2}-x^{2}}\,dx=\dfrac x2\sqrt{a^{2}-x^{2}}+\dfrac{a^{2}}{2}\arcsin\dfrac xa+C$</p>
+  <p style="margin:0.2rem 0">警示：$\int\dfrac{dx}{x^{2}-a^{2}}$ 与 $\int\dfrac{dx}{a^{2}-x^{2}}=\dfrac{1}{2a}\ln\left|\dfrac{a+x}{a-x}\right|+C$ <strong>分子分母互为倒序</strong>，别混。9、10 号（$e^{ax}\sin bx$ 型）就是 0029 循环型的现成答案。</p>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{x^{2}}{x^{2}+1}dx=$（夏讲 P27）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\ln(x^{2}+1)+C$</button>
+    <button data-k="B">$x-\arctan x+C$</button>
+    <button data-k="C">$x+\arctan x+C$</button>
+    <button data-k="D">$1-\arctan x+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">假分式（分子分母同次）：$\dfrac{x^{2}}{x^{2}+1}=1-\dfrac{1}{x^{2}+1}$（加一项减一项），积分 $x-\arctan x+C$。A 是 $\frac{x}{x^2+1}$ 的答案——那是"凑分母导数"型，先辨型！</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{2x+1}{x^{2}+3x+2}dx=$（秋讲练习 12(4)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2\ln|x+1|+\ln|x+2|+C$</button>
+    <button data-k="B">$\ln(x^{2}+3x+2)+C$</button>
+    <button data-k="C">$-\ln|x+1|+3\ln|x+2|+C$</button>
+    <button data-k="D">$-\ln|x+2|+3\ln|x+1|+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">分母 $=(x+1)(x+2)$，通分比对 $2x+1=A(x+2)+B(x+1)$：代 $x=-1$ 得 $A=-1$，代 $x=-2$ 得 $B=3$，答案 C。D 是系数装反；B 是"分子 = 分母导数"的形状误判——分子是 $2x+1$ 而导数是 $2x+3$，差一点就换招。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{dx}{4x^{2}+4x+5}=$（秋讲练习 12(10)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac14\arctan\dfrac{2x+1}{2}+C$</button>
+    <button data-k="B">$\arctan(2x+1)+C$</button>
+    <button data-k="C">$\dfrac12\arctan\dfrac{2x+1}{2}+C$</button>
+    <button data-k="D">$2\arctan\dfrac{2x+1}{2}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">配方：$4x^{2}+4x+5=(2x+1)^{2}+4$，$dx=\frac12d(2x+1)$：$\dfrac12\int\dfrac{d(2x+1)}{(2x+1)^{2}+2^{2}}=\dfrac12\cdot\dfrac12\arctan\dfrac{2x+1}{2}$。系数 $\frac14$ 是"换元 $\frac12$ × 公式 $\frac1a=\frac12$"的乘积，两层都别丢。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\displaystyle\int\cos^{2}x\,dx=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{\sin^{3}x}{3\cos x}+C$</button>
+    <button data-k="B">$2\sin x\cos x+C$</button>
+    <button data-k="C">$x-\dfrac{\sin2x}{2}+C$</button>
+    <button data-k="D">$\dfrac x2+\dfrac{\sin2x}{4}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">降幂：$\cos^{2}x=\dfrac{1+\cos2x}{2}$，积分 $=\dfrac x2+\dfrac{\sin2x}{4}+C$。C 是 $\sin^2x$ 的答案——$1-\cos2x$ 与 $1+\cos2x$ 一字之差，结果差一个符号。<strong>降幂公式两兄弟成对记</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{dx}{1+\sin x}=$（秋讲练习 13(8)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\tan x+\sec x+C$</button>
+    <button data-k="B">$\tan x-\sec x+C$</button>
+    <button data-k="C">$\ln|1+\sin x|+C$</button>
+    <button data-k="D">$-\cot x+\csc x+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">乘共轭 $\dfrac{1-\sin x}{1-\sin x}$：$=\displaystyle\int\dfrac{1-\sin x}{\cos^{2}x}dx=\tan x-\sec x+C$。A 是 $\frac{1}{1-\sin x}$ 的答案——共轭方向对应符号方向。C 又是"万能型"误判：分子 1 不是分母导数 $\cos x$。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>分式先辨型：<strong>假分式必先长除</strong>；分母可分解走裂项、不可分解走"凑导数 + $\arctan$"</li>
+    <li>裂项用"代根定系数"，求完<strong>代值回验</strong></li>
+    <li>$\int\frac{dx}{x^{2}-a^{2}}$ 与 $\int\frac{dx}{a^{2}-x^{2}}$ <strong>ln 里分子分母倒序</strong></li>
+    <li>三角降幂两公式成对用；$\int\cos^2$ 与 $\int\sin^2$ 差一个符号</li>
+    <li>弦割化切的前提：$\sin$、$\cos$ <strong>整体对称</strong>出现</li>
+    <li>万能公式是兜底：算完<strong>必须回代 $t=\tan\frac x2$</strong></li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写分式积分四策略（按判型顺序）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">假分式 → 长除；真分式分母可分解 → 裂项；不可分解、分子含变量 → 凑分母导数；分子是常数 → 配方凑 $\arctan$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">报出三角积分五技巧，并默写降幂公式两条。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">凑微分降幂 / 齐次化乘共轭 / 弦割化切 / 一次项重组 / 万能公式。$\sin^{2}x=\frac{1-\cos2x}{2}$，$\cos^{2}x=\frac{1+\cos2x}{2}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 4 单元（0026–0030）收官</strong>——这单元方法密度全卷最高，建议做一次"方法认脸"自测：把速查 004 的例题区盖住方法名，只看积分式说招法。下一单元定积分：所有方法原样复用，只多一个"换限"和牛顿–莱布尼茨。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>速查：<a href="../reference/004-积分公式与凑微分速查.html">《积分公式与凑微分速查表》</a>（含复杂函数积分表 10 条）</li>
+    <li>笔记：《不定积分》§六 分式 · §七 三角 · §八 复杂积分表（含秋讲练习 12–13 速查表）</li>
+    <li>讲义：《不定积分》夏讲 PDF（分式 P23–P37、三角 P51–P57、复杂表 P58–P59）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："待定系数法完整演示一道重根版"、"$\frac{\sin x+8\cos x}{2\sin x+3\cos x}$ 的方程组怎么列"、"万能公式完整算一遍"，或让它出 10 道"给积分式说招法"的认脸题。
+</div>
+
+<nav class="footnav">
+  <a href="0029-分部积分法.html" class="prev"><span class="dir">← 上一课</span>0029 分部积分法</a>
+  <a href="0031-定积分定义性质与牛莱公式.html" class="next"><span class="dir">下一课 →</span>0031 定积分定义 · 性质 · 牛顿–莱布尼茨</a>
+</nav>
+</main>
+</body>
+</html>

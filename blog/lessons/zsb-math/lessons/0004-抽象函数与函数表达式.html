@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0004 · 抽象函数与函数表达式 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0004">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 1 单元 · 函数 · 课 0004</span>
+  <a href="0003-函数概念与定义域.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0004 · 函数</span>
+<h1>抽象函数定义域与函数表达式</h1>
+<div class="meta">
+  <span>⏱ 约 18 分钟</span>
+  <span>前置：0003 函数概念与定义域</span>
+  <span>来源：笔记《函数》§二·2.3、§三、§四</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>掌握抽象函数定义域的<strong>三个方向</strong>：$f\to f[g]$、$f[g]\to f$、$f[g]\to f[h]$（考试填空高频）</li>
+    <li>用<strong>换元法</strong>和<strong>恒等变形</strong>从 $f[g(x)]$ 反求 $f(x)$</li>
+    <li>用"定义域 + 对应法则"两把尺子判断两个函数是否相同</li>
+  </ul>
+</div>
+
+<p>核心思想一句话：<strong>$f$ 括号里的量，永远在同一个范围内活动。</strong>$f$ 的"输入"无论是 $x$、$x+1$ 还是 $\sin x$，都必须落进同一个集合。想通这句，三个方向全是水到渠成。</p>
+
+<h2>一、整体代换：三个方向</h2>
+
+<table>
+  <tr><th>方向</th><th>已知</th><th>做法</th></tr>
+  <tr><td>① $f\to f[g]$</td><td>$f(x)$ 定义域为 $D$，求 $f[g(x)]$ 的定义域</td><td>解不等式 $g(x)\in D$</td></tr>
+  <tr><td>② $f[g]\to f$</td><td>$f[g(x)]$ 定义域为 $D$，求 $f(x)$ 的定义域</td><td>算出 $g(x)$ 在 $D$ 上的<strong>值域</strong></td></tr>
+  <tr><td>③ $f[g]\to f[h]$</td><td>$f[g(x)]$ 定义域已知，求 $f[h(x)]$</td><td>先用②得 $f$ 的定义域，再按①解 $h(x)$ 落入其中</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（方向①）</span>$f(x)$ 定义域为 $(-1,1]$，求 $f(x+1)$ 的定义域。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P9）</summary>
+    <p>括号里的 $x+1$ 必须还在 $(-1,1]$ 里：$-1&lt;x+1\le1\Rightarrow -2&lt;x\le0$，即 $(-2,0]$。</p>
+    <p>注意：变的是 $x$ 的范围，$f$ 的"胃口"从没变过。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（方向②）</span>$f(3x-1)$ 的定义域为 $[0,1]$，求 $f(x)$ 的定义域。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P9）</summary>
+    <p>$x\in[0,1]$ 时，$3x-1\in[-1,2]$——这就是 $f$ 的输入范围。所以 $f(x)$ 的定义域为 $[-1,2]$。</p>
+    <p>方向②求的是 $f$ 本身的胃口，答案与 $x$ 无关，由内层函数的<strong>值域</strong>决定。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$f(x)$ 的定义域为 $[0,4]$，则 $f(4-3x)$ 的定义域是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\left[-\dfrac43,0\right]$</button>
+    <button data-k="B">$\left[0,\dfrac43\right]$</button>
+    <button data-k="C">$[0,4]$</button>
+    <button data-k="D">$\left[-4,\dfrac43\right]$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">方向①：$0\le4-3x\le4$。先解 $4-3x\ge0\Rightarrow x\le\dfrac43$，再解 $4-3x\le4\Rightarrow -3x\le0\Rightarrow x\ge0$（除以负数不等号反向！）。交集 $\left[0,\dfrac43\right]$。</div>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（方向③）</span>$f(2x+3)$ 的定义域为 $[1,3)$，求 $f(1-x)$ 的定义域。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P9）</summary>
+    <p>第一步（②）：$x\in[1,3)$ 时 $2x+3\in[5,9)$，故 $f$ 的定义域是 $[5,9)$。</p>
+    <p>第二步（①）：令 $5\le1-x&lt;9$，各边减 1：$4\le-x&lt;8$，除以 $-1$ 变号：$-8&lt;x\le-4$，即 $(-8,-4]$。</p>
+    <p>方向③永远两步走，<strong>先求 $f$ 的胃，再喂 $h(x)$</strong>。</p>
+  </details>
+</div>
+
+<h2>二、求函数表达式：换元与恒等变形</h2>
+
+<p>两类任务：（1）已知 $f(x)$，求 $f[g(x)]$——<strong>直接代入</strong>；（2）已知 $f[g(x)]$，反求 $f(x)$——<strong>换元法</strong>（令 $t=g(x)$ 反解出 $x$）或<strong>恒等变形</strong>（把右边凑成"括号量"的结构）。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（换元法）</span>$f(x+1)=x^2-3x$，求 $f(x)$。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P10）</summary>
+    <p>令 $t=x+1$，则 $x=t-1$，代入右边：</p>
+    <p>$f(t)=(t-1)^2-3(t-1)=t^2-2t+1-3t+3=t^2-5t+4$。</p>
+    <p>把记号换回 $x$：$f(x)=x^2-5x+4$。</p>
+    <p>检验：$f(2)=4-10+4=-2$；用原式算 $f(2)$ 即 $x+1=2\Rightarrow x=1$，$1-3=-2$ ✓。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5（恒等变形）</span>$f\left(x+\dfrac1x\right)=x^2+\dfrac{1}{x^2}$，求 $f(x)$。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P10）</summary>
+    <p>换元要反解 $x+\dfrac1x$ 太麻烦；观察右边：$x^2+\dfrac{1}{x^2}=\left(x+\dfrac1x\right)^2-2$。</p>
+    <p>所以 $f(\ \cdot\ )=(\ \cdot\ )^2-2$，即 $f(x)=x^2-2$。别忘了定义域：括号量 $x+\dfrac1x$ 满足 $|x+\dfrac1x|\ge2$，严格写为 $f(x)=x^2-2\ (|x|\ge2)$。</p>
+    <p>标志词：看到 $x+\dfrac1x$、$x-\dfrac1x$，立刻想 <strong>$(x\pm\dfrac1x)^2=x^2+\dfrac{1}{x^2}\pm2$</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 6（连锁）</span>$f(x-2)=x^2-x$，求 $f\left(\sqrt x\right)$。</p>
+  <details><summary>先自己做，再展开解答（原题见夏讲教材 P10–11）</summary>
+    <p>先求 $f$：令 $t=x-2$，$x=t+2$，$f(t)=(t+2)^2-(t+2)=t^2+3t+2$。</p>
+    <p>再代入 $\sqrt x$：$f\left(\sqrt x\right)=x+3\sqrt x+2$，定义域 $x\ge0$。</p>
+    <p>$f[g]\to f[h]$ 的"求表达式"版本，同样是两步。</p>
+  </details>
+</div>
+
+<h2>三、相同函数：两把尺子</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背</div>
+  <p style="margin:0.2rem 0">两个函数相同 $\iff$ <strong>定义域相同</strong> 且 <strong>对应法则相同</strong>。与变量字母（$x$ 还是 $t$）、表达形式（化简前后）<strong>无关</strong>。</p>
+</div>
+
+<table>
+  <tr><th>函数对</th><th>相同？</th><th>原因</th></tr>
+  <tr><td>$\dfrac{x^2}{x}$ 与 $x$</td><td>否</td><td>前者定义域 $x\neq0$——约分偷走了定义域</td></tr>
+  <tr><td>$x$ 与 $\sqrt{x^2}$</td><td>否</td><td>$\sqrt{x^2}=|x|$，$x&lt;0$ 时法则不同</td></tr>
+  <tr><td>$x$ 与 $x(\sin^2x+\cos^2x)$</td><td><strong>是</strong></td><td>$\sin^2x+\cos^2x=1$ 恒成立，定义域法则都同</td></tr>
+  <tr><td>$y=f(x)$ 与 $u=f(t)$</td><td><strong>是</strong></td><td>字母只是名字</td></tr>
+</table>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">下列哪一对是<strong>相同</strong>的函数？</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=x$ 与 $y=\sqrt{x^2}$</button>
+    <button data-k="B">$y=\dfrac{x^2}{x}$ 与 $y=x$</button>
+    <button data-k="C">$y=x$ 与 $y=x(\sin^2x+\cos^2x)$</button>
+    <button data-k="D">$y=\lg x^2$ 与 $y=2\lg x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">A：$\sqrt{x^2}=|x|\neq x$；B：定义域不同（$x\neq0$）；D：$\lg x^2$ 定义域为 $x\neq0$，而 $2\lg x$ 要求 $x>0$。C：$\sin^2x+\cos^2x=1$ 对一切实数成立，两把尺子都过 → 相同。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">易错</div>
+  <p style="margin:0.2rem 0">$f[g(x)]$ 的定义域是"使 $g(x)$ 落入 $f$ 的定义域"的 $x$ 范围，<strong>不是把 $g$ 的定义域直接搬过来</strong>。解含 $g(x)$ 的不等式时，除以负数记得变号（随堂测 1 的 $\left[0,\dfrac43\right]$ 就藏在一次变号里）。</p>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">抽象函数定义域三个方向各自怎么做？（$f\to f[g]$、$f[g]\to f$、$f[g]\to f[h]$）</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">① 解 $g(x)\in D$；② 取 $g$ 在已知定义域上的<strong>值域</strong>；③ 先用②求出 $f$ 的定义域，再按①解 $h(x)$ 落入其中。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">判断相同函数的两把尺子是什么？哪三个"干扰项"可以无视？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">定义域相同 + 对应法则相同。变量字母、表达形式、写法都不是判断依据。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡后，把例 3（方向③）和例 5（恒等变形）盖住解析重做一遍——这两道是本课的分水岭题。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《函数》§二·2.3、§三、§四（含秋讲练习 3、4、5、7、8 全部答案）</li>
+    <li>讲义：《函数》夏讲 PDF 教材 P9–P11（例题组）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："整体代换再给我 3 道变式题"、"换元法和恒等变形怎么选"、"检查一下我这道题：$f(1-2x)$ 定义域 $(-3,2]$，求 $f(x)$"。
+</div>
+
+<nav class="footnav">
+  <a href="0003-函数概念与定义域.html" class="prev"><span class="dir">← 上一课</span>0003 函数概念与定义域</a>
+  <a href="0005-函数的奇偶性.html" class="next"><span class="dir">下一课 →</span>0005 函数的奇偶性</a>
+</nav>
+</main>
+</body>
+</html>

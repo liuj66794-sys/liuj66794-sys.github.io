@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题本 · 专升本《计算机基础与程序设计》</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<style>
+  .mistake .m-q { margin: 0 0 0.25rem; }
+  .mistake .m-link { font-size: 0.85rem; }
+</style>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 错题本</span>
+  <span>自动记录 · 无需手动登记</span>
+</nav>
+
+<h1>错题本</h1>
+<p class="lesson-meta">你在各课测验里的每一次答错都自动记录在浏览器本地（localStorage），答对一次即自动「已订正」。订正方式：点每题的「重做该题」回到课程页重做——先别看解析，凭记忆选。</p>
+
+<div class="goal">
+  <p class="goal-title">怎么用这本错题本（错题闭环）</p>
+  <p>① 课程测验答错 → 自动记入本页；② 当天学完回这里看「待订正」，重做一遍做对 → 自动转「已订正」；③ 二轮复习时只刷「已订正」的题，再错一次就重新变回「待订正」。目标：考前把本页清零。</p>
+</div>
+
+<div id="root"><p class="mistake-empty">正在读取记录……（若浏览器禁用了 localStorage，错题本将不可用，但课程测验本身不受影响）</p></div>
+
+<div class="teacher-note">错题反复做错？把题号和你的思路发给我——我会判断你是概念没通还是掉进了出题人的陷阱，并出几道同类变式题帮你焊死它。</div>
+
+<nav class="footer-nav">
+  <a href="index.html">← 回课程大纲</a>
+  <a href="../reference/c-syntax-cheatsheet.html">C 语法速查表 →</a>
+</nav>
+
+<script>
+(function () {
+  var STORE = 'zsb-mistakes-v1';
+  var LESSONS = [
+    ['0001', '0001-c-program-lifecycle.html', 'C 程序的全貌与编译四步骤'],
+    ['0002', '0002-data-representation.html', '数据的表示：数制、补码与常量'],
+    ['0003', '0003-operators-expressions.html', '运算符与表达式'],
+    ['0004', '0004-sequential-io.html', '顺序结构：printf 与 scanf'],
+    ['0005', '0005-selection-basics.html', '选择结构：条件、短路规则与 if'],
+    ['0006', '0006-selection-advanced.html', '选择进阶：else 配对、switch 穿透与位运算'],
+    ['0007', '0007-loops.html', '循环结构'],
+    ['0008', '0008-arrays-and-strings.html', '数组与字符串'],
+    ['0009', '0009-functions-basics.html', '函数基础'],
+    ['0010', '0010-functions-advanced.html', '函数进阶：数组传址、static 与递归'],
+    ['0011', '0011-pointers-basics.html', '指针基础与一维数组'],
+    ['0012', '0012-pointers-advanced.html', '指针进阶：二维数组、字符串与复杂声明'],
+    ['0013', '0013-structs-and-files.html', '结构体与文件'],
+    ['0014', '0014-ds-intro-and-complexity.html', '数据结构绪论与时间复杂度'],
+    ['0015', '0015-linear-list.html', '线性表'],
+    ['0016', '0016-stack-and-queue.html', '栈和队列'],
+    ['0017', '0017-array-matrix-glist.html', '数组、矩阵与广义表'],
+    ['0018', '0018-string.html', '串'],
+    ['0019', '0019-tree-basics.html', '树与二叉树基础'],
+    ['0020', '0020-binary-tree-traversal.html', '二叉树的遍历与还原'],
+    ['0021', '0021-tree-conversion-storage.html', '树、森林与二叉树的转换和存储'],
+    ['0022', '0022-huffman-tree.html', '赫夫曼树与编码'],
+    ['0023', '0023-graph-basics-traversal.html', '图的基础与遍历'],
+    ['0024', '0024-graph-applications.html', '图的应用'],
+    ['0025', '0025-searching.html', '查找'],
+    ['0026', '0026-sorting.html', '排序算法对比与选择'],
+    ['0027', '0027-sprint-recitation.html', '冲刺一：简答题背诵策略与复习题模板'],
+    ['0028', '0028-mock-exam-2025.html', '2025 年真题模拟'],
+    ['0029', '0029-mock-exam-2024.html', '2024 年真题模拟（结课）']
+  ];
+  var byId = {};
+  LESSONS.forEach(function (L) { byId[L[0]] = L; });
+
+  function loadAll() {
+    try { return JSON.parse((window.ZhixuStudyStorage || window.localStorage).getItem(STORE) || '{}') || {}; }
+    catch (e) { return {}; }
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function render() {
+    var root = document.getElementById('root');
+    var all = loadAll();
+    var html = '';
+    var totalPending = 0, totalFixed = 0;
+
+    LESSONS.forEach(function (L) {
+      var rec = all[L[0]];
+      if (!rec) return;
+      var qns = Object.keys(rec).filter(function (k) {
+        return rec[k] && rec[k].wrongs > 0;
+      }).sort(function (a, b) { return Number(a) - Number(b); });
+      if (!qns.length) return;
+
+      var cards = '';
+      qns.forEach(function (qn) {
+        var m = rec[qn];
+        var cls = m.fixed ? 'fixed' : 'pending';
+        if (m.fixed) { totalFixed++; } else { totalPending++; }
+        var status = (m.fixed ? '✓ 已订正 · 曾错 ' : '待订正 · 已错 ') + m.wrongs + ' 次';
+        var qtext = m.t ? esc(m.t) : '第 ' + Number(qn) + ' 题（回课程页查看）';
+        cards +=
+          '<div class="mistake ' + cls + '">' +
+          '<p class="m-q"><strong>第 ' + Number(qn) + ' 题</strong> · ' + qtext + '</p>' +
+          '<p class="m-status">' + status + ' · <a class="m-link" href="' + L[1] + '#q' + qn + '">重做该题 →</a></p>' +
+          '</div>';
+      });
+
+      html +=
+        '<div class="mistake-group"><h2><a href="' + L[1] + '">' + L[0] + ' · ' + esc(L[2]) + '</a></h2>' + cards + '</div>';
+    });
+
+    if (!html) {
+      root.innerHTML =
+        '<p class="mistake-empty">还没有任何错题记录——很好，保持。错题会在你答错课程测验时自动出现在这里。</p>';
+    } else {
+      var summary =
+        '<div class="callout ' + (totalPending ? 'warn' : 'tip') + '"><p class="callout-title">' +
+        (totalPending ? '待订正 ' + totalPending + ' 道 · 已订正 ' + totalFixed + ' 道' : '全部订正完成（' + totalFixed + ' 道），考前清零达成 ✓') +
+        '</p><p>' + (totalPending
+          ? '先从最上面的课开始，点「重做该题」回课程页重做；答对一次即自动订正。'
+          : '二轮复习时可按下面的课再刷一遍「已订正」的题，再错会重新变为待订正。') + '</p></div>';
+      root.innerHTML = summary + html +
+        '<button type="button" class="danger-btn" id="clear-all">清空全部错题记录</button>';
+      document.getElementById('clear-all').addEventListener('click', function () {
+        if (!confirm('确定清空全部错题记录？此操作不可恢复。')) return;
+        try { (window.ZhixuStudyStorage || window.localStorage).removeItem(STORE); } catch (e) {}
+        render();
+      });
+    }
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

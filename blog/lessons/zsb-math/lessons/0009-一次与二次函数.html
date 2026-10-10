@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0009 · 一次与二次函数 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<script defer src="../assets/plot.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0009">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 1 单元 · 函数 · 课 0009</span>
+  <a href="0008-复合函数拆解与反函数三步法.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0009 · 函数</span>
+<h1>一次与二次函数</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0003 函数概念 · 0007 图像库实战</span>
+  <span>来源：笔记《函数》§八 · §九（6·22 讲）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>看见 $k$、$b$ 就报出直线的<strong>走向、陡峭度、象限分布</strong></li>
+    <li>给条件选对解析式形式（点斜 / 两点 / 截距），10 秒立出直线方程</li>
+    <li>二次函数三件套——<strong>对称轴、顶点、$\Delta$</strong>——脱口而出，最值题不丢分</li>
+  </ul>
+</div>
+
+<p>这两类函数是初中老朋友，但考试换个姿势考：判断"是不是一次函数"、给两个条件立方程、求抛物线顶点与最值。它们还是 0010 课以后"极限的载体"——$x\to\infty$ 时一次函数比阶、抛物线开口，全靠这里的图像直觉。</p>
+
+<h2>一、一次函数：$k$ 管方向，$b$ 管截距</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与硬条件</div>
+  <p style="margin:0.2rem 0">$y=kx+b$（$k,b$ 为常数，<strong>$k\neq0$</strong>）。$b=0$ 时 $y=kx$ 叫<strong>正比例函数</strong>。</p>
+  <p style="margin:0.2rem 0">$k&gt;0$ 增、$k&lt;0$ 减，$|k|$ 越大越陡（$k=\tan\alpha$，倾斜角）；$b$ 是与 $y$ 轴交点的纵坐标。</p>
+</div>
+
+<p>判断"是不是一次函数"只认 $kx+b\ (k\neq0)$ 这个<strong>结构</strong>：$y=\pi x$ 是（$\pi$ 只是系数）、$y=2^{-1}-3x$ 是；而 $y=\dfrac1x$、$y=x^2-1$ 都不是。6·22 例 2 考的就是这个识别。</p>
+
+<table>
+  <tr><th></th><th>$b&gt;0$</th><th>$b=0$</th><th>$b&lt;0$</th></tr>
+  <tr><td>$k&gt;0$（上升）</td><td>过一、二、三象限</td><td>过原点，过一、三象限</td><td>过一、三、四象限</td></tr>
+  <tr><td>$k&lt;0$（下降）</td><td>过一、二、四象限</td><td>过原点，过二、四象限</td><td>过二、三、四象限</td></tr>
+</table>
+
+<p>两直线位置关系（设 $y_1=k_1x+b_1$，$y_2=k_2x+b_2$）：</p>
+<div class="keypoint">
+  <div class="kp-title">必背</div>
+  <p style="margin:0.2rem 0">平行（不重合）$\iff k_1=k_2$ 且 $b_1\neq b_2$；垂直 $\iff k_1k_2=-1$。</p>
+</div>
+
+<p>解析式五种形式，按已知条件选最顺手的：</p>
+<table>
+  <tr><th>形式</th><th>表达式</th><th>适用条件</th></tr>
+  <tr><td>点斜式</td><td>$y-y_1=k(x-x_1)$</td><td>已知一点 + 斜率</td></tr>
+  <tr><td>斜截式</td><td>$y=kx+b$</td><td>已知斜率 + $y$ 轴截距</td></tr>
+  <tr><td>两点式</td><td>$\dfrac{y-y_1}{y_2-y_1}=\dfrac{x-x_1}{x_2-x_1}$</td><td>已知两点</td></tr>
+  <tr><td>截距式</td><td>$\dfrac{x}{a}+\dfrac{y}{b}=1$</td><td>已知两轴截距 $a,b$（不过原点）</td></tr>
+  <tr><td>一般式</td><td>$Ax+By+C=0\ (A^2+B^2\neq0)$</td><td>统一写法</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（求解析式，6·22 例 5 精选）</span>分别求下列直线的斜截式方程：</p>
+  <p style="margin:0.2rem 0">(1) $k=3$ 且过 $(2,5)$；(2) 过 $(-2,-7)$ 与 $(-1,-5)$；(3) $x$ 轴截距 $2$、$y$ 轴截距 $-3$</p>
+  <details><summary>先自己立方程，再展开答案</summary>
+    <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+      <li>(1) 点斜式直接写：$y=3(x-2)+5=3x-1$</li>
+      <li>(2) 先算斜率 $k=\dfrac{-5-(-7)}{-1-(-2)}=2$，再用点斜式：$y=2(x+1)-5=2x-3$</li>
+      <li>(3) 截距式一步到位：$\dfrac{x}{2}+\dfrac{y}{-3}=1$，整理得 $y=\dfrac32x-3$</li>
+    </ul>
+    <p>流程固定：选形式 → 代入 → 化成斜截式。两点式先算 $k$ 更不容易错。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$y_1=k_1x+b_1$ 与 $y_2=k_2x+b_2$ 垂直的条件是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$k_1=k_2$ 且 $b_1\neq b_2$</button>
+    <button data-k="B">$k_1=k_2$ 且 $b_1=b_2$</button>
+    <button data-k="C">$k_1k_2=-1$</button>
+    <button data-k="D">$k_1+k_2=0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">垂直斜率互为"负倒数"。A 是平行条件；B 是重合；D 只说明倾斜角互补（对称于 $y$ 轴），不垂直。验证：$y=x$ 与 $y=-x$，$k_1k_2=-1$ ✓ 互相垂直。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">下列函数中，一次函数共有几个：$y=\pi x$；$y=\dfrac1x$；$y=2x-1$；$y=x^2-1$；$y=2^{-1}-3x$</p>
+  <div class="quiz-opts">
+    <button data-k="A">2 个</button>
+    <button data-k="B">3 个</button>
+    <button data-k="C">4 个</button>
+    <button data-k="D">5 个</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y=\pi x$、$y=2x-1$、$y=2^{-1}-3x$ 符合 $kx+b\ (k\neq0)$；$y=\frac1x$（反比例型）与 $y=x^2-1$（二次）不是。（6·22 例 2 原题，答案 B。）</div>
+</div>
+
+<h2>二、二次函数：三件套定一切</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背三件套：$y=ax^2+bx+c\ (a\neq0)$</div>
+  <p style="margin:0.2rem 0">开口：$a&gt;0$ 向上，$a&lt;0$ 向下。</p>
+  <p style="margin:0.2rem 0">对称轴：$x=-\dfrac{b}{2a}$；顶点：$P\left(-\dfrac{b}{2a},\ \dfrac{4ac-b^2}{4a}\right)$——<strong>最值就在顶点取得</strong>（$a&gt;0$ 最小、$a&lt;0$ 最大）。</p>
+  <p style="margin:0.2rem 0">与 $x$ 轴交点：$\Delta=b^2-4ac$；$\Delta&gt;0$ 两个、$=0$ 一个（相切）、$&lt;0$ 无。零点即方程 $ax^2+bx+c=0$ 的根。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（6·22 例 6）</span>已知 $f(x)=-x^2+4x-3$，求开口方向、零点与顶点。</p>
+  <details><summary>先自己做，再展开</summary>
+    <p>① $a=-1&lt;0$，开口向下；</p>
+    <p>② 零点：$-x^2+4x-3=0$，即 $x^2-4x+3=0$，$(x-1)(x-3)=0$，得 $x=1$ 或 $x=3$；</p>
+    <p>③ 对称轴 $x=-\dfrac{4}{2\times(-1)}=2$，代回 $f(2)=1$，顶点 $(2,1)$——因为开口向下，这就是<strong>最大值</strong>点。</p>
+    <div class="plot" data-fn="-(x*x)+4*x-3" data-xmin="-0.6" data-xmax="4.6" data-ymin="-3.5" data-ymax="2" data-w="300" data-h="200" data-label="$f(x)=-x^2+4x-3$：零点 $1,3$，顶点 $(2,1)$，开口向下"></div>
+  </details>
+</div>
+
+<p>解析式三种形式，按"已知什么"选（与直线同思路）：</p>
+<table>
+  <tr><th>形式</th><th>表达式</th><th>适用条件</th></tr>
+  <tr><td>一般式</td><td>$y=ax^2+bx+c$</td><td>已知三点（或读系数）</td></tr>
+  <tr><td>顶点式</td><td>$y=a(x-h)^2+k$</td><td>已知顶点 $(h,k)$ 或最值、对称轴</td></tr>
+  <tr><td>交点式</td><td>$y=a(x-x_1)(x-x_2)$</td><td>已知与 $x$ 轴两交点 $(x_1,0),(x_2,0)$</td></tr>
+</table>
+
+<div class="warn">
+  <div class="warn-title">易错</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>$a$ 定开口、$\Delta$ 定交点个数，<strong>两者独立</strong>：$a&gt;0$ 也可能 $\Delta&lt;0$（整条抛物线悬在 $x$ 轴上方）</li>
+    <li>对称轴公式里的负号：$-x^2+4x-3$ 的对称轴是 $-\dfrac{4}{-2}=2$，不是 $-2$</li>
+    <li>最值只在顶点处取得，且前提是<strong>整个 $R$ 上</strong>；限定区间上的最值要另看端点（0024 课闭区间最值再升级）</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$y=x^2-5x+6$ 的顶点横坐标是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{5}{2}$</button>
+    <button data-k="B">$-\dfrac{5}{2}$</button>
+    <button data-k="C">$\dfrac{5}{6}$</button>
+    <button data-k="D">$\dfrac{2}{5}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x=-\dfrac{b}{2a}=-\dfrac{-5}{2}=\dfrac52$。代回 $y=\dfrac52^2-5\cdot\dfrac52+6=-\dfrac14$，顶点 $\left(\frac52,-\frac14\right)$（6·22 例 7(2)）。B 是漏了公式里的负号。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">若二次函数 $y=ax^2+bx+c$ 满足 $\Delta=b^2-4ac&lt;0$，则其图象与 $x$ 轴</p>
+  <div class="quiz-opts">
+    <button data-k="A">有两个交点</button>
+    <button data-k="B">恰有一个交点</button>
+    <button data-k="C">交点个数由 $a$ 的符号决定</button>
+    <button data-k="D">没有交点</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\Delta$ 专职管交点个数：正二、零一、负零。整条曲线整个悬在 $x$ 轴一侧（$a&gt;0$ 在上方，$a&lt;0$ 在下方）。C 是"独立性"误读——$a$ 只管开口，不管交点个数。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">过点 $(2,5)$ 且 $k=3$ 的直线方程是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=3x+5$</button>
+    <button data-k="B">$y=2x-1$</button>
+    <button data-k="C">$y=3x-1$</button>
+    <button data-k="D">$y=5x-3$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">点斜式：$y-5=3(x-2)$，展开 $y=3x-1$。验算：$x=2$ 时 $y=6-1=5$ ✓。A 直接把点的纵坐标当成了截距。</div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写二次函数对称轴、顶点坐标公式，并说出最值在哪里取得。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">对称轴 $x=-\dfrac{b}{2a}$；顶点 $\left(-\dfrac{b}{2a},\dfrac{4ac-b^2}{4a}\right)$；$a&gt;0$ 顶点处取最小值，$a&lt;0$ 取最大值。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">两直线平行、垂直的条件各是什么？$\Delta$ 的三个取值各对应几个交点？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">平行：$k_1=k_2$ 且 $b_1\neq b_2$；垂直：$k_1k_2=-1$。$\Delta&gt;0$ 两交点、$\Delta=0$ 一点、$\Delta&lt;0$ 无交点。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。第 1 单元（0003–0009）至此收官——建议本周内把六课的回忆卡混在一起随机重测一遍（交错练习），再进入第 2 单元"极限与连续"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《函数》§八 一次函数 · §九 二次函数（含 6·22 例 2–7 全部解答与图象要点）</li>
+    <li>讲义：《函数》6·22 PDF（一次/二次函数专讲，例题原文）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："顶点式怎么从一般式配方得到"、"再出 5 道'给条件求直线/抛物线'的题"、"$\Delta$ 和开口为什么互不影响"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0008-复合函数拆解与反函数三步法.html" class="prev"><span class="dir">← 上一课</span>0008 复合函数拆解与反函数三步法</a>
+  <a href="../index.html" class="next"><span class="dir">下一课 →</span>0010 极限概念与左右极限（规划中，回主页）</a>
+</nav>
+</main>
+</body>
+</html>

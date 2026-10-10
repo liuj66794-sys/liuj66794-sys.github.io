@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 4 课 · 异步与 async/await</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/recall.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">阶段 0 · 模块 A（TypeScript 起步）· 第 4 课（模块 A 收官） ｜ 预计 40 分钟 ｜ 前置：第 3 课</div>
+
+<h1>异步与 async/await</h1>
+
+<p>这节课结束时，你会把 <code>Tool</code> 接口改成异步形态（<code>execute</code> 返回 <code>Promise&lt;string&gt;</code>），理解"程序为什么要学会等待"，并掌握 TypeScript 里写异步代码的标准语法：<code>async</code> / <code>await</code>。</p>
+
+<div class="callout">
+  <span class="label">为什么学这个 · Mission 关联</span>
+  Agent 做的每一件正事都要等：调模型 API 要等网络，读文件要等磁盘，跑命令要等进程结束。打开 <a href="https://github.com/badlogic/pi-mono">pi-mono</a> 的源码，agent loop 里满眼都是 <code>await</code>。<strong>你即将写的 PatchPilot，从第一行开始就是异步程序。</strong>这节课就是入口。
+</div>
+
+<h2>温故：先回忆，再学新内容</h2>
+
+<div class="recall">
+  <p class="q">1.（第 3 课）export 和 import 作用在谁和谁之间？能 export 的只有类吗？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>作用在<strong>模块（文件）</strong>之间——一个文件就是一个模块。能 export 的不止类：interface、const、函数、类型都可以。注意不是"包"之间：包（package）是 npm 的发布单位，别和模块混了。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2.（第 3 课）想验证整个项目类型全部通过，用哪条命令？它没有任何输出代表什么？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p><code>npx tsc --noEmit</code>。没有任何输出 = 类型全部通过；它只检查，不生成文件、不运行代码。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">3.（第 2 课）<code>interface Tool</code> 由哪三部分组成？哪一部分会进模型的上下文？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p><code>name</code>、<code>description</code>、<code>execute</code>。<code>description</code> 会被塞进给模型的上下文——模型靠它决定何时调用这个工具。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>1. 为什么程序需要"等"</h2>
+
+<p>你去餐厅点菜，有两种等法：</p>
+
+<ul>
+  <li><strong>同步</strong>：站在柜台前一动不动，直到菜做好端给你。这期间你什么都干不了。</li>
+  <li><strong>异步</strong>：拿到一张小票就离开柜台，该干嘛干嘛；菜好了凭小票取餐。</li>
+</ul>
+
+<p>你之前写的程序全是同步的：一行执行完才执行下一行。这在 <code>calculator</code> 这种纯计算里没问题，但 Agent 的场景全是"要等"的事：</p>
+
+<ul>
+  <li>调模型 API：等网络往返，几百毫秒到几十秒</li>
+  <li>读文件：等磁盘响应</li>
+  <li>跑命令：等子进程结束</li>
+</ul>
+
+<p>如果用同步方式等网络，整个程序就冻住了。所以 TypeScript 程序必须学会"拿小票"——这就是异步。</p>
+
+<h2>2. Promise：未来结果的凭证</h2>
+
+<p>那张"小票"在 TypeScript 里叫 <strong>Promise</strong>：一个代表"未来才会有的结果"的对象。它只有三种状态：</p>
+
+<table>
+  <tr><th>状态</th><th>含义</th></tr>
+  <tr><td><code>pending</code>（等待中）</td><td>菜还在做，结果还没出来</td></tr>
+  <tr><td><code>fulfilled</code>（已成功）</td><td>菜好了，拿到结果</td></tr>
+  <tr><td><code>rejected</code>（已失败）</td><td>厨房出事了，拿到错误</td></tr>
+</table>
+
+<p>下面这个函数造一张"指定毫秒后自动兑现的小票"，本课的动手任务会用到它：</p>
+
+<pre><code>function wait(ms: number): Promise&lt;void&gt; {
+  return new Promise((resolve) =&gt; setTimeout(resolve, ms));
+}</code></pre>
+
+<p>逐行读：<code>wait</code> 接收毫秒数，返回一个 <code>Promise&lt;void&gt;</code>（"只会兑现、不带具体值的小票"）；<code>setTimeout</code> 在 <code>ms</code> 毫秒后调用 <code>resolve</code>，<code>resolve</code> 一被调用，小票就兑现了。<code>new Promise</code> 的完整写法后面用到再细讲，今天先会用它。</p>
+
+<h2>3. async / await：写异步代码的标准姿势</h2>
+
+<p>两个关键字，规则各一条：</p>
+
+<ul>
+  <li><strong><code>async</code></strong> 标在函数前面：这个函数的返回值自动变成 Promise。你 <code>return "你好"</code>，调用方拿到的是 <code>Promise&lt;string&gt;</code>。</li>
+  <li><strong><code>await</code></strong> 写在 Promise 前面：在这里等它出结果，再把结果拿出来。<code>await</code> 只能写在 <code>async</code> 函数的内部。</li>
+</ul>
+
+<pre><code>async function greet(): Promise&lt;string&gt; {
+  await wait(1000);        // 等 1 秒，但不冻住整个程序
+  return "你好，L1U.J！";     // 调用方实际拿到 Promise&lt;string&gt;
+}</code></pre>
+
+<p>最关键的一点：<code>await</code> 的"等"不是同步那种冻住全程序的等。当前函数暂停，程序其他部分照常运转——这就是"拿小票离开柜台"。</p>
+
+<p>如果忘了写 <code>await</code>，你拿到的不是结果，而是那张还没兑现的小票本身：</p>
+
+<pre><code>console.log(greet());        // Promise { &lt;pending&gt; } —— 打印的是小票
+console.log(await greet());  // 你好，L1U.J！ —— await 把结果取了出来</code></pre>
+
+<h2>4. 动手：把 Tool 改成异步形态</h2>
+
+<p>真实 Agent 的工具全是异步的。现在把你的三文件项目升级成同样的形态。</p>
+
+<p><strong>第一步</strong>，<code>tool-types.ts</code>：<code>execute</code> 的返回类型从 <code>string</code> 改为 <code>Promise&lt;string&gt;</code>：</p>
+
+<pre><code>export interface Tool {
+  name: string;
+  description: string;
+  execute: (args: Record&lt;string, any&gt;) =&gt; Promise&lt;string&gt;;
+}</code></pre>
+
+<p><strong>第二步</strong>，<code>tools.ts</code>：给每个 <code>execute</code> 加上 <code>async</code>，并新增一个模拟网络耗时的工具：</p>
+
+<pre><code>import { Tool } from "./tool-types";
+
+function wait(ms: number): Promise&lt;void&gt; {
+  return new Promise((resolve) =&gt; setTimeout(resolve, ms));
+}
+
+export const calculator: Tool = {
+  name: "calculator",
+  description: "计算两个数的和",
+  execute: async (args) =&gt; `结果是 ${Number(args.a) + Number(args.b)}`
+};
+
+export const greeter: Tool = {
+  name: "greeter",
+  description: "向指定的人问好",
+  execute: async (args) =&gt; `你好，${args.name}！`
+};
+
+export const slowGreeter: Tool = {
+  name: "slow-greeter",
+  description: "模拟网络请求：延迟 1 秒后问好",
+  execute: async (args) =&gt; {
+    await wait(1000);   // 模拟一次网络往返的耗时
+    return `你好，${args.name}！（这条问好等了 1 秒）`;
+  }
+};</code></pre>
+
+<p><strong>第三步</strong>，<code>main.ts</code>：<code>runTool</code> 同样改异步，再用一个 <code>async main()</code> 串起所有调用：</p>
+
+<pre><code>import { Tool } from "./tool-types";
+import { calculator, greeter, slowGreeter } from "./tools";
+
+const toolRegistry: Record&lt;string, Tool&gt; = {
+  calculator,
+  greeter,
+  "slow-greeter": slowGreeter,
+};
+
+async function runTool(name: string, args: Record&lt;string, any&gt;): Promise&lt;string&gt; {
+  const tool = toolRegistry[name];
+  if (!tool) return `错误：找不到名为 "${name}" 的工具`;
+  return await tool.execute(args);
+}
+
+async function main() {
+  console.log("开始调用工具……");
+  console.log(await runTool("calculator", { a: 10, b: 20 }));
+  console.log(await runTool("greeter", { name: "L1U.J" }));
+  console.log(await runTool("slow-greeter", { name: "L1U.J" }));
+  console.log("全部完成");
+}
+
+main();</code></pre>
+
+<p>注意 <code>main()</code> 这个壳：<code>await</code> 只能待在 <code>async</code> 函数里，所以入口逻辑要包进一个 <code>async</code> 函数再调用它。这是真实项目的常见写法。</p>
+
+<div class="task">
+<h3>动手任务（验收清单）</h3>
+<ol>
+  <li>按上面三步改造 <code>tool-types.ts</code> / <code>tools.ts</code> / <code>main.ts</code>。</li>
+  <li>运行 <code>npm run start</code>：看到"开始调用工具……"、两条立即出现的结果、<strong>停顿约 1 秒后</strong>出现的 slow-greeter 结果、最后"全部完成"。</li>
+  <li>运行 <code>npx tsc --noEmit</code>，确认没有任何输出（类型全部通过）。</li>
+  <li><strong>忘写 await 实验</strong>：把 <code>main()</code> 里 <code>runTool("greeter", ...)</code> 前面的 <code>await</code> 删掉，再运行 <code>npm run start</code>，观察这一行变成了什么；然后把 <code>await</code> 加回去。</li>
+</ol>
+<p><strong>贴回给我</strong>：① <code>npm run start</code> 的正常输出；② 删掉 <code>await</code> 后那一行变成了什么；③ 用一句话说：<code>await</code> 做了什么？</p>
+</div>
+
+<h2>小测</h2>
+
+<div class="quiz" data-answer="a" data-explain="async 函数的返回值会自动包成 Promise：你 return string，调用方拿到 Promise&lt;string&gt;。">
+  <p class="q">1. 调用一个 <code>async</code> 函数，你拿到的是什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">一个 Promise 对象</button>
+    <button class="option" data-key="b">函数最终结果值</button>
+    <button class="option" data-key="c">一个 undefined 值</button>
+    <button class="option" data-key="d">一个回调函数值</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="d" data-explain="忘了 await，拿到的是还没兑现的 Promise 本身，打印出来就是 Promise { &lt;pending&gt; }。">
+  <p class="q">2. 忘记写 <code>await</code> 就打印一个 Promise，会看到什么？</p>
+  <div class="options">
+    <button class="option" data-key="a">程序报错并退出</button>
+    <button class="option" data-key="b">自动等待再打印</button>
+    <button class="option" data-key="c">打印 undefined 值</button>
+    <button class="option" data-key="d">Promise { &lt;pending&gt; }</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="c" data-explain="Promise 只有三种状态：pending（等待中）、fulfilled（已成功）、rejected（已失败），没有 finished。">
+  <p class="q">3. 下面哪个不是 Promise 的状态？</p>
+  <div class="options">
+    <button class="option" data-key="a">pending（等待中）</button>
+    <button class="option" data-key="b">fulfilled（已成功）</button>
+    <button class="option" data-key="c">finished（已结束）</button>
+    <button class="option" data-key="d">rejected（已失败）</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="quiz" data-answer="b" data-explain="await 只能写在 async 函数内部；文件顶层想用，就包一个 async main() 再调用它。">
+  <p class="q">4. <code>await</code> 允许写在哪里？</p>
+  <div class="options">
+    <button class="option" data-key="a">任何函数的内部都行</button>
+    <button class="option" data-key="b">async 函数的内部</button>
+    <button class="option" data-key="c">文件最顶层的区域</button>
+    <button class="option" data-key="d">if 语句的条件里面</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<h2>回忆挑战（遮住上文，先默写再对照）</h2>
+
+<div class="recall">
+  <p class="q">1. 默写最小骨架：一个延迟 1 秒后返回问好的 async 函数，以及用 await 取出它的结果并打印的那行调用。</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><pre><code>async function greet(): Promise&lt;string&gt; {
+  await wait(1000);
+  return "你好，L1U.J！";
+}
+
+console.log(await greet());   // 必须待在 async 函数里</code></pre></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="recall">
+  <p class="q">2. 不看正文，各用一句话说：Promise 是什么？<code>await</code> 做了什么？</p>
+  <button class="reveal" type="button">显示答案</button>
+  <div class="answer" hidden><p>Promise 是"未来结果的凭证"（小票），有 pending / fulfilled / rejected 三种状态。<code>await</code> 写在 Promise 前面：暂停当前函数等小票兑现、取出结果，但不冻住整个程序。</p></div>
+  <div class="self-grade" hidden>
+    <span>自评：</span>
+    <button class="grade ok" type="button">想起来了</button>
+    <button class="grade no" type="button">没想起来</button>
+  </div>
+  <p class="feedback"></p>
+</div>
+
+<div class="callout">
+  <span class="label">面试怎么考</span>
+  "同步和异步的区别""Promise 有哪几种状态""async/await 和 Promise 是什么关系"是三道经久不衰的基础题。更高阶的加分项是讲项目时自然带出："我的工具接口 <code>execute</code> 返回 <code>Promise&lt;string&gt;</code>，因为真实工具调用——网络请求、文件读写——全是异步的。"你现在的代码已经能支撑这句话了。
+</div>
+
+<div class="further">
+<h2>延伸阅读（一手资料）</h2>
+<ul>
+  <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN：Promise</a> —— Promise 状态机与用法的权威参考。</li>
+  <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function">MDN：async function</a> —— async/await 语法的官方说明。</li>
+</ul>
+<p>课程导航：<a href="0003-modules-and-npm-scripts.html">← 上一课</a> ｜ 下一课：<a href="0005-nodejs-file-system.html">第 5 课 · Node.js 文件系统</a> ｜ <a href="../ROADMAP.md">路线图</a> ｜ <a href="../RESOURCES.md">资料清单</a> ｜ <a href="../reference/ts-async-and-await.html">本课速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a></p>
+</div>
+
+<p class="teacher-note">第 3 课的措辞偏差（export 不止"类"、作用在模块而非包之间）已写进 learning record，并在本课温故第 1 题复测——如果这次自评还是"没想起来"，告诉我，我们单独补一小节。完成动手任务后贴回三项输出，下一课进入阶段 0 模块 B：Node.js 文件系统，Agent 真正"动手读写代码"的开始。有任何一步卡住，直接把报错贴给我。</p>
+
+</main>
+</body>
+</html>

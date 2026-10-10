@@ -1,0 +1,505 @@
+/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 */
+/* Hallmark · genre: editorial · macrostructure: Long Document (index: Index-First)
+ * theme: Newsprint（暖纸 + 朱砂）· design-system: design.md · designed-as-app
+ * rev 2026-07-26：h2 发线分节 · lede 首段 · 宽屏 marginalia 目录 · 导航页 course-index
+ * 组件契约（类名）保持不变：.toc .step .callout .skill-tag .no-print 等。
+ */
+
+@import url("tokens.css");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+  margin: 0 auto;
+  max-width: 42rem;
+  padding: var(--space-2xl) clamp(1.25rem, 5vw, 2rem) var(--space-3xl);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.8;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- 标题：墨色、roman、层级靠字号与留白 ---------- */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-style: normal;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+h1 {
+  margin: 0 0 var(--space-lg);
+  padding-bottom: var(--space-sm);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-bottom: 4px double var(--color-ink); /* 报头签名元素，全站唯一 */
+}
+
+h2 {
+  margin: var(--space-2xl) 0 var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-rule); /* 发线分节，长文滚动中的章节锚点 */
+  font-size: var(--text-xl);
+  font-weight: 600;
+  scroll-margin-top: var(--space-lg);
+}
+
+h3 {
+  margin: var(--space-xl) 0 var(--space-sm);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+h4 {
+  margin: var(--space-lg) 0 var(--space-sm);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+/* ---------- 正文 ---------- */
+
+p {
+  margin: 0 0 var(--space-md);
+  hanging-punctuation: first allow-end; /* 渐进增强：不支持的浏览器静默忽略 */
+}
+
+/* lede：页首引段（toc.js 会在 h1 后插入目录，两种邻接都算） */
+h1 + p,
+.toc + p {
+  font-size: var(--text-md);
+  line-height: 1.7;
+}
+
+ul, ol {
+  margin: 0 0 var(--space-lg);
+  padding-left: 1.5em;
+}
+
+li {
+  margin-bottom: var(--space-2xs);
+  hanging-punctuation: first allow-end;
+}
+
+li > ul, li > ol {
+  margin-top: var(--space-2xs);
+  margin-bottom: var(--space-2xs);
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* ---------- 链接：accent 文字 + 发线下划，hover 只改下划线颜色 ---------- */
+
+a {
+  color: var(--color-accent);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--color-rule);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-micro) var(--ease-out);
+}
+
+a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+label:focus-within {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------- 代码 ---------- */
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+code {
+  background: var(--color-paper-2);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-paper-2);
+  border-block: 1px solid var(--color-rule); /* 排印框，不用侧边条 */
+  overflow-x: auto;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* ---------- 引用 ---------- */
+
+blockquote {
+  margin: var(--space-lg) 0;
+  padding: var(--space-2xs) var(--space-lg);
+  border-left: 1px solid var(--color-ink);
+  color: var(--color-muted);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 表格：书版式（booktabs），无竖线无斑马纹 ---------- */
+
+table {
+  width: 100%;
+  margin: var(--space-lg) 0 var(--space-xl);
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  border-top: 2px solid var(--color-ink);
+  border-bottom: 2px solid var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+thead th {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--color-ink);
+}
+
+tbody tr + tr td {
+  border-top: 1px solid var(--color-rule);
+}
+
+/* ---------- 导航页头版：报头日期行 + 编号课程索引 ---------- */
+
+.masthead-meta {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+}
+
+.course-index {
+  list-style: none;
+  margin: var(--space-lg) 0 var(--space-xl);
+  padding: 0;
+  counter-reset: course;
+  border-top: 2px solid var(--color-ink);
+  border-bottom: 2px solid var(--color-ink);
+}
+
+.course-index li {
+  counter-increment: course;
+  display: flex;
+  gap: var(--space-md);
+  margin: 0;
+  padding: var(--space-md) 0;
+}
+
+.course-index li + li {
+  border-top: 1px solid var(--color-rule);
+}
+
+.course-index li::before {
+  content: counter(course, decimal-leading-zero);
+  flex-shrink: 0;
+  width: 3rem;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+.ci-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ci-title {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.ci-title:hover {
+  color: var(--color-accent);
+}
+
+.ci-meta {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* colophon：页脚参考链接行（取代内联样式） */
+.colophon {
+  margin-top: var(--space-2xl);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* ---------- 提示框 ---------- */
+
+.callout {
+  margin: var(--space-xl) 0;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+}
+
+.callout-title {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-xs);
+}
+
+.callout-title::before {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.5em;
+  background: var(--color-accent); /* accent 小方块锚点，≤5% 纪律内 */
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 技能标签 ---------- */
+
+.skill-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: 0.1em 0.5em;
+  margin-right: var(--space-2xs);
+  margin-bottom: var(--space-2xs);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+}
+
+.skill-tag.model-invoked {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ---------- 术语 ---------- */
+
+.glossary-term {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ---------- 步骤流：细线圆圈数字，不用 accent 实心圆 ---------- */
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin: var(--space-md) 0;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-top: 0.15rem;
+  border: 1px solid var(--color-ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.step-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-body p:first-child {
+  margin-top: 0;
+}
+
+.step-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 页内目录（assets/toc.js 生成） ---------- */
+
+.toc {
+  margin: var(--space-lg) 0 var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-paper-2);
+  border-block: 1px solid var(--color-rule);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.toc-home {
+  display: inline-block;
+  margin-bottom: var(--space-xs);
+  white-space: nowrap;
+}
+
+.toc-title {
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-xs);
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  columns: 2;
+  column-gap: var(--space-xl);
+}
+
+.toc li {
+  margin-bottom: var(--space-3xs);
+  break-inside: avoid;
+}
+
+.toc ol a {
+  color: var(--color-ink);
+}
+
+.toc ol a:hover {
+  color: var(--color-accent);
+}
+
+/* 宽屏：目录移到右页边（marginalia），固定不随滚动消失 */
+@media (min-width: 72rem) {
+  .toc {
+    position: fixed;
+    top: var(--space-xl);
+    left: calc(50% + 21rem + var(--space-lg));
+    width: 13rem;
+    max-height: calc(100dvh - 2 * var(--space-xl));
+    overflow-y: auto;
+    margin: 0;
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+    background: transparent;
+    border-block: none;
+    border-left: 1px solid var(--color-rule);
+  }
+
+  .toc ol {
+    columns: 1;
+  }
+}
+
+/* ---------- 打印 ---------- */
+
+@media print {
+  body {
+    max-width: 100%;
+    padding: 0;
+    font-size: 11pt;
+  }
+
+  .toc {
+    display: none;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .no-print {
+    display: none;
+  }
+}
+
+/* ---------- 动效收敛：Newsprint 0×，减少动效时连平滑滚动也关 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+  }
+}
+
+/* ---------- 小屏 ---------- */
+
+@media (max-width: 40rem) {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .toc ol {
+    columns: 1;
+  }
+
+  /* 课程索引：大号期号收到标题上方，避免挤压标题折行 */
+  .course-index li {
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .course-index li::before {
+    width: auto;
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--color-muted);
+  }
+
+  /* 宽表格（如速查表 4 列）允许表内横向滚动，不撑破页面 */
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

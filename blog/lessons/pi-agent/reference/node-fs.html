@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查表 · Node.js 文件系统（fs）</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">速查表 · 压缩自第 5 课 ｜ 随课程推进持续更新</div>
+
+<h1>Node.js 文件系统（fs）</h1>
+
+<p>读写文件卡住时先查这里。只用 Promise 版 API：<code>node:fs/promises</code>。</p>
+
+<h2>两个核心 API</h2>
+
+<table>
+  <tr><th>API</th><th>签名</th><th>返回</th><th>行为</th></tr>
+  <tr><td><code>readFile</code></td><td><code>readFile(path, "utf-8")</code></td><td><code>Promise&lt;string&gt;</code></td><td>读出文件文本；文件不存在 → rejected</td></tr>
+  <tr><td><code>writeFile</code></td><td><code>writeFile(path, content, "utf-8")</code></td><td><code>Promise&lt;void&gt;</code></td><td>不存在则创建，已存在则<strong>覆盖</strong>（不追加、不备份）</td></tr>
+</table>
+
+<pre><code>import { readFile, writeFile } from "node:fs/promises";
+
+const content = await readFile("notes.txt", "utf-8");
+await writeFile("output.txt", content, "utf-8");</code></pre>
+
+<h2>try / catch：接住 rejected 的 Promise</h2>
+
+<pre><code>try {
+  const content = await readFile("不存在的文件.txt", "utf-8");
+  console.log(content);
+} catch {
+  console.log("读文件失败");   // 程序不崩，走到这里
+}</code></pre>
+
+<h2>read_file 工具骨架（Agent 设计：错误作为结果返回）</h2>
+
+<pre><code>export const fileReader: Tool = {
+  name: "read_file",
+  description: "读取指定文本文件的内容",
+  execute: async (args) =&gt; {
+    try {
+      return await readFile(args.path, "utf-8");
+    } catch {
+      return `错误：读不到文件 ${args.path}`;   // 不抛错，让模型看到原因
+    }
+  }
+};</code></pre>
+
+<h2>常见现象速查</h2>
+
+<table>
+  <tr><th>现象 / 报错</th><th>原因与对策</th></tr>
+  <tr><td>程序崩掉，报 <code>ENOENT: no such file or directory</code></td><td>读的文件不存在，Promise rejected 且没人接——用 try / catch 包住 await</td></tr>
+  <tr><td>打印出 <code>&lt;Buffer 61 62 63 ...&gt;</code></td><td>readFile 忘传 <code>"utf-8"</code>，拿到的是原始字节——补上编码参数</td></tr>
+  <tr><td>打印出 <code>Promise { &lt;pending&gt; }</code></td><td>忘了写 await——拿到的是小票不是文件内容</td></tr>
+  <tr><td>writeFile 后旧内容没了</td><td>writeFile 是覆盖不是追加——真实 Agent 用 diff / 补丁机制保护现场</td></tr>
+</table>
+
+<div class="callout">
+  <span class="label">一句话记住</span>
+  <code>readFile</code> / <code>writeFile</code> 都返回 Promise：<code>await</code> 取结果，<code>try / catch</code> 接失败；读文本永远带 <code>"utf-8"</code>，写文件记得它会覆盖。
+</div>
+
+<div class="further">
+<h2>出处与导航</h2>
+<ul>
+  <li><a href="https://nodejs.org/api/fs.html#promises-api">Node.js 官方文档：fs Promises API</a> ｜ <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/try...catch">MDN：try...catch</a></li>
+</ul>
+<p>课程导航：<a href="../lessons/0005-nodejs-file-system.html">第 5 课</a> ｜ <a href="ts-async-and-await.html">异步速查表</a> ｜ <a href="ts-commands-and-setup.html">命令与工程组织速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a> ｜ <a href="../ROADMAP.md">路线图</a></p>
+</div>
+
+</main>
+</body>
+</html>

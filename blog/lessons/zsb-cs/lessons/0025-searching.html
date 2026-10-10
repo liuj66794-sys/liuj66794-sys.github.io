@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 25 课 · 查找</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=cd3d8697e139">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=cd3d8697e139"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第二部分 数据结构</span>
+  <span>第 25 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>查找</h1><p class="lesson-meta">对应笔记 数据结构/17-查找 · 教材 P162–168、P175–184 · 建议按小节分次学习</p><p>能维护闭区间边界，并在失败时给出明确停止条件。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 折半查找每次排除哪一半</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / ASL 与顺序查找</a></li><li><a href="#cs-detail-2">04 / 折半查找的判定树</a></li><li><a href="#cs-detail-3">05 / 散列表：构造、冲突与性能</a></li><li><a href="#cs-detail-4">06 / 二叉排序树 BST</a></li><li><a href="#cs-detail-5">07 / AVL 平衡二叉树</a></li><li><a href="#cs-detail-6">08 / 先回忆，再自测</a></li><li><a href="#cs-practice">09 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-8">10 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">折半查找每次排除哪一半</h2><p class="cs-goal">这一节要学会：能维护闭区间边界，并在失败时给出明确停止条件。</p><p>在有序目录里找名字，比较中间一项后就能排除一半。折半查找依赖有序性；没有排序时，“比中间大”不能证明目标在右半边。</p><p>下面用升序数组、闭区间 <code>[low,high]</code>。<code>mid=low+(high-low)/2</code>（整数除法）；目标更大时 <code>low=mid+1</code>，更小时 <code>high=mid-1</code>，相等则成功。只有 <code>low&lt;=high</code> 时区间非空。</p><p>数组下标与元素值分别记录。查找成功后返回的是位置还是值，要看接口约定。散列查找、二叉排序树和 <code>AVL</code> 有其他组织方式，不能把“有序数组的中点”规则直接搬过去。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>low=0, high=4</code></pre><p>候选下标：0 1 2 3 4；mid：2</p><p>a[2]=8，小于目标 12。</p><h3>第 2 步</h3><pre><code>low=mid+1=3</code></pre><p>low：3；high：4；mid：3</p><p>下标 0 到 2 都排除，包括已经比较的中点。</p><h3>第 3 步</h3><pre><code>a[3]==12</code></pre><p>命中下标：3；比较次数：2</p><p>返回位置 3，不是返回“第 3 个元素”；零起始下标 3 是第 4 个。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>为什么 <code>low</code> 更新为 <code>mid+1</code>，而不是 <code>mid</code>？</p><ol><li><code>mid</code> 已比较且确定不是答案：对。排除中点还能保证区间严格缩小，避免卡住。</li><li>为了跳过一个未知元素：跳过的是已比较的中点，不会跳过仍可能命中的元素。</li><li>下标总从 <code>1</code> 开始：本例下标明确从 <code>0</code> 开始。</li></ol><p>正确判断：<code>mid</code> 已比较且确定不是答案</p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task">在同一数组中找 <code>7</code>。按闭区间规则列出 <code>mid</code> 与比较结果，最后何时失败？</p><details><summary>卡住时看提示</summary><p>用三栏写 <code>low</code>、<code>high</code>、<code>mid</code>。每次排除中点，直到 <code>low</code> 超过 <code>high</code>。</p></details><details><summary>查看参考过程</summary><p><code>mid=2</code>，<code>8&gt;7</code>，<code>high=1</code>；<code>mid=0</code>，<code>2&lt;7</code>，<code>low=1</code>；<code>mid=1</code>，<code>5&lt;7</code>，<code>low=2</code>。此时 <code>low=2&gt;high=1</code>，区间为空，失败。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>查找失败时，是否能返回最后一次 <code>mid</code> 当作命中位置？</p><ol><li>能，已经最接近：接近不等于相等。</li><li>不能，必须报告未找到：对。命中必须有相等比较，空区间表示失败。</li><li>能，返回它的下一个位置：插入位置与查找命中是不同结果。</li></ol><p>正确判断：不能，必须报告未找到</p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、ASL 与顺序查找</h2>
+<p><strong>平均查找长度</strong>是衡量查找效率的主要指标：</p>
+<p style="text-align:center;font-weight:bold;">ASL = Σ PᵢCᵢ &nbsp;（等概率时 Pᵢ = 1/n）</p>
+<p>Cᵢ 是找到第 i 个元素所需的比较次数。</p>
+
+<table>
+  <tr><th>方法</th><th>适用结构</th><th>ASL<sub>成功</sub></th><th>时间复杂度</th></tr>
+  <tr><td>顺序查找</td><td>顺序表、链表</td><td>(n+1)/2</td><td>O(n)</td></tr>
+  <tr><td>折半查找</td><td>有序的顺序表</td><td>≈ log₂(n+1)−1</td><td>O(log₂n)</td></tr>
+</table>
+
+<div class="callout tip">
+  <p class="callout-title">速记</p>
+  <p>顺序查找「什么表都能用」，但效率最低；折半查找快，却<strong>必须同时满足「有序 + 顺序存储」</strong>——链表不支持随机存取，所以不能用折半。</p>
+</div>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 写出 ASL = ΣPᵢCᵢ，并口算顺序查找 ASL<sub>成功</sub>=(n+1)/2；② 一眼说出折半查找的适用条件，画出判定树并给出树高 ⌊log₂n⌋+1；③ 用除留余数法选质数 p，并手动推演线性/平方探测与拉链法；④ 解释装填因子 α=n/m 与冲突的关系；⑤ 判断 BST 性质（中序递增）并完成双孩子结点的删除；⑥ 识别 AVL 失衡类型，选择 LL/RR/LR/RL 的旋转方式。</p>
+</div>
+
+<details class="recall warmup">
+  <summary>温故 · 第 24 课「图的应用」：Prim 和 Kruskal 求最小生成树的思想差别是什么？共同前提是什么？</summary>
+  <div class="recall-a">Prim 是加点法：从起点出发，每次选连接树内与树外且权值最小的边；Kruskal 是选边法：每次从候选边中选权值最小且不成环的边。共同前提：都只针对无向图，结果不能有环。</div>
+</details>
+<details class="recall warmup">
+  <summary>温故 · 第 23 课「图的基础与遍历」：DFS 与 BFS 分别借助什么辅助结构？两种遍历序列唯一吗？</summary>
+  <div class="recall-a">DFS 借助栈，口诀「不撞南墙不回头」；BFS 借助队列，按层扩展。两种遍历序列都可能不唯一，取决于邻接点的访问次序。</div>
+</details>
+
+<div class="callout">
+  <p class="callout-title">为什么现在复习查找</p>
+  <p>查找是广东专升本计算机大题高频区：散列表构造过程、ASL 计算、BST/AVL 插入与调整都可能单独成题。你已经学过一轮，这节课把「公式、条件、易混点」压成一张速查网。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、折半查找的判定树</h2>
+<p>折半查找过程可画成一棵判定树：</p>
+<ul>
+  <li>根 = (第一个序号 + 最后一个序号) / 2，<strong>向下取整</strong>；</li>
+  <li>左子树、右子树递归同样画法；</li>
+  <li>树高 = <strong>⌊log₂n⌋+1</strong>；</li>
+  <li>查找某元素所需的比较次数 = 该结点在判定树上的深度。</li>
+</ul>
+
+<p>例：8 个元素 4,6,9,10,18,19,30,31（下标 1~8）。</p>
+<ul>
+  <li>根 = (1+8)/2 = 4 → 关键字 <strong>10</strong>；</li>
+  <li>左子树根 = (1+3)/2 = 2 → <strong>6</strong>；右子树根 = (5+8)/2 = 6 → <strong>19</strong>；</li>
+  <li>找 9：10 → 6 → 9，共 3 次比较。</li>
+</ul>
+
+<div class="callout warn">
+  <p class="callout-title">勘误提醒</p>
+  <p>课件中另印有算式 "1/11×(1+2×2+3×4+4×1)"，疑似对应 11 个元素的变式题。方法不变：<strong>ASL = 所有元素比较次数之和 ÷ 元素个数</strong>，不要被 11 这个数字带偏。</p>
+</div>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、散列表：构造、冲突与性能</h2>
+<p>散列函数把关键字直接映射成地址；不同关键字映射到同一地址称为<strong>冲突</strong>，发生冲突的关键字互称<strong>同义词</strong>。</p>
+
+<h3>3.1 常用散列函数</h3>
+<table>
+  <tr><th>方法</th><th>公式</th><th>要点</th></tr>
+  <tr><td>直接定址法</td><td>H(key)=key 或 a×key+b</td><td>关键字基本连续，否则空间浪费大</td></tr>
+  <tr><td>除留余数法</td><td>H(key)=key % p</td><td><strong>p 取 ≤ 表长 m 的质数</strong></td></tr>
+</table>
+
+<h3>3.2 处理冲突</h3>
+<p>开放地址法公式：Hᵢ = (H(key) + dᵢ) MOD m。</p>
+<table>
+  <tr><th>方法</th><th>增量序列 dᵢ</th><th>特点</th></tr>
+  <tr><td>线性探测</td><td>1, 2, 3, …, m−1</td><td>逐个往后找空位，易产生聚集</td></tr>
+  <tr><td>平方（二次）探测</td><td>1², −1², 2², −2², …</td><td>先加后减交替跳跃</td></tr>
+  <tr><td>拉链法</td><td>同地址关键字链成链表</td><td>适合插入/删除频繁的场景</td></tr>
+</table>
+
+<h3>3.3 一道完整推演</h3>
+<p>关键字 {32,75,63,48,94,25,36,18}，表长 m=11，H(key)=key MOD 11。</p>
+<table>
+  <tr><th>key</th><th>32</th><th>75</th><th>63</th><th>48</th><th>94</th><th>25</th><th>36</th><th>18</th></tr>
+  <tr><td>H(key)</td><td>10</td><td>9</td><td>8</td><td>4</td><td>6</td><td>3</td><td>3</td><td>7</td></tr>
+  <tr><td>线性探测后位置</td><td>10</td><td>9</td><td>8</td><td>4</td><td>6</td><td>3</td><td>5</td><td>7</td></tr>
+  <tr><td>比较次数</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>1</td></tr>
+</table>
+<p>ASL<sub>成功</sub> = (1×7 + 3)/8 = <strong>1.25</strong>。若用平方探测处理 36：3→(3+1²)=4 冲突→(3−1²)=<strong>2</strong>。</p>
+
+<div class="callout warn">
+  <p class="callout-title">易错点</p>
+  <p><strong>装填因子 α = n/m</strong>，α 越大表越满，冲突可能性越大。哈希查找效率同时取决于：哈希函数、处理冲突方法、装填因子。</p>
+</div>
+
+</section>
+<section id="cs-detail-4" data-cs-step><h2 tabindex="-1">四、二叉排序树 BST</h2>
+<p>定义：左子树 < 根 < 右子树；左右子树也必须是 BST。推论：<strong>中序遍历 BST 得到递增序列</strong>。</p>
+<table>
+  <tr><th>删除情况</th><th>做法</th></tr>
+  <tr><td>叶子结点</td><td>直接删除</td></tr>
+  <tr><td>只有左/右子树</td><td>用其唯一孩子顶替</td></tr>
+  <tr><td>左右子树都有</td><td>用<strong>左子树最大</strong>或<strong>右子树最小</strong>替换，再删那个替换结点</td></tr>
+</table>
+
+</section>
+<section id="cs-detail-5" data-cs-step><h2 tabindex="-1">五、AVL 平衡二叉树</h2>
+<p>AVL 是特殊的 BST：每个结点的 <strong>|左高 − 右高| ≤ 1</strong>，平衡因子只能是 −1、0、1。失衡时旋转调整：</p>
+<table>
+  <tr><th>失衡类型</th><th>插入位置</th><th>旋转</th></tr>
+  <tr><td>LL</td><td>左孩子的左子树</td><td>右旋</td></tr>
+  <tr><td>RR</td><td>右孩子的右子树</td><td>左旋</td></tr>
+  <tr><td>LR</td><td>左孩子的右子树</td><td>先左旋成 LL，再右旋</td></tr>
+  <tr><td>RL</td><td>右孩子的左子树</td><td>先右旋成 RR，再左旋</td></tr>
+</table>
+
+<div class="callout tip">
+  <p class="callout-title">口诀</p>
+  <p>BF 为正（左边高）→ 右旋；BF 为负（右边高）→ 左旋。折线型（LR/RL）先把下面扭成直线型，再按 LL/RR 旋一次。</p>
+</div>
+
+</section>
+<section id="cs-detail-6" data-cs-step><h2 tabindex="-1">六、先回忆，再自测</h2>
+<details class="recall">
+  <summary>折半查找的判定树怎么画？树高是多少？</summary>
+  <div class="recall-a">根 = (low+high)/2 向下取整，左右递归。树高 = ⌊log₂n⌋+1。想不起来就回头重看 8 个元素的例子。</div>
+</details>
+<details class="recall">
+  <summary>线性探测与平方探测的增量序列分别是什么？</summary>
+  <div class="recall-a">线性探测：dᵢ = 1,2,3,…,m−1；平方探测：dᵢ = 1²,−1²,2²,−2²,…。平方探测别忘了“先加后减交替”。</div>
+</details>
+<details class="recall">
+  <summary>AVL 的 LL、RR、LR、RL 分别怎么旋转？</summary>
+  <div class="recall-a">LL 右旋，RR 左旋；LR 先左旋再右旋，RL 先右旋再左旋。本质是把“折线”先扭成“直线”，再旋一次。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">七、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">1. 对长度为 11 的顺序表做等概率顺序查找，查找成功时的 ASL 为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">5</li>
+    <li data-opt="b">5.5</li>
+    <li data-opt="c">11</li>
+    <li data-opt="d">6</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">顺序查找 ASL<sub>成功</sub>=(n+1)/2，代入 n=11 得 6。注意区分“平均比较次数”与“最多比较次数”。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">2. 折半查找能够适用的数据结构必须满足</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">关键字有序且顺序存储</li>
+    <li data-opt="b">关键字有序且链式存储</li>
+    <li data-opt="c">只需顺序存储即可</li>
+    <li data-opt="d">只需关键字有序即可</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">折半查找需要随机存取，因此只适用于有序的顺序表；链表无法直接定位中间元素。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">3. 散列表表长 m=15，用除留余数法 H(key)=key%p 时，p 最好取</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">15</li>
+    <li data-opt="b">14</li>
+    <li data-opt="c">12</li>
+    <li data-opt="d">13</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">除留余数法要求 p 取小于等于表长 m 的质数。15 以内最大质数是 13。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">4. 关于散列表冲突处理，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">平方探测的增量只往一个方向加</li>
+    <li data-opt="b">线性探测适合插入删除频繁的场合</li>
+    <li data-opt="c">拉链法最容易产生记录堆积</li>
+    <li data-opt="d">同义词指映射到同一地址的关键字</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">平方探测增量为 1²,−1²,2²,−2²…；频繁插删适合拉链法；线性探测易产生聚集。同义词定义正确。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">5. 在 BST 中删除一个左右子树都非空的结点，正确的替换做法是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">用左子树最大或右子树最小替换</li>
+    <li data-opt="b">用任意叶子结点替换</li>
+    <li data-opt="c">用右子树最大结点替换</li>
+    <li data-opt="d">直接删除并连接两个孩子</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">左子树最大（中序前驱）或右子树最小（中序后继）都能保证替换后仍满足左&lt;根&lt;右。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">6. AVL 树中某结点的平衡因子为 −2，且失衡由右孩子的右子树插入引起，应执行</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">左旋</li>
+    <li data-opt="b">右旋</li>
+    <li data-opt="c">先左旋再右旋</li>
+    <li data-opt="d">先右旋再左旋</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">右孩子的右子树插入属于 RR 型，RR 型左旋。LL 型右旋，LR/RL 才需要两次旋转。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 20 分钟）</p>
+  <p>① 打开 数据结构/17-查找，重做正文中的两道散列推演例（地址 0~16 的线性探测题、以及 {32,75,63,48,94,25,36,18} 的构造与 ASL 计算），遮住答案独立完成。② 完成笔记末尾 自测问题 Q1–Q7，口头作答，卡壳的题目标 ⭐️ 第二天再测。③ 遮住笔记 17-查找 §5 的答案，亲手推演 AVL 插入序列 4,6,14,15,10,19,2,1：逐个插入，每次标出失衡结点与旋转类型（LL/RR/LR/RL），最后对照笔记给出的最终树核对。</p>
+</div>
+
+</section>
+<section id="cs-detail-8" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：数据结构/17-查找（含“易错点与对比”表与两道散列大题）。公式速查：<a href="../reference/ds-formula-cheatsheet.html">数据结构公式速查表</a>；术语速查：<a href="../reference/glossary.html">课程术语表</a>。C 语言语法对照：<a href="../reference/c-syntax-cheatsheet.html">C 语法速查表</a>。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:25:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-detail-4","cs-detail-5","cs-detail-6","cs-practice","cs-detail-8"],"checks":{"core":{"question":"为什么 low 更新为 mid+1，而不是 mid？","choices":["mid 已比较且确定不是答案","为了跳过一个未知元素","下标总从 1 开始"],"answer":0,"why":["对。排除中点还能保证区间严格缩小，避免卡住。","跳过的是已比较的中点，不会跳过仍可能命中的元素。","本例下标明确从 0 开始。"]},"transfer":{"question":"查找失败时，是否能返回最后一次 mid 当作命中位置？","choices":["能，已经最接近","不能，必须报告未找到","能，返回它的下一个位置"],"answer":1,"why":["接近不等于相等。","对。命中必须有相等比较，空区间表示失败。","插入位置与查找命中是不同结果。"]}},"traces":{"core":{"title":"在 2、5、8、12、16 中找 12","frames":[{"code":"low=0, high=4","cells":[["候选下标","0 1 2 3 4"],["mid","2"]],"note":"a[2]=8，小于目标 12。","pointer":""},{"code":"low=mid+1=3","cells":[["low","3"],["high","4"],["mid","3"]],"note":"下标 0 到 2 都排除，包括已经比较的中点。","pointer":""},{"code":"a[3]==12","cells":[["命中下标","3"],["比较次数","2"]],"note":"返回位置 3，不是返回“第 3 个元素”；零起始下标 3 是第 4 个。","pointer":""}]}},"signature":"3216ef65fb038a0f"}</script>
+<nav class="footer-nav">
+  <a href="0024-graph-applications.html">← 上一课：图的应用</a>
+  <a href="0026-sorting.html">下一课：排序 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

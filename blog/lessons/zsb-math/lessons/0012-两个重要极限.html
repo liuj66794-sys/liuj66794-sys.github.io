@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0012 · 两个重要极限 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0012">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 2 单元 · 极限与连续 · 课 0012</span>
+  <a href="0011-极限计算基础方法.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0012 · 极限与连续</span>
+<h1>两个重要极限</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0011 极限计算基础方法 · 0001 降幂公式</span>
+  <span>来源：笔记《极限与连续》§三（方法五、六）</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用"$\dfrac{\sin\square}{\square}\to1$"解决一切<strong>小角正弦</strong>型极限，包括 $\dfrac{1-\cos x}{x^2}$ 推论</li>
+    <li>分清 $x\sin\dfrac2x$（$\to0$）与 $x\sin\dfrac2x$（$x\to\infty$，$\to2$）这类<strong>同式不同命</strong>陷阱</li>
+    <li>用<strong>三步法</strong> $e^{\lim v(u-1)}$ 秒杀一切 $1^{\infty}$ 型，含逆求参数</li>
+  </ul>
+</div>
+
+<h2>一、第一个重要极限：小角正弦</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背与推广</div>
+  <p style="margin:0.2rem 0">$$\lim_{x\to0}\frac{\sin x}{x}=1\qquad\text{推广：}\lim_{\square\to0}\frac{\sin\square}{\square}=1$$</p>
+  <p style="margin:0.2rem 0">推论：$\lim\limits_{x\to0}\dfrac{\tan x}{x}=1$；$\lim\limits_{x\to0}\dfrac{1-\cos x}{x^2}=\dfrac12$（用 $\cos$ 半角或乘共轭推出来）。</p>
+  <p style="margin:0.2rem 0">使用心法：<strong>方框里必须一模一样</strong>，且方框 $\to0$。凑方框是全部技巧。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>求 $\lim\limits_{x\to0}\dfrac{\sin 2x}{x}$ 与 $\lim\limits_{x\to0}\dfrac{1-\cos x}{\frac12x^2}$。</p>
+  <details><summary>先自己凑，再展开</summary>
+    <p>$\lim\limits_{x\to0}\dfrac{\sin2x}{x}=\lim\limits_{x\to0}2\cdot\dfrac{\sin2x}{2x}=2\times1=2$（凑 $2x$ 方框）。</p>
+    <p>$1-\cos x=2\sin^2\dfrac x2$，故 $\lim\limits_{x\to0}\dfrac{2\sin^2\frac x2}{\frac12x^2}=\lim\limits_{x\to0}\left(\dfrac{\sin\frac x2}{\frac x2}\right)^2=1$，即 $\dfrac{1-\cos x}{x^2}\to\dfrac12$。</p>
+  </details>
+</div>
+
+<div class="warn">
+  <div class="warn-title">同式不同命：先看过程再动笔</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>式子</th><th>$x\to0$</th><th>$x\to\infty$</th></tr>
+    <tr><td>$\dfrac{\sin 2x}{x}$</td><td>$2$（重要极限一）</td><td>$0$（有界 × 无穷小）</td></tr>
+    <tr><td>$x\sin\dfrac{2}{x}$</td><td>$0$（无穷小 × 有界）</td><td>$2$（令 $t=\frac2x\to0$）</td></tr>
+    <tr><td>$\dfrac{\arctan x}{x}$</td><td>$1$</td><td>$0$（有界 × 无穷小）</td></tr>
+  </table>
+  <p style="margin:0.2rem 0">三行全对 = 本课一半的分数。做题<strong>第一眼先圈趋向</strong>，再套公式。（秋讲练习 10 原题组。）</p>
+</div>
+
+<h2>二、第二个重要极限：$1^{\infty}$ 型</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背与三步法</div>
+  <p style="margin:0.2rem 0">$$\lim_{x\to\infty}\left(1+\frac1x\right)^{x}=e\qquad\text{等价形式：}\lim_{\alpha\to0}\left(1+\alpha\right)^{\frac1\alpha}=e$$</p>
+  <p style="margin:0.2rem 0"><strong>$1^{\infty}$ 三步法</strong>：确认 $u\to1$、$v\to\infty$ 后，$$\lim u^{v}=e^{\lim v(u-1)}$$</p>
+  <p style="margin:0.2rem 0">指数 $\lim v(u-1)$ 用普通方法（抓大头/等价）算出 $k$，答案就是 $e^k$。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>求 $\lim\limits_{x\to\infty}\left(1-\dfrac1x\right)^{4x+3}$ 与 $\lim\limits_{x\to\infty}\left(\dfrac{x+3}{x-5}\right)^{x}$。</p>
+  <details><summary>先自己算指数，再展开</summary>
+    <p>第一题：$u=1-\frac1x\to1$，$v=4x+3\to\infty$ ✓。$v(u-1)=(4x+3)\left(-\dfrac1x\right)\to-4$，答案 $e^{-4}$。</p>
+    <p>第二题：先改写成标准脸 $u=\dfrac{x+3}{x-5}=1+\dfrac{8}{x-5}$，则 $v(u-1)=\dfrac{8x}{x-5}\to8$，答案 $e^{8}$。</p>
+    <p>流程固定：<strong>化成 $1+$ 无穷小 → 算 $v(u-1)$ → 写 $e^k$</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（逆求参数）</span>若 $\lim\limits_{x\to\infty}\left(\dfrac{x+2a}{x-a}\right)^{x}=8$，求 $a$。</p>
+  <details><summary>先自己列方程，再展开（秋讲练习 16 同型）</summary>
+    <p>$u=1+\dfrac{3a}{x-a}$，$v(u-1)=\dfrac{3ax}{x-a}\to3a$。所以 $e^{3a}=8$，$3a=\ln8$，$a=\ln2$。</p>
+    <p>逆求题全是这个闭环：<strong>算出指数表达式 → 令 $e^{指数}=$ 已知值 → 解参数</strong>。再练一道：$\lim\limits_{x\to0}(1+ax)^{\frac1x}=e^2$，指数 $\dfrac{ax}{x}=a$，故 $a=2$（秋讲练习 17）。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\lim\limits_{x\to\infty}x\sin\dfrac{2}{x}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$0$</button>
+    <button data-k="B">$2$</button>
+    <button data-k="C">$1$</button>
+    <button data-k="D">不存在</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x\to\infty$ 时 $\frac2x\to0$，改写 $2\cdot\dfrac{\sin\frac2x}{\frac2x}\to2\times1=2$。方框是 $\frac2x$，整体一样就能套。A 是"$x\to0$"的答案——又是同式不同命。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}\left(\dfrac{\tan x}{x}\right)^{\frac{1}{x^2}}$ 属于哪种未定式？</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\frac00$ 型</button>
+    <button data-k="B">$0\cdot\infty$ 型</button>
+    <button data-k="C">$1^{\infty}$ 型</button>
+    <button data-k="D">不是未定式</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">底 $\dfrac{\tan x}{x}\to1$，指数 $\dfrac1{x^2}\to\infty$，标准 $1^{\infty}$。（顺手算：指数 $v(u-1)=\dfrac{\tan x-x}{x^3}\to\dfrac13$，答案 $e^{1/3}$——用了三阶差关系 $\tan x-x\sim\frac13x^3$，0013 课细讲。）</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\lim\limits_{x\to0}(1-2x)^{\frac1x}=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e^{-2}$</button>
+    <button data-k="B">$e^{2}$</button>
+    <button data-k="C">$e^{-\frac12}$</button>
+    <button data-k="D">$e$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">三步法：$u=1-2x\to1$，$v=\frac1x\to\infty$；$v(u-1)=\dfrac{-2x}{x}=-2$，答案 $e^{-2}$。（秋讲练习 11(1)。）B 忘了负号；C 把"每次除 2"和"乘 $-2$"搞混了。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\lim\limits_{x\to0^+}\left(1+\dfrac ax\right)^{bx}$（$a>0$）的值是（易错题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e^{ab}$</button>
+    <button data-k="B">$e^{a}$</button>
+    <button data-k="C">$e^{b}$</button>
+    <button data-k="D">$1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$a>0,\ x\to0^+$ 时，令 $u=\dfrac ax\to+\infty$，底 $1+u>0$。这是 $\infty^{0}$ 型，不能套 $1^{\infty}$。取对数：$\ln L=bx\ln(1+u)=ab\cdot\dfrac{\ln(1+u)}{u}\to ab\cdot0=0$，故 $L=e^0=1$。三步法的前提是先确认底趋于 $1$；本题不满足。（秋讲练习 11(4) 原题陷阱。）</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">若 $\lim\limits_{x\to\infty}\left(\dfrac{x+a}{x-a}\right)^{x}=4$，则 $a=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\ln 4$</button>
+    <button data-k="B">$\ln 2$</button>
+    <button data-k="C">$\dfrac{\ln 4}{4}$</button>
+    <button data-k="D">$2\ln 2$ 之外再无解</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$v(u-1)=\dfrac{2ax}{x-a}\to2a$，故 $e^{2a}=4$，$a=\ln2$。A 把 $2a$ 当成了 $a$。逆求三步：算指数 → $e^{指数}=$ 已知 → 两边取对数。（秋讲练习 16 原题。）</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>动笔前先圈趋向：$\dfrac{\sin2x}{x}$ 在 $x\to0$ 与 $x\to\infty$ 答案差一个世界</li>
+    <li>重要极限一要求<strong>方框一致</strong>：$\dfrac{\sin 3x}{2x}= \dfrac32\cdot\dfrac{\sin3x}{3x}\to\dfrac32$，别直接写 1</li>
+    <li>$1^{\infty}$ 三步法第一步是<strong>验底 $\to1$</strong>；底 $\to\infty$ 或 $\to0$ 时要取对数另算</li>
+    <li>推论 $\dfrac{1-\cos x}{x^2}\to\dfrac12$ 考场直接用，等价于 $1-\cos x\sim\dfrac12x^2$（0013 课正式入表）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写两个重要极限（含方框推广形式），并写出 $1^{\infty}$ 三步法公式。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\lim\limits_{\square\to0}\frac{\sin\square}{\square}=1$；$\lim\limits_{x\to\infty}\left(1+\frac1x\right)^x=e$，即 $\lim\limits_{\alpha\to0}(1+\alpha)^{\frac1\alpha}=e$；$1^{\infty}$ 型：$\lim u^v=e^{\lim v(u-1)}$（先验 $u\to1,v\to\infty$）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">秒答四题：$\lim\limits_{x\to0}\dfrac{\sin2x}{x}$、$\lim\limits_{x\to\infty}\dfrac{\sin2x}{x}$、$\lim\limits_{x\to0}x\sin\dfrac2x$、$\lim\limits_{x\to0}(1+\tan x)^{\cot x}$。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$2$；$0$（有界 × 无穷小）；$0$（无穷小 × 有界）；$e$（$1^{\infty}$，指数 $v(u-1)=\cot x\cdot\tan x=1$）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡；一周后把"同式不同命"表格自己默写一遍。下一课的等价无穷小表会吸收本课推论（$\tan x\sim x$、$1-\cos x\sim\frac12x^2$），到时注意两课的衔接。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《极限与连续》§三 方法五、六（含秋讲练习 10、11 速查表）</li>
+    <li>讲义：《函数极限》夏讲 PDF（重要极限例题）、秋讲 PDF（练习 10–11）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："$e^{\lim v(u-1)}$ 这个公式怎么来的"、"再出 10 道 $1^{\infty}$ 题"、"为什么 $\frac{\sin x}{x}\to1$ 而 $\frac{\tan x}{x}$ 也 $\to1$"，或让它考你"同式不同命"表。
+</div>
+
+<nav class="footnav">
+  <a href="0011-极限计算基础方法.html" class="prev"><span class="dir">← 上一课</span>0011 极限计算（上）：未定式与基础方法</a>
+  <a href="0013-等价无穷小替换.html" class="next"><span class="dir">下一课 →</span>0013 等价无穷小替换</a>
+</nav>
+</main>
+</body>
+</html>

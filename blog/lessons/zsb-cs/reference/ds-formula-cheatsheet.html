@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据结构公式速查表</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="../lessons/index.html">课程大纲</a> · 参考速查</span>
+  <span>打印友好</span>
+</nav>
+
+<h1>数据结构公式速查表</h1>
+<p class="lesson-meta">覆盖绪论 → 排序全部核心公式与判据 · 建议打印后考前 15 分钟过一遍</p>
+
+<h2>一、绪论：算法特性与时间复杂度</h2>
+<table>
+  <tr><th>条目</th><th>内容</th></tr>
+  <tr><td>算法五特性</td><td><strong>有穷性、确定性、可行性、输入（零个或多个）、输出（一个或多个）</strong></td></tr>
+  <tr><td>好算法目标（非特性）</td><td>正确性、可读性、健壮性、高效率——判断题眼：「可读性是算法特性」✘</td></tr>
+  <tr><td>数据结构三要素</td><td>逻辑结构、存储（物理）结构、数据的运算；存储结构四种：顺序、链式、索引、散列</td></tr>
+  <tr><td>复杂度化简三步</td><td>常数→O(1)（T=3）；只留最高阶（n²+n+3→O(n²)，2n²+n+1→O(n²)）；忽略系数与对数底数（5log₂n+15→O(log n)）</td></tr>
+  <tr><td>双重循环套路</td><td>外层 n 次 × 内层 n 次 → <strong>O(n²)</strong>；复杂度与<strong>问题规模 + 数据初态</strong>有关</td></tr>
+</table>
+
+<h2>二、线性表：移动次数与链表操作</h2>
+<table>
+  <tr><th>操作</th><th>移动次数</th><th>平均</th></tr>
+  <tr><td>第 i 个位置<strong>插入</strong>（i 从 1 起）</td><td><strong>n−i+1</strong> 个后移</td><td rowspan="2">插入 <strong>n/2</strong>、删除 <strong>(n−1)/2</strong>，均 O(n)</td></tr>
+  <tr><td>删除第 i 个元素</td><td><strong>n−i</strong> 个前移</td></tr>
+  <tr><td>按值查找</td><td>最多 n 次</td><td>平均比较 <strong>(n+1)/2</strong></td></tr>
+  <tr><td>三种判空</td><td colspan="2">不带头结点 <code>L==NULL</code>；带头结点 <code>L->next==NULL</code>；循环单链表 <code>L->next==L</code></td></tr>
+</table>
+<pre><code>插入（s 插到 p 后）：s->next = p->next;  p->next = s;      /* 先接后断，顺序不能反 */
+删除（删 p 的后继 q）：q = p->next;  p->next = q->next;  free(q);</code></pre>
+
+<h2>三、栈和队列：循环队列公式</h2>
+<table>
+  <tr><th>公式</th><th>表达式</th></tr>
+  <tr><td>队满【全考】</td><td><code>(rear + 1) % MaxSize == front</code></td></tr>
+  <tr><td>队空</td><td><code>front == rear</code></td></tr>
+  <tr><td>指针进 1</td><td><code>front = (front + 1) % MaxSize</code>；<code>rear = (rear + 1) % MaxSize</code></td></tr>
+  <tr><td>元素个数</td><td><code>(rear - front + MaxSize) % MaxSize</code></td></tr>
+  <tr><td>最大容量</td><td><strong>N−1</strong>（牺牲一个存储单元区分空/满）</td></tr>
+  <tr><td>顺序栈</td><td>栈空 <code>top == base</code>；栈满 <code>top - base >= size</code>；入栈先判满再存值 <code>top++</code>，出栈先判空再 <code>top--</code></td></tr>
+</table>
+
+<h2>四、数组、矩阵与广义表</h2>
+<table>
+  <tr><th>条目</th><th>公式 / 规则</th></tr>
+  <tr><td>一维数组地址</td><td><code>LOC(a[i]) = LOC(a[0]) + i×L</code>（L 为每元素字节数）</td></tr>
+  <tr><td>二维行优先</td><td><code>LOC = 基地址 + (i×列数 + j)×L</code>；int a[4][5] 的 a[2][3] 是第 2×5+3+1=<strong>14</strong> 个</td></tr>
+  <tr><td>二维列优先</td><td><code>LOC = 基地址 + (j×行数 + i)×L</code>；a[2][3] 是第 4×3+2+1=<strong>15</strong> 个</td></tr>
+  <tr><td>对称矩阵压缩</td><td>只存下三角（含对角线）：<strong>n(n+1)/2</strong> 个单元</td></tr>
+  <tr><td>稀疏矩阵</td><td>三元组（行、列、值）；稀疏因子 t/(m×n)；压缩后<strong>失去随机存取</strong></td></tr>
+  <tr><td>广义表长度/深度</td><td>长度 = 最外层元素个数；深度 = 括号最大层数（<strong>子表要展开</strong>；空表深度 <strong>1</strong>）</td></tr>
+  <tr><td>Head / Tail</td><td>Head = 第一个元素（可原子可子表）；Tail = 其余元素组成的表（<strong>一定是广义表</strong>，要加括号）</td></tr>
+</table>
+
+<h2>五、串</h2>
+<table>
+  <tr><th>条目</th><th>公式</th></tr>
+  <tr><td>子串总数（含空串）</td><td><strong>n(n+1)/2 + 1</strong></td></tr>
+  <tr><td>非空子串</td><td>n(n+1)/2</td></tr>
+  <tr><td>易混</td><td>空串 ≠ 空格串（空格串长度 = 空格个数）；串自身和空串都是子串</td></tr>
+</table>
+
+<h2>六、树与二叉树：六条性质</h2>
+<table>
+  <tr><th>#</th><th>性质</th></tr>
+  <tr><td>1</td><td>第 i 层至多 <strong>2^(i−1)</strong> 个结点</td></tr>
+  <tr><td>2</td><td>深度为 k 的二叉树至多 <strong>2^k − 1</strong> 个结点</td></tr>
+  <tr><td>3</td><td><strong>n₀ = n₂ + 1</strong>（叶子数 = 度 2 结点数 + 1）</td></tr>
+  <tr><td>4</td><td>完全二叉树编号：双亲 <strong>⌊i/2⌋</strong>；左孩 <strong>2i</strong>、右孩 <strong>2i+1</strong>（≤n 才存在）；结点 i 在第 ⌊log₂i⌋+1 层</td></tr>
+  <tr><td>5</td><td>n 个结点的完全二叉树深度 = <strong>⌊log₂n⌋+1</strong></td></tr>
+  <tr><td>6</td><td>完全二叉树叶子数：n 为奇数 <strong>(n+1)/2</strong>；n 为偶数 <strong>n/2</strong></td></tr>
+  <tr><td>链域</td><td>n 个结点的二叉链表有 <strong>n+1 个空链域</strong></td></tr>
+  <tr><td>赫夫曼树</td><td>n 个叶子共 <strong>2n−1</strong> 个结点、无度 1 结点；<strong>WPL = Σ 权ᵢ × 路径长度ᵢ</strong>；编码左 0 右 1（前缀编码）</td></tr>
+</table>
+
+<h2>七、图</h2>
+<table>
+  <tr><th>条目</th><th>公式 / 规则</th></tr>
+  <tr><td>完全图</td><td>无向 <strong>n(n−1)/2</strong> 条边；有向 <strong>n(n−1)</strong> 条弧</td></tr>
+  <tr><td>度数</td><td>有向：度 = 入度 + 出度；出度和为 s → 所有顶点度数之和 = <strong>2s</strong></td></tr>
+  <tr><td>生成树</td><td>边数 = <strong>n−1</strong> 且无环；边数 &lt; n−1 必不连通，&gt; n−1 必有环</td></tr>
+  <tr><td>邻接矩阵</td><td>空间 <strong>O(n²)</strong>；无向图必对称、n 顶点 e 边有效元 <strong>2e</strong> 个；有向图行 = 出度、列 = 入度</td></tr>
+  <tr><td>遍历</td><td><strong>DFS 借助栈</strong>（不撞南墙不回头）；<strong>BFS 借助队列</strong>；序列都可能不唯一</td></tr>
+  <tr><td>最小生成树</td><td>Prim 加点 / Kruskal 选边——只针对<strong>无向图</strong>，结果不能有环</td></tr>
+  <tr><td>最短路径</td><td>Dijkstra 单源；Floyd 全对：<code>D(A,B) = min(D(A,B), D(A,k)+D(k,B))</code></td></tr>
+  <tr><td>拓扑 / 关键路径</td><td>拓扑排序选入度 0 顶点输出并删其出边；关键活动判据 <strong>e == l</strong></td></tr>
+</table>
+
+<h2>八、查找</h2>
+<table>
+  <tr><th>条目</th><th>公式 / 规则</th></tr>
+  <tr><td>ASL</td><td><strong>ASL = Σ PᵢCᵢ</strong>（等概率 Pᵢ = 1/n；Cᵢ 为比较次数）</td></tr>
+  <tr><td>顺序查找</td><td>ASL<sub>成功</sub> = <strong>(n+1)/2</strong>；顺序表、链表都适用</td></tr>
+  <tr><td>折半查找</td><td>仅<strong>有序顺序表</strong>；mid=(low+high)/2 向下取整；判定树高 <strong>⌊log₂n⌋+1</strong>；O(log₂n)</td></tr>
+  <tr><td>除留余数法</td><td><code>H(key) = key % p</code>，<strong>p 取 ≤ 表长 m 的质数</strong></td></tr>
+  <tr><td>冲突处理</td><td>线性探测 dᵢ=1,2,…,m−1；平方探测 1²,−1²,2²,−2²,…；拉链法适合频繁插删</td></tr>
+  <tr><td>装填因子</td><td><strong>α = n/m</strong>；α 越大冲突可能性越大</td></tr>
+  <tr><td>BST</td><td>左 &lt; 根 &lt; 右；<strong>中序遍历得递增序列</strong>；删双孩子结点用左子树最大（或右子树最小）替换</td></tr>
+  <tr><td>AVL</td><td>平衡因子 = 左高 − 右高 ∈ <strong>{−1, 0, 1}</strong>；RR 左旋、LL 右旋、LR/RL 两次旋转</td></tr>
+</table>
+
+<h2>九、排序对比（一）：插入类与交换类</h2>
+<table>
+  <tr><th>算法</th><th>最好</th><th>最坏/平均</th><th>空间</th><th>稳定性</th><th>初始状态敏感</th></tr>
+  <tr><td>直接插入</td><td>O(n)</td><td>O(n²)</td><td>O(1)</td><td>稳定</td><td>是</td></tr>
+  <tr><td>折半插入</td><td>—</td><td>O(n²)（比较次数与初态无关）</td><td>O(1)</td><td>稳定</td><td>仅比较无关</td></tr>
+  <tr><td>希尔</td><td>O(n)</td><td>平均 O(n^1.3)</td><td>O(1)</td><td><strong>不稳定</strong></td><td>是</td></tr>
+  <tr><td>冒泡</td><td>O(n)</td><td>O(n²)</td><td>O(1)</td><td>稳定</td><td>是</td></tr>
+  <tr><td>快速</td><td>—</td><td>平均 O(nlog₂n)</td><td>O(log₂n) 递归栈</td><td><strong>不稳定</strong></td><td>是（有序时最坏）</td></tr>
+</table>
+
+<h2>十、排序对比（二）：选择、归并与基数</h2>
+<table>
+  <tr><th>算法</th><th>最好</th><th>最坏/平均</th><th>空间</th><th>稳定性</th><th>初始状态敏感</th></tr>
+  <tr><td>简单选择</td><td>—</td><td>O(n²)</td><td>O(1)</td><td><strong>不稳定</strong></td><td>比较次数无关</td></tr>
+  <tr><td>堆排序</td><td>—</td><td>O(nlog₂n)</td><td>O(1)</td><td><strong>不稳定</strong></td><td>否</td></tr>
+  <tr><td>归并</td><td>—</td><td>O(nlog₂n)</td><td>O(n)</td><td>稳定</td><td>否</td></tr>
+  <tr><td>基数</td><td>—</td><td>O(d(n+r))</td><td>O(r)</td><td>稳定</td><td>否</td></tr>
+</table>
+<table>
+  <tr><th>速记</th><th>内容</th></tr>
+  <tr><td>稳定性口诀</td><td><strong>「冒插基归稳，选堆快希不稳」</strong></td></tr>
+  <tr><td>冒泡趟数</td><td>最好 1 趟比较 n−1 次即停；最坏 n−1 趟、第 i 趟比较 n−i 次</td></tr>
+  <tr><td>堆排序两步</td><td>① 倒着从 ⌊n/2⌋ 建堆；② 堆顶与堆尾交换、规模减 1、再调整；<strong>升序用大顶堆</strong></td></tr>
+</table>
+
+<p class="lesson-meta">依据知识库笔记整理 · 课件未讲内容（归并/基数排序等）已按笔记总表收录。</p>
+
+</body>
+</html>

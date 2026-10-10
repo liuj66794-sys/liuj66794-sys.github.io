@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第四课：使用 to-tickets 拆分任务</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>第四课：使用 to-tickets 拆分任务</h1>
+
+  <p>
+    上一课你用 <code>/to-spec</code> 把 grilling 的结果合成了一份 PRD。
+    这一课学习主线的下一步：怎么用 <code>/to-tickets</code> 把 spec 拆成一组
+    <strong>tracer bullet（曳光弹）</strong>式的 ticket，让每个 ticket 都能被 agent 独立领取实现。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">主源推荐（Primary Source）</div>
+    <p>
+      本课内容基于官方 skill 定义，建议精读原文：
+      <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md">to-tickets/SKILL.md</a>
+      （本地 <code>~/.agents/skills/to-tickets/SKILL.md</code>）。
+      建议完整读一遍原文，尤其是 wide refactor 段落的细节。
+    </p>
+  </div>
+
+  <h2>1. to-tickets 是什么？</h2>
+  <p>
+    <code>/to-tickets</code> 把一份 spec、计划或当前对话拆成一组 <strong>ticket</strong>。
+    每个 ticket 是一个 vertical slice（垂直切片），并声明自己的
+    blocking edges（阻塞边）——即哪些 ticket 必须先完成，它才能开始。
+  </p>
+  <p>
+    拆分确认后，ticket 会发布到项目的 issue tracker（问题追踪系统），
+    并打上 <code>ready-for-agent</code> 标签，供后续 <code>/implement</code> 逐个领取。
+  </p>
+
+  <h2>2. 前置条件</h2>
+  <p>
+    和 <code>/to-spec</code> 一样，<code>/to-tickets</code> 假设项目已经运行过
+    <code>/setup-matt-pocock-skills</code>，即已配置好 issue tracker 和 triage labels（分类标签）。
+  </p>
+
+  <h2>3. 核心概念：垂直切片</h2>
+  <p>
+    拆分的第一原则是<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md"><strong>垂直切，而不是水平切</strong></a>。每个切片要满足四条规则：
+  </p>
+  <ul>
+    <li><strong>窄但完整</strong>：切穿所有层（schema、API、UI、测试），而不是只切某一层。</li>
+    <li><strong>独立可验证</strong>：一个切片完成后，可以单独演示或验证。</li>
+    <li><strong>适配单个上下文窗口</strong>：大小要能让一个全新 session 的 agent 一次做完。</li>
+    <li><strong>先预重构</strong>：如果现有代码让实现变难，先做一个 prefactor（预重构）ticket——“让修改变容易，再做容易的修改”。</li>
+  </ul>
+
+  <h3>垂直 vs 水平</h3>
+  <table>
+    <thead>
+      <tr><th>水平切片（不要）</th><th>垂直切片（要）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ticket 1：写数据库 schema<br>Ticket 2：写 API<br>Ticket 3：写 UI</td>
+        <td>Ticket 1：端到端打通“发起退款”最小流程<br>Ticket 2：端到端打通“查看退款状态”</td>
+      </tr>
+      <tr>
+        <td>任何一层完成都无法演示，最后才能验收。</td>
+        <td>每个 ticket 完成即有一个可用的小功能。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. 阻塞边与 frontier</h2>
+  <p>
+    每个 ticket 声明自己的 <strong>Blocked by</strong>：哪些 ticket 必须完成后它才能开始。
+    没有任何阻塞的 ticket 可以立即开始。
+  </p>
+  <p>
+    实现时按 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md"><strong>frontier（前沿）</strong></a>推进：任何时刻，只做“所有阻塞项都已完成”的 ticket。
+    如果整个链条是纯线性的，就是从头到尾顺序做；如果有分叉，分叉处的 ticket 可以并行。
+  </p>
+
+  <h2>5. 例外：大范围重构用 expand–contract</h2>
+  <p>
+    <strong>wide refactor（大范围重构）</strong>是垂直切片的例外：
+    一个机械性修改（比如重命名一个字段、改一个共享类型），其
+    blast radius（爆炸半径）波及整个代码库，一次改动会让上千个调用点同时报错，
+    任何垂直切片都无法保持绿灯。这时不要硬塞进曳光弹，改用
+    <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md"><strong>expand–contract（扩张-收缩）</strong></a>：
+  </p>
+
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>Expand（扩张）</strong>：新形态和旧形态并存，先加新的，不动旧的，什么都不破坏。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>Migrate（迁移）</strong>：按爆炸半径分批迁移调用点（按包、按目录），每批一个 ticket，
+      都被 expand 阻塞。旧形态还在，所以每批之间 CI 保持绿灯。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>Contract（收缩）</strong>：确认没有调用者后删除旧形态，这个 ticket 被所有迁移批次阻塞。</p>
+    </div>
+  </div>
+
+  <p>
+    如果连迁移批次都无法单独保持绿灯，可以让它们共享一个集成分支，
+    共同阻塞一个最终的 integrate-and-verify ticket——绿灯只在那里承诺。
+  </p>
+
+  <h2>6. 拆分流程</h2>
+
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>收集上下文</strong>：从当前对话出发；如果你传入 spec 路径或 issue 编号，agent 会去读全文和评论。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>探索代码库（可选）</strong>：ticket 标题和描述要用 CONTEXT.md 的领域词汇，并尊重相关 ADR；顺手找 prefactor 机会。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>起草垂直切片</strong>：按上面的规则拆，并标出每个 ticket 的阻塞边。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>向你确认</strong>：agent 会列出编号清单（标题 / Blocked by / 交付什么），问你三件事——粒度合适吗？阻塞边对吗？要合并或再拆吗？<strong>迭代到你批准为止。</strong></p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">5</div>
+    <div class="step-body">
+      <p><strong>发布</strong>：本地模式写到 <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>（按依赖顺序编号，阻塞者在前）；
+      真实 tracker 模式按平台原生的 blocking/sub-issue 关系建 issue，打 <code>ready-for-agent</code> 标签。</p>
+    </div>
+  </div>
+
+  <h2>7. Ticket 模板与禁忌</h2>
+  <p>每个 ticket 包含：</p>
+  <ul>
+    <li><strong>What to build</strong>：用户视角的端到端行为，<em>不是</em>逐层实现清单。</li>
+    <li><strong>Blocked by</strong>：阻塞它的 ticket 编号/标题，或 “None — can start immediately”。</li>
+    <li><strong>Acceptance criteria</strong>：验收标准清单。</li>
+    <li><strong>Status</strong>：<code>ready-for-agent</code>。</li>
+  </ul>
+  <p>
+    <strong>禁忌</strong>：和 spec 一样，不写具体文件路径和代码片段——它们很快会过时。
+    唯一例外是原型产出的决策性代码（状态机、reducer、schema、类型形状），可以内联并注明来自原型。
+  </p>
+
+  <h2>8. 小例子：部分退款功能的拆分</h2>
+  <p>
+    接着上一课的“部分退款” spec，<code>/to-tickets</code> 可能产出这样的拆分：
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Ticket</th><th>Blocked by</th><th>交付什么</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td>Refund 模块骨架与退款状态机</td>
+        <td>None</td>
+        <td>通过公共接口能创建退款并推进状态</td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>端到端发起部分退款</td>
+        <td>01</td>
+        <td>顾客能对订单部分商品退款，钱退回原支付渠道</td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>客服后台发起退款入口</td>
+        <td>02</td>
+        <td>客服能代顾客发起部分退款</td>
+      </tr>
+      <tr>
+        <td>04</td>
+        <td>订单页展示退款状态</td>
+        <td>02</td>
+        <td>顾客能在订单页看到退款进度</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    注意 frontier 的形状：01 完成后 02 解锁；02 完成后，03 和 04 <strong>可以并行</strong>，
+    因为它们互不阻塞。每个 ticket 都用 <code>/implement</code> 在全新上下文中单独完成。
+  </p>
+
+  <h2>9. 小测验：拆分判断</h2>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">以下哪个是真正的垂直切片 ticket？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q1" value="A"> 为订单表新增 schema 与迁移脚本</label>
+      <label><input type="radio" name="q1" value="B"> 端到端打通下单的最小可用流程</label>
+      <label><input type="radio" name="q1" value="C"> 完成订单模块全部 API 接口定义</label>
+      <label><input type="radio" name="q1" value="D"> 重构订单模块全部命名与目录结构</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">一个 ticket 的 “Blocked by: None” 意味着什么？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q2" value="A"> 它不依赖任何 ticket，可立即开始</label>
+      <label><input type="radio" name="q2" value="B"> 它依赖所有 ticket，须最后开始</label>
+      <label><input type="radio" name="q2" value="C"> 它阻塞所有 ticket，须最先开始</label>
+      <label><input type="radio" name="q2" value="D"> 它缺少验收标准，须先补全字段</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="C">
+    <div class="quiz-question">要把共享类型 <code>Order</code> 重命名为 <code>Purchase</code>，波及上千调用点，该怎么拆？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q3" value="A"> 塞进一个垂直切片 ticket 一次做完</label>
+      <label><input type="radio" name="q3" value="B"> 一次性全局替换并直接提交主干</label>
+      <label><input type="radio" name="q3" value="C"> 用 expand–contract 分多个 ticket</label>
+      <label><input type="radio" name="q3" value="D"> 留到功能全部做完再统一处理</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="D">
+    <div class="quiz-question">下列哪项不应该写进 ticket 描述？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q4" value="A"> 用户视角的端到端行为描述</label>
+      <label><input type="radio" name="q4" value="B"> 可逐条勾选的验收标准清单</label>
+      <label><input type="radio" name="q4" value="C"> 与其他 ticket 的阻塞边关系</label>
+      <label><input type="radio" name="q4" value="D"> 实现时涉及的具体文件路径</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="A">
+    <div class="quiz-question">【复习·第2课】grilling 之后，下面哪一项最应该写成 ADR？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q5" value="A"> 退款状态机采用事件溯源保留审计</label>
+      <label><input type="radio" name="q5" value="B"> 项目代码统一采用两空格缩进</label>
+      <label><input type="radio" name="q5" value="C"> 订单数据使用数组结构存储</label>
+      <label><input type="radio" name="q5" value="D"> 内部函数命名采用驼峰风格</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-answer="B">
+    <div class="quiz-question">【复习·第3课】关于 <code>/to-spec</code> 的行为，哪个说法正确？</div>
+    <div class="quiz-options">
+      <label><input type="radio" name="q6" value="A"> 它会继续追问，直到把需求问清楚</label>
+      <label><input type="radio" name="q6" value="B"> 它只做合成，不再进行 interview</label>
+      <label><input type="radio" name="q6" value="C"> 它会直接生成可运行的实现代码</label>
+      <label><input type="radio" name="q6" value="D"> 它会顺手把 spec 拆成 tickets</label>
+    </div>
+    <button class="check-btn" onclick="checkAnswer(this)">检查答案</button>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <h2>10. 本课收获</h2>
+  <ul>
+    <li><code>/to-tickets</code> 把 spec 拆成垂直切片 ticket，每个声明阻塞边。</li>
+    <li>垂直切片：窄但切穿所有层、独立可验证、适配单个上下文窗口。</li>
+    <li>按 frontier 推进：只做阻塞项全部完成的 ticket；分叉处可并行。</li>
+    <li>大范围重构是例外：用 expand–contract 分阶段，保持批间绿灯。</li>
+    <li>ticket 写用户视角行为 + 验收标准，不写文件路径和代码片段。</li>
+    <li>发布后打 <code>ready-for-agent</code> 标签，由 <code>/implement</code> 逐个领取。</li>
+  </ul>
+
+  <h2>11. 术语表</h2>
+  <table>
+    <thead>
+      <tr><th>术语</th><th>解释</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="glossary-term">tracer bullet</span></td>
+        <td>曳光弹。先做一颗打穿全系统的最小子弹验证方向，再逐步加厚，而不是分层逐层建。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">vertical slice</span></td>
+        <td>垂直切片。一个窄但完整的功能切片，切穿 schema、API、UI、测试所有层。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">blocking edge</span></td>
+        <td>阻塞边。ticket 之间的依赖关系：A 被 B 阻塞 = B 完成后 A 才能开始。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">frontier</span></td>
+        <td>前沿。当前所有阻塞项均已完成的 ticket 集合，即此刻可以开工的部分。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">wide refactor</span></td>
+        <td>大范围重构。一个机械性修改，其影响波及整个代码库，无法用垂直切片承载。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">blast radius</span></td>
+        <td>爆炸半径。一次修改会波及多少调用点；半径越大，越要分批迁移。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">expand–contract</span></td>
+        <td>扩张-收缩。先让新旧形态并存，再分批迁移，最后删除旧形态的重构策略。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">prefactor</span></td>
+        <td>预重构。在实现功能前先做的简化重构——“让修改变容易，再做容易的修改”。</td>
+      </tr>
+      <tr>
+        <td><span class="glossary-term">acceptance criteria</span></td>
+        <td>验收标准。判断 ticket 是否完成的可勾选条件清单。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>12. 实战任务</h2>
+  <p>
+    别只看不练。打开你自己的真实项目，把上一课用 <code>/to-spec</code> 产出的那份 spec
+    交给 <code>/to-tickets</code>，亲手完成一次拆分：
+  </p>
+  <ol>
+    <li>在真实项目里调用 <code>/to-tickets</code>，传入上一课产出的 spec（路径或 issue 编号）。</li>
+    <li>和 agent 一起把 spec 拆成一组 tracer-bullet 式的垂直切片 ticket，每个 ticket 都是端到端可验证的小功能。</li>
+    <li>为每个 ticket 显式声明 Blocked by（阻塞边），确认没有阻塞的 ticket 可以立即开工。</li>
+    <li>回答 agent 的确认三问：粒度合适吗？阻塞边对吗？要合并或再拆吗？迭代到你批准为止。</li>
+    <li>确认发布结果：本地模式检查 <code>.scratch/</code> 下的 ticket 文件，或 tracker 模式检查 issue 与 <code>ready-for-agent</code> 标签。</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">自检标准</div>
+    <ul>
+      <li>每个 ticket 都是垂直切片：切穿 schema、API、UI、测试，完成即可单独演示。</li>
+      <li>没有任何 ticket 是“只写某一层”的水平切片。</li>
+      <li>每个 ticket 的阻塞边都明确写出（或写明 “None — can start immediately”）。</li>
+      <li>第一个 ticket 不依赖任何东西，现在就能交给 <code>/implement</code> 立刻开工。</li>
+    </ul>
+  </div>
+
+  <p>
+    完成后回来告诉我结果（贴出产出或描述过程），我会给你反馈。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">下一步</div>
+    <p>
+      下一课是 <code>/implement</code>：怎么按 frontier 逐个领取 ticket 完成实现（内部驱动 <code>/tdd</code>，最后跑 <code>/code-review</code>）。
+      也可以先实战：在真实项目里跑 <code>/setup-matt-pocock-skills</code>，然后拿一个想法走完 grill → to-spec → to-tickets。
+      学习中有任何不清楚的地方，随时直接问我——我是你的老师，可以针对任何一点展开讲。
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    参考：<a href="../reference/to-tickets-reference.html">to-tickets 速查参考</a> |
+    <a href="../reference/skill-cheat-sheet.html">总速查表</a> |
+    <a href="0003-to-spec.html">上一课</a>
+  </p>
+
+  <script src="../assets/quiz.js"></script>
+  <script>
+    window.quizExplanations = {
+      q1: {
+        A: "不对。只写 schema 是水平切片，单独完成无法演示任何功能。",
+        B: "正确。窄但切穿所有层、完成即可验证，这才是垂直切片。",
+        C: "不对。只做 API 层是水平切片，前后都接不上，无法独立验收。",
+        D: "不对。这是重构，不是功能切片；大范围重构应走 expand–contract。"
+      },
+      q2: {
+        A: "正确。没有阻塞项意味着它在 frontier 上，可以立即开工。",
+        B: "不对。Blocked by 为空恰恰说明它谁都不依赖。",
+        C: "不对。Blocked by 描述的是它被谁阻塞，不是它阻塞谁。",
+        D: "不对。Blocked by 与验收标准是两个独立字段。"
+      },
+      q3: {
+        A: "不对。爆炸半径太大，任何单个垂直切片都无法保持绿灯。",
+        B: "不对。一次性全局替换会让上千调用点同时报错，正是要避免的。",
+        C: "正确。先 expand 新旧并存，再分批 migrate，最后 contract 删除旧形态。",
+        D: "不对。拖延不解决爆炸半径问题，还会让新旧差异越积越大。"
+      },
+      q4: {
+        A: "不对。用户视角的端到端行为正是 What to build 的核心内容。",
+        B: "不对。验收标准是 ticket 的必备字段，用来判断完成。",
+        C: "不对。阻塞边是 ticket 的核心字段，决定 frontier 的形状。",
+        D: "正确。文件路径很快过时，会让 ticket 失真（原型决策性代码除外）。"
+      },
+      q5: {
+        A: "正确。它难以逆转、会让未来读者惊讶、且经过权衡，符合 ADR 的三个条件。",
+        B: "不对。缩进风格容易修改、也不涉及架构权衡，不值得写 ADR。",
+        C: "不对。用数组存列表是普通实现细节，谈不上难以逆转。",
+        D: "不对。命名风格属于代码约定，不是需要记录的架构决策。"
+      },
+      q6: {
+        A: "不对。追问是 /grill-with-docs 的职责，/to-spec 阶段对话已经清楚。",
+        B: "正确。/to-spec 只把已确定的内容合成为结构化 PRD，不再 interview。",
+        C: "不对。/to-spec 产出的是 spec 文档，写代码是 /implement 的事。",
+        D: "不对。拆 tickets 是 /to-tickets 的工作，发生在 spec 发布之后。"
+      }
+    };
+  </script>
+</body>
+</html>

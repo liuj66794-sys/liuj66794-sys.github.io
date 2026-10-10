@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0027 · 第一类换元：凑微分 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0027">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 4 单元 · 不定积分 · 课 0027</span>
+  <a href="0026-原函数与基本积分表.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0027 · 不定积分</span>
+<h1>第一类换元法：凑微分</h1>
+<div class="meta">
+  <span>⏱ 约 16 分钟</span>
+  <span>前置：0026 基本积分表 · 0021 凑微分填空</span>
+  <span>来源：笔记《不定积分》§三</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>把 $\int e^{2x+1}dx$ 型<strong>一步凑</strong>成公式表形状</li>
+    <li>3 秒填出常见凑微分表（含 $\dfrac{f'(x)}{f(x)}dx$ 这个万能型）</li>
+    <li>独立解出 $\int\tan x\,dx$、$\int\dfrac{dx}{x\ln x}$ 这类"经典八股"</li>
+  </ul>
+</div>
+
+<p>凑微分是整个积分学的<strong>灵魂方法</strong>：后面的第二换元、分式积分、三角积分，本质上都在"凑"。它的原理只有一行——微分形式不变性 $df(u)=f'(u)du$（0021 课的填空升级成解题主力）。</p>
+
+<h2>一、方法本体</h2>
+
+<div class="keypoint">
+  <div class="kp-title">公式与心法</div>
+  <p style="margin:0.2rem 0">$$\int f\bigl(g(x)\bigr)\,g'(x)\,dx=\int f\bigl(g(x)\bigr)\,dg(x)=F\bigl(g(x)\bigr)+C$$</p>
+  <p style="margin:0.2rem 0">心法：被积函数拆成"<strong>复合形状 $f(\square)$ × 方框的导数</strong>"两部分，导数部分凑进 $d(\ )$ 里。眼力训练：看见 $\square'$ 就找 $\square$。</p>
+</div>
+
+<h2>二、常见凑微分表（要背到 3 秒一填）</h2>
+
+<table>
+  <tr><th>凑微分</th><th>凑微分</th></tr>
+  <tr><td>$dx=\dfrac1a\,d(ax+b)$</td><td>$x\,dx=\dfrac12d(x^{2})$</td></tr>
+  <tr><td>$\dfrac{1}{\sqrt x}dx=2\,d(\sqrt x)$</td><td>$\dfrac{1}{x^{2}}dx=-d\!\left(\dfrac1x\right)$</td></tr>
+  <tr><td>$x^{\mu-1}dx=\dfrac1\mu d(x^{\mu})$</td><td>$\dfrac{dx}{x}=d(\ln|x|)$</td></tr>
+  <tr><td>$e^{x}dx=d(e^{x})$</td><td>$\sin x\,dx=-d(\cos x)$；$\cos x\,dx=d(\sin x)$</td></tr>
+  <tr><td>$\sec^{2}x\,dx=d(\tan x)$；$\csc^{2}x\,dx=-d(\cot x)$</td><td>$\sec x\tan x\,dx=d(\sec x)$</td></tr>
+  <tr><td>$\dfrac{dx}{1+x^{2}}=d(\arctan x)$</td><td>$\dfrac{dx}{\sqrt{1-x^{2}}}=d(\arcsin x)$</td></tr>
+</table>
+
+<div class="keypoint">
+  <div class="kp-title">万能型：同底对数</div>
+  <p style="margin:0.2rem 0">$$\dfrac{f'(x)}{f(x)}dx=d\bigl(\ln|f(x)|\bigr)\quad\Rightarrow\quad\int\dfrac{f'(x)}{f(x)}dx=\ln|f(x)|+C$$</p>
+  <p style="margin:0.2rem 0">识别信号：<strong>分子恰是分母的导数</strong>（或差个常数倍）。$\int\dfrac{e^{x}}{e^{x}+2}dx$、$\int\dfrac{dx}{x\ln x}$、$\int\tan x\,dx$ 全是它的化身。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（线性整体）</span>$\displaystyle\int e^{2x+1}dx$ 与 $\displaystyle\int(3+2x)^{6}dx$。</p>
+  <details><summary>先自己凑，再展开（夏讲 P16、P18）</summary>
+    <p>$\int e^{2x+1}dx=\dfrac12\int e^{2x+1}d(2x+1)=\dfrac12e^{2x+1}+C$。</p>
+    <p>$\int(3+2x)^{6}dx=\dfrac12\int(3+2x)^{6}d(3+2x)=\dfrac{(3+2x)^{7}}{14}+C$。</p>
+    <p><strong>线性整体可以整体搬进 $d(\ )$，但系数要除回来</strong>——漏除系数是本单元第一大错。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（幂型复合）</span>$\displaystyle\int xe^{x^{2}}dx$ 与 $\displaystyle\int\sin^{2}x\cos x\,dx$。</p>
+  <details><summary>先自己找方框，再展开（夏讲 P19、P21）</summary>
+    <p>$\int xe^{x^{2}}dx=\dfrac12\int e^{x^{2}}d(x^{2})=\dfrac12e^{x^{2}}+C$（方框 $x^2$，其导数 $2x$）。同款：$\int x\cos x^{2}dx=\dfrac12\sin x^{2}+C$。</p>
+    <p>$\int\sin^{2}x\cos x\,dx=\int\sin^{2}x\,d(\sin x)=\dfrac{\sin^{3}x}{3}+C$（方框 $\sin x$，$\cos x$ 凑进 $d$）。同款：$\int\cos x\sin^{3}x\,dx=\dfrac{\sin^{4}x}{4}+C$。</p>
+    <p>套路：<strong>"幂 × 三角"把三角凑进 $d$，剩一个幂当 $f$</strong>；$\sin$、$\cos$ 谁的幂在前面，谁就是方框。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（万能型三连）</span>$\displaystyle\int\tan x\,dx$、$\displaystyle\int\dfrac{dx}{x\ln x}$、$\displaystyle\int\dfrac{e^{x}}{e^{x}+2}dx$。</p>
+  <details><summary>先自己识别"分子 = 分母导数"，再展开（夏讲 P20、P21）</summary>
+    <p>$\tan x=\dfrac{\sin x}{\cos x}$，分子是分母导数的相反数：$=-\int\dfrac{d(\cos x)}{\cos x}=-\ln|\cos x|+C$。</p>
+    <p>$\dfrac{1}{x\ln x}=\dfrac{(\ln x)'}{\ln x}$：$=\int\dfrac{d(\ln x)}{\ln x}=\ln|\ln x|+C$。</p>
+    <p>分母 $e^x+2$ 的导数是 $e^x$，分子恰是：$=\ln(e^{x}+2)+C$（真数恒正，绝对值可省）。</p>
+    <p>三道全是同一句：<strong>分子凑成分母的导数，整体 $\ln|\text{分母}|+C$</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（抽象函数）</span>若 $\int f(x)dx=x^{2}+C$，求 $\int xf(1-x^{2})dx$。（夏讲 P22 选择题）</p>
+  <details><summary>先自己换元，再展开</summary>
+    <p>由条件 $f(t)=2t$，故被积函数为 $x\cdot2(1-x^{2})$。令 $u=1-x^{2}$，$du=-2x\,dx$：</p>
+    <p>$\int xf(1-x^{2})dx=-\dfrac12\int f(u)du=-\dfrac12u^{2}+C=-\dfrac12(1-x^{2})^{2}+C$。</p>
+    <p>抽象版 = 具体版 + 一次换底，$du$ 的<strong>负号</strong>和<strong>系数</strong>照管不误。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{1}{3-x}dx=$（夏讲 P17）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\ln|3-x|+C$</button>
+    <button data-k="B">$-\ln|3-x|+C$</button>
+    <button data-k="C">$\ln|3+x|+C$</button>
+    <button data-k="D">$\dfrac{-1}{(3-x)^{2}}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$(3-x)'=-1$，故 $dx=-\,d(3-x)$：$\int\dfrac{-d(3-x)}{3-x}=-\ln|3-x|+C$。A 丢了分母导数的负号——<strong>线性整体的系数（含符号）要除进 $d$</strong>。D 是求导的答案。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{\ln x}{x}dx=$（秋讲练习 9(3)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\ln(\ln x)+C$</button>
+    <button data-k="B">$x\ln x-x+C$</button>
+    <button data-k="C">$\dfrac{(\ln x)^{2}}{2}+C$</button>
+    <button data-k="D">$\dfrac{1}{x}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\dfrac{dx}{x}=d(\ln x)$，故 $\int\ln x\,d(\ln x)=\dfrac{(\ln x)^{2}}{2}+C$——幂函数公式套在方框 $\ln x$ 上。A 是上一课 $\dfrac{1}{x\ln x}$ 的答案，两题只差"谁在分子"，看清再下手。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{e^{\sqrt x}}{\sqrt x}dx=$（秋讲练习 9(5)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2e^{\sqrt x}+C$</button>
+    <button data-k="B">$e^{\sqrt x}+C$</button>
+    <button data-k="C">$\dfrac12e^{\sqrt x}+C$</button>
+    <button data-k="D">$2e^{\sqrt x}\cdot\dfrac{1}{2\sqrt x}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\dfrac{dx}{\sqrt x}=2\,d(\sqrt x)$，故 $2\int e^{\sqrt x}d(\sqrt x)=2e^{\sqrt x}+C$。系数 2 别丢；D 是被积函数本身——凑微分不是把式子抄一遍。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\displaystyle\int\sin x\cos^{3}x\,dx=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{\sin^{4}x}{4}+C$</button>
+    <button data-k="B">$\dfrac{\cos^{4}x}{4}+C$</button>
+    <button data-k="C">$-\dfrac{\sin^{4}x}{4}+C$</button>
+    <button data-k="D">$-\dfrac{\cos^{4}x}{4}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">方框取 $\cos x$（谁的幂乘谁的导数）：$\sin x\,dx=-d(\cos x)$，故 $-\int\cos^{3}x\,d(\cos x)=-\dfrac{\cos^{4}x}{4}+C$。A 把方框错认成 $\sin x$——注意乘的是 $\sin x\,dx$ 不是 $\cos x\,dx$。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\displaystyle\int\dfrac{1}{e^{x}-1}dx=$（秋讲练习 9(7)，进阶）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\ln|e^{x}-1|+C$</button>
+    <button data-k="B">$\ln|1-e^{-x}|+C$</button>
+    <button data-k="C">$e^{x}-x+C$</button>
+    <button data-k="D">$-\dfrac{1}{(e^{x}-1)^{2}}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">分子不是 $e^x$，先变形：$\dfrac{1}{e^{x}-1}=\dfrac{e^{-x}}{1-e^{-x}}$，而 $(1-e^{-x})'=e^{-x}$ ✓，故 $=\ln|1-e^{-x}|+C$。A 错在分子是 1 不是 $e^x$——万能型要求"分子 = 分母导数"，不满足就先<strong>造</strong>出来。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>线性整体凑微分<strong>除以系数</strong>：$\int e^{2x}dx=\frac12e^{2x}+C$，不是 $e^{2x}+C$</li>
+    <li>系数含<strong>符号</strong>：$\int\frac{dx}{3-x}=-\ln|3-x|+C$</li>
+    <li>"幂 × 三角"方框认准"<strong>谁的幂配谁的导数</strong>"</li>
+    <li>万能型 $\frac{f'}{f}$ 不满足时先恒等变形（乘 $e^{-x}$、拆项）再造</li>
+    <li>凑完心里默验：$d(\square)$ 的导数是否真等于凑进去的那截</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写万能型公式 $\int\dfrac{f'(x)}{f(x)}dx$，并用它口算 $\int\tan x\,dx$ 与 $\int\dfrac{dx}{x\ln x}$。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$=\ln|f(x)|+C$。$\int\tan x\,dx=-\ln|\cos x|+C$；$\int\dfrac{dx}{x\ln x}=\ln|\ln x|+C$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写凑微分表六条：$x\,dx$、$\frac{dx}{\sqrt x}$、$\frac{dx}{x^2}$、$e^xdx$、$\sin x\,dx$、$\sec^2x\,dx$ 各凑成什么。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$x\,dx=\frac12d(x^2)$；$\frac{dx}{\sqrt x}=2d(\sqrt x)$；$\frac{dx}{x^2}=-d(\frac1x)$；$e^xdx=d(e^x)$；$\sin x\,dx=-d(\cos x)$；$\sec^2x\,dx=d(\tan x)$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。0021 课那张凑微分卡今天正好重测——两张卡合起来就是"秒填表"。下一课遇到"凑不动"的根式，就轮到第二换元法登场。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>速查：<a href="../reference/004-积分公式与凑微分速查.html">《积分公式与凑微分速查表》</a>（凑微分全表）</li>
+    <li>笔记：《不定积分》§三 第一换元法（含秋讲练习 9 速查表）</li>
+    <li>讲义：《不定积分》夏讲 PDF 教材 P92–P93（凑微分 P16–P22）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："怎么练'看见 $\square'$ 找 $\square$'的眼力"、"$\frac{1}{e^x-1}$ 那题的变形思路"、"再出 10 道凑微分题限时 8 分钟"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0026-原函数与基本积分表.html" class="prev"><span class="dir">← 上一课</span>0026 原函数与基本积分表</a>
+  <a href="0028-第二类换元与三角换元.html" class="next"><span class="dir">下一课 →</span>0028 第二类换元：根式 · 三角换元</a>
+</nav>
+</main>
+</body>
+</html>

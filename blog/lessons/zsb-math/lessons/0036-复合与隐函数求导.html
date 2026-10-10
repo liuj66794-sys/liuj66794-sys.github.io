@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0036 · 复合与隐函数求导 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0036">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 6 单元 · 多元函数微分学 · 课 0036</span>
+  <a href="0035-偏导数与全微分.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0036 · 多元函数微分学</span>
+<h1>复合与隐函数求导</h1>
+<div class="meta">
+  <span>⏱ 约 15 分钟</span>
+  <span>前置：0035 偏导数与全微分 · 0008 复合函数拆解</span>
+  <span>来源：笔记《多元函数微分学》§三</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用<strong>树状路径法</strong>写出复合函数链式公式："沿路相乘，同标相加"</li>
+    <li>处理抽象复合（$f_1,f_2$ 记号），不丢"取值点"</li>
+    <li>用公式 $z_x=-\dfrac{F_x}{F_z}$ 求隐函数偏导，$F_x,F_y,F_z$ 把三个变量<strong>当独立</strong></li>
+  </ul>
+</div>
+
+<p>一元链式法则的多元版：从 $z$ 到 $x$ 可能有多条"路"，每条路<strong>沿路相乘</strong>，到同一个目标的各条路<strong>相加</strong>。0008 课的拆层能力在这里升级成画树状图。</p>
+
+<h2>一、复合函数：树状路径法</h2>
+
+<div class="keypoint">
+  <div class="kp-title">链式公式</div>
+  <p style="margin:0.2rem 0">$z=f(u,v)$，$u=u(x,y)$，$v=v(x,y)$：</p>
+  <p style="margin:0.2rem 0">$$z_{x}=f_{u}\,u_{x}+f_{v}\,v_{x}\qquad\qquad z_{y}=f_{u}\,u_{y}+f_{v}\,v_{y}$$</p>
+  <p style="margin:0.2rem 0">画法：$z$ 在树根，分叉到 $u,v$，再各自分叉到 $x,y$。求 $z_x$：找所有<strong>从 $z$ 到 $x$ 的路径</strong>，每条路径上偏导相乘，路径间相加。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（具体复合）</span>$z=e^{uv}$，$u=x+y$，$v=x^{2}+y$，求 $z_x,\ z_y$。</p>
+  <details><summary>先自己画树，再展开（练习 17 同型）</summary>
+    <p>$z_u=e^{uv}\cdot v=z\cdot v$（先对 $u$：指数函数），$z_v=e^{uv}\cdot u$。</p>
+    <p>$z_x=z_u\cdot u_x+z_v\cdot v_x=e^{uv}v+e^{uv}u\cdot2x=e^{uv}(v+2xu)$。</p>
+    <p>$z_y=e^{uv}(v+u)$。</p>
+    <p>结构化输出：<strong>先写 $u,v$，再写路径和</strong>——阅卷按路径给分，树状图写草稿上。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（抽象复合：$f_1,f_2$ 记号）</span>$z=f\bigl(x^{2}-y^{2},\ e^{xy}\bigr)$，求 $z_x,\ z_y$。</p>
+  <details><summary>先自己设记号，再展开（练习 19）</summary>
+    <p>令 $u=x^{2}-y^{2}$，$v=e^{xy}$，记 $f_1=f_u$、$f_2=f_v$：</p>
+    <p>$z_x=2x\,f_1+ye^{xy}f_2$；$z_y=-2y\,f_1+xe^{xy}f_2$。</p>
+    <p>要点：<strong>$f_1,f_2$ 不许再动</strong>（它们就是"答案的零件"）；严格场合注明取值点 $\bigl(u,v\bigr)$。漏路径、丢 $f_2$ 是本型最大扣分点。</p>
+  </details>
+</div>
+
+<h2>二、隐函数求导：两条路</h2>
+
+<div class="keypoint">
+  <div class="kp-title">公式法（先把三个变量当独立）</div>
+  <p style="margin:0.2rem 0">一元 $F(x,y)=0$：$y'=-\dfrac{F_x}{F_y}$；二元 $F(x,y,z)=0$ 确定 $z(x,y)$：</p>
+  <p style="margin:0.2rem 0">$$z_{x}=-\frac{F_{x}}{F_{z}},\qquad z_{y}=-\frac{F_{y}}{F_{z}}\qquad(F_{z}\neq0)$$</p>
+  <p style="margin:0.2rem 0">注意与"两边直接求导法"的区别：公式法里 $F_x$ 对 $x$ 求导时 $y,z$ <strong>都当常数</strong>；直接法里 $z$ 是 $x$ 的函数。两条路答案一致，公式法快。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（公式法）</span>$e^{z}=xyz$，求 $z_x,\ z_y$。</p>
+  <details><summary>先自己算 $F$ 的三个偏导，再展开（练习 22 同型）</summary>
+    <p>令 $F=e^{z}-xyz$：$F_x=-yz$，$F_y=-xz$，$F_z=e^{z}-xy$。</p>
+    <p>$z_x=-\dfrac{F_x}{F_z}=\dfrac{yz}{e^{z}-xy}$；$z_y=\dfrac{xz}{e^{z}-xy}$。</p>
+    <p>易错警示：<strong>$F_x$ 里不要再对 $z$ 链式</strong>——公式法的 $F_x,F_y,F_z$ 各自独立求偏导，这是它比直接法省心的全部原因。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（直接法对照）</span>$x^{2}+y^{2}+z^{2}=4z$，求 $z_x$。</p>
+  <details><summary>两种方法都走一遍</summary>
+    <p><strong>公式法</strong>：$F=x^{2}+y^{2}+z^{2}-4z$，$F_x=2x$，$F_z=2z-4$，$z_x=-\dfrac{2x}{2z-4}=\dfrac{x}{2-z}$。</p>
+    <p><strong>直接法</strong>：两边对 $x$ 求导（$z$ 是 $x$ 的函数，$y$ 是常数）：$2x+2zz_x=4z_x$，解出 $z_x=\dfrac{x}{2-z}$ ✓。</p>
+    <p>两法同果。直接法的口诀：<strong>含 $z$ 项全带 $z'$，最后解方程</strong>（0020 课一元隐函数的老套路）。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$z=u^{2}v$，$u=x+y$，$v=xy$，则 $z_x=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2uv+u^{2}y$</button>
+    <button data-k="B">$2uv$</button>
+    <button data-k="C">$2uv\cdot y$</button>
+    <button data-k="D">$u^{2}y$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">两条路：经 $u$：$2uv\cdot u_x=2uv\cdot1$；经 $v$：$u^{2}\cdot v_x=u^{2}y$。相加 $2uv+u^{2}y$，选 A。B、D 各只算了一条路——多元复合函数每个中间变量都是一条路，一条都不能漏。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$z=f(x+y,\ xy)$，则 $z_y=$（练习 20 同型）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$xf_{1}+yf_{2}$</button>
+    <button data-k="B">$f_{1}+yf_{2}$</button>
+    <button data-k="C">$f_{1}+xf_{2}$</button>
+    <button data-k="D">$f_{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$u=x+y$ 对 $y$ 导数 1；$v=xy$ 对 $y$ 导数 $x$：$z_y=f_1\cdot1+f_2\cdot x$。A 是 $z_x$（把 $x,y$ 角色互换）——抽象复合题先写清 $u,v$ 再落笔，防串线。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">设 $F(x,y,z)=0$ 确定 $z=z(x,y)$，则 $z_x=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$-\dfrac{F_x}{F_z}$</button>
+    <button data-k="B">$\dfrac{F_x}{F_z}$</button>
+    <button data-k="C">$-\dfrac{F_z}{F_x}$</button>
+    <button data-k="D">$F_x-F_z$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">负号别丢、分子分母别倒：$F_x$ 在上、$F_z$ 在下、整体添负。记忆：$z$ 的偏导 = "$-x$ 方向比上 $z$ 方向"。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$x^{2}+y^{2}+z^{2}=4z$ 中用<strong>公式法</strong>求 $F_x$ 时，正确的是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$2x+2z\dfrac{\partial z}{\partial x}$</button>
+    <button data-k="B">$2x+2zz_x$</button>
+    <button data-k="C">$2x+2y$</button>
+    <button data-k="D">$2x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">公式法中 $F_x$ 是"$x,y,z$ 视为独立变量"时对 $x$ 的偏导：$z^{2}$ 项与 $x$ 无关，导数为 0，得 $2x$。A、B 是直接法的动作——<strong>两套规则不可混用</strong>，混用就重复计算。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$x+y+z=\ln z$（即 $F=x+y+z-\ln z$）确定 $z(x,y)$，则 $z_x=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1+z$</button>
+    <button data-k="B">$\dfrac{z}{1-z}$</button>
+    <button data-k="C">$\dfrac{1-z}{z}$</button>
+    <button data-k="D">$-\dfrac{z}{1-z}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$F_x=1$，$F_z=1-\dfrac1z=\dfrac{z-1}{z}$，$z_x=-\dfrac{1}{(z-1)/z}=\dfrac{z}{1-z}$。D 丢了整体负号。验算（直接法）：$1+z_x=\dfrac{z_x}{z}$ ⇒ $z(1+z_x)=z_x$ ⇒ 同样得 $\dfrac{z}{1-z}$ ✓。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>链式树状图：<strong>漏路径 = 丢分</strong>；抽象复合 $f_1,f_2$ 不许再求导，需注明取值点</li>
+    <li>幂指型 $z=u^{v}$ 优先取对数 $\ln z=v\ln u$ 再求导（0020 课口诀的多元版）</li>
+    <li>公式法 $F_x,F_y,F_z$：<strong>三变量当独立</strong>；直接法：$z$ 当函数——两条路别串规则</li>
+    <li>隐函数公式自带<strong>负号</strong>：$z_x=-\dfrac{F_x}{F_z}$</li>
+    <li>答案里允许含 $z$（隐函数导数本来就带位置信息），但 $F_z=0$ 的点要排除</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写复合链式公式（$z=f(u,v)$）与隐函数公式（$F(x,y,z)=0$）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$z_x=f_uu_x+f_vv_x$，$z_y=f_uu_y+f_vv_y$（沿路相乘、同标相加）；$z_x=-\dfrac{F_x}{F_z}$，$z_y=-\dfrac{F_y}{F_z}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">公式法与直接法对 $z$ 的"身份"各怎么处理？各自的口诀是什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">公式法：$x,y,z$ 全当独立变量，各自求偏导再套 $-\frac{F_x}{F_z}$；直接法：$z$ 是 $x,y$ 的函数，含 $z$ 项全带 $z'$，最后解方程。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。下一课的 $AC-B^{2}$ 判别式会同时用到 $f_{xx},f_{xy},f_{yy}$ 三个二阶偏导——本课与 0035 课的求导熟练度直接决定那道大题的速度。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《多元函数微分学》§三 复合与隐函数（含练习 15–23 解答）</li>
+    <li>讲义：《多元函数微分学》PDF（复合与隐函数部分）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："树状图完整画一遍 $f(x^2-y^2,e^{xy})$"、"$f(xt)$ 型变限那种复杂题要不要会"、"$e^z=xyz$ 那道用直接法走一遍"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0035-偏导数与全微分.html" class="prev"><span class="dir">← 上一课</span>0035 偏导数与全微分</a>
+  <a href="0037-二元函数极值.html" class="next"><span class="dir">下一课 →</span>0037 二元函数极值</a>
+</nav>
+</main>
+</body>
+</html>

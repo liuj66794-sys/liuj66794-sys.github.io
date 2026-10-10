@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0021 · 切线法线与微分 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0021">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 3 单元 · 导数与微分 · 课 0021</span>
+  <a href="0020-求导公式与六类求导法.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0021 · 导数与微分</span>
+<h1>切线法线与微分</h1>
+<div class="meta">
+  <span>⏱ 约 14 分钟</span>
+  <span>前置：0020 求导公式与六类求导法 · 0009 直线方程</span>
+  <span>来源：笔记《导数与微分》§三 · §四</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>对显函数 / 隐函数 / 参数方程曲线<strong>统一套用</strong>切线法线公式</li>
+    <li>写出微分 $dy=f'(x)dx$，并答对"$dy$ 与 $\Delta x$ 的阶"这类概念题</li>
+    <li>秒填<strong>凑微分</strong>四组（一阶微分形式不变性），为第 4 单元备弹</li>
+  </ul>
+</div>
+
+<h2>一、切线与法线：一个斜率，两条直线</h2>
+
+<div class="keypoint">
+  <div class="kp-title">必背公式（点 $(x_0,y_0)$ 在曲线上，$f'(x_0)\neq0$）</div>
+  <p style="margin:0.2rem 0">$$\text{切线：}\ y-y_0=f'(x_0)(x-x_0)\qquad\quad \text{法线：}\ y-y_0=-\dfrac{1}{f'(x_0)}(x-x_0)$$</p>
+  <p style="margin:0.2rem 0">切线斜率 = 该点导数；<strong>法线斜率 = 负倒数</strong>（0009 课垂直条件的直接应用）。</p>
+</div>
+
+<p>流程永远三步：<strong>求导 → 代点得斜率 → 点斜式写直线</strong>（0009 课解析式五形式的回归）。曲线是隐函数或参数方程？先把该点的 $y'$ 与坐标算出来，剩下照旧。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（显函数）</span>求 $y=x^{2}$ 在点 $(2,4)$ 处的切线与法线。（夏讲 P29）</p>
+  <details><summary>先自己三步走，再展开</summary>
+    <p>$y'=2x$，$y'(2)=4$。</p>
+    <p>切线：$y-4=4(x-2)$，即 $y=4x-4$；法线：$y-4=-\dfrac14(x-2)$，即 $y=-\dfrac14x+\dfrac92$。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（隐函数曲线）</span>求 $x^{2}+xy+y^{2}=3$ 在点 $(1,1)$ 处的切线。（秋讲练习 33）</p>
+  <details><summary>先两边求导，再展开</summary>
+    <p>两边对 $x$ 求导：$2x+y+xy'+2yy'=0$，解出 $y'=-\dfrac{2x+y}{x+2y}$，代 $(1,1)$：$y'=-\dfrac{3}{3}=-1$。</p>
+    <p>切线：$y-1=-1(x-1)$，即 $y=-x+2$；法线斜率 $=1$：$y=x$。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">曲线 $y=x^{3}$ 在点 $(1,1)$ 处的法线方程是（秋讲练习 30）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=3x-2$</button>
+    <button data-k="B">$y=-\dfrac13x+\dfrac43$</button>
+    <button data-k="C">$y=-3x+4$</button>
+    <button data-k="D">$y=\dfrac13x+\dfrac23$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=3x^2$，$y'(1)=3$；法线斜率 $=-\dfrac13$（负倒数），点斜式 $y-1=-\dfrac13(x-1)$。A 是切线——看清题目要哪条。C 忘了"取负"只取了"倒"。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">曲线 $y=e^{x}$ 在点 $(1,e)$ 处的切线方程是（秋讲练习 31）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$y=ex$</button>
+    <button data-k="B">$y=e x+e$</button>
+    <button data-k="C">$y=e^{x}$ 本身</button>
+    <button data-k="D">$y=ex-1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=e^x$，代 $x=1$ 得斜率 $e$；点斜式 $y-e=e(x-1)$ 化简 $y=ex$。切线过原点——一个漂亮的巧合，验算方便。</div>
+</div>
+
+<h2>二、微分：$dy=f'(x)dx$</h2>
+
+<div class="keypoint">
+  <div class="kp-title">定义与等价性</div>
+  <p style="margin:0.2rem 0"><strong>可导 ⟺ 可微</strong>。微分 $dy=f'(x)\Delta x$，记 $\Delta x=dx$，即</p>
+  <p style="margin:0.2rem 0">$$dy=f'(x)\,dx$$</p>
+  <p style="margin:0.2rem 0">求微分 = 求导后<strong>乘个 $dx$ 收尾</strong>；微分四则与导数四则同构。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（求微分）</span>$y=x\ln x-x$，求 $dy$。（夏讲 P34–P35）</p>
+  <details><summary>先求导，再展开</summary>
+    <p>$y'=\ln x+x\cdot\dfrac1x-1=\ln x$，故 $dy=\ln x\,dx$。</p>
+    <p>同款：$y=\dfrac{e^x}{1+x}$，$dy=\dfrac{xe^{x}}{(1+x)^{2}}dx$（商法则后化简）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（概念题：$dy$ 与 $\Delta x$ 的阶）</span>若 $f'(x_0)=\dfrac12$，则当 $\Delta x\to0$ 时，$dy$ 是 $\Delta x$ 的（夏讲 P37）</p>
+  <details><summary>先自己比，再展开</summary>
+    <p>$dy=f'(x_0)\Delta x=\dfrac12\Delta x$，故 $\lim\limits_{\Delta x\to0}\dfrac{dy}{\Delta x}=\dfrac12$：非零非一 ⇒ <strong>同阶但不等价</strong>的无穷小。</p>
+    <p>推广记忆：$f'(x_0)=0$ 时 $dy$ 是高阶；$f'(x_0)=1$ 时等价；其他非零值都"同阶不等价"。</p>
+  </details>
+</div>
+
+<h2>三、凑微分：通往积分的桥</h2>
+
+<div class="keypoint">
+  <div class="kp-title">一阶微分形式不变性</div>
+  <p style="margin:0.2rem 0">$$df(u)=f'(u)\,du\quad\text{（$u$ 是中间变量也成立）}$$</p>
+  <p style="margin:0.2rem 0">用法：看到 $du$ 就想"$d(\text{谁的导是谁})$"。<strong>第 4 单元第一类换元法的全部基本功</strong>，现在开始攒。</p>
+</div>
+
+<table>
+  <tr><th>等式（夏讲 P55–56 填空组）</th><th>所填</th></tr>
+  <tr><td>$d(\quad)=\dfrac{1}{1+x^{2}}dx$</td><td>$\arctan x+C$</td></tr>
+  <tr><td>$d(e^{4x})=(\quad)\,d(4x)=(\quad)\,dx$</td><td>$e^{4x}$；$4e^{4x}$</td></tr>
+  <tr><td>$d(\quad)=\cos 2x\,dx$</td><td>$\dfrac12\sin2x+C$（别丢 $\frac12$！）</td></tr>
+  <tr><td>$d(\quad)=e^{\sqrt x}\cdot\dfrac{1}{\sqrt x}dx$</td><td>$2e^{\sqrt x}+C$</td></tr>
+</table>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">设 $y=\tan^{3}\dfrac{\pi x}{4}$，则 $\left.dy\right|_{x=1}=$（秋讲练习 13(1)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{\pi}{2}dx$</button>
+    <button data-k="B">$\dfrac{3\pi}{4}dx$</button>
+    <button data-k="C">$\dfrac{3\pi}{2}dx$</button>
+    <button data-k="D">$3\pi\,dx$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=3\tan^{2}\dfrac{\pi x}{4}\cdot\sec^{2}\dfrac{\pi x}{4}\cdot\dfrac{\pi}{4}$，代 $x=1$：$\tan\frac\pi4=1$、$\sec^{2}\frac\pi4=2$，得 $y'(1)=3\times1\times2\times\dfrac\pi4=\dfrac{3\pi}{2}$，故 $dy=\dfrac{3\pi}{2}dx$。链式乘到最里层别忘了 $\dfrac{\pi}{4}$。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$d(\quad)=e^{\sqrt x}\cdot\dfrac{1}{2\sqrt x}\,dx$，括号内应填</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\sqrt{x}\,e^{\sqrt x}+C$</button>
+    <button data-k="B">$e^{\sqrt x}+C$</button>
+    <button data-k="C">$\dfrac{e^{\sqrt x}}{2}+C$</button>
+    <button data-k="D">$2e^{\sqrt x}+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$d\left(e^{\sqrt x}\right)=e^{\sqrt x}\cdot d(\sqrt x)=e^{\sqrt x}\cdot\dfrac{1}{2\sqrt x}dx$——题目给的系数恰好"自洽"，直接填 $e^{\sqrt x}+C$。D 是夏讲原填空（$\frac{1}{\sqrt x}$ 无 $\frac12$ 时）的答案——<strong>看清系数再作答</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$y=\sin^{2}(x^{4})$，用 $d(x^{3})$ 表示 $dy$，正确的是（夏讲 P56）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$4x^{3}\sin(2x^{4})\,d(x^{3})$</button>
+    <button data-k="B">$\dfrac{4x}{3}\sin(2x^{4})$（无 $d(x^3)$）</button>
+    <button data-k="C">$4x^{3}\sin(2x^{4})\,dx$ 之外无法表示</button>
+    <button data-k="D">$\dfrac{4x}{3}\sin(2x^{4})\,d(x^{3})$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">先正常算：$dy=2\sin(x^4)\cos(x^4)\cdot4x^3dx=4x^3\sin(2x^4)\,dx$（用倍角）。换底座：$d(x^3)=3x^2dx$，即 $dx=\dfrac{d(x^3)}{3x^2}$，代入得 $\dfrac{4x}{3}\sin(2x^4)\,d(x^{3})$。<strong>同一个微分可以挂在不同的"$d(\ )$"上</strong>——形式不变性的精髓。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>法线斜率 = <strong>$-\dfrac{1}{f'(x_0)}$</strong>，两个动作（取负、取倒）缺一不可</li>
+    <li>切线方程先验点在曲线上；隐函数曲线先解出 $y'$ <strong>再代坐标</strong></li>
+    <li>微分别忘<strong>乘 $dx$ 收尾</strong>；"求 $x=x_0$ 处的微分"先代值再写 $dy=\text{数}\,dx$</li>
+    <li>凑微分时系数自愈：$d(\frac12\sin2x)=\cos2x\,dx$——系数在"凑"的过程中消化</li>
+    <li>$dy$ 与 $\Delta x$ 的阶：比值 $\lim\frac{dy}{\Delta x}=f'(x_0)$，非零非一同阶不等价</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写切线、法线公式，并说出求切线的三步流程。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">切线 $y-y_0=f'(x_0)(x-x_0)$；法线 $y-y_0=-\frac{1}{f'(x_0)}(x-x_0)$。三步：求导 → 代点得斜率 → 点斜式写直线。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写五条最常用的凑微分：$x\,dx$、$\cos x\,dx$、$e^x dx$、$\frac{dx}{x}$、$\frac{dx}{1+x^2}$ 各凑成什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$x\,dx=\frac12d(x^2)$；$\cos x\,dx=d(\sin x)$；$e^xdx=d(e^x)$；$\frac{dx}{x}=d(\ln|x|)$；$\frac{dx}{1+x^2}=d(\arctan x)$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。凑微分这张卡在 0027 课（第一类换元）开课时还要重测——那时它就是"秒填表"本身。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《导数与微分》§三 切线法线 · §四 微分（含秋讲练习 12–13、30–34 速查表）</li>
+    <li>讲义：《导数》夏讲 PDF（几何意义 P29、微分 P34–37、凑微分 P55–56）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："法线为什么是负倒数"、"$dy$ 和 $\Delta y$ 差在哪"、"$d(x^3)$ 当底座那种题有什么用"，或让它出 10 道"曲线求切线法线"混编题。
+</div>
+
+<nav class="footnav">
+  <a href="0020-求导公式与六类求导法.html" class="prev"><span class="dir">← 上一课</span>0020 求导公式与六类求导法</a>
+  <a href="0022-高阶导数.html" class="next"><span class="dir">下一课 →</span>0022 高阶导数</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0038 · 二重积分：X/Y 型 · 极坐标 · 对称性 · 交换次序 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0038">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 7 单元 · 多元函数积分学 · 课 0038</span>
+  <a href="0037-二元函数极值.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0038 · 多元函数积分学</span>
+<h1>二重积分：X/Y 型 · 极坐标 · 对称性 · 交换次序</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0034 定积分应用 · 0031 对称奇偶性质</span>
+  <span>来源：笔记《多元函数积分学》§一</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>把区域写成 <strong>X 型 / Y 型</strong>不等式组，化二重积分为"累次积分"</li>
+    <li>记住极坐标面积元 <strong>$r\,dr\,d\theta$</strong>，会对圆域与 $x^{2}+y^{2}$ 型换极坐标</li>
+    <li>用<strong>对称性</strong>秒杀、按"画区域 → 写不等式"交换积分次序</li>
+  </ul>
+</div>
+
+<p>二重积分 = 定积分的"平面版"：定义同为分割–求和–取极限，计算则"<strong>化两层定积分</strong>"。本章考试重心极其固定：<strong>画区域</strong>。图一画对，题就做对了一大半。</p>
+
+<h2>一、定义与几何意义</h2>
+
+<div class="keypoint">
+  <div class="kp-title">概念三句话</div>
+  <p style="margin:0.2rem 0">$\displaystyle\iint_D f\,d\sigma$ 是一个<strong>数</strong>；$f\ge0$ 时是<strong>曲顶柱体体积</strong>；特别地 $\displaystyle\iint_D 1\,d\sigma=S_D$（区域的面积）、$\displaystyle\iint_D k\,d\sigma=kS_D$。</p>
+  <p style="margin:0.2rem 0">线性、可加、保序、中值定理与定积分性质平行（0031 课的平面版）。</p>
+</div>
+
+<h2>二、直角坐标：X 型与 Y 型</h2>
+
+<div class="keypoint">
+  <div class="kp-title">化累次积分</div>
+  <p style="margin:0.2rem 0"><strong>X 型</strong>（竖条扫描）：$a\le x\le b$，$\varphi_1(x)\le y\le\varphi_2(x)$</p>
+  <p style="margin:0.2rem 0">$$\iint_D f\,d\sigma=\int_a^{b}dx\int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)\,dy$$</p>
+  <p style="margin:0.2rem 0"><strong>Y 型</strong>（横条扫描）：$c\le y\le d$，$\psi_1(y)\le x\le\psi_2(y)$，先对 $x$ 积分。</p>
+  <p style="margin:0.2rem 0">内层限可以是外层变量的函数；外层限必须是常数。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（X 型标准件）</span>$D$ 由 $y=x$、$y=0$、$x=1$ 围成，求 $\displaystyle\iint_D xy\,d\sigma$。</p>
+  <details><summary>先自己画图定限，再展开（冲刺练习 2 同族）</summary>
+    <p>X 型：$0\le x\le1$，$0\le y\le x$：</p>
+    <p>$\displaystyle\int_0^1x\,dx\int_0^{x}y\,dy=\int_0^1x\cdot\frac{x^{2}}{2}dx=\frac12\cdot\frac14=\frac18$。</p>
+    <p>流程：<strong>画图 → 竖条上下沿 → 先积 $y$（把 $x$ 当常数）→ 再积 $x$</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（对称性秒杀）</span>$D$ 为 $|x|+|y|\le1$（顶点在四轴上的菱形），求 $\displaystyle\iint_D x^{2}y^{2}\,d\sigma$ 的化简思路。</p>
+  <details><summary>先看对称，再展开（冲刺练习 9）</summary>
+    <p>$D$ 关于两轴、对角线都对称，$x^{2}y^{2}$ 恒非负：取第一象限的四分之一，乘 4：</p>
+    <p>$\displaystyle\iint_D x^{2}y^{2}\,d\sigma=4\int_0^1dx\int_0^{1-x}x^{2}y^{2}dy=\frac43\int_0^1x^{2}(1-x)^{3}dx=\frac1{45}$。</p>
+    <p>对称性规则（对照 0031 性质 6）：$D$ 关于 $y$ 轴对称时，被积函数对 $x$ 为<strong>奇 ⇒ 0</strong>、<strong>偶 ⇒ 半域 × 2</strong>；对原点、$y=x$ 对称各有版本。<strong>先看对称再硬算</strong>，常省一半工。</p>
+  </details>
+</div>
+
+<h2>三、极坐标：圆域杀手</h2>
+
+<div class="keypoint">
+  <div class="kp-title">换元三件套与必带因子</div>
+  <p style="margin:0.2rem 0">$x=r\cos\theta$，$y=r\sin\theta$，且<strong>面积元必须乘 $r$</strong>：</p>
+  <p style="margin:0.2rem 0">$$\iint_D f\,d\sigma=\int_{\alpha}^{\beta}d\theta\int_{r_1(\theta)}^{r_{2}(\theta)}f(r\cos\theta,\,r\sin\theta)\,\boldsymbol{r}\,dr$$</p>
+  <p style="margin:0.2rem 0">信号：区域是<strong>圆 / 圆环 / 扇形</strong>，或被积函数含 $x^{2}+y^{2}$（换成 $r^{2}$）。圆心在原点半径 $R$：$0\le\theta\le2\pi$，$0\le r\le R$。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（极坐标标准件）</span>$D:x^{2}+y^{2}\le4$，求 $\displaystyle\iint_D(x^{2}+y^{2})\,d\sigma$。</p>
+  <details><summary>先自己换极坐标，再展开（冲刺练习 3 同族）</summary>
+    <p>$=\displaystyle\int_0^{2\pi}d\theta\int_0^{2}r^{2}\cdot r\,dr=2\pi\cdot\frac{r^{4}}{4}\Big|_0^2=2\pi\cdot4=8\pi$。</p>
+    <p>别忘那个 $r$：$\int r^{3}dr=\frac{r^{4}}4$ 里的三次方，来自"被积 $r^2$ + 面积元 $r$"。<strong>漏 $r$ 是本章第一大错误</strong>。</p>
+  </details>
+</div>
+
+<h2>四、交换积分次序</h2>
+
+<div class="keypoint">
+  <div class="kp-title">可靠三步</div>
+  <p style="margin:0.2rem 0">① 由给定限<strong>写出区域不等式并画图</strong>；② 换扫描方向（X ↔ Y）重新描述区域；③ 必要时<strong>分段</strong>。口诀：<strong>先还原区域，再重新描述</strong>——只把 $dx\,dy$ 换个位置 = 白改。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4</span>交换 $\displaystyle\int_0^{1}dx\int_x^{1}f(x,y)\,dy$ 的次序。（冲刺练习 12(1)）</p>
+  <details><summary>先自己画图，再展开</summary>
+    <p>区域：$0\le x\le1$，$x\le y\le1$——即直线 $y=x$ 上方的三角形。</p>
+    <p>换横条：$0\le y\le1$，$0\le x\le y$ ⇒ $\displaystyle\int_0^{1}dy\int_0^{y}f(x,y)\,dx$。</p>
+    <p>动机预告：有时"先 $y$ 后 $x$"积不动（如出现 $e^{y^{2}}$、$\frac{\sin y}{y}$ 原函数积不出），交换次序后立刻可积——<strong>交换次序是解题手段，不是题目刁难</strong>。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\displaystyle\iint_D d\sigma$（$D$：$0\le x\le1$，$0\le y\le2$）等于</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1$</button>
+    <button data-k="B">$2$</button>
+    <button data-k="C">$4$</button>
+    <button data-k="D">$0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">被积函数为 1 时二重积分 = 区域面积 $=1\times2=2$。这是"先量形状再积分"的免费捷径，判断题、填空题常客。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$D$ 关于 $y$ 轴对称，被积函数关于 $x$ 为奇函数，则积分值</p>
+  <div class="quiz-opts">
+    <button data-k="A">$=0$</button>
+    <button data-k="B">= 半区域积分的 2 倍</button>
+    <button data-k="C">无法确定</button>
+    <button data-k="D">= 半区域积分</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">左右两半正负抵消（0031 奇偶性质的平面版）。B 是"偶函数"的待遇——先判奇偶再动手，能省整段计算。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">极坐标下 $\displaystyle\iint_D(x^{2}+y^{2})\,d\sigma$（$D:x^{2}+y^{2}\le1$）的被积式是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\displaystyle\int_0^{2\pi}d\theta\int_0^{1}r^{2}\,dr$</button>
+    <button data-k="B">$\displaystyle\int_0^{2\pi}d\theta\int_0^{1}r^{4}\,dr$</button>
+    <button data-k="C">$\displaystyle\int_0^{2\pi}d\theta\int_0^{1}r^{3}\,dr$</button>
+    <button data-k="D">$\displaystyle\int_0^{2\pi}d\theta\int_0^{1}r\,dr$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">被积函数 $r^{2}$ + 面积元 $r$ = $r^{3}$，积分 $2\pi\cdot\frac14=\frac\pi2$。A 漏面积元；C 的被积式正确（积出 $\frac\pi2$ ✓）——审题：问的是"被积式"，$r^{2}\cdot r=r^{3}$。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">下列信号中，<strong>最应该</strong>考虑换极坐标的是</p>
+  <div class="quiz-opts">
+    <button data-k="A">区域是矩形 $[0,1]\times[0,2]$</button>
+    <button data-k="B">被积函数是 $x+y$，区域是三角形</button>
+    <button data-k="C">被积函数是 $xy$，区域是正方形</button>
+    <button data-k="D">区域是圆环 $1\le x^{2}+y^{2}\le4$，被积函数含 $x^{2}+y^{2}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">极坐标的双信号：<strong>圆 / 圆环 / 扇形区域</strong> + <strong>$x^{2}+y^{2}$ 结构</strong>。矩形、三角形在直角坐标里限更好写——换极坐标反而自找麻烦。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">交换 $\displaystyle\int_0^{1}dy\int_y^{1}f(x,y)\,dx$ 的次序，结果是</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\displaystyle\int_0^{1}dx\int_0^{x}f(x,y)\,dy$</button>
+    <button data-k="B">$\displaystyle\int_0^{1}dx\int_x^{1}f(x,y)\,dy$（原样对调符号）</button>
+    <button data-k="C">$\displaystyle\int_0^{1}dx\int_1^{x}f(x,y)\,dy$</button>
+    <button data-k="D">$\displaystyle\int_0^{1}dx\int_0^{1}f(x,y)\,dy$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">原区域：$0\le y\le1$，$y\le x\le1$（$y=x$ 下方三角形）。换竖条：$0\le x\le1$，$0\le y\le x$。B 只是换了字母位置——<strong>交换次序必须重新描述区域</strong>，画图是唯一可靠路径。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>极坐标<strong>必乘 $r$</strong>：$d\sigma=r\,dr\,d\theta$——本章第一大失分点</li>
+    <li>外层限必须常数、内层限可以是函数；累次积分<strong>由内向外</strong>算</li>
+    <li>交换次序先<strong>画图还原区域</strong>，再重新描述（必要时分段），不是换符号</li>
+    <li>对称性使用前提：<strong>区域对称 + 被积函数相应奇偶</strong>，两者缺一不可</li>
+    <li>内层积不动（$e^{y^2}$、$\frac{\sin y}{y}$）是"该换次序"的信号</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写 X 型区域的二重积分化累次公式，并写出极坐标面积元。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$\displaystyle\iint_D f\,d\sigma=\int_a^bdx\int_{\varphi_1(x)}^{\varphi_2(x)}f\,dy$；$d\sigma=r\,dr\,d\theta$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">对称性四条规则各一句话：$D$ 关于 $y$ 轴对称（对 $x$ 奇/偶）？关于原点？关于 $y=x$？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">对 $x$ 奇 → 0，偶 → 半域×2；原点对称且 $f(-x,-y)=-f$ → 0；$y=x$ 对称可交换 $x,y$（$\iint f(x,y)=\iint f(y,x)$）。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。画区域的肌肉记忆只能靠手感——本周用讲义冲刺练习 1–11 各画一遍区域图（只画不算），下一课再积分。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《多元函数积分学》§一 二重积分（含冲刺练习 1–12(8) 答案）</li>
+    <li>讲义：《多元函数积分学》PDF（二重积分直角坐标与极坐标部分）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："$r\,dr\,d\theta$ 里的 $r$ 几何上怎么理解"、"交换次序那道完整画图演示"、"$y=x^2$ 与 $y=x$ 围成区域的两种描述各写一遍"，或让它出 10 道"只画区域不定限"的练习。
+</div>
+
+<nav class="footnav">
+  <a href="0037-二元函数极值.html" class="prev"><span class="dir">← 上一课</span>0037 二元函数极值</a>
+  <a href="0039-曲线积分与格林公式.html" class="next"><span class="dir">下一课 →</span>0039 曲线积分与格林公式</a>
+</nav>
+</main>
+</body>
+</html>

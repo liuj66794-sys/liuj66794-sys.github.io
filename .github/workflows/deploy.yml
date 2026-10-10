@@ -1,65 +1,80 @@
-name: Deploy to GitHub Pages
-
+name: Manually approved static recovery
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
-
+    inputs:
+      release_sha:
+        description: 'Exact public main SHA reviewed for release'
+        required: true
+        type: string
+      source_sha:
+        description: 'Reviewed private source SHA'
+        required: true
+        type: string
+      blog_sha256:
+        description: 'Reviewed static blog manifest SHA256'
+        required: true
+        type: string
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: false
-
 jobs:
   build:
+    if: github.ref == 'refs/heads/main' && inputs.release_sha == github.sha
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+      actions: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v4
         with:
-          version: 10
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # 讲义/博客/知识库内容由本地 sync-learn.mjs 同步后提交；
-      # 项目墙在 CI 里刷新（获取最新 stars/描述）
-      - name: Refresh projects page
-        run: node scripts/fetch-projects.mjs
+      - name: Verify fixed source, static flags, artifact and real required reviewer
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build site
-        run: pnpm docs:build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          BLOG_SHA256: ${{ inputs.blog_sha256 }}
+        run: |
+          gh api repos/${{ github.repository }}/environments/github-pages > /tmp/environment.json
+          node release-tools/check-static-release.mjs /tmp/environment.json
+      # Preserve the original legacy Jekyll homepage/source, not an unrelated
+      # VuePress root build. Only the compiled /blog/ subtree is added.
+      - uses: actions/configure-pages@v5
+      - name: Keep compiled subtree outside Jekyll processing
+        run: mv blog "$RUNNER_TEMP/zhixu-blog"
+      - uses: actions/jekyll-build-pages@v1
         with:
-          path: docs/.vuepress/dist
-
+          source: ./
+          destination: ./_site
+      - name: Add only the reviewed subtree; preserve current homepage bytes
+        run: |
+          test ! -e _site/blog
+          cp -a "$RUNNER_TEMP/zhixu-blog" _site/blog
+          cp release-baseline/root-index.html _site/index.html
+          mkdir -p _site/assets/css
+          cp release-baseline/style.css _site/assets/css/style.css
+      - name: Check static blog copied byte-for-byte
+        run: node release-tools/check-static-release.mjs /tmp/environment.json _site/blog
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          BLOG_SHA256: ${{ inputs.blog_sha256 }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
+      - uses: actions/deploy-pages@v4
         id: deployment
-        uses: actions/deploy-pages@v4

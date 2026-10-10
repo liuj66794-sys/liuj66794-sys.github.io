@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 5 课 · 交易费用 | A 股入门</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/a-shares/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<div class="lesson-meta">
+  <span>模块 1 · 概念扫盲 | 第 1 周 · 第 5 课</span>
+  <span>三段式：20 分钟读 + 15 分钟动手 + 5 分钟费曼</span>
+</div>
+
+<h1>交易费用：每笔买卖的隐形成本</h1>
+
+<div class="win">学完你能：手算任意一笔 A 股交易的总成本，并讲清"最低 5 元"为什么让小资金更要低频交易。</div>
+
+<div class="mission-tie">与考核的关系：11 月实盘后，你的每条交易日志都要能回答"这笔交易费用吃了多少"——盈亏归因的一部分。姑婆那代人炒股最懂"手续费磨损"，聊到这个她会知道你是真算过账的人。</div>
+
+<h2>课前回炉（凭记忆作答，不许翻旧讲义）</h2>
+<p class="src">答错正好——说明该回炉，点错后按解析回对应课补一眼。</p>
+
+<div class="quiz review" data-answer="0" data-explain="主板 ±10%：15 × 0.9 = 13.5 元。（回炉第 4 课）">
+  <p class="q">回炉 1. 主板某股昨收 15 元，今天的跌停价是？</p>
+  <ul class="opts">
+    <li>十三块五</li>
+    <li>十四块五</li>
+    <li>十六块五</li>
+  </ul>
+</div>
+
+<div class="quiz review" data-answer="0" data-explain="300/301 开头 = 深市创业板，门槛 10 万+2 年，你现在买不了。（回炉第 2 课）">
+  <p class="q">回炉 2. 股票代码 300750（宁德时代）属于哪个板块？</p>
+  <ul class="opts">
+    <li>深市创业板</li>
+    <li>沪市科创板</li>
+    <li>深市主板区</li>
+  </ul>
+</div>
+
+<h2>一、三笔费用，各收各的</h2>
+<table>
+  <tr><th>费用</th><th>谁收</th><th>什么时候收</th><th>通行标准</th></tr>
+  <tr><td><b>佣金</b></td><td>券商</td><td>买、卖双向都收</td><td>市场普遍约 <span class="num">万 2.5</span>（成交额的 0.025%），<b>单笔最低 5 元</b>——以你开户券商公示为准</td></tr>
+  <tr><td><b>印花税</b></td><td>国家（税务）</td><td>只在<b>卖出</b>时收</td><td>成交额的 <span class="num">0.05%</span>（2023 年 8 月起减半后的标准，以财政部/税务总局最新公告为准）</td></tr>
+  <tr><td><b>过户费</b></td><td>中国结算</td><td>买、卖双向都收</td><td>成交额的 <span class="num">0.001%</span>（十万分之一），金额极小</td></tr>
+</table>
+<p>9 月开户时"佣金谈到万 2.5 以下"（CONTEXT.md 券商标准）谈的就是第一行。佣金是可以谈的，印花税和过户费没得谈。</p>
+
+<h2>二、"最低 5 元"：小资金的放大器</h2>
+<p>万 2.5 听起来微乎其微——直到你算一次：<b>3000 元买入，佣金 = 3000 × 0.00025 = 0.75 元，但不足 5 元按 5 元收。</b>实际费率瞬间变成 5/3000 ≈ <b>万 16.7</b>，是名义费率的 6.7 倍。资金越小、交易越频繁，"最低 5 元"的磨损越狠。这不是细节，是你这个体量最重要的成本课：<b>小资金 + 高频交易 = 给券商打工。</b></p>
+
+<div class="example">
+  <span class="tag">全程算例（按万 2.5 + 最低 5 元假设）</span>
+  <p>买入 3000 元某股：佣金 <span class="num">5.00</span>（0.75 不足 5 元）+ 过户费 <span class="num">0.03</span> = <span class="num">5.03</span> 元</p>
+  <p>一个月后涨到 3500 元卖出：佣金 <span class="num">5.00</span>（0.875 不足 5 元）+ 印花税 <span class="num">3500×0.0005=1.75</span> + 过户费 <span class="num">0.04</span> = <span class="num">6.79</span> 元</p>
+  <p>总费用 <span class="num">11.82</span> 元。账面赚 500，落袋 <span class="num">488.18</span>。费用吃掉涨幅的 <span class="num">2.4%</span>——看起来不多？如果你每月这样进出一次，一年光费用就是 <span class="num">11.82 × 12 ≈ 142</span> 元，磨掉本金的近 <span class="num">5%</span>——而复利（模块 2 会算）最怕的就是持续的小额失血。</p>
+</div>
+
+<h2>三、为什么是重点：巴菲特说的"摩擦成本"</h2>
+<p>你已经知道的复利原理，敌人不只是亏损，还有<b>每一次交易都要交一次的过路费</b>。价值投资"买入后长期持有"的纪律，在数学上同时也是一个省费策略：一年交易 2 次的人比一年交易 24 次的人，光费用就省下一大截——这笔钱会留在本金里继续复利。这就是"少动"的量化理由，不是玄学。</p>
+
+<div class="task">
+  <h3>动手 15 分钟：亲手算一笔完整交易</h3>
+  <ol>
+    <li>设定场景：你用 2800 元买入某股，两个月后 3100 元卖出</li>
+    <li>按"万 2.5、最低 5 元、印花税 0.05%、过户费 0.001%"手算买入费用、卖出费用、总费用</li>
+    <li>算出净收益和"费用占利润的比例"</li>
+    <li>再算一遍：如果同样这两笔操作你一个月做 4 次，一年费用大约是多少（粗估即可）</li>
+    <li>对答案：买入 5.03 / 卖出 6.58 / 总 11.61 / 净赚 288.39 / 费用占利润约 3.9%；每月 4 次 × 12 个月 ≈ 一年 557 元——算错了回看第二节</li>
+  </ol>
+</div>
+
+<h2>随堂测（回忆作答，不许翻上文）</h2>
+
+<div class="quiz" data-answer="0" data-explain="3000×万2.5 = 0.75 元，但不足 5 元按 5 元收。小资金实际费率被最低消费放大。">
+  <p class="q">1. 3000 元一笔买入，按万 2.5 佣金实付多少？</p>
+  <ul class="opts">
+    <li>五元整</li>
+    <li>七毛五</li>
+    <li>十五元</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="印花税是卖出时单边收取的 0.05%。买入不收。">
+  <p class="q">2. 印花税在什么时候收取？</p>
+  <ul class="opts">
+    <li>买入的时候收</li>
+    <li>卖出的时候收</li>
+    <li>买卖两次都收</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="0" data-explain="每次交易都收一次费，频率越高磨损越狠——小资金叠加最低 5 元，磨损更重。">
+  <p class="q">3. 频繁交易对小资金最大的伤害是？</p>
+  <ul class="opts">
+    <li>佣金税费反复收割</li>
+    <li>容易错过大涨行情</li>
+    <li>盯盘消耗时间精力</li>
+  </ul>
+</div>
+
+<div class="feynman" data-topic="出声讲：三笔费用各是谁收、什么时候收、标准多少？为什么 3000 元的交易实际佣金率远高于万 2.5？">
+  <h3>费曼自测（5 分钟）</h3>
+</div>
+
+<h2>推荐一手来源</h2>
+<ul class="src">
+  <li><a href="https://edu.sse.com.cn/">上交所投资者教育 · 证券学院</a>（交易费用构成的官方科普）</li>
+  <li>开户后第一件事：在券商 APP 里找到你自己的<b>实际费率公示</b>，把本课表格里的数字替换成你的真实数字</li>
+</ul>
+
+<div class="teacher-note">第 1 周五课上完。周六 2 小时复盘：把 5 课的费曼自测再过一遍，讲不顺的进《未懂清单》。有任何问题直接问我。</div>
+
+<div class="nav">
+  <span><a href="./0004-price-limits-and-call-auction.html">← 第 4 课 · 涨跌停与集合竞价</a></span>
+  <span><a href="../reference/a-share-terms.html">术语参考表</a></span>
+  <span><a href="./0006-index-and-etf.html">第 6 课 · 指数与 ETF →</a></span>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

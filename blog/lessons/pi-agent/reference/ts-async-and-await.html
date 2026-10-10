@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查表 · TS 异步与 async/await</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">速查表 · 压缩自第 4 课 ｜ 随课程推进持续更新</div>
+
+<h1>TS 异步与 async/await</h1>
+
+<p>这页是"异步"的压缩精华：写异步代码卡住时先查这里，比翻课件快。</p>
+
+<h2>两条核心规则</h2>
+
+<table>
+  <tr><th>关键字</th><th>写在哪</th><th>效果</th></tr>
+  <tr><td><code>async</code></td><td>函数前面</td><td>返回值自动包成 Promise（return string → 调用方拿到 Promise&lt;string&gt;）</td></tr>
+  <tr><td><code>await</code></td><td>Promise 前面，且只能在 async 函数内</td><td>暂停当前函数等结果、取出结果；不冻住整个程序</td></tr>
+</table>
+
+<h2>Promise 三种状态</h2>
+
+<table>
+  <tr><th>状态</th><th>含义</th></tr>
+  <tr><td><code>pending</code></td><td>等待中，结果还没出来</td></tr>
+  <tr><td><code>fulfilled</code></td><td>已成功，拿到结果</td></tr>
+  <tr><td><code>rejected</code></td><td>已失败，拿到错误</td></tr>
+</table>
+
+<h2>最小骨架</h2>
+
+<pre><code>// 造一张 ms 毫秒后兑现的小票
+function wait(ms: number): Promise&lt;void&gt; {
+  return new Promise((resolve) =&gt; setTimeout(resolve, ms));
+}
+
+async function greet(): Promise&lt;string&gt; {
+  await wait(1000);         // 等 1 秒，程序其他部分照常运转
+  return "你好，L1U.J！";
+}
+
+async function main() {     // await 只能在 async 里，入口包一层壳
+  console.log(await greet());
+}
+
+main();</code></pre>
+
+<h2>异步版 Tool 骨架</h2>
+
+<pre><code>export interface Tool {
+  name: string;
+  description: string;
+  execute: (args: Record&lt;string, any&gt;) =&gt; Promise&lt;string&gt;;
+}
+
+async function runTool(name: string, args: Record&lt;string, any&gt;): Promise&lt;string&gt; {
+  const tool = toolRegistry[name];
+  if (!tool) return `错误：找不到名为 "${name}" 的工具`;
+  return await tool.execute(args);
+}</code></pre>
+
+<h2>常见现象速查</h2>
+
+<table>
+  <tr><th>现象 / 报错</th><th>原因与对策</th></tr>
+  <tr><td>打印出 <code>Promise { &lt;pending&gt; }</code></td><td>忘了写 await——拿到的是小票不是结果</td></tr>
+  <tr><td>await 报错（不在 async 函数内）</td><td>外层函数没标 async；文件顶层想用时包一个 async main() 再调用</td></tr>
+  <tr><td>类型报错：返回 string 赋给 Promise&lt;string&gt;</td><td>函数忘了标 async；标上后 return string 会自动包成 Promise</td></tr>
+</table>
+
+<div class="callout">
+  <span class="label">一句话记住</span>
+  Promise 是"未来结果的小票"；<code>await</code> 是"凭票取餐"——当前函数暂停，程序不冻住。
+</div>
+
+<div class="further">
+<h2>出处与导航</h2>
+<ul>
+  <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN：Promise</a> ｜ <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function">MDN：async function</a></li>
+</ul>
+<p>课程导航：<a href="../lessons/0004-async-await.html">第 4 课</a> ｜ <a href="ts-commands-and-setup.html">命令与工程组织速查表</a> ｜ <a href="../GLOSSARY.md">词汇表</a> ｜ <a href="../ROADMAP.md">路线图</a></p>
+</div>
+
+</main>
+</body>
+</html>

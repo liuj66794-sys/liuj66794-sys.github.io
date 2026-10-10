@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html data-study-shell data-cs-pointer="1" data-cs-course="1" lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1 课 · C 程序的全貌与编译四步骤</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" data-cs-asset href="/blog/learning/cs-pointer.css?v=6b98e5e78a90">
+<script type="module" data-cs-asset src="/blog/learning/cs-pointer.mjs?v=6b98e5e78a90"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-cs/" target="_self">计算机课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/jisuanji/" target="_self">计算机学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<nav class="lesson-nav">
+  <span><a href="index.html">课程大纲</a> · 第一部分 C 语言</span>
+  <span>第 1 课 / 共 29 课</span>
+</nav>
+
+<header class="cs-intro"><p class="cs-eyebrow">计算机 · 逐步理解</p><h1>C 程序的全貌与编译四步骤</h1><p class="lesson-meta">对应笔记 C语言/01-程序设计与C语言 · 教材 P5–P16 · 建议按小节分次学习</p><p>能根据现象定位出错阶段，而不是把所有错误都叫作编译错误。</p><p class="cs-interactive-note">先看核心过程，再独立尝试，随后按需深入各知识点和原课测验。小节可以自由切换，支持展开全文。</p></header>
+<section class="cs-course"><aside class="cs-path" aria-label="本课学习路径"><strong>本课学习路径</strong><ol><li><a href="#cs-core">01 / 从源代码到运行结果</a></li><li><a href="#cs-transfer">02 / 换个例子，自己试一次</a></li><li><a href="#cs-detail-1">03 / 四步骤与三个扩展名</a></li><li><a href="#cs-detail-2">04 / 配套的三组判断</a></li><li><a href="#cs-detail-3">05 / 先回忆，再自测</a></li><li><a href="#cs-practice">06 / 测验（点击选项作答）</a></li><li><a href="#cs-detail-5">07 / 参考资料</a></li></ol></aside><section class="cs-content"><section id="cs-core" data-cs-step><h2 tabindex="-1">从源代码到运行结果</h2><p class="cs-goal">这一节要学会：能根据现象定位出错阶段，而不是把所有错误都叫作编译错误。</p><p>把程序想成一道菜：源代码是食谱，编译器把食谱翻译成机器能处理的指令，链接器把用到的各部分拼到一起，运行才是真正开始做菜。食谱写完不代表菜已经做好。</p><p>以 <code>C</code> 程序为例，预处理处理 <code>#include</code> 等指令，编译与汇编产生目标文件，链接把目标文件和所需库组合成可执行文件。教学中常把预处理、编译、汇编统称为“编译阶段”；判断题要先看题目采用哪种粒度。</p><p><code>printf</code> 的声明让编译器知道怎样检查调用；函数实现仍需在链接时解决。语法正确只表示程序通过了相应检查，不能保证计算逻辑正确。下面按“已有文件→进行操作→得到什么”逐步看。</p><section data-cs-lab="core"></section><details class="cs-trace-transcript"><summary>查看完整过程，逐步核对</summary><h3>第 1 步</h3><pre><code>#include &lt;stdio.h&gt;
+int main(void) { printf(&quot;%d\n&quot;, 2 + 3); return 0; }</code></pre><p>当前材料：main.c</p><p>编辑阶段保存的是文本，还没有执行加法。</p><h3>第 2 步</h3><pre><code>预处理 → 编译 → 汇编</code></pre><p>输入：main.c；产物：目标文件</p><p>检查并翻译源程序。不同工具链可能使用 .o 或 .obj 扩展名。</p><h3>第 3 步</h3><pre><code>目标文件 + 所需库 → 链接</code></pre><p>产物：可执行文件</p><p>组合代码，解析外部符号；缺少函数实现通常在这里暴露。</p><h3>第 4 步</h3><pre><code>启动可执行文件</code></pre><p>屏幕输出：5</p><p>此时程序才实际运行。若写成 2-3，仍可能成功构建，只是结果不符合原意。</p></details><section data-cs-check="core"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>程序已成功生成可执行文件，但把求和写成求差。主要属于？</p><ol><li>语法错误：求差的语法本身合法，不能只靠语法检查发现意图错误。</li><li>逻辑错误：对。机器执行了写下来的运算，但它偏离了任务要求。</li><li>缺少函数实现：缺少实现通常阻止链接成功；这里已经能运行。</li></ol><p>正确判断：逻辑错误</p></details></section>
+<section id="cs-transfer" data-cs-step><h2 tabindex="-1">换个例子，自己试一次</h2><p class="cs-goal">先独立写出过程，再核对理由。遇到卡点可以回上一小节重走。</p><p class="cs-task">某程序调用自己声明的函数 <code>total</code>，语法检查通过，但项目里没有它的定义。应先检查哪一步？</p><details><summary>卡住时看提示</summary><p>先分清声明和定义：编译器知道接口后，还需要哪一步把函数实现连接进来？</p></details><details><summary>查看参考过程</summary><p>先检查链接及参与链接的源文件或库。声明提供调用接口，定义提供函数体；只有声明不等于已经有可执行实现。</p></details><section data-cs-check="transfer"></section><details class="cs-check-answer"><summary>核对判断与理由</summary><p>修复后成功编译并链接，是否证明所有输入都算对？</p><ol><li>是，构建通过就是正确：构建检查不能代替需求和边界验证。</li><li>否，还要用样例和边界输入验证：对。还要检查预期值、空输入、边界等实际行为。</li><li>只要能输出就正确：输出存在与输出正确是两件事。</li></ol><p>正确判断：否，还要用样例和边界输入验证</p></details></section>
+<section id="cs-detail-1" data-cs-step><h2 tabindex="-1">一、四步骤与三个扩展名</h2>
+<p>C 程序的实现经过 <strong>编辑 → 编译 → 连接 → 运行</strong> 四步（注意：是四步，不是五步——题干把「执行」拆开数就是错的）：</p>
+<table>
+  <tr><th>步骤</th><th>产物</th><th>文件性质</th><th>这一步做什么</th></tr>
+  <tr><td>编辑</td><td><code>.c</code> 源程序</td><td>文本文件</td><td>把源程序输入计算机存盘</td></tr>
+  <tr><td>编译</td><td><code>.obj</code> 目标程序</td><td>二进制</td><td>词法分析 + 语法分析，报错定位</td></tr>
+  <tr><td>连接</td><td><code>.exe</code> 可执行程序</td><td>二进制</td><td>把目标程序与库文件连接</td></tr>
+  <tr><td>运行</td><td>运行结果</td><td>—</td><td>运行 .exe 得到结果</td></tr>
+</table>
+<div class="callout warn">
+  <p class="callout-title">最高频陷阱</p>
+  <p>源程序（.c）和目标程序（.obj）都<strong>不能</strong>被计算机直接执行，<strong>只有 .exe 能</strong>。同理：能被计算机直接执行的<strong>语言</strong>只有机器语言；C 是高级语言，必须先编译。</p>
+</div>
+
+<details><summary>本课目标与前置回顾</summary>
+
+
+<div class="goal">
+  <p class="goal-title">学完这节课，你能做到：</p>
+  <p>① 默写 C 程序从源代码到运行的四个步骤及每步产物的扩展名；② 一眼识破「谁能被计算机直接执行」这类陷阱题；③ 说清 main 函数的两条硬性规则和注释的编译行为。</p>
+</div>
+
+<div class="callout">
+  <p class="callout-title">为什么先学这个</p>
+  <p>编译四步骤是整套试卷填空、选择、简答都考过的最高频考点，也是理解后面「头文件 / 库函数 / 链接错误」等地基。你已经学过一轮——这节课用最快的速度把记忆重新钉牢。</p>
+</div>
+
+</details></section>
+<section id="cs-detail-2" data-cs-step><h2 tabindex="-1">二、配套的三组判断</h2>
+<p><strong>C 的诞生</strong>：由 Denis M. Ritchie（丹尼斯·里奇）于 <strong>1972—1973 年</strong>在美国<strong>贝尔实验室</strong>设计（常考判断/选择）。</p>
+<p><strong>语言三代</strong>：机器语言 → 汇编语言 → 高级语言；机器 + 汇编统称<strong>低级语言</strong>（都依赖具体机器）。高级语言分两种翻译方式：<strong>解释</strong>（边翻译边执行，不产生目标程序）和<strong>编译</strong>（整体翻译成目标程序，再连接成可执行文件）——C 属于编译方式。</p>
+<p><strong>main 函数</strong>：有且<strong>只有一个</strong>，是程序的入口和出口；程序总是从 main 开始执行，与 main 写在什么位置无关。每个函数由<strong>函数头 + 函数体</strong>两部分组成，函数之间是<strong>平行</strong>关系，不能嵌套定义。</p>
+<p><strong>注释</strong>：<code>//</code> 到换行符结束、不能跨行；<code>/* */</code> 可跨行。注释<strong>不参与编译</strong>，编译器不会发现注释里的任何错误。另外记住：C 本身<strong>没有输入/输出语句</strong>，I/O 靠 scanf/printf 库函数完成。</p>
+
+</section>
+<section id="cs-detail-3" data-cs-step><h2 tabindex="-1">三、先回忆，再自测</h2>
+<details class="recall">
+  <summary>C 语言诞生的时间、地点、人物？</summary>
+  <div class="recall-a">1972—1973 年，美国贝尔实验室，Denis M. Ritchie（丹尼斯·里奇）。</div>
+</details>
+<details class="recall">
+  <summary>合上笔记默写：四步骤、每步产物扩展名、文件性质</summary>
+  <div class="recall-a">编辑→.c（文本）；编译→.obj（二进制）；连接→.exe（二进制）；运行→结果。写不出来就回到上面的表格再看一遍，然后再默一次。</div>
+</details>
+<details class="recall">
+  <summary>「程序 = ？+ ？」，算法有哪三种基本结构？</summary>
+  <div class="recall-a">程序 = 算法 + 数据结构；三种基本结构：顺序、选择、循环。</div>
+</details>
+
+</section>
+<section id="cs-practice" data-cs-step><h2 tabindex="-1">四、测验（点击选项作答）</h2>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">1. 下列文件中，能被计算机直接执行的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">扩展名为 .c 的源程序文件</li>
+    <li data-opt="b">扩展名为 .obj 的目标文件</li>
+    <li data-opt="c">扩展名为 .exe 的可执行文件</li>
+    <li data-opt="d">扩展名为 .h 的头文件</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">只有可执行文件能直接运行；.c 是文本、.obj 是二进制目标文件，都要先经过后续步骤。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">2. C 源程序经过「编译」这一步后得到的产物是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">可直接运行的可执行文件</li>
+    <li data-opt="b">需再连接的目标程序</li>
+    <li data-opt="c">逐句翻译的解释结果</li>
+    <li data-opt="d">包含库函数的可执行程序</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">编译产生 .obj 目标程序，它不能单独执行，必须由连接程序与库文件连接成 .exe。</p>
+</div>
+
+<div class="quiz" data-answer="a">
+  <p class="quiz-q">3. 关于 C 程序的执行起点，正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">总是从 main 函数开始执行</li>
+    <li data-opt="b">从最前面的函数开始执行</li>
+    <li data-opt="c">从最后面的函数开始执行</li>
+    <li data-opt="d">从预处理命令开始执行</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">与 main 的位置无关，程序永远从 main 开始；main 有且只有一个，是入口也是出口。</p>
+</div>
+
+<div class="quiz" data-answer="d">
+  <p class="quiz-q">4. 关于注释，下列说法正确的是</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">单行注释可以跨越多行书写</li>
+    <li data-opt="b">编译器能发现注释中的错误</li>
+    <li data-opt="c">注释中的语句会被编译执行</li>
+    <li data-opt="d">块注释可以跨越多行书写</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl"><code>//</code> 到换行符止，不能跨行；<code>/* */</code> 可跨行。注释不参与编译。</p>
+</div>
+
+<div class="quiz" data-answer="b">
+  <p class="quiz-q">5. 机器语言和汇编语言统称为</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">高级语言，不依赖具体机器</li>
+    <li data-opt="b">低级语言，依赖具体机器</li>
+    <li data-opt="c">符号语言，可移植性很好</li>
+    <li data-opt="d">自然语言，易学易读易修改</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">机器 + 汇编 = 低级语言，都依赖具体计算机，难学难用；汇编又称符号语言，但它仍属低级语言。</p>
+</div>
+
+<div class="quiz" data-answer="c">
+  <p class="quiz-q">6. C 语言的输入/输出功能是依靠什么实现的</p>
+  <ol class="quiz-opts" type="A">
+    <li data-opt="a">属于 C 语言关键字的输入输出命令</li>
+    <li data-opt="b">编译器自带的输入输出语句</li>
+    <li data-opt="c">scanf 和 printf 等库函数</li>
+    <li data-opt="d">预处理命令提供的输入输出</li>
+  </ol>
+  <p class="quiz-feedback"></p>
+  <p class="quiz-expl">C 本身没有 I/O 语句，靠库函数完成——这正是它移植性好的原因之一。</p>
+</div>
+
+<div class="task">
+  <p class="task-title">课后任务（约 20 分钟）</p>
+  <p>打开 题库/程序设计与C语言-章节练习，遮住答案做完 9 道填空 + 4 道单选 + 2 道简答（其中「简述 C 语言的开发运行过程」就是本课主考点的简答形式），错题标 ⭐️。然后回到笔记 自测问题 Q1–Q10，遮住答案口头作答，卡壳的记入错题。</p>
+</div>
+
+</section>
+<section id="cs-detail-5" data-cs-step><h2 tabindex="-1">参考资料</h2>
+<p>首选精读：C语言/01-程序设计与C语言（含「易错点与对比」表，值得再过一遍）。教材对照：谭浩强《C程序设计》P5–P16。术语速查：<a href="../reference/glossary.html">课程术语表</a>。</p>
+
+<div class="teacher-note">有哪里卡住了？直接把题目或疑问发给我——我是你的课程老师，可以逐条讲清楚，也可以针对你错的题再出几道同类题。</div>
+
+</section></section></section>
+<script type="application/json" id="cs-course-data">{"version":1,"storageKey":"zhixu:cs-course:1:1","stepIds":["cs-core","cs-transfer","cs-detail-1","cs-detail-2","cs-detail-3","cs-practice","cs-detail-5"],"checks":{"core":{"question":"程序已成功生成可执行文件，但把求和写成求差。主要属于？","choices":["语法错误","逻辑错误","缺少函数实现"],"answer":1,"why":["求差的语法本身合法，不能只靠语法检查发现意图错误。","对。机器执行了写下来的运算，但它偏离了任务要求。","缺少实现通常阻止链接成功；这里已经能运行。"]},"transfer":{"question":"修复后成功编译并链接，是否证明所有输入都算对？","choices":["是，构建通过就是正确","否，还要用样例和边界输入验证","只要能输出就正确"],"answer":1,"why":["构建检查不能代替需求和边界验证。","对。还要检查预期值、空输入、边界等实际行为。","输出存在与输出正确是两件事。"]}},"traces":{"core":{"title":"同一份程序经过哪些阶段","frames":[{"code":"#include \u003cstdio.h>\nint main(void) { printf(\"%d\\n\", 2 + 3); return 0; }","cells":[["当前材料","main.c"]],"note":"编辑阶段保存的是文本，还没有执行加法。","pointer":""},{"code":"预处理 → 编译 → 汇编","cells":[["输入","main.c"],["产物","目标文件"]],"note":"检查并翻译源程序。不同工具链可能使用 .o 或 .obj 扩展名。","pointer":""},{"code":"目标文件 + 所需库 → 链接","cells":[["产物","可执行文件"]],"note":"组合代码，解析外部符号；缺少函数实现通常在这里暴露。","pointer":""},{"code":"启动可执行文件","cells":[["屏幕输出","5"]],"note":"此时程序才实际运行。若写成 2-3，仍可能成功构建，只是结果不符合原意。","pointer":""}]}},"signature":"8b9329e438078cee"}</script>
+<nav class="footer-nav">
+  <span>第 1 课</span>
+  <a href="0002-data-representation.html">下一课：数据的表示 — 数制、补码与常量 →</a>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

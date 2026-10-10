@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0032 · 定积分计算：换元换限 · 分部 · 华里士公式 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0032">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 5 单元 · 定积分 · 课 0032</span>
+  <a href="0031-定积分定义性质与牛莱公式.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0032 · 定积分</span>
+<h1>定积分计算：换元换限 · 分部 · 华里士（点火）公式</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0031 牛顿–莱布尼茨 · 第 4 单元积分方法</span>
+  <span>来源：笔记《定积分》§四</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>把第 4 单元三招（凑微分、第二换元、分部）平移到定积分，<strong>换元必换限</strong></li>
+    <li>用<strong>华里士（点火）公式</strong> 10 秒写出 $\int_0^{\frac\pi2}\sin^{n}x\,dx$ 类结果</li>
+    <li>用周期平移 + 对称性把 $\int_1^{2\pi+1}\cos^{8}x\,dx$ 化成点火公式</li>
+  </ul>
+</div>
+
+<p>定积分的计算方法与不定积分<strong>完全同款</strong>，新增的只有三件事：凑微分不动限、第二换元<strong>必换限</strong>（换完一般不用回代）、以及定积分专属的点火公式。先看两个热身。</p>
+
+<h2>一、凑微分：原限不动，直接代</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>$\displaystyle\int_0^{\frac{\pi}{2}}\sin^{5}x\cos x\,dx$ 与 $\displaystyle\int_0^{2}\dfrac{x}{\sqrt{1+x^{2}}}dx$。（夏讲 P30–P31）</p>
+  <details><summary>先自己凑，再展开</summary>
+    <p>$=\displaystyle\int_0^{\frac\pi2}\sin^{5}x\,d(\sin x)=\frac{\sin^{6}x}{6}\Big|_0^{\frac\pi2}=\frac16$——凑微分不换限，最后按原限代值。</p>
+    <p>$\int_0^2\dfrac{x\,dx}{\sqrt{1+x^{2}}}=\sqrt{1+x^{2}}\Big|_0^{2}=\sqrt5-1$（认出 $x\,dx=\frac12d(1+x^2)$ 的 $\frac12\cdot2$ 抵消）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（绝对值分段）</span>$\displaystyle\int_{-1}^{3}\left|2-x\right|dx$。（夏讲 P31）</p>
+  <details><summary>先找零点分段，再展开</summary>
+    <p>零点 $x=2$：$\displaystyle\int_{-1}^{2}(2-x)dx+\int_2^{3}(x-2)dx=\frac92+\frac12=5$。</p>
+    <p>同款：$\int_{\frac1e}^{e}|\ln x|dx=\int_{1/e}^{1}(-\ln x)dx+\int_1^{e}\ln x\,dx=2-\dfrac2e$（秋讲练习 17(6)）。</p>
+  </details>
+</div>
+
+<h2>二、第二换元：换元必换限</h2>
+
+<div class="keypoint">
+  <div class="kp-title">规则</div>
+  <p style="margin:0.2rem 0">令 $x=\varphi(t)$ 后，上下限<strong>同步</strong>换成 $t$ 的对应值：$a=\varphi(\alpha)$、$b=\varphi(\beta)$。换完限<strong>不必回代</strong>——积分完直接用新限。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3</span>$\displaystyle\int_0^{4}\dfrac{dx}{1+\sqrt x}$。（夏讲 P32）</p>
+  <details><summary>先自己换限，再展开</summary>
+    <p>令 $t=\sqrt x$，$x=t^{2}$，$dx=2t\,dt$；限：$x:0\to4$ 对应 $t:0\to2$。</p>
+    <p>$\displaystyle\int_0^{2}\dfrac{2t}{1+t}dt=2\int_0^2\left(1-\dfrac{1}{1+t}\right)dt=2\left[t-\ln(1+t)\right]_0^2=4-2\ln3$。</p>
+    <p>对照不定积分版（0028 例 1）：那里要回代 $\sqrt x$，这里限一换就"圆寂"了——<strong>换限换得彻底，回代就免了</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（换元 + 分部接力）</span>$\displaystyle\int_0^{1}e^{\sqrt x}\,dx$。（夏讲 P35）</p>
+  <details><summary>先换元，再分部，再展开</summary>
+    <p>令 $t=\sqrt x$，限 $t:0\to1$：$\displaystyle\int_0^1 2t e^{t}dt=2\int_0^1 t\,d(e^{t})=2\left[te^{t}\right]_0^1-2\int_0^1e^{t}dt=2e-2(e-1)=2$。</p>
+    <p>综合题的常见形态：<strong>先换元把根号消掉，再分部</strong>；限在每一步都用新变量的。</p>
+  </details>
+</div>
+
+<h2>三、分部积分：上下限跟着减</h2>
+
+<div class="keypoint">
+  <div class="kp-title">公式（反对幂三指照旧）</div>
+  <p style="margin:0.2rem 0">$$\int_a^{b}u\,dv=\Bigl[uv\Bigr]_a^{b}-\int_a^{b}v\,du$$</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5</span>$\displaystyle\int_1^{e}\ln x\,dx$ 与 $\displaystyle\int_0^{\pi}x\cos3x\,dx$。（夏讲 P34）</p>
+  <details><summary>先自己分部，再展开</summary>
+    <p>$\displaystyle\int_1^{e}\ln x\,dx=\left[x\ln x-x\right]_1^{e}=(e-e)-(0-1)=1$。</p>
+    <p>$\displaystyle\int_0^{\pi}x\cos3x\,dx=\dfrac13\left[x\sin3x\right]_0^{\pi}-\dfrac13\int_0^{\pi}\sin3x\,dx=0+\dfrac19\left[\cos3x\right]_0^{\pi}=-\dfrac29$。</p>
+    <p>亮点：$[x\sin3x]_0^{\pi}=0$——边界项常常白送零，<strong>先代限再积分</strong>有时能省一半工。</p>
+  </details>
+</div>
+
+<h2>四、华里士（点火）公式与周期平移</h2>
+
+<div class="keypoint">
+  <div class="kp-title">华里士公式（$\int_0^{\frac\pi2}\sin^{n}=\int_0^{\frac\pi2}\cos^{n}$）</div>
+  <p style="margin:0.2rem 0">$$\int_0^{\frac{\pi}{2}}\sin^{n}x\,dx=\begin{cases}\dfrac{n-1}{n}\cdot\dfrac{n-3}{n-2}\cdots\dfrac{2}{3}\cdot1, &amp; n\ \text{奇}\\[2mm] \dfrac{n-1}{n}\cdot\dfrac{n-3}{n-2}\cdots\dfrac{1}{2}\cdot\dfrac{\pi}{2}, &amp; n\ \text{偶}\end{cases}$$</p>
+  <p style="margin:0.2rem 0">点火口诀：<strong>奇数串到 1，偶数串到 $\dfrac\pi2$；系数从 $\frac{n-1}{n}$ 开始递减 2</strong>。如 $\int_0^{\frac\pi2}\sin^3x\,dx=\frac23$、$\int_0^{\frac\pi2}\sin^4x\,dx=\frac34\cdot\frac12\cdot\frac\pi2=\frac{3\pi}{16}$。</p>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">周期函数平移（$T$ 为周期）</div>
+  <p style="margin:0.2rem 0">$$\int_a^{a+T}f\,dx=\int_0^{T}f\,dx\qquad\quad \int_0^{kT}f\,dx=k\int_0^{T}f\,dx$$</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 6（三连招）</span>$\displaystyle\int_1^{2\pi+1}\cos^{8}x\,dx$。（夏讲 P37）</p>
+  <details><summary>先平移，再点火，再展开</summary>
+    <p>周期平移：$=\displaystyle\int_0^{2\pi}\cos^{8}x\,dx=4\int_0^{\frac\pi2}\cos^{8}x\,dx$（对称性切四份）。</p>
+    <p>点火（$n=8$ 偶）：$4\cdot\dfrac78\cdot\dfrac56\cdot\dfrac34\cdot\dfrac12\cdot\dfrac\pi2=4\cdot\dfrac{35}{256}\pi=\dfrac{35\pi}{64}$。</p>
+    <p>组合拳：周期归零 → 对称折半 → 点火收尾。<strong>见到"整周期 + 三角幂"就是这个流程</strong>。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\displaystyle\int_0^{\frac{\pi}{2}}\sin^{2}x\cos x\,dx=$（秋讲练习 15(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{2}{3}$</button>
+    <button data-k="B">$\dfrac{1}{6}$</button>
+    <button data-k="C">$\dfrac{1}{3}$</button>
+    <button data-k="D">$1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">凑微分：$\int_0^{\frac\pi2}\sin^{2}x\,d(\sin x)=\dfrac{\sin^{3}x}{3}\Big|_0^{\frac\pi2}=\dfrac13$。B 是 $\sin^5\cos$ 的答案（0028 例的同族）——方框的幂次看清楚。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">计算 $\displaystyle\int_0^{8}\dfrac{dx}{1+\sqrt[3]{x}}$，换元后新上下限是（秋讲练习 16(4)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$t:1\to3$</button>
+    <button data-k="B">$t:0\to2$</button>
+    <button data-k="C">$t:0\to8$</button>
+    <button data-k="D">$t:2\to0$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$t=\sqrt[3]x$：$x=0\Rightarrow t=0$，$x=8\Rightarrow t=2$。换元必换限，别沿用旧限（C）或代错（A）。结果：$3\int_0^2\left(t-1+\frac{1}{1+t}\right)dt=3\ln3$。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\displaystyle\int_0^{1}xe^{-x}dx=$（秋讲练习 17(4)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$1-\dfrac{2}{e}$</button>
+    <button data-k="B">$\dfrac{2}{e}-1$</button>
+    <button data-k="C">$1-\dfrac{1}{e}$</button>
+    <button data-k="D">$\dfrac{1}{e}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$u=x$、$dv=e^{-x}dx$（$v=-e^{-x}$）：$\left[-xe^{-x}\right]_0^1+\int_0^1e^{-x}dx=-\dfrac1e+\left(1-\dfrac1e\right)=1-\dfrac2e$。边界项代限要细心：$x=0$ 处 $-xe^{-x}=0$。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\displaystyle\int_0^{\frac{\pi}{2}}\sin^{4}x\,dx=$</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{3}{4}$</button>
+    <button data-k="B">$\dfrac{3\pi}{8}$</button>
+    <button data-k="C">$\dfrac{3\pi}{16}$</button>
+    <button data-k="D">$\dfrac{\pi}{8}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">点火（$n=4$ 偶）：$\dfrac34\cdot\dfrac12\cdot\dfrac\pi2=\dfrac{3\pi}{16}$。B 忘了最后的 $\frac12$——点火串是 $\frac{3}{4}\to\frac{1}{2}$，最后乘 $\frac\pi2$，一环不落。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$\displaystyle\int_0^{\pi}\sin^{3}x\,dx=$（秋讲练习 15(6)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{2}{3}$</button>
+    <button data-k="B">$\dfrac{4}{3}$ 的一半再除以 2</button>
+    <button data-k="C">$\dfrac{1}{3}$</button>
+    <button data-k="D">$\dfrac{4}{3}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$[0,\pi]$ 对 $x=\frac\pi2$ 对称：$=2\int_0^{\frac\pi2}\sin^{3}x\,dx=2\times\dfrac23=\dfrac43$。A 只算了一半——先看区间长度，$\frac\pi2$ 直接点火，$[0,\pi]$ 折半再点火。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>凑微分<strong>不换限</strong>（按原变量代值）；第二换元<strong>必换限</strong>（且免回代）——两兄弟规则相反</li>
+    <li>绝对值积分先找零点分段，别直接开方</li>
+    <li>点火公式：奇串到 $1$、偶串到 $\frac\pi2$；$[0,\pi]$、$[0,2\pi]$ 先<strong>折半/折四份</strong>到 $[0,\frac\pi2]$</li>
+    <li>整周期三角积分：先 $\int_a^{a+T}=\int_0^T$ 平移</li>
+    <li>分部边界项先代限——经常是 0，能省一次积分</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写华里士公式（奇、偶两种结尾），并口算 $\int_0^{\frac\pi2}\sin^3x\,dx$ 与 $\int_0^{\frac\pi2}\cos^4x\,dx$。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">奇：$\cdots\frac23\cdot1$；偶：$\cdots\frac12\cdot\frac\pi2$。$\int_0^{\frac\pi2}\sin^3=\frac23$；$\int_0^{\frac\pi2}\cos^4=\frac34\cdot\frac12\cdot\frac\pi2=\frac{3\pi}{16}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">定积分三招（凑微分 / 第二换元 / 分部）各自的限怎么处理？一句话各说清。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">凑微分：限不动，最后按原限代值；第二换元：换元必换限，换完不回代；分部：$\left[uv\right]_a^b-\int_a^bv\,du$，边界项先代限。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。点火公式在 0034 课旋转体（$\int\sin^2$ 降幂）与后续级数（$p$ 积分对比）都会再出场。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《定积分》§四 计算方法（含秋讲练习 9–17 速查表）</li>
+    <li>讲义：《定积分》夏讲 PDF 教材 P107–P110（换元 P29–P35、点火 P36–P37）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："为什么换元必换限就不用回代了"、"点火公式怎么用分部推出来"、"$\int_1^{2\pi+1}\cos^8$ 那道的三连招再来一道同款"，或让它出 10 道定积分计算限时 15 分钟。
+</div>
+
+<nav class="footnav">
+  <a href="0031-定积分定义性质与牛莱公式.html" class="prev"><span class="dir">← 上一课</span>0031 定积分定义 · 性质 · 牛顿–莱布尼茨</a>
+  <a href="0033-变限积分与广义积分.html" class="next"><span class="dir">下一课 →</span>0033 变限积分求导 · 广义积分</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="https://liuj66794-sys.github.io/blog/rss.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <atom:link href="https://liuj66794-sys.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <title>知序</title>
+    <link>https://liuj66794-sys.github.io/blog/</link>
+    <description>知序 ZHIXU：系统课程、互动练习、专升本备考与 Agent 工程实践。把知识连成路，一步步走向理解。</description>
+    <language>zh-CN</language>
+    <pubDate>Fri, 09 Oct 2026 14:25:47 GMT</pubDate>
+    <lastBuildDate>Fri, 09 Oct 2026 14:25:47 GMT</lastBuildDate>
+    <generator>@vuepress/plugin-feed</generator>
+    <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>工程技能</category>
+    <category>TypeScript Agent</category>
+    <category>A 股入门</category>
+    <category>英语教学（已归档）</category>
+    <category>政策学习（已归档）</category>
+    <item>
+      <title>上游仓库同步（2026-08-07 → 2026-09-09）</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0009-upstream-sync-2026-09/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0009-upstream-sync-2026-09/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">上游仓库同步（2026-08-07 → 2026-09-09）</source>
+      <description>学到的内容 对照 mattpocock/skills 仓库（GitHub API，直连 git 不通、本地代理未开）把学习素材同步到最新。正式版三桶（engineering 18 / productivity 7 / misc 4，共 29）无增删；变化集中在 inprogress 和既有 skil…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<p>对照 <code>mattpocock/skills</code> 仓库（GitHub API，直连 git 不通、本地代理未开）把学习素材同步到最新。正式版三桶（engineering 18 / productivity 7 / misc 4，共 29）<strong>无增删</strong>；变化集中在 in-progress 和既有 skill 的行为微调：</p>
+<ul>
+<li><strong>新增（都在 in-progress，现共 8 个）</strong>：
+<ul>
+<li><code>implement-spec</code>（8-21，user-invoked）：把 spec 的 tickets 当带阻塞边的任务图，并行派发 implementer 子 agent（各自 worktree/分支）合并成单个 PR，收尾跑 code-review。frontier 概念与 wayfinder 同源，可视为 implement 的并行放大版。</li>
+<li><code>retro</code>（8-24，user-invoked）：对一次编码会话做回顾，从导航、自动检查、编码规范、AGENTS.md 瘦身、工具经济、空转指令、信息获取七个维度提出改进 agent 环境的建议，按严重度排序。</li>
+</ul>
+</li>
+<li><strong>行为变更</strong>：grilling 同轮问题之间改用水平线 `</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0001 TypeScript 环境搭建与第一个程序</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/pi-agent/0001-typescript-environment-and-first-program/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/pi-agent/0001-typescript-environment-and-first-program/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0001 TypeScript 环境搭建与第一个程序</source>
+      <description>学习者已完成第 1 课的动手任务：Node.js v24.17.0 安装成功，使用 npx tsx 运行了第一个 .ts 文件，理解了 TS 类型报错信息的含义。 Evidence 第一次运行输出 你好，${name}欢迎来到 Agent 课程。，说明使用了普通字符串引号而非模板字符串的反引号；随后…</description>
+      <category>TypeScript Agent</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<p>学习者已完成第 1 课的动手任务：Node.js v24.17.0 安装成功，使用 <code>npx tsx</code> 运行了第一个 <code>.ts</code> 文件，理解了 TS 类型报错信息的含义。</p>
+<p><strong>Evidence</strong></p>
+<ul>
+<li>第一次运行输出 <code>你好，${name}!欢迎来到 Agent 课程。</code>，说明使用了普通字符串引号而非模板字符串的反引号；随后成功输出 <code>你好，L1U.J!欢迎来到 Agent 课程。</code>，说明已掌握模板字符串的写法与作用。</li>
+<li>正确复述 TS 类型错误：<code>string</code> 类型的参数不能赋给 <code>number</code> 类型的参数。</li>
+</ul>
+<p><strong>Implications for next sessions</strong></p>
+<ul>
+<li>可以进入第 2 课：类型与接口。学习者已能在编译报错中提取关键信息，后续可以多用 TS 编译器反馈作为学习抓手。</li>
+<li>模板字符串是后续"拼接 System Prompt / 工具描述"时的高频工具，已验证掌握。</li>
+<li>下次遇到 <code>${...}</code> 没展开的情况，可直接反问"是否用了反引号"。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0002 TypeScript 类型与接口</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/pi-agent/0002-types-and-interfaces-for-tools/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/pi-agent/0002-types-and-interfaces-for-tools/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0002 TypeScript 类型与接口</source>
+      <description>学习者已完成第 2 课：成功用 interface Tool 定义工具形状，实现了 calculator 和 greeter，并通过 Record&amp;lt;string, Tool 注册表 + runTool 调度函数跑出了正确输出。 Evidence 正常运行输出：结果是 30 和 你好, L1U.J 代…</description>
+      <category>TypeScript Agent</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>配套讲义：<a href="/blogundefined" target="_blank">第 2 课 · TypeScript 类型与接口</a>（含随堂测，页顶有返回导航）</p>
+</blockquote>
+<p>学习者已完成第 2 课：成功用 <code>interface Tool</code> 定义工具形状，实现了 <code>calculator</code> 和 <code>greeter</code>，并通过 <code>Record&lt;string, Tool&gt;</code> 注册表 + <code>runTool</code> 调度函数跑出了正确输出。</p>
+<p><strong>Evidence</strong></p>
+<ul>
+<li>正常运行输出：<code>结果是 30</code> 和 <code>你好, L1U.J!</code></li>
+<li>代码结构包含 interface、两个 Tool 实现、注册表对象。</li>
+</ul>
+<p><strong>Misconceptions corrected</strong></p>
+<ol>
+<li><strong>tsx 不会报类型错误</strong>：把 <code>runTool("calculator", 10)</code> 传进去后，程序依然运行并输出 <code>结果是 NaN</code>，没有出现 TS 报错。原因是 <code>npx tsx</code> 默认只做<strong>转译+运行</strong>，不做<strong>类型检查</strong>；要看到类型错误需用 <code>npx tsc --noEmit</code>。这个误解必须在下节课解决。</li>
+<li><strong><code>Record&lt;string, Tool&gt;</code> 不是"获取工具有哪些"</strong>：学习者解释为"获取我有哪些工具"。正确含义是："键为字符串、值为 Tool 的对象"，它描述的是注册表这个<strong>容器的形状</strong>，而不是一个动作。</li>
+</ol>
+<p><strong>Implications for next sessions</strong></p>
+<ul>
+<li>下节课（模块与 npm）会正式引入 <code>npx tsc --noEmit</code>，并解释"编辑器红线 / tsc / tsx"三者的区别。</li>
+<li>后续所有"类型错误实验"都改用 <code>tsc --noEmit</code> 验证，而不是 tsx 的运行结果。</li>
+<li><code>Record&lt;string, Tool&gt;</code> 会反复出现（工具注册表、上下文消息注册表），需在后续课中继续强化。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0003 模块与 npm 脚本</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/pi-agent/0003-modules-and-npm-scripts/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/pi-agent/0003-modules-and-npm-scripts/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0003 模块与 npm 脚本</source>
+      <description>学习者已完成第 3 课：把 tools.ts 拆成 tooltypes.ts / tools.ts / main.ts 三个文件并用 import/export 连接，配置了 npm start 脚本与 tsconfig.json，并正确产出了预期的 tsc 类型报错。 Evidence npm r…</description>
+      <category>TypeScript Agent</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>配套讲义：<a href="/blogundefined" target="_blank">第 3 课 · 模块与 npm 脚本</a>（含随堂测，页顶有返回导航）</p>
+</blockquote>
+<p>学习者已完成第 3 课：把 <code>tools.ts</code> 拆成 <code>tool-types.ts</code> / <code>tools.ts</code> / <code>main.ts</code> 三个文件并用 import/export 连接，配置了 <code>npm start</code> 脚本与 <code>tsconfig.json</code>，并正确产出了预期的 tsc 类型报错。</p>
+<p><strong>Evidence</strong></p>
+<ul>
+<li><code>npm run start</code> 输出 <code>结果是 30</code> 和 <code>你好, L1U.J!</code>——拆分后行为与第 2 课一致。</li>
+<li>类型实验产出预期报错：<code>error TS2345: Argument of type 'number' is not assignable to parameter of type 'Record&lt;string, any&gt;'</code>（main.ts:18），与课程设计完全吻合。</li>
+<li>export/import 一句话解释："一个是暴露类可以给别的包使用，一个是引入暴露类来使用。"</li>
+</ul>
+<p><strong>Misconceptions corrected</strong></p>
+<ol>
+<li><strong>（第 2 课遗留，已关闭）tsx 不做类型检查</strong>：学习者已能主动用 <code>npx tsc --noEmit</code> 产出类型报错，"运动员/裁判"分工从被动听说变成主动使用。此误解关闭。</li>
+<li><strong>（新，部分残留）export/import 的作用范围</strong>：方向正确（暴露 / 引入），但措辞有两处偏差——能 export 的不只是"类"（interface、const、函数、类型都可以）；作用在<strong>模块（文件）</strong>之间，而非"包"之间（包是 npm 的发布单位）。GLOSSARY 按规范措辞入册；第 4 课温故区安排一道精确化回忆题复测。</li>
+</ol>
+<p><strong>Implications for next sessions</strong></p>
+<ul>
+<li>第 4 课（异步 async/await，模块 A 收官）将把 <code>Tool.execute</code> 改为返回 <code>Promise&lt;string&gt;</code>——与真实 Agent 工具的形态一致，异步概念直接长在已验收的代码骨架上。</li>
+<li>三文件结构（types / tools / main）成为后续所有动手课的默认骨架；PatchPilot 的目录拆分沿用这一心智模型。</li>
+<li>第 4 课温故区复测 import/export 精确措辞；若再次答成"类/包"，升级为正式误解处理。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>wayfinder 的核心形状：为模糊大项目画一张共享地图</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0007-wayfinder-understanding/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0007-wayfinder-understanding/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">wayfinder 的核心形状：为模糊大项目画一张共享地图</source>
+      <description>学到的内容 /wayfinder 处理的是「想法太大、一个 session 装不下、从这里到目的地的路还看不见」的入口。 当主流程 grill → tospec 走不动时，它先把「路」本身绘成 issue tracker 上的一张共享地图， 再逐张解决地图上的决策票，直到路清晰、可以交接给 tosp…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<p><code>/wayfinder</code> 处理的是「想法太大、一个 session 装不下、从这里到目的地的路还看不见」的入口。
+当主流程 <code>grill → to-spec</code> 走不动时，它先把「路」本身绘成 issue tracker 上的一张共享地图，
+再逐张解决地图上的决策票，直到路清晰、可以交接给 <code>to-spec → to-tickets → implement</code> 施工。</p>
+<p>关键形状：</p>
+<ul>
+<li><strong>Destination（目的地）</strong> 是地图的第一个钉子。它决定范围、塑造每张票。到达长什么样通常写成
+「一份可交接的 spec」或「一个待锁定的决策」——不是功能上线本身。</li>
+<li><strong>Shared map</strong> 是 tracker 上带 <code>wayfinder:map</code> 标签的单个 issue，作为权威索引：
+Destination、Notes、Decisions so far、Not yet specified、Out of scope。
+决策只住在票里，地图只给 gist + 链接；引用用名字，不用编号墙。</li>
+<li><strong>决策票</strong> 分四类：research（AFK，可并行 subagent）、prototype（HITL）、grilling（HITL）、
+task（HITL 或 AFK，唯一「做」的类型，必须为某个决策解锁而存在）。</li>
+<li><strong>Fog of war / Not yet specified</strong>：范围内但还钉不死的问题写进雾里；标准是能否「精确表述」问题，
+而不是能否回答。被阻塞但表述清晰的票照样立票。</li>
+<li><strong>Out of scope</strong>：被有意识地排除在目的地之外的工作，永不毕业；越界票要关掉，不在 Decisions so far 里。</li>
+<li><strong>Frontier（前沿）</strong>：打开、未被阻塞、未被认领的票。先认领（assign）再干活；阻塞用 tracker 原生依赖表达。</li>
+<li><strong>铁律</strong>：绘制地图的 session 一张票都不亲手解决；沿图推进时一个 session 最多解决一张票（research 例外可并行）。</li>
+</ul>
+<h2>证据</h2>
+<ul>
+<li>精读本地主源 <code>~/.agents/skills/wayfinder/SKILL.md</code> 的 Ticket Types 与 Fog of war 两节。</li>
+<li>第七课 <code>lessons/0007-wayfinder.html</code> 与速查 <code>reference/wayfinder-reference.html</code> 已按此理解完成。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>入口场景系列还差最后一课 <code>/handoff</code>：跨 session 交接上下文。</li>
+<li>学完 handoff 后，主线五课 + 三个入口场景（diagnosing-bugs、wayfinder、handoff）即完整。</li>
+<li>第七课末尾的实战任务尚未执行：需要在真实项目里为一个大而模糊的想法 chart 一张地图并走通一票。
+可在下一课之前或之后完成，视 ZPD 而定。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>第 5 课完成记录：交易费用</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/a-shares/0002-lesson-5-trading-fees-completed/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/a-shares/0002-lesson-5-trading-fees-completed/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">第 5 课完成记录：交易费用</source>
+      <description>完成时间 20260821 本课核心收获 明确 A 股交易的三笔费用：佣金（券商双向，可谈，单笔最低 5 元）、印花税（卖出单边 0.05%）、过户费（双向 0.001%） 理解&amp;quot;最低 5 元&amp;quot;对小资金的放大效应：3000 元买入按万 2.5 理论佣金仅 0.75 元，实际收 5 元，真实费率约万 …</description>
+      <category>A 股入门</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>配套讲义：<a href="/blogundefined" target="_blank">第 5 课 · 交易费用</a>（含随堂测，页顶有返回导航）</p>
+</blockquote>
+<h2>完成时间</h2>
+<p>2026-08-21</p>
+<h2>本课核心收获</h2>
+<ul>
+<li>明确 A 股交易的三笔费用：佣金（券商双向，可谈，单笔最低 5 元）、印花税（卖出单边 0.05%）、过户费（双向 0.001%）</li>
+<li>理解"最低 5 元"对小资金的放大效应：3000 元买入按万 2.5 理论佣金仅 0.75 元，实际收 5 元，真实费率约万 16.7</li>
+<li>算清一笔完整交易：2800 元买入 → 3100 元卖出，费用约 11.61 元，费用占利润约 3.9%</li>
+<li>把"少动"与巴菲特的"摩擦成本"挂上钩：长期持有在数学上也是省费策略</li>
+</ul>
+<h2>费曼自测结果</h2>
+<ul>
+<li>能脱稿讲清：三笔费用各是谁收、什么时候收、通行标准</li>
+<li>能脱稿讲清：为什么小资金实际佣金率远高于万 2.5</li>
+<li>待巩固：过户费 0.001% 的数值容易和印花税 0.05% 混淆，需在第 2 周复习中再回炉一次</li>
+</ul>
+<h2>进入下一课的前提</h2>
+<ul>
+<li>课前回炉测验能答对 5 课中随机抽的 2 题</li>
+<li>动手题答案能独立复现</li>
+</ul>
+<h2>下节课预告</h2>
+<p>第 6 课：指数与 ETF——定投的载体。开始从"交易规则"进入"投资工具"，衔接模块 2 的定投逻辑。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>课程启动与先验知识基线</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/a-shares/0001-course-kickoff-and-prior-knowledge/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/a-shares/0001-course-kickoff-and-prior-knowledge/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">课程启动与先验知识基线</source>
+      <description>用户（Bettina）在价值投资哲学层已有积累：知识库含 valueinvesting、compoundinterest、巴菲特/芒格系列页面，能讲清&amp;quot;买股票=买公司&amp;quot;&amp;quot;能力圈&amp;quot;&amp;quot;长期持有&amp;quot;的 why；但 A 股实操层（交易制度、盘面、费用、开户）为零——20260811 拷问会话中确认其对&amp;quot;100…</description>
+      <category>A 股入门</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<p>用户（Bettina）在价值投资哲学层已有积累：知识库含 value-investing、compound-interest、巴菲特/芒格系列页面，能讲清"买股票=买公司""能力圈""长期持有"的 why；但 A 股实操层（交易制度、盘面、费用、开户）为零——2026-08-11 拷问会话中确认其对"100 股/手"硬约束与 3000 元预算的矛盾事先无感知。</p>
+<p><strong>为什么重要</strong>：教学起点不是"什么是投资"（已会），而是"规则层+操作层"。第 1 周课程（0001-0005）因此全部聚焦交易制度地基，并用她自己的资金约束（1 万学费、≤3000 个股预算）作为所有例题的场景，避免抽象教学。</p>
+<p><strong>Implications</strong>：</p>
+<ul>
+<li>概念课可以直接引用她已懂的巴菲特概念作锚点（如"能力圈"→"不懂的股票不碰"），加快吸收</li>
+<li>所有练习用真实数据（问财）而非虚构数字，且必须亲手算——她的考核证据链要求"自己的思考"</li>
+<li>第 2 周起可交错（interleave）估值概念与规则复习，利用间隔效应</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>上游仓库同步（2026-07-28 → 2026-08-07）</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0008-upstream-sync-2026-08/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0008-upstream-sync-2026-08/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">上游仓库同步（2026-07-28 → 2026-08-07）</source>
+      <description>学到的内容 对照 mattpocock/skills 仓库（当前 v1.2.3）把学习素材同步到最新，关键变化： 改名：writinggreatskills → writingforagents（20260727，PR 650）。不只是改名——范围从&amp;quot;写 skill&amp;quot;扩到&amp;quot;写给 agent 看的任何…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<p>对照 <code>mattpocock/skills</code> 仓库（当前 v1.2.3）把学习素材同步到最新，关键变化：</p>
+<ul>
+<li><strong>改名</strong>：<code>writing-great-skills</code> → <code>writing-for-agents</code>（2026-07-27，PR #650）。不只是改名——范围从"写 skill"扩到"写给 agent 看的任何文档"（AGENTS.md/CLAUDE.md 等），GLOSSARY 并入 SKILL.md，机制拆到 SKILL-MECHANICS.md，改为 model-invoked。</li>
+<li><strong>新增正式版</strong>：<code>wizard</code>（7-28 毕业，生成带人完成人工步骤的 bash 向导；8-06 删除分钟数预估）、<code>to-questionnaire</code>（7-28 毕业，把答不上来的决策做成问卷，/grill-me 的反向操作）、<code>wait-what</code>（8-05 新增，没看懂 agent 的话时立刻要求用大白话重解释）。</li>
+<li><strong>删除</strong>（8-05）：<code>ubiquitous-language</code>、<code>design-an-interface</code>、<code>qa</code>、<code>request-refactor-plan</code> 四个 deprecated 彻底移除，<code>skills/deprecated/</code> 只剩 README 墓碑；整个 personal 桶（<code>edit-article</code>、<code>obsidian-vault</code>）删除；<code>batch-grill-me</code> 已不在仓库任何分类。</li>
+<li><strong>行为变更</strong>：grilling 早已改为 round-by-round frontier 采访制（7-16 引入，7-29 固定问题格式 <code>❓ **Q1** - **标题**:</code> + <code>➡️</code> 推荐答案）——旧素材里"一次只问一个问题"是错的，已修正第 2 课和 grill 流程参考；diagnosing-bugs 新增 Redact 脱敏规则（8-06，Snyk W007 高危修复）；code-review / improve-codebase-architecture / codebase-design 的 subagent 派发改为跨 harness 中性（8-06）——对多客户端混用是直接利好；ask-matt 新增 PHASE-BOUNDARIES.md 决策树（8-05）。</li>
+</ul>
+<h2>证据</h2>
+<ul>
+<li>仓库 commits：<code>17f22a37</code>（改名）、<code>c66bdeee</code>（删除六个 skill + personal 桶）、<code>294a2c97</code>（grill 格式）、<code>efce4230</code>+<code>bda79a3c</code>（Redact）、<code>14bfbbd8</code>+<code>c0d69015</code>（harness 中性）、<code>fa1e3227</code>（PHASE-BOUNDARIES）、<code>c0fd1e97</code>+<code>cb7db0ee</code>（wizard 去分钟）。</li>
+<li>已核实仓库当前分类：engineering 18 个、productivity 7 个、misc 4 个（正式版共 29），in-progress 6 个（claude-handoff、loop-me、setup-ts-deep-modules、writing-beats/fragments/shape）。</li>
+<li>更新的素材：RESOURCES.md、reference/skill-cheat-sheet.html、reference/diagnosing-bugs-reference.html（新增第五节 Redact）、reference/grill-with-docs-flow.html（纪律改为 round 制）、lessons/0002-grill-with-docs.html（三处"一次一问"修正）、CONTEXT.md、index.html。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li><strong>本地安装已同步（2026-08-07 当天完成）</strong>：<code>npx skills@latest add mattpocock/skills -g -y</code> 更新了用户级 <code>~/.agents/skills/</code>（现 50 个目录，含全部 35 个仓库 skill），并用 <code>skills remove -g</code> 卸载了 8 个失效 skill（writing-great-skills、batch-grill-me、ubiquitous-language、design-an-interface、qa、request-refactor-plan、edit-article、obsidian-vault）。已抽查 diagnosing-bugs 含 Redact、grilling 含 ❓ 格式。注意：<code>skills add</code> 不加 <code>-g</code> 会装到<strong>项目级</strong> <code>.agents/skills/</code>（本次误装后已清理 <code>.agents/</code>、<code>.claude/</code>、<code>skills-lock.json</code>）。</li>
+<li>速查表现覆盖 29 个正式版 + 6 个实验性。第 1 课"39 个 skills"的表述指本地安装快照，未改（历史事实）；index.html 已改为"29 个正式版"。</li>
+<li>三个新 skill（wizard / to-questionnaire / wait-what）尚未开课；按 ZPD，它们优先级低于已规划的主线（diagnosing-bugs 实战、wayfinder、handoff），需要时再开。</li>
+<li>grilling 的 round 制变更会影响未来所有 grill 系课程的实战任务验收标准——出题和自检标准都要按"每轮问完 frontier"来写。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0005 Node.js 文件系统：read_file / write_file 真实工具落地</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/pi-agent/0005-nodejs-file-system/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/pi-agent/0005-nodejs-file-system/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0005 Node.js 文件系统：read_file / write_file 真实工具落地</source>
+      <description>学习者完成第 5 课动手任务：注册表新增 read_file / write_file 两个真实 fs 工具，并在 main 里完成&amp;quot;先写、再读、再读不存在的&amp;quot;三连调用。更重要的是：学习者独立调试并正确诊断了自己代码里的三个问题，调试能力第一次有明确证据。 Evidence（学习者自行定位并修复） …</description>
+      <category>TypeScript Agent</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>配套讲义：<a href="/blogundefined" target="_blank">第 5 课 · Node.js 文件系统：Agent 的手</a>（含随堂测，页顶有返回导航）</p>
+</blockquote>
+<p>学习者完成第 5 课动手任务：注册表新增 <code>read_file</code> / <code>write_file</code> 两个真实 fs 工具，并在 main 里完成"先写、再读、再读不存在的"三连调用。更重要的是：学习者<strong>独立调试并正确诊断了自己代码里的三个问题</strong>，调试能力第一次有明确证据。</p>
+<p><strong>Evidence（学习者自行定位并修复）</strong></p>
+<ul>
+<li><code>main.ts:15</code> 单引号 <code>'...${name}...'</code> 不替换 → 改成反引号。诊断正确。</li>
+<li><code>main.ts:24-25</code> 工具名拼写 <code>write_flie</code> / <code>read_flie</code> → 改成 <code>write_file</code> / <code>read_file</code>。诊断正确。</li>
+<li>正确识别"读不到 不存在的文件.txt"<strong>不是 bug</strong>，而是 <code>fileReader</code> 的 catch 分支按设计把错误作为工具结果返回——第 5 课的核心设计要点（工具失败不崩 Agent，错误原因返回给模型）已被理解，不只是照抄。</li>
+<li>修复后 <code>npm run start</code> 输出与课程设计完全一致：已写入 → 读出 hello.txt 内容 → 不存在文件的错误提示 → "全部完成"，程序未崩。第 5 课验收通过，Buffer / try-catch 已入册 GLOSSARY。</li>
+</ul>
+<p><strong>Recurring gap（第二次出现，需重点干预）</strong></p>
+<ul>
+<li>单引号 vs 反引号：LR-0001 已记录过完全相同的错误（普通引号导致 <code>${name}</code> 原样输出），第 5 课再次踩中。属于已知薄弱点的复发，spacing 复测必须安排。</li>
+<li>"忘写 await 拿到什么"回忆失败：第 4 课学习者亲手做过该实验（屏幕打出 <code>Promise { &lt;pending&gt; }</code>），第 5 课验收时被问却答"忘了"。LR-0004 的 await 解释也曾漏掉"不冻住整个程序"。await/Promise 的提取练习在第 6 课温故区须占两题，且要求默写而非选择。</li>
+</ul>
+<p><strong>Implications for next sessions</strong></p>
+<ul>
+<li>第 6 课温故区安排一道模板字符串复测题（单引号/双引号/反引号三选一，考"<code>${}</code> 在哪种引号里会被替换"），若再错则单独补一小节三种引号的对比。</li>
+<li>顺势强化一个已显现的直觉：字符串键注册表对拼写错误零防护，TypeScript 编译器查不出 <code>"write_flie"</code>——运行时错误信息（"找不到名为 write_flie 的工具"）直接念出了拼错的字符串。这是"错误信息是调试线索"的最佳案例，第 6 课可点名复用。</li>
+<li>学习者已具备"读报错 → 定位行号 → 区分真 bug 与设计行为"的调试闭环，第 6 课（进程与子进程）可适当提高独立调试的权重，减少手把手提示。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0002 — Day 2 输出任务检查（介词搭配造句）</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/english/0002-day2-output-check/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/english/0002-day2-output-check/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0002 — Day 2 输出任务检查（介词搭配造句）</source>
+      <description>日期 20260804 来源 用户完成 Day 2 任务 1（抄写 + 造句），提交 3 个句子给老师检查。 关键发现 掌握情况（好消息） 三个目标搭配的结构全部用对： by + doing：I believe that I will succeed by learning. ✓ succeed i…</description>
+      <category>英语教学（已归档）</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>日期</h2>
+<p>2026-08-04</p>
+<h2>来源</h2>
+<p>用户完成 Day 2 任务 1（抄写 + 造句），提交 3 个句子给老师检查。</p>
+<h2>关键发现</h2>
+<h3>掌握情况（好消息）</h3>
+<p>三个目标搭配的<strong>结构</strong>全部用对：</p>
+<ul>
+<li><code>by + doing</code>：I believe that I will succeed by learning. ✓</li>
+<li><code>succeed in doing</code>：I succeed in cooking. ✓</li>
+<li><code>to one's surprise</code> 方向正确（知道用 to）✓</li>
+</ul>
+<h3>暴露的新问题</h3>
+<ol>
+<li><strong>succeed 拼写错误</strong>：写成 <code>succed</code>（双 c 双 e 漏字母），两句都错 → 高频拼写盲点</li>
+<li><strong>your / yours 混淆</strong>：<code>To yours surprise</code> → 应为 <code>To your surprise</code>。to one's surprise 中间用形容词性物主代词</li>
+<li><strong>细节薄弱</strong>：<code>I get high score</code> → 时态（got）+ 可数名词单数缺冠词（a high score）</li>
+<li><strong>小写 i</strong>：<code>i</code> 未大写，属书写习惯问题</li>
+</ol>
+<h2>教学决策</h2>
+<ul>
+<li>Day 3 课程加入"昨日造句复盘"卡片，当面点出三处问题，succeed 罚抄 5 遍</li>
+<li>Day 3 仍按原计划进行间隔复习（Day 1 不定代词 3 题检索练习）</li>
+<li>造句检查模式确认有效：结构已内化，问题集中在拼写和代词形式 → 后续输出任务继续要求造句并发来检查</li>
+</ul>
+<h2>下一步</h2>
+<ul>
+<li>Day 3：比较级结构（程度副词语序 + the more...the more）</li>
+<li>Day 4 复习时抽查：succeed 拼写、your vs yours</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0004 异步与 async/await</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/pi-agent/0004-async-await/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/pi-agent/0004-async-await/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0004 异步与 async/await</source>
+      <description>学习者已完成第 4 课（阶段 0 模块 A 收官）：把 Tool 接口改为异步形态（execute 返回 Promise&amp;lt;string），新增 slowGreeter 模拟网络耗时，并用 async main 壳串起全部调用。 Evidence npm run start 正常输出与课程设计一致：两…</description>
+      <category>TypeScript Agent</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>配套讲义：<a href="/blogundefined" target="_blank">第 4 课 · 异步与 async/await</a>（含随堂测，页顶有返回导航）</p>
+</blockquote>
+<p>学习者已完成第 4 课（阶段 0 模块 A 收官）：把 <code>Tool</code> 接口改为异步形态（<code>execute</code> 返回 <code>Promise&lt;string&gt;</code>），新增 slowGreeter 模拟网络耗时，并用 <code>async main()</code> 壳串起全部调用。</p>
+<p><strong>Evidence</strong></p>
+<ul>
+<li><code>npm run start</code> 正常输出与课程设计一致：两条即时结果 → 停顿约 1 秒后的 slow-greeter → "全部完成"。</li>
+<li>忘写 await 实验：greeter 行变成 <code>Promise { &lt;pending&gt; }</code>，与预期完全吻合——学习者亲眼看到"小票"而非结果。</li>
+<li>await 一句话解释："等Promise出结果后拿来用结果。"</li>
+</ul>
+<p><strong>Partial gap</strong></p>
+<ul>
+<li>await 的解释抓住了一半（等结果、取结果），但漏掉了关键区分点：<strong>只暂停当前函数、不冻住整个程序</strong>——这正是 await 与同步等待的本质区别，也是异步存在的意义。已在验收反馈中补齐；第 5 课温故区安排一道复测题（await 的"等"和同步的"等"差在哪）。</li>
+</ul>
+<p><strong>Implications for next sessions</strong></p>
+<ul>
+<li>阶段 0 模块 A（TypeScript 起步）四课全部验收通过，进入模块 B（Node.js 核心）。</li>
+<li>第 5 课（文件系统 fs）的 <code>readFile</code> / <code>writeFile</code> 返回 Promise——await 立刻在真实 API 上复用，spacing 自然发生；rejected 状态也将在"读不存在的文件"中第一次真实出现，顺势引入 try/catch。</li>
+<li>三文件骨架 + 注册表继续作为 PatchPilot 工具的生长点：第 5 课新增 <code>read_file</code> / <code>write_file</code> 两个真实工具，向路线图单元 2 的五工具集迈进。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>初始评估：毛泽东思想概论部分薄弱点</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/policy/0001-initial-assessment/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/policy/0001-initial-assessment/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">初始评估：毛泽东思想概论部分薄弱点</source>
+      <description>基于11道错题的初始评估，用户在&amp;quot;毛泽东思想和中国特色社会主义理论体系概论&amp;quot;部分存在以下系统性薄弱点： 1. 党史时间线混乱：无法准确区分各重大会议/事件的核心历史意义，特别是&amp;quot;提出&amp;quot;与&amp;quot;确立&amp;quot;的时间差。 2. 著作论断对应薄弱：倾向于将所有&amp;quot;新民主主义&amp;quot;相关论断归入《新民主主义论》，缺乏对每部著作…</description>
+      <category>政策学习（已归档）</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<p>基于11道错题的初始评估，用户在"毛泽东思想和中国特色社会主义理论体系概论"部分存在以下系统性薄弱点：</p>
+<ol>
+<li><strong>党史时间线混乱</strong>：无法准确区分各重大会议/事件的核心历史意义，特别是"提出"与"确立"的时间差。</li>
+<li><strong>著作-论断对应薄弱</strong>：倾向于将所有"新民主主义"相关论断归入《新民主主义论》，缺乏对每部著作"签名论断"的记忆。</li>
+<li><strong>八字方针张冠李戴</strong>：四个方针的适用对象混淆严重，缺乏"先判断对象再选方针"的解题策略。</li>
+<li><strong>审题精确度不足</strong>：对"形式/内容/特色/首位/组织上/思想上"等限定词敏感度不够。</li>
+</ol>
+<p><strong>Implications</strong>: 未来课程应重点训练"对比辨析"能力和"关键词定位"能力，而非单纯的知识灌输。每次练习都应包含易混项的对比呈现。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>0001 — 初始错题分析（25题：20单选+5翻译）</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/english/0001-initial-error-analysis/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/english/0001-initial-error-analysis/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">0001 — 初始错题分析（25题：20单选+5翻译）</source>
+      <description>日期 20260728 来源 用户提供 25 张错题截图（20 道单选题 + 5 道英译汉翻译题），全部回答错误。 关键发现 错误分布 不定代词混淆：4 题（Q2, Q13, Q14, Q27）— 最严重 介词固定搭配：3 题（Q4, Q21, Q22） 英译汉翻译：5 题（Q46Q50）— 新发现…</description>
+      <category>英语教学（已归档）</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>日期</h2>
+<p>2026-07-28</p>
+<h2>来源</h2>
+<p>用户提供 25 张错题截图（20 道单选题 + 5 道英译汉翻译题），全部回答错误。</p>
+<h2>关键发现</h2>
+<h3>错误分布</h3>
+<ul>
+<li>不定代词混淆：4 题（Q2, Q13, Q14, Q27）— 最严重</li>
+<li>介词固定搭配：3 题（Q4, Q21, Q22）</li>
+<li>英译汉翻译：5 题（Q46-Q50）— 新发现的薄弱环节</li>
+<li>比较级结构：2 题（Q5, Q28）</li>
+<li>词义辨析：2 题（Q7, Q19）</li>
+<li>语法结构规则：6 题（Q18, Q24, Q26, Q32, Q33, Q34）</li>
+<li>花费动词：1 题（Q38）</li>
+<li>so...that：1 题（Q9）</li>
+<li>冠词：1 题（Q40）</li>
+</ul>
+<h3>错误模式</h3>
+<ol>
+<li><strong>凭语感选 A</strong>：20 道单选中 10 道选了 A，缺乏结构分析</li>
+<li><strong>两者 vs 多者混淆</strong>：没有"先数个数"的习惯</li>
+<li><strong>中式英语干扰</strong>：直译中文语序到英文（或反向）</li>
+<li><strong>翻译词义偏差+冗余</strong>：逐字翻译，不通顺不简洁</li>
+</ol>
+<h3>翻译题特有的问题</h3>
+<ul>
+<li>expect too much of → 误译为"给予过多期望"</li>
+<li>be under pressure → 误译为"在…压力之下"（生硬）</li>
+<li>be open → 误判为被动语态"被开放"</li>
+<li>mobile phone → 误译为"智能手机"</li>
+<li>a man（泛指）→ 误译为"这个男人"</li>
+<li>knowledgeable → 误译为"获取知识"</li>
+</ul>
+<h2>教学决策</h2>
+<ul>
+<li>将知识点归纳为 9 大模块（A-I）</li>
+<li>翻译模块（I）定为 P2 高优先级（5 题占比 20%）</li>
+<li>学习计划从 8 天扩展为 10 天</li>
+<li>新增翻译专项自测方法（回译法）</li>
+</ul>
+<h2>下一步</h2>
+<ul>
+<li>用户按 10 天计划逐日学习</li>
+<li>Day 9-10 综合自测后，根据结果调整后续课程</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>主流程四技能已在真实项目完整走通</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0006-full-chain-practice/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0006-full-chain-practice/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">主流程四技能已在真实项目完整走通</source>
+      <description>学到的内容 用户把「妈妈音乐播放器」作为实战对象，在真实项目（D:\00Projects\test\4）里完整跑通了 grillwithdocs → tospec → totickets → implement 全链条：grill 出 7 个领域术语、 合成 6 个用户故事的 spec、拆出 5 个…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<p>用户把「妈妈音乐播放器」作为实战对象，在真实项目（<code>D:\00-Projects\test\4</code>）里完整跑通了
+grill-with-docs → to-spec → to-tickets → implement 全链条：grill 出 7 个领域术语、
+合成 6 个用户故事的 spec、拆出 5 个垂直切片 ticket（#1–#4 实现 + #5 真机验证）、
+按 frontier 顺序实现并用 TDD + 双轴 code-review 收尾。</p>
+<p>我已独立验证：git 三个 commit 属实、vitest 19/19 绿、GitHub issues #1–#4 已关闭 #5 挂起。
+架构上正确运用了 seam 思想——纯逻辑在 <code>src/core/</code>（测试只打在这层），<code>uni.*</code> API 薄适配在
+<code>src/platform/</code>，音乐源可插拔（换源改一行），正是第 2 课术语「音乐源」和第 5 课 seam 纪律的落地。</p>
+<h2>证据</h2>
+<ul>
+<li>项目 commit <code>01e8599</code>（MVP 实现）、<code>5e4a8d9</code>（UTS 编译修复 + 工具链对齐）。</li>
+<li>用户还把 UTS 编译经验沉淀进项目 AGENTS.md 和用户级 uni-app skill——超出了任务要求。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>主流程（idea → ship）已结业，不需要再教。ZPD 移向入口场景与横向技能：
+<code>/diagnosing-bugs</code>（#5 真机验证若出问题正好是实战素材）、<code>/wayfinder</code>、<code>/handoff</code>。</li>
+<li><code>#5 真机端到端验证</code>仍未闭环：BackgroundAudioManager 播包内音频、厂商 ROM 后台行为，
+是真机上才能回答的问题——下次会话可优先跟进。</li>
+<li>一个小缺口：项目没有 ADR。uni-app x 选型、core/platform 分层都符合 ADR 三条件（难逆转、
+会惊讶、有权衡），下次可以借这个实例教「什么时候补 ADR」。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>to-tickets 的核心机制</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0005-to-tickets-understanding/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0005-to-tickets-understanding/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">to-tickets 的核心机制</source>
+      <description>学到的内容 /totickets 把 spec/计划/对话拆成 tracer bullet（曳光弹）式的垂直切片 ticket，每个声明 blocking edges（阻塞边）。 垂直切片四条规则：窄但切穿所有层、独立可验证、适配单个上下文窗口、先 prefactor（预重构）。 按 frontie…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<ul>
+<li><code>/to-tickets</code> 把 spec/计划/对话拆成 tracer bullet（曳光弹）式的垂直切片 ticket，每个声明 blocking edges（阻塞边）。</li>
+<li>垂直切片四条规则：窄但切穿所有层、独立可验证、适配单个上下文窗口、先 prefactor（预重构）。</li>
+<li>按 frontier（前沿）推进：只做阻塞项全部完成的 ticket；分叉处可并行。</li>
+<li>wide refactor（大范围重构）是例外：用 expand–contract（扩张-收缩）分阶段，批间保持绿灯。</li>
+<li>ticket 写用户视角行为 + 验收标准，不写文件路径和代码片段（原型决策性代码除外）。</li>
+<li>发布形式：本地 <code>.scratch/&lt;feature-slug&gt;/issues/</code> 或真实 tracker 的原生 blocking 关系，打 <code>ready-for-agent</code> 标签。</li>
+<li>本课起，quiz 组件抽取为共享资源 <code>assets/quiz.css</code> + <code>assets/quiz.js</code>，后续课程直接引用。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>下一课自然进入 <code>/implement</code>：按 frontier 领取 ticket，内部驱动 <code>/tdd</code>，最后跑 <code>/code-review</code>。</li>
+<li>用户尚未在真实项目运行 <code>/setup-matt-pocock-skills</code>，实战前需要提醒先补这一步。</li>
+<li>主线 grill → to-spec → to-tickets 已讲完，可以建议用户拿真实想法完整走一遍再学 implement。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>课程中文化与术语处理偏好</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0004-localization-preference/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0004-localization-preference/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">课程中文化与术语处理偏好</source>
+      <description>已确认的偏好 通过 /grillme grilling session 确认： 翻译范围：lessons/、reference/、MISSION.md。 翻译深度：正文 + 代码注释/字符串翻译成中文；变量名、函数名、skill 名称保持英文。 术语处理：有特殊含义的英文术语首次出现时 inline…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>已确认的偏好</h2>
+<p>通过 <code>/grill-me</code> grilling session 确认：</p>
+<ul>
+<li><strong>翻译范围</strong>：<code>lessons/</code>、<code>reference/</code>、<code>MISSION.md</code>。</li>
+<li><strong>翻译深度</strong>：正文 + 代码注释/字符串翻译成中文；变量名、函数名、skill 名称保持英文。</li>
+<li><strong>术语处理</strong>：有特殊含义的英文术语首次出现时 inline 中文解释，每课末尾附术语表。</li>
+<li><strong>文件处理</strong>：覆盖原文件，不保留英文版本。</li>
+<li><strong>UI 元素</strong>：按钮、选项、反馈文字全部中文化。</li>
+</ul>
+<h2>已执行的变更</h2>
+<ul>
+<li>3 课 lessons 全部中文化，每课末尾新增“术语表”。</li>
+<li>3 份 reference 文档补充 inline 中文解释。</li>
+<li>MISSION.md 标题和结构完全中文化。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>后续新课程直接按中文输出，不再生成英文版本。</li>
+<li>遇到新英文术语时，继续遵循“首次 inline 解释 + 课后术语表”的模式。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>to-spec 的核心机制</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0003-to-spec-understanding/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0003-to-spec-understanding/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">to-spec 的核心机制</source>
+      <description>学到的内容 /tospec 把 grilling 的结果合成为 PRD，不再 interview。 前置条件：项目已运行 /setupmattpocockskills。 模板包含：Problem Statement、Solution、User Stories、Implementation Decis…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<ul>
+<li><code>/to-spec</code> 把 grilling 的结果合成为 PRD，不再 interview。</li>
+<li>前置条件：项目已运行 <code>/setup-matt-pocock-skills</code>。</li>
+<li>模板包含：Problem Statement、Solution、User Stories、Implementation Decisions、Testing Decisions、Out of Scope、Further Notes。</li>
+<li>User Stories 要长且覆盖全面；Out of Scope 要明确。</li>
+<li>不写具体文件路径和代码片段（原型产出的决策性代码除外）。</li>
+<li>写完后发布到 issue tracker，应用 <code>ready-for-agent</code> 标签。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>下一课自然进入 <code>/to-tickets</code>：把 spec 拆成 tracer-bullet tickets。</li>
+<li>用户已经理解 grill → to-spec 的链条，可以开始实战：找一个真实功能走完 grill → to-spec。</li>
+<li>需要提醒用户：spec 的质量直接决定 to-tickets 的拆分质量，不要急于进入下一步。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>grill-with-docs 的核心机制</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0002-grill-with-docs-understanding/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0002-grill-with-docs-understanding/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">grill-with-docs 的核心机制</source>
+      <description>学到的内容 grillwithdocs 是有代码库时的 relentless interview，由 /grilling 驱动，并由 /domainmodeling 维护文档。 和 grillme 的唯一区别：是否把讨论结果持久化到 CONTEXT.md 和 docs/adr/。 grilling …</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>学到的内容</h2>
+<ul>
+<li><code>grill-with-docs</code> 是有代码库时的 relentless interview，由 <code>/grilling</code> 驱动，并由 <code>/domain-modeling</code> 维护文档。</li>
+<li>和 <code>grill-me</code> 的唯一区别：是否把讨论结果持久化到 <code>CONTEXT.md</code> 和 <code>docs/adr/</code>。</li>
+<li>grilling 的纪律：一次一问、沿设计树走、给推荐答案、事实查代码、决策前不执行。</li>
+<li>CONTEXT.md 只收录项目特有的领域术语，每个术语包含定义和应避免的说法。</li>
+<li>ADR 只记录同时满足“难逆转、会惊讶、有权衡”的架构决策。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>下一课可进入 <code>/to-spec</code>：把 grilling 结果合成为 PRD。</li>
+<li>也可以先让用户在真实项目里跑一次 <code>/grill-with-docs</code>，获得一手体验后再学 spec/tickets。</li>
+<li>需要确保用户理解：grilling 阶段不写代码，只打磨想法和文档。</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>已确认学习使命与先验知识</title>
+      <link>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0001-mission-and-prior-knowledge/</link>
+      <guid>https://liuj66794-sys.github.io/blog/blog/engineering-skills/0001-mission-and-prior-knowledge/</guid>
+      <source url="https://liuj66794-sys.github.io/blog/rss.xml">已确认学习使命与先验知识</source>
+      <description>使命 用户是独立开发者，在多个 AI 客户端之间切换（Kimi Code CLI、Cursor、Claude Code、Codex 等）。学习 Mattpocock Skills 的动机是提升工作效率，让 AI 在代码审查、方案设计、Bug 诊断、需求拆解等任务上输出更稳定。当前策略是先全面概览，再…</description>
+      <category>工程技能</category>
+      <pubDate>Wed, 07 Oct 2026 13:23:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>使命</h2>
+<p>用户是<strong>独立开发者</strong>，在多个 AI 客户端之间切换（Kimi Code CLI、Cursor、Claude Code、Codex 等）。学习 Mattpocock Skills 的动机是<strong>提升工作效率</strong>，让 AI 在代码审查、方案设计、Bug 诊断、需求拆解等任务上输出更稳定。当前策略是<strong>先全面概览，再按需深入</strong>。</p>
+<h2>已建立的先验知识</h2>
+<ul>
+<li>用户已经成功运行 <code>npx skills@latest add mattpocock/skills -y</code>，本地已安装 39 个 skills。</li>
+<li>用户对 skills 的调用方式尚无系统认知，但已能自然描述自己的工作场景。</li>
+<li>用户尚未在真实项目里运行过 <code>/setup-matt-pocock-skills</code>，因此后续如涉及工程流程，需要先补这一步。</li>
+</ul>
+<h2>对后续教学的影响</h2>
+<ul>
+<li>优先保持“概览”节奏，不急于深入单一 skill。</li>
+<li>后续课程应覆盖核心主线（grill → to-spec → to-tickets → implement）和独立常用 skill（code-review、diagnosing-bugs、wayfinder）。</li>
+<li>由于用户跨客户端使用，课程应强调各客户端调用方式的差异，尤其是 Kimi Code CLI 和 Claude Code。</li>
+</ul>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

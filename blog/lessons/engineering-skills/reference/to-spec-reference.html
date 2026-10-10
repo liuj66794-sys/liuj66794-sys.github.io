@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>to-spec 模板与流程参考</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/toc.js" defer></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/engineering-skills/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+  <h1>to-spec 模板与流程参考</h1>
+  <p class="no-print" style="color: var(--muted);">
+    把 grilling 的结果合成为一份 PRD/spec，发布到 issue tracker（问题追踪系统）。
+  </p>
+  <p class="no-print" style="color: var(--muted); font-size: 0.9rem;">
+    来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md">mattpocock/skills · to-spec/SKILL.md</a>（本地 <code>~/.agents/skills/to-spec/SKILL.md</code>）
+  </p>
+
+  <h2>一、什么时候用</h2>
+  <ul>
+    <li>已经完成 <code>/grill-with-docs</code> 或 <code>/grill-me</code>，对话足够清楚。</li>
+    <li>需要一个正式的 PRD/spec 文档作为后续工作的依据。</li>
+    <li>准备把 spec 发布到 issue tracker，供 <code>/to-tickets</code> 拆分。</li>
+  </ul>
+
+  <h2>二、前置条件</h2>
+  <p>
+    <code>/to-spec</code> 假设项目已经运行过 <code>/setup-matt-pocock-skills</code>，
+    因此知道 issue tracker 在哪里、triage labels（分类标签）怎么叫。
+    如果没有设置，agent 会提示你先运行 setup。
+  </p>
+
+  <h2>三、流程</h2>
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-body">
+      <p><strong>探索代码库</strong>（如果还没做）：理解当前状态，使用 CONTEXT.md 的词汇，尊重 ADR。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-body">
+      <p><strong>草拟 seams（测试边界）</strong>：确定测试接口。优先复用现有 seams，用最高层级的 seam。理想数量是 1。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-body">
+      <p><strong>和用户确认 seams</strong>：确保测试边界符合预期。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-body">
+      <p><strong>按模板写 spec</strong>：合成当前对话，不再 interview。</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">5</div>
+    <div class="step-body">
+      <p><strong>发布到 issue tracker</strong>，应用 <code>ready-for-agent</code> 标签。</p>
+    </div>
+  </div>
+
+  <h2>四、Spec 模板</h2>
+  <pre><code>## Problem Statement
+
+用户视角的问题描述。
+
+## Solution
+
+用户视角的解决方案。
+
+## User Stories
+
+1. As an &lt;actor&gt;, I want a &lt;feature&gt;, so that &lt;benefit&gt;
+2. ...
+
+## Implementation Decisions
+
+- 要构建/修改的模块
+- 这些模块的接口
+- 技术澄清
+- 架构决策
+- Schema 变更
+- API 契约
+- 具体交互
+
+注意：不要写具体文件路径或代码片段。
+
+## Testing Decisions
+
+- 好测试的标准（只测外部行为，不测实现细节）
+- 哪些模块会被测试
+- 代码库里已有的类似测试作为参考
+
+## Out of Scope
+
+明确排除的内容。
+
+## Further Notes
+
+其他备注。</code></pre>
+
+  <h2>五、关键规则</h2>
+  <table>
+    <thead>
+      <tr><th>规则</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>不 interview，只合成</td>
+        <td><code>/to-spec</code> 不再追问，它把已经讨论清楚的内容整理成文档。</td>
+      </tr>
+      <tr>
+        <td>用项目领域语言</td>
+        <td>spec 里应该使用 CONTEXT.md 里的术语，而不是通用编程词。</td>
+      </tr>
+      <tr>
+        <td>不写文件路径和代码片段</td>
+        <td>它们很快就会过时。例外：原型产出的决策性代码片段可以 inline。</td>
+      </tr>
+      <tr>
+        <td>User Stories 要足够长</td>
+        <td>覆盖功能的所有方面，不是象征性地列 3 条。</td>
+      </tr>
+      <tr>
+        <td>明确 Out of Scope</td>
+        <td>写出不做的事情和做同样重要。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>六、Seams 是什么？</h2>
+  <p>
+    Seam（测试边界）是你可以测试的公共边界。好的 spec 应该明确说明：
+  </p>
+  <ul>
+    <li>现有代码库里有哪些 seams 可以复用</li>
+    <li>需要新增哪些 seams</li>
+    <li>测试应该打在哪一层（单元、集成、端到端）</li>
+  </ul>
+  <p>
+    <strong>Seam 越少越好</strong>。理想情况整个功能通过一个公共接口就能测试。
+  </p>
+
+  <div class="callout">
+    <div class="callout-title">记忆口诀</div>
+    <p>
+      <strong>grill 磨想法，to-spec 写成文档。</strong><br>
+      <strong>不 interview，只合成；不写路径，不写代码。</strong><br>
+      <strong>User Stories 要长，Out of Scope 要明。</strong>
+    </p>
+  </div>
+
+  <p class="no-print" style="margin-top: 2rem; color: var(--muted);">
+    返回 <a href="../lessons/0003-to-spec.html">第三课</a> |
+    <a href="skill-cheat-sheet.html">总速查表</a>
+  </p>
+</body>
+</html>

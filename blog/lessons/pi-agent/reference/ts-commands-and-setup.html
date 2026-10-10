@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速查表 · TS 命令与工程组织</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/pi-agent/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<main>
+
+<div class="lesson-meta">速查表 · 压缩自第 1 课与第 3 课 ｜ 随课程推进持续更新</div>
+
+<h1>TS 命令与工程组织</h1>
+
+<p>这页是"命令与项目骨架"的压缩精华：卡住时先查这里，比翻课件快。</p>
+
+<h2>命令对照</h2>
+
+<table>
+  <tr><th>命令</th><th>作用</th><th>何时用</th></tr>
+  <tr><td><code>node -v</code> / <code>npm -v</code></td><td>打印版本号</td><td>安装 Node 后验证环境</td></tr>
+  <tr><td><code>npm init -y</code></td><td>生成 package.json</td><td>开新项目的第一步</td></tr>
+  <tr><td><code>npx tsx 文件.ts</code></td><td>转译并直接运行 TS</td><td>日常运行，看输出</td></tr>
+  <tr><td><code>npx tsc --noEmit</code></td><td>只检查类型，不运行</td><td>验证类型是否全部通过</td></tr>
+  <tr><td><code>npm run 脚本名</code></td><td>执行 scripts 里的命令别名</td><td>项目的标准启动方式</td></tr>
+</table>
+
+<div class="callout">
+  <span class="label">tsx vs tsc · 分工</span>
+  <code>tsx</code> 是<strong>运动员</strong>：转译 + 运行，看程序跑出什么；它不做类型检查，类型错了照样跑（比如跑出 <code>NaN</code>）。<code>tsc --noEmit</code> 是<strong>裁判</strong>：只检查类型，不产生任何输出——没有输出就是全部通过。两个都要会，谁也代替不了谁。
+</div>
+
+<h2>package.json 骨架</h2>
+
+<pre><code>{
+  "name": "项目名",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "tsx main.ts"
+  }
+}</code></pre>
+
+<p><code>scripts</code> 给常用命令起别名；之后用 <code>npm run start</code> 代替手敲长命令。</p>
+
+<h2>tsconfig.json 骨架</h2>
+
+<pre><code>{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}</code></pre>
+
+<p>有了它，<code>npx tsc --noEmit</code> 才知道按什么规则检查。<code>strict: true</code> 打开全部严格检查。</p>
+
+<h2>模块语法两行</h2>
+
+<pre><code>// tool-types.ts —— 暴露
+export interface Tool { /* ... */ }
+
+// tools.ts —— 引入（./ 表示当前目录，省略会被当成 npm 包）
+import { Tool } from "./tool-types";</code></pre>
+
+<h2>常见报错速查</h2>
+
+<table>
+  <tr><th>报错</th><th>原因与对策</th></tr>
+  <tr><td>"不是内部或外部命令"</td><td>装完 Node 后终端没重启——关掉所有终端窗口重开</td></tr>
+  <tr><td>类型错误但程序照跑</td><td>你用的是 tsx（不查类型）；换 <code>npx tsc --noEmit</code> 看报错</td></tr>
+  <tr><td>找不到模块 "xxx"</td><td>本地文件路径漏了 <code>./</code>，被当成 npm 包了</td></tr>
+</table>
+
+<div class="further">
+<h2>出处与导航</h2>
+<ul>
+  <li><a href="https://nodejs.org/docs/latest/api/synopsis.html">Node.js 官方文档：Usage and example</a> ｜ <a href="https://docs.npmjs.com/cli/v10/configuring-npm/package-json">npm 官方文档：package.json</a> ｜ <a href="https://www.typescriptlang.org/docs/handbook/modules.html">TypeScript Handbook: Modules</a></li>
+</ul>
+<p>课程导航：<a href="../lessons/0001-typescript-setup-first-program.html">第 1 课</a> ｜ <a href="../lessons/0003-modules-and-npm-scripts.html">第 3 课</a> ｜ <a href="../GLOSSARY.md">词汇表</a> ｜ <a href="../ROADMAP.md">路线图</a></p>
+</div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0022 · 高阶导数 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0022">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 3 单元 · 导数与微分 · 课 0022</span>
+  <a href="0021-切线法线与微分.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0022 · 导数与微分</span>
+<h1>高阶导数</h1>
+<div class="meta">
+  <span>⏱ 约 13 分钟</span>
+  <span>前置：0020 求导公式与六类求导法</span>
+  <span>来源：笔记《导数与微分》§五</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写六类函数的 $n$ 阶导公式（$e^x$、$a^x$、$\sin$、$\cos$、$\ln(1+x)$、$\frac{1}{1+x}$）</li>
+    <li>用"<strong>先求前几阶 → 找规律</strong>"归纳出 $xe^x$ 型的 $n$ 阶导</li>
+    <li>处理"高次多项式求高阶导"<strong>只看活项</strong>的技巧</li>
+  </ul>
+</div>
+
+<p>二阶导马上要在 0024/0025 课（极值判定二、凹凸性）担纲；$n$ 阶导则是选择题、填空题的固定考点。好消息：它不靠新知识，靠<strong>公式 + 归纳</strong>两板斧。</p>
+
+<h2>一、记号与常用 $n$ 阶公式</h2>
+
+<p>$f''(x)$ 二阶、$f'''(x)$ 三阶、$f^{(k)}(x)$ 四阶及以上。逐阶硬求太慢，以下六条公式（<strong>必背</strong>）直接给出答案：</p>
+
+<div class="keypoint">
+  <div class="kp-title">必背 $n$ 阶导公式</div>
+  <p style="margin:0.2rem 0">$$(e^{x})^{(n)}=e^{x}\qquad\quad (a^{x})^{(n)}=a^{x}\ln^{n}a$$</p>
+  <p style="margin:0.2rem 0">$$(\sin x)^{(n)}=\sin\!\left(x+n\cdot\dfrac{\pi}{2}\right)\qquad (\cos x)^{(n)}=\cos\!\left(x+n\cdot\dfrac{\pi}{2}\right)$$</p>
+  <p style="margin:0.2rem 0">$$\left[\ln(1+x)\right]^{(n)}=(-1)^{n-1}\dfrac{(n-1)!}{(1+x)^{n}}\qquad \left(\dfrac{1}{1+x}\right)^{(n)}=(-1)^{n}\dfrac{n!}{(1+x)^{n+1}}$$</p>
+  <p style="margin:0.2rem 0">幂函数：$y=x^{n}$ 求 $m$ 阶——$m&lt;n$ 得 $\dfrac{n!}{(n-m)!}x^{n-m}$；$m=n$ 得 $n!$；$m&gt;n$ 得 $0$。</p>
+</div>
+
+<p>复合入框：$\left(e^{2x}\right)^{(n)}=2^{n}e^{2x}$、$\left(\sin3x\right)^{(n)}=3^{n}\sin\left(3x+\dfrac{n\pi}{2}\right)$——<strong>系数带幂、相位带 $n$</strong>。</p>
+
+<div class="example">
+  <p><span class="ex-tag">例 1</span>求 $\left(\sin 3x\right)'''$。（秋讲练习 16）</p>
+  <details><summary>先套公式，再展开</summary>
+    <p>$\left(\sin3x\right)'''=3^{3}\sin\!\left(3x+\dfrac{3\pi}{2}\right)=27\cdot(-\cos3x)=-27\cos3x$。</p>
+    <p>验证：逐阶求 $3\cos3x\to-9\sin3x\to-27\cos3x$ ✓。$\sin\left(\theta+\frac{3\pi}{2}\right)=-\cos\theta$ 是 0001 诱导公式的活用。</p>
+  </details>
+</div>
+
+<h2>二、归纳法：先求前几阶，找规律</h2>
+
+<div class="example">
+  <p><span class="ex-tag">例 2</span>求 $y=xe^{x}$ 的 $n$ 阶导。（夏讲 P46）</p>
+  <details><summary>先自己求三阶，再展开</summary>
+    <p>$y'=(x+1)e^{x}$，$y''=(x+2)e^{x}$，$y'''=(x+3)e^{x}$——规律：$n$ 阶导 $=(x+n)e^{x}$。</p>
+    <p>故 $y^{(520)}=(x+520)e^{x}$。</p>
+    <p>同款：$f(x)=e^{2x}$，$f^{(n)}=2^{n}e^{2x}$（秋讲练习 15）。归纳题的完整表述：<strong>求出前三阶 → 写规律 → （大题时）用数学归纳法确证</strong>，考试通常写到规律即可。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（多项式只看活项）</span>$f(x)=3x^{5}-2x^{3}+x-1$，求 $f^{(4)}(x)$。（秋讲练习 14）</p>
+  <details><summary>先想哪些项能活过 4 阶，再展开</summary>
+    <p>$-2x^3$、$x$、$-1$ 求到 4 阶全是 0，只有 $3x^5$ 幸存：$\left(3x^5\right)^{(4)}=3\cdot\dfrac{5!}{1!}x=360x$。</p>
+    <p>升级版（夏讲 P44 选择题）：$f(x)=x^{212}+3x^{210}-2x^{120}-5x^{110}+x^{10}-1$，$f^{(211)}(2)=$？只有 $x^{212}$ 活过 211 阶：$f^{(211)}=\dfrac{212!}{1!}x=212!\,x$，代 $x=2$ 得 $2\cdot212!$。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（普通二阶导）</span>$y=\dfrac{e^{x}}{x}$，求 $y''$。（夏讲 P40–P41）</p>
+  <details><summary>先自己求两次，再展开</summary>
+    <p>$y'=\dfrac{xe^{x}-e^{x}}{x^{2}}=\dfrac{(x-1)e^{x}}{x^{2}}$；再求导（乘积 + 商）：$y''=e^{x}\left[\dfrac{x-1}{x^{2}}+\dfrac{2-x}{x^{3}}\right]=\dfrac{(x^{2}-2x+2)e^{x}}{x^{3}}$。</p>
+    <p>多数考试只考二阶——<strong>逐阶硬求 + 商法则细心</strong>就是全部要求。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$f(x)=3x+1$，则 $f''(x)=$（夏讲选择题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$0$</button>
+    <button data-k="B">$1$</button>
+    <button data-k="C">$3$</button>
+    <button data-k="D">$3x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$f'=3$，$f''=0$——一次函数的二阶导恒为零。这也是"多项式活不过自身次数"的最小例子。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$f(x)=e^{2x}$，则 $f^{(n)}(x)=$（秋讲练习 15）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$e^{2x}$</button>
+    <button data-k="B">$2e^{2x}$</button>
+    <button data-k="C">$2^{n}e^{2x}$</button>
+    <button data-k="D">$2nx^{n-1}e^{2x}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">每求一次导提出一个 2：$f'=2e^{2x}$，$f''=2^2e^{2x}$，归纳 $f^{(n)}=2^ne^{2x}$。B 是忘了累乘——$n$ 阶的系数是 $2^n$ 不是 2。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$f(x)=\ln(1+x)$，则 $f^{(4)}(x)=$（秋讲练习 17）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{6}{(1+x)^{4}}$</button>
+    <button data-k="B">$\dfrac{-6}{(1+x)^{4}}$</button>
+    <button data-k="C">$\dfrac{-6}{(1+x)^{5}}$</button>
+    <button data-k="D">$\dfrac{24}{(1+x)^{4}}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">套公式：$(-1)^{n-1}\dfrac{(n-1)!}{(1+x)^{n}}$，$n=4$：$(-1)^3\cdot\dfrac{3!}{(1+x)^4}=-\dfrac{6}{(1+x)^4}$。C 的指数错——公式分母指数是 $n$ 不是 $n+1$（那是 $\frac{1}{1+x}$ 的公式）。逐阶验证最稳：$\frac1{1+x}\to-\frac1{(1+x)^2}\to\frac2{(1+x)^3}\to-\frac6{(1+x)^4}$。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$y=e^{x^{2}}$，则 $y''=$（秋讲练习 18）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$4x^{2}e^{x^{2}}$</button>
+    <button data-k="B">$2e^{x^{2}}$</button>
+    <button data-k="C">$(2x+4x^{2})e^{x^{2}}$</button>
+    <button data-k="D">$(2+4x^{2})e^{x^{2}}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=2xe^{x^{2}}$（链式），$y''=2e^{x^{2}}+2x\cdot2xe^{x^{2}}=(2+4x^{2})e^{x^{2}}$——乘积法则 + 链式一起来。A 丢了第一项 $2e^{x^{2}}$。<strong>$e^{x^2}$ 不在 $n$ 阶公式表里，只能逐阶硬求</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$y=x\cos x$，则 $y''=$（夏讲速查）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$-2\sin x-x\cos x$</button>
+    <button data-k="B">$2\sin x+x\cos x$</button>
+    <button data-k="C">$-x\sin x$</button>
+    <button data-k="D">$-\sin x-x\cos x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=\cos x-x\sin x$，再求：$-\sin x-(\sin x+x\cos x)=-2\sin x-x\cos x$。两次乘积法则都要"各自求导相加"，第二项里 $x\sin x$ 又是一个乘积。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>$\sin/\cos$ 的 $n$ 阶导：<strong>相位 $+\frac{n\pi}{2}$，复合系数带 $n$ 次幂</strong>（$\sin3x\to3^n$）</li>
+    <li>$\ln(1+x)$ 与 $\frac{1}{1+x}$ 两条公式<strong>分母指数差 1</strong>、符号因子差一档，别串门</li>
+    <li>多项式求高阶导：比阶数低的多项式项全归零，<strong>只算活项</strong></li>
+    <li>$e^{x^2}$、$\arcsin x$ 等不在公式表的，<strong>老老实实逐阶求</strong>（通常只考二阶）</li>
+    <li>归纳型答案要写成 $n$ 的表达式再代值（如 $y^{(520)}$）</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写四条 $n$ 阶导公式：$e^x$、$a^x$、$\sin x$、$\ln(1+x)$。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$(e^x)^{(n)}=e^x$；$(a^x)^{(n)}=a^x\ln^na$；$(\sin x)^{(n)}=\sin\left(x+\frac{n\pi}{2}\right)$；$[\ln(1+x)]^{(n)}=(-1)^{n-1}\frac{(n-1)!}{(1+x)^n}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">$xe^{x}$ 的 $n$ 阶导是什么？归纳题的操作流程是哪三步？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$y^{(n)}=(x+n)e^{x}$。流程：求前几阶 → 观察规律写出 $n$ 的表达式 → 代入题目要的阶数。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。二阶导在 0024 课判定极值（$f''$ 符号）、0025 课判凹凸（$f''$ 正负）马上登场——本课的求导熟练度就是那两课的底层燃料。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《导数与微分》§五 高阶导数（含秋讲练习 14–19 速查表）</li>
+    <li>讲义：《导数》夏讲 PDF（高阶导数 P40–P46）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："$\sin$ 的 $n$ 阶导公式怎么归纳出来"、"$x^{212}$ 那题的 212! 不用算出来吗"、"再出 5 道二阶导计算题限时做"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0021-切线法线与微分.html" class="prev"><span class="dir">← 上一课</span>0021 切线法线与微分</a>
+  <a href="0023-中值定理与证明题套路.html" class="next"><span class="dir">下一课 →</span>0023 中值定理与证明题套路</a>
+</nav>
+</main>
+</body>
+</html>

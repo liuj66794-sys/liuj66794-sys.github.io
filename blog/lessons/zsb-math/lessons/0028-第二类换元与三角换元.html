@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0028 · 第二类换元：根式 · 三角换元 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0028">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 4 单元 · 不定积分 · 课 0028</span>
+  <a href="0027-第一类换元凑微分.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0028 · 不定积分</span>
+<h1>第二类换元法：根式换元 · 三角换元</h1>
+<div class="meta">
+  <span>⏱ 约 17 分钟</span>
+  <span>前置：0027 凑微分 · 0001 三角公式</span>
+  <span>来源：笔记《不定积分》§四</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>对 $\sqrt[n]{ax+b}$ 型直接<strong>令根式为 $t$</strong>；双根号并存取<strong>最小公倍根</strong></li>
+    <li>按根号长相选对三角换元（$\sqrt{a^2-x^2}$ / $\sqrt{x^2+a^2}$ / $\sqrt{x^2-a^2}$ 三选一）</li>
+    <li>换元后<strong>画直角三角形回代</strong>，不把 $t$ 留在答案里</li>
+  </ul>
+</div>
+
+<p>第二换元与凑微分方向相反：凑微分是"<strong>把 $x$ 的函数收进 $d$ 里</strong>"，第二换元是"<strong>把 $x$ 整个换掉</strong>"（$x=\varphi(t)$）。它专治凑微分搞不定的根式。</p>
+
+<h2>一、流程与根式换元</h2>
+
+<div class="keypoint">
+  <div class="kp-title">三步流程</div>
+  <p style="margin:0.2rem 0">令 $x=\varphi(t)$ → 积出关于 $t$ 的结果 $F(t)+C$ → <strong>回代</strong> $t=\varphi^{-1}(x)$。</p>
+  <table style="margin:0.2rem 0">
+    <tr><th>情形</th><th>换元</th></tr>
+    <tr><td>含 $\sqrt[n]{ax+b}$</td><td>令 $t=\sqrt[n]{ax+b}$</td></tr>
+    <tr><td>同时含 $\sqrt[n]{x}$、$\sqrt[m]{x}$</td><td>取最小公倍根 $k$，令 $t=\sqrt[k]{x}$</td></tr>
+    <tr><td>分母含 $x$ 高次幂（$\frac{1}{x^{100}+x}$ 型）</td><td>倒代换 $x=\dfrac1t$</td></tr>
+  </table>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（标准根式换元）</span>$\displaystyle\int\dfrac{dx}{1+\sqrt x}$。（夏讲 P40 / 秋讲练习 10(1)）</p>
+  <details><summary>先自己换元，再展开</summary>
+    <p>令 $t=\sqrt x$，$x=t^{2}$，$dx=2t\,dt$：</p>
+    <p>$\int\dfrac{2t}{1+t}dt=2\int\left(1-\dfrac{1}{1+t}\right)dt=2t-2\ln(1+t)+C=2\sqrt x-2\ln(1+\sqrt x)+C$。</p>
+    <p>要点：换元后分子分母<strong>都是 $t$ 的多项式</strong>，"根号消失"是根式换元的胜利标志。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（最小公倍根）</span>$\displaystyle\int\dfrac{dx}{\sqrt x+\sqrt[3]{x}}$。（夏讲 P41）</p>
+  <details><summary>先定 $t$，再展开</summary>
+    <p>取 $2,3$ 的最小公倍数 6，令 $t=\sqrt[6]x$，$x=t^{6}$，$dx=6t^{5}dt$：</p>
+    <p>$\int\dfrac{6t^{5}}{t^{3}+t^{2}}dt=6\int\dfrac{t^{3}}{t+1}dt=6\int\left(t^{2}-t+1-\dfrac{1}{t+1}\right)dt$</p>
+    <p>$=2\sqrt x-3\sqrt[3]x+6\sqrt[6]x-6\ln(1+\sqrt[6]x)+C$（回代后每个根号都以 $x$ 的幂形式呈现）。</p>
+    <p>中途那个 $6\int\frac{t^3}{t+1}dt$ 是"假分式长除"（下一课主角）——第二换元常与后续技巧接力。</p>
+  </details>
+</div>
+
+<h2>二、三角换元：根号下的二次幂</h2>
+
+<div class="keypoint">
+  <div class="kp-title">三选一（必背）</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>根式结构</th><th>换元</th><th>化简结果</th></tr>
+    <tr><td>$\sqrt{a^{2}-x^{2}}$</td><td>$x=a\sin t$</td><td>$=a\cos t$</td></tr>
+    <tr><td>$\sqrt{x^{2}+a^{2}}$</td><td>$x=a\tan t$</td><td>$=a\sec t$</td></tr>
+    <tr><td>$\sqrt{x^{2}-a^{2}}$</td><td>$x=a\sec t$</td><td>$=a\tan t$</td></tr>
+  </table>
+  <p style="margin:0.2rem 0">原理只有一个：<strong>三角平方关系</strong>（$\sin^2+\cos^2=1$、$1+\tan^2=\sec^2$、$\sec^2-1=\tan^2$）吃掉根号。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（经典必会）</span>$\displaystyle\int\sqrt{a^{2}-x^{2}}\,dx\ (a&gt;0)$。（夏讲 P44）</p>
+  <details><summary>先自己换元积出 $t$，再展开</summary>
+    <p>令 $x=a\sin t$，$\sqrt{a^{2}-x^{2}}=a\cos t$，$dx=a\cos t\,dt$：</p>
+    <p>$\int a^{2}\cos^{2}t\,dt=a^{2}\int\dfrac{1+\cos2t}{2}dt=\dfrac{a^{2}}{2}t+\dfrac{a^{2}}{4}\sin2t+C=\dfrac{a^{2}}{2}t+\dfrac{a^{2}}{2}\sin t\cos t+C$。</p>
+    <p><strong>画直角三角形回代</strong>：对边 $x$、斜边 $a$ ⇒ 邻边 $\sqrt{a^{2}-x^{2}}$，故 $\sin t=\dfrac xa$、$\cos t=\dfrac{\sqrt{a^{2}-x^{2}}}{a}$。</p>
+    <p>答案：$\dfrac{a^{2}}{2}\arcsin\dfrac{x}{a}+\dfrac{x\sqrt{a^{2}-x^{2}}}{2}+C$。$a=1$ 时即 $\int\sqrt{1-x^{2}}dx=\dfrac x2\sqrt{1-x^{2}}+\dfrac12\arcsin x+C$（秋讲练习 10(10)）。</p>
+  </details>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">画三角形回代（三情形对照）</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>换元</th><th>三角形设边</th><th>常用回代</th></tr>
+    <tr><td>$x=a\sin t$</td><td>对边 $x$、斜边 $a$</td><td>$\cos t=\dfrac{\sqrt{a^{2}-x^{2}}}{a}$</td></tr>
+    <tr><td>$x=a\tan t$</td><td>对边 $x$、邻边 $a$</td><td>$\sec t=\dfrac{\sqrt{x^{2}+a^{2}}}{a}$</td></tr>
+    <tr><td>$x=a\sec t$</td><td>斜边 $x$、邻边 $a$</td><td>$\tan t=\dfrac{\sqrt{x^{2}-a^{2}}}{a}$</td></tr>
+  </table>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（倒代换见识）</span>$\displaystyle\int\dfrac{dx}{x^{100}+x}$。（夏讲 P42）</p>
+  <details><summary>先自己试 $x=1/t$，再展开</summary>
+    <p>令 $x=\dfrac1t$，$dx=-\dfrac{1}{t^{2}}dt$：$\dfrac{1}{x^{100}+x}=\dfrac{t^{100}}{1+t^{99}}$，</p>
+    <p>$\int\dfrac{t^{100}}{1+t^{99}}\cdot\left(-\dfrac{1}{t^{2}}\right)dt=-\int\dfrac{t^{98}}{1+t^{99}}dt=-\dfrac{1}{99}\ln\left|1+t^{99}\right|+C$（万能型凑微分！）。</p>
+    <p>回代：$=\ln|x|-\dfrac{1}{99}\ln(1+x^{99})+C$。倒代换专治"<strong>分母 $x$ 的次数压过分子</strong>"。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">积分 $\displaystyle\int x\sqrt{x-2}\,dx$ 应令（秋讲练习 10(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$t=\sqrt{x-2}$</button>
+    <button data-k="B">$t=x-2$</button>
+    <button data-k="C">$x=2\sin t$</button>
+    <button data-k="D">$t=\sqrt x$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\sqrt{x-2}$ 里的 $x-2$ 让平方差失效，直接令 $t=\sqrt{x-2}$：$x=t^{2}+2$、$dx=2t\,dt$，化成 $\int2(t^{2}+2)t^{2}dt$。B 只换掉根号里面的东西，根号还在；C 是三角换元——它只管 $a^2-x^2$ 型。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">积分 $\displaystyle\int\dfrac{1}{\sqrt x+\sqrt[3]x}dx$ 的正确换元是（夏讲 P41）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$t=\sqrt x$</button>
+    <button data-k="B">$t=\sqrt[3]x$</button>
+    <button data-k="C">$t=\sqrt[6]x$（最小公倍根）</button>
+    <button data-k="D">$x=\dfrac1t$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$\sqrt x=t^{3}$、$\sqrt[3]x=t^{2}$ 同时被 $t=\sqrt[6]x$ 消灭。选 2 或 3 都会留下一个根号——<strong>最小公倍根一次清场</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">积分 $\displaystyle\int\sqrt{x^{2}+4}\,dx$ 应令</p>
+  <div class="quiz-opts">
+    <button data-k="A">$x=2\sin t$</button>
+    <button data-k="B">$x=2\tan t$</button>
+    <button data-k="C">$x=2\sec t$</button>
+    <button data-k="D">$t=\sqrt{x^{2}+4}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x^{2}+4=2^{2}+x^{2}$ 是"$+$"型 → $x=a\tan t$，根号变 $2\sec t$。A 是"$-$"型（$a^{2}-x^{2}$）；C 是 $x^{2}-a^{2}$ 型。对照口诀：<strong>减号正弦、加号正切、反减正割</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">计算 $\displaystyle\int\sqrt{1-x^{2}}\,dx$ 令 $x=\sin t$ 后，最终答案里 $\cos t$ 应回代为（秋讲练习 10(10)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$x$</button>
+    <button data-k="B">$1-x$</button>
+    <button data-k="C">$\dfrac{1}{\sqrt{1-x^{2}}}$</button>
+    <button data-k="D">$\sqrt{1-x^{2}}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">画三角形：$x=\sin t$ ⇒ 对边 $x$、斜边 1 ⇒ 邻边 $\sqrt{1-x^{2}}$，$\cos t=$ 邻/斜 $=\sqrt{1-x^{2}}$。<strong>画三角形回代</strong>比背公式可靠——A 是 $\sin t$，C 是 $\sec t$。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">积分 $\displaystyle\int\dfrac{dx}{x\sqrt{x^{2}-1}}$ 的合适解法是（取 $x>1$；秋讲练习 10(7)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">倒代换 $x=\dfrac1t$，得 $-\arcsin\dfrac1x+C$</button>
+    <button data-k="B">令 $t=\sqrt{x^{2}-1}$，得 $\ln|t|+C$</button>
+    <button data-k="C">分部积分，取 $u=\dfrac{1}{x}$</button>
+    <button data-k="D">直接凑微分得 $\ln\left|x+\sqrt{x^{2}-1}\right|+C$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$x=\dfrac1t$ 后 $\dfrac{1}{x\sqrt{x^{2}-1}}=\dfrac{-t}{\sqrt{1-t^{2}}}$ 型，积出 $-\arcsin t$。D 的形状是 $\int\frac{dx}{x^{2}\pm a^{2}}$ 家族——分母里<strong>没有</strong>单独的 $x$ 因子，套不上。识别：分母 $x$ 的次数高 → 想倒代换。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>换元三件套写全：<strong>$x=\varphi(t)$、$dx=\varphi'(t)dt$、回代</strong>——$t$ 不能留在答案里</li>
+    <li>三角换元<strong>三选一</strong>按根号符号走；选错则根号除不掉</li>
+    <li>回代<strong>画直角三角形</strong>，$\cos t$、$\tan t$ 按边比写，不靠记忆硬背</li>
+    <li>第二换元后常接"长除 / 凑微分"接力，一条链算到底</li>
+    <li>$\int\sqrt{a^{2}-x^{2}}dx$ 的结论（$\frac{x}{2}\sqrt{\cdot}+\frac{a^2}{2}\arcsin$）在 0034 课算圆面积还回来——记结论也行</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写三角换元三选一：$\sqrt{a^2-x^2}$、$\sqrt{x^2+a^2}$、$\sqrt{x^2-a^2}$ 各令什么？各化成什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$x=a\sin t\to a\cos t$；$x=a\tan t\to a\sec t$；$x=a\sec t\to a\tan t$。口诀：减号正弦、加号正切、反减正割。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">第二换元三情形（根式、双根号、高次分母）各怎么换元？流程最后一步是什么？</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$t=\sqrt[n]{ax+b}$；取最小公倍根 $t=\sqrt[k]x$；倒代换 $x=\frac1t$。最后一步：回代 $t=\varphi^{-1}(x)$，不留 $t$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。0026 课补充公式 $\int\frac{dx}{\sqrt{x^2+a}}=\ln|x+\sqrt{x^2+a}|$ 正是"$+$"型三角换元的成品结论——现在你知道它从哪来了。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>速查：<a href="../reference/004-积分公式与凑微分速查.html">《积分公式与凑微分速查表》</a>（复杂函数积分表 3、5、6 号）</li>
+    <li>笔记：《不定积分》§四 第二换元法（含秋讲练习 10 速查表）</li>
+    <li>讲义：《不定积分》夏讲 PDF 教材 P97–P98（第二换元 P38–P44）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："画三角形回代完整演示一遍"、"$\int\sqrt{x^2-4}dx$ 全程做一遍"、"$e^{\sqrt x}$ 为什么要先换元再分部"，或让它出 5 道换元题限时做。
+</div>
+
+<nav class="footnav">
+  <a href="0027-第一类换元凑微分.html" class="prev"><span class="dir">← 上一课</span>0027 第一类换元：凑微分</a>
+  <a href="0029-分部积分法.html" class="next"><span class="dir">下一课 →</span>0029 分部积分法</a>
+</nav>
+</main>
+</body>
+</html>

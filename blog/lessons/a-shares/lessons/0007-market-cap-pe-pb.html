@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 7 课 · 市值、PE 与 PB | A 股入门</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/"></script>
+</head>
+<body>
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/a-shares/" target="_self">‹ 返回课程</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+
+<div class="lesson-meta">
+  <span>模块 1 · 概念扫盲 | 第 2 周 · 第 7 课</span>
+  <span>三段式：20 分钟读 + 15 分钟动手 + 5 分钟费曼</span>
+</div>
+
+<h1>市值、PE 与 PB：公司值多少钱，你买贵了吗</h1>
+
+<div class="win">学完你能：算出一家公司的市值，说清 PE 和 PB 各自的公式与含义，并解释为什么银行股 PB 普遍小于 1。</div>
+
+<div class="mission-tie">与考核的关系：PE、PB 是姑婆辈最常挂在嘴边的估值词，★ 概念，考核大概率追问。模块 3 你要用问财按财务指标筛实盘候选股，估值是筛选的最后一道题："这价格贵不贵？"</div>
+
+<h2>课前回炉（凭记忆作答，不许翻旧讲义）</h2>
+<p class="src">答错正好——说明该回炉，点错后按解析回对应课补一眼。</p>
+
+<div class="quiz review" data-answer="0" data-explain="ETF 持有一篮子股票，分散的是单一家公司暴雷的非系统性风险；整个市场的风险和交易费用仍然存在。（回炉第 6 课）">
+  <p class="q">回炉 1. 买宽基 ETF 分散掉的主要是哪种风险？</p>
+  <ul class="opts">
+    <li>单家公司暴雷风险</li>
+    <li>整个市场关门风险</li>
+    <li>交易费用过高风险</li>
+  </ul>
+</div>
+
+<div class="quiz review" data-answer="1" data-explain="联接基金在场外渠道（支付宝/天天基金等）申赎，适合小额自动定投；像股票一样在场内下单的是 ETF 本体。（回炉第 6 课）">
+  <p class="q">回炉 2. ETF 联接基金主要通过什么渠道买卖？</p>
+  <ul class="opts">
+    <li>股票账户场内下单</li>
+    <li>支付宝等场外渠道</li>
+    <li>期货公司柜台交易</li>
+  </ul>
+</div>
+
+<h2>一、市值：市场给公司的整体标价</h2>
+<p><b>总市值 = 股价 × 总股本</b>。你看到的股价只是一股的标价，市值才是市场给"整家公司"的标价。</p>
+
+<div class="example">
+  <span class="tag">真实算例</span>
+  <p>贵州茅台 2026-08-11 收盘价 <span class="num">1346.48</span> 元，总股本约 <span class="num">12.56 亿</span>股：</p>
+  <p>总市值 ≈ 1346.48 × 12.56 亿 ≈ <b>1.69 万亿元</b>。</p>
+  <p class="src">股价为问财实测值（RESOURCES.md 已验证）；市值请你在动手环节用问财复核最新数。</p>
+</div>
+
+<p>两个变体：<b>流通市值</b>用流通股本计算（能在二级市场自由买卖的部分），新闻里"总市值全球排名"用总股本。注意：市值度量的是<b>大小</b>，不是<b>好坏</b>——市值大说明市场整体标价高，不说明它便宜或者值得买。</p>
+
+<h2>二、市盈率 PE：标价与盈利之比</h2>
+<p><b>PE = 市值 ÷ 净利润 = 股价 ÷ 每股收益</b>（两个公式完全等价，一个是总量版、一个是单股版）。</p>
+<p>直觉读法：PE ≈ 按公司<b>当前盈利水平</b>，多少年"回本"。PE = 20 意味着假设利润永远不变，靠盈利要 20 年赚回你付出的标价。所以 PE 又叫"估值第一课"——它把"贵不贵"变成了一个可比的数字。</p>
+<ul>
+  <li><b>静态 PE</b>：用去年年报净利润；<b>滚动 PE（TTM）</b>：用最近 12 个月净利润。行情软件默认多为 TTM。</li>
+  <li><b>亏损公司没有 PE</b>（分母为负），软件显示"亏损"。</li>
+  <li>PE 低不等于便宜（可能是市场认为盈利要下滑），PE 高不等于贵（可能是成长预期强）。它是一把<b>尺</b>，不是一盏<b>灯</b>。</li>
+</ul>
+
+<h2>三、市净率 PB：标价与家底之比</h2>
+<p><b>PB = 市值 ÷ 净资产 = 股价 ÷ 每股净资产</b>。净资产 = 总资产 − 总负债（会计上叫"股东权益"），粗略理解为公司清算后理论上剩给股东的家底。</p>
+<p>直觉读法：PB = 0.6，你花 <span class="num">0.6</span> 元买 <span class="num">1</span> 元账面净资产——这就是行话<b>"破净"</b>。A 股银行股长期普遍破净；而品牌、科技公司 PB 很高，因为它们最值钱的东西（品牌、专利、人）大多不在账面上。</p>
+
+<table>
+  <tr><th></th><th>PE</th><th>PB</th></tr>
+  <tr><td><b>分母</b></td><td>净利润（公司赚钱能力）</td><td>净资产（公司家底）</td></tr>
+  <tr><td><b>回答的问题</b></td><td>按现在的盈利，标价贵不贵</td><td>相对账面家底，标价贵不贵</td></tr>
+  <tr><td><b>比较有意义</b></td><td>同行业内、和自己历史比</td><td>重资产行业（银行、地产、公用事业）</td></tr>
+  <tr><td><b>失灵场景</b></td><td>亏损、盈利剧烈波动的公司</td><td>轻资产公司（账面家底不代表价值）</td></tr>
+</table>
+<p class="src">口径参考：上交所投资者教育"证券学院"证券基础知识专题。具体公司数据以问财/交易所最新披露为准。</p>
+
+<div class="task">
+  <h3>动手 15 分钟：用问财查三个数</h3>
+  <ol>
+    <li>打开 <a href="https://www.iwencai.com/unifiedwap/result">同花顺问财</a></li>
+    <li>查"贵州茅台总市值"和"贵州茅台市盈率"，核对与上面算例的差距（股价每天在变）</li>
+    <li>查"银行股 市净率排名"，记下三家银行的 PB，再查一家科技公司的 PB</li>
+    <li>回答（写进笔记）：为什么银行 PB 普遍小于 1，而科技公司 PB 很高？用"净资产里装的是什么"讲一遍</li>
+  </ol>
+</div>
+
+<h2>随堂测（回忆作答，不许翻上文）</h2>
+
+<div class="quiz" data-answer="0" data-explain="PE = 市值 ÷ 净利润 = 股价 ÷ 每股收益，衡量按当前盈利多少年回本。">
+  <p class="q">1. 市盈率 PE 等于？</p>
+  <ul class="opts">
+    <li>每股价格除每股收益</li>
+    <li>公司市值除公司负债</li>
+    <li>公司市值除公司营收</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="破净 = PB 小于 1，即市值低于账面净资产。破发是新股跌破发行价（第 11 课见到）。">
+  <p class="q">2. PB 显著小于 1，行话叫？</p>
+  <ul class="opts">
+    <li>破发</li>
+    <li>破净</li>
+    <li>踏空</li>
+  </ul>
+</div>
+
+<div class="quiz" data-answer="1" data-explain="PE 跨行业不可直接比——银行天然低、科技天然高；同行内比较、和自己历史比较才有意义。">
+  <p class="q">3. 两家公司 PE 直接对比，最不合理的是？</p>
+  <ul class="opts">
+    <li>同行业两家公司</li>
+    <li>不同行业的两家</li>
+    <li>同公司不同时期</li>
+  </ul>
+</div>
+
+<div class="feynman" data-topic="出声讲：市值怎么算？PE 和 PB 的公式各是什么、分母分别代表什么？"破净"是什么意思？为什么 PE 不能跨行业直接比？">
+  <h3>费曼自测（5 分钟）</h3>
+</div>
+
+<h2>推荐一手来源</h2>
+<ul class="src">
+  <li><a href="https://edu.sse.com.cn/">上交所投资者教育 · 证券学院</a>（证券基础知识专题：估值指标官方口径）</li>
+  <li><a href="https://investor.szse.cn/">深交所投资者教育</a>（热点问答中关于市盈率/市净率的口径）</li>
+  <li>同花顺问财：输入"XX 市盈率""XX 市净率"获取真实数据</li>
+</ul>
+
+<div class="teacher-note">第 7 课结束。下一课讲钱怎么回到你口袋：分红、股息率与除权除息。有任何问题直接问我。</div>
+
+<div class="nav">
+  <span><a href="./0006-index-and-etf.html">← 第 6 课 · 指数与 ETF</a></span>
+  <span><a href="../reference/a-share-terms.html">术语参考表</a></span>
+  <span><a href="./0008-dividend-and-ex-dividend.html">第 8 课 · 分红与除权除息 →</a></span>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

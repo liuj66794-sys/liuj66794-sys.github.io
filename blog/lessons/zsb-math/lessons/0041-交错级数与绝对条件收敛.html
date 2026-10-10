@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0041 · 交错级数 · 绝对收敛与条件收敛 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0041">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 8 单元 · 无穷级数 · 课 0041</span>
+  <a href="0040-正项级数审敛法.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0041 · 无穷级数</span>
+<h1>交错级数 · 绝对收敛与条件收敛</h1>
+<div class="meta">
+  <span>⏱ 约 13 分钟</span>
+  <span>前置：0040 正项级数审敛法</span>
+  <span>来源：笔记《无穷级数》§一（收敛分类）· §四</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>用<strong>莱布尼茨判别法</strong>（单调递减 + 趋零）判交错级数收敛</li>
+    <li>按流程给级数贴三色标签：<strong>绝对收敛 / 条件收敛 / 发散</strong></li>
+    <li>报出<strong>交错 $p$-级数</strong>的分界表（$p&gt;1$、$0&lt;p\le1$、$p\le0$）</li>
+  </ul>
+</div>
+
+<p>正项级数的判别机器已经造好，本课只做两件事：处理"正负相间"的特殊形状，以及给收敛级数<strong>再分一档</strong>（绝对还是条件）——考题最爱问的正是这最后一档。</p>
+
+<h2>一、交错级数与莱布尼茨判别法</h2>
+
+<div class="keypoint">
+  <div class="kp-title">判别法（两个条件缺一不可）</div>
+  <p style="margin:0.2rem 0">形如 $\sum(-1)^{n}b_n$ 或 $\sum(-1)^{n-1}b_n$（$b_n\ge0$）。若 ① $b_n$ 从某项起<strong>单调递减</strong>；② $b_n\to0$ —— 则级数<strong>收敛</strong>。</p>
+  <p style="margin:0.2rem 0">只验 $b_n\to0$ 不够——<strong>单调递减也要写进答卷</strong>（常"代 $n+1$ 与 $n$ 比较"或看导数）。</p>
+</div>
+
+<h2>二、三色标签：绝对收敛 / 条件收敛 / 发散</h2>
+
+<div class="keypoint">
+  <div class="kp-title">判定流程（固定顺序）</div>
+  <p style="margin:0.2rem 0">$$\text{先看 } \sum|a_n|:\ \text{收敛}\Rightarrow\textbf{绝对收敛}\qquad \text{发散}\Rightarrow\text{再看 } \sum a_n$$</p>
+  <p style="margin:0.2rem 0">$$\sum a_n\ \text{收敛}\Rightarrow\textbf{条件收敛}\qquad \sum a_n\ \text{发散}\Rightarrow\textbf{发散}$$</p>
+  <p style="margin:0.2rem 0">顺序铁律：<strong>先取绝对值用正项级数方法，发散后再回来验原级数</strong>（通常用莱布尼茨）。绝对收敛级数可任意换序且和不变；条件收敛级数不能。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（标杆题）</span>判断 $\sum(-1)^{n-1}\dfrac{1}{n}$ 的敛散类型。</p>
+  <details><summary>先自己走流程，再展开（练习 9(1)）</summary>
+    <p><strong>第一步</strong>：取绝对值得调和级数 $\sum\frac1n$——发散（0016 部分和 $\ln(n+1)\to\infty$）。</p>
+    <p><strong>第二步</strong>：原级数是交错级数，$b_n=\frac1n$ 单调递减且 $\to0$，莱布尼茨 ⇒ 收敛。</p>
+    <p>结论：<strong>条件收敛</strong>。这就是著名的<strong>交错调和级数</strong>——绝对值发散、自身收敛的标杆。</p>
+  </details>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">必背：交错 $p$-级数 $\sum\dfrac{(-1)^{n-1}}{n^{p}}$</div>
+  <table style="margin:0.2rem 0">
+    <tr><th>$p$ 的范围</th><th>结论</th></tr>
+    <tr><td>$p&gt;1$</td><td><strong>绝对收敛</strong>（绝对值是 $p&gt;1$ 的 $p$-级数）</td></tr>
+    <tr><td>$0&lt;p\le1$</td><td><strong>条件收敛</strong>（绝对值发散 + 莱布尼茨收敛）</td></tr>
+    <tr><td>$p\le0$</td><td><strong>发散</strong>（通项 $(-1)^{n-1}n^{-p}$ 不趋零）</td></tr>
+  </table>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（要构造的题型）</span>判断 $\sum(-1)^{n}\dfrac{\ln n}{n}$ 的类型。（练习 9(4)）</p>
+  <details><summary>先自己走两步，再展开</summary>
+    <p><strong>绝对值</strong>：$\sum\dfrac{\ln n}{n}$，因 $\ln n\ge1$（$n\ge3$）时 $\dfrac{\ln n}{n}\ge\dfrac1n$，由比较法（找更小的发散）⇒ 发散。</p>
+    <p><strong>原级数</strong>：$b_n=\dfrac{\ln n}{n}$，$n\ge3$ 后单调递减（求导 $(\ln x/x)'=\frac{1-\ln x}{x^{2}}&lt;0$）且 $\to0$，莱布尼茨 ⇒ 收敛。结论：<strong>条件收敛</strong>。</p>
+    <p>单调性用导数验证是"写答卷"的标准姿势。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">用莱布尼茨判别法判 $\sum(-1)^{n-1}b_n$ 收敛，需要验证</p>
+  <div class="quiz-opts">
+    <button data-k="A">$b_n\to0$</button>
+    <button data-k="B">$b_n$ 单调递减且 $b_n\to0$</button>
+    <button data-k="C">$b_n$ 单调递增且 $b_n\to0$</button>
+    <button data-k="D">$\sum b_n$ 收敛</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">两个条件缺一不可：趋零 + （最终）单调递减。D 是更强的要求（那叫绝对收敛）——莱布尼茨的价值恰好在 $\sum b_n$ 发散时还能保住收敛。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$\sum(-1)^{n-1}\dfrac{1}{n^{p}}$ 当 $p=\dfrac12$ 时的类型是（练习 9(2)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">条件收敛</button>
+    <button data-k="B">绝对收敛</button>
+    <button data-k="C">发散</button>
+    <button data-k="D">敛散性无法确定</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$0&lt;p\le1$ 段位：绝对值是 $p=\frac12\le1$ 的 $p$-级数（发散），自身满足莱布尼茨（收敛）⇒ 条件收敛。B 需要 $p&gt;1$。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$\sum(-1)^{n}\dfrac{n}{n+1}$ 的类型是（练习 9(3)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">绝对收敛</button>
+    <button data-k="B">条件收敛</button>
+    <button data-k="C">发散</button>
+    <button data-k="D">收敛性与 $n$ 的奇偶有关</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$b_n=\dfrac{n}{n+1}\to1\neq0$——莱布尼茨第二条件直接失败，且通项不趋零 ⇒ 发散。<strong>判级数永远第一步安检通项</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">$\sum(-1)^{n-1}\dfrac{1}{n^{2}}$ 的类型是（练习 9(6)）</p>
+  <div class="quiz-opts">
+    <button data-k="A">条件收敛</button>
+    <button data-k="B">绝对收敛</button>
+    <button data-k="C">发散</button>
+    <button data-k="D">既是绝对收敛又是条件收敛</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">绝对值 $\sum\frac{1}{n^{2}}$ 收敛（$p=2&gt;1$）⇒ 绝对收敛。D 自相矛盾：条件收敛的前提恰是"不绝对收敛"——两个标签互斥。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">判断 $\sum(-1)^{n}\sin\dfrac1n$ 类型的第一步应取</p>
+  <div class="quiz-opts">
+    <button data-k="A">绝对值 $\sum\sin\dfrac1n$：因 $\sin\dfrac1n\sim\dfrac1n$，与调和级数同阶 ⇒ 发散，再验原级数</button>
+    <button data-k="B">直接宣布绝对收敛</button>
+    <button data-k="C">通项 $\sin\frac1n\to0$，收敛</button>
+    <button data-k="D">用比值法算 $\rho$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">流程第一步取绝对值：$\sin\frac1n\sim\frac1n$（0013 等价替换），比较判发散。第二步：$b_n=\sin\frac1n$ 单调递减趋零，莱布尼茨收敛 ⇒ <strong>条件收敛</strong>（练习 9(7)）。C 又是"必要条件当充分"。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>莱布尼茨两条件都验：<strong>趋零 + 单调递减</strong>（单调性可用导数证）</li>
+    <li>三色标签按固定顺序：<strong>先绝对值、后原级数</strong>，别跳步</li>
+    <li>绝对收敛 ⟹ 收敛（可推）；条件收敛 ⟹ 不绝对收敛（互斥标签）</li>
+    <li>交错 $p$-级数分界：$p&gt;1$ 绝对、$0&lt;p\le1$ 条件、$p\le0$ 发散</li>
+    <li>通项不趋零（如 $\frac{n}{n+1}\to1$）直接判发散，不用莱布尼茨</li>
+    <li>绝对收敛级数可换序、条件收敛不可换序——概念选择题考点</li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写绝对收敛 / 条件收敛 / 发散的判定流程（先看什么、后看什么）。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">先看 $\sum|a_n|$：收敛 ⇒ 绝对收敛；发散再看 $\sum a_n$：收敛 ⇒ 条件收敛，发散 ⇒ 发散。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写交错 $p$-级数三段分界，并举一个条件收敛的标杆例子。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$p&gt;1$ 绝对收敛；$0&lt;p\le1$ 条件收敛；$p\le0$ 发散。标杆：交错调和级数 $\sum(-1)^{n-1}\frac1n$ 条件收敛。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡。<strong>第 8 单元（0040–0041）收官</strong>。级数判别的手感靠"认脸量"：本周把笔记练习 5–9 的 30 个小题只写"方法名 + 结论"过一遍，不细算。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>笔记：《无穷级数》§一 收敛分类 · §四 交错级数（含练习 9 答案表）</li>
+    <li>讲义：《无穷级数》PDF（交错级数与敛散分类）</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："为什么绝对收敛可以换序"、"$\frac{\ln n}{n}$ 那题的单调性怎么证"、"再出 10 道'三色标签'分类题限时 10 分钟"，或让它考你任意一张回忆卡。
+</div>
+
+<nav class="footnav">
+  <a href="0040-正项级数审敛法.html" class="prev"><span class="dir">← 上一课</span>0040 正项级数审敛法</a>
+  <a href="0042-一阶微分方程.html" class="next"><span class="dir">下一课 →</span>0042 一阶微分方程</a>
+</nav>
+</main>
+</body>
+</html>

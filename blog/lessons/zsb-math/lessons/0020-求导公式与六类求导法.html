@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html data-study-shell lang="zh-CN">
+<head>
+<script data-account-bootstrap src="/blog/learning/account-bootstrap.js?v=6ef5f3a8f6281b4a"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0020 · 求导公式与六类求导法 — 专升本高等数学</title>
+<link rel="stylesheet" href="../assets/course.css">
+<script defer src="../assets/math.js"></script>
+<script defer src="../assets/quiz.js"></script>
+<link rel="icon" type="image/png" href="/blog/brand/zhixu-mark.png">
+<script data-study-appearance>try{var a=(window.ZhixuStudyStorage || window.localStorage).getItem('vuepress-theme-appearance');document.documentElement.dataset.theme=a==='dark'||((a!=='light')&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}</script><link rel="stylesheet" href="/blog/learning/learning-tokens.css"><link rel="stylesheet" href="/blog/learning/lesson-shell.css"><script type="module" src="/blog/learning/lesson-shell.mjs?v=6ef5f3a8f6281b4a" data-study-base="/blog/" data-exam-date="2027-03-27"></script>
+</head>
+<body data-lesson-id="0020">
+<nav data-blog-nav-bar="3" aria-label="学习导航"><div class="blog-lesson-nav-inner"><a class="blog-lesson-home" href="/blog/" target="_self">首页</a><a class="blog-lesson-nav-back" href="/blog/courses/zsb-math/" target="_self">高数课程目录</a><div class="blog-lesson-actions"><button type="button" data-lesson-toc aria-haspopup="dialog" hidden>本课目录</button><button type="button" data-lesson-theme aria-label="切换主题">◐</button><details class="blog-lesson-more"><summary>更多</summary><div><a class="blog-lesson-menu-home" href="/blog/" target="_self">首页</a><a href="/blog/courses/" target="_self">课程总览</a><a href="/blog/prep/" target="_self">备考中心</a><a href="/blog/prep/gaoshu/" target="_self">高数学习计划</a></div></details></div></div></nav><div data-blog-nav-spacer aria-hidden="true"></div>
+
+<div class="topbar"><div class="topbar-inner">
+  <a href="../index.html">← 课程主页</a>
+  <span class="crumb">第 3 单元 · 导数与微分 · 课 0020</span>
+  <a href="0019-导数定义与可导性.html">上一课</a>
+</div></div>
+
+<main>
+<span class="lesson-no">Lesson 0020 · 导数与微分</span>
+<h1>求导公式与六类求导法</h1>
+<div class="meta">
+  <span>⏱ 约 18 分钟</span>
+  <span>前置：0019 导数定义 · 0008 复合函数拆解 · 配套速查 <a href="../reference/003-求导公式与求导法则速查.html">003</a></span>
+  <span>来源：笔记《导数与微分》§二</span>
+</div>
+<div class="lesson-progress"></div>
+
+<div class="goal">
+  <div class="goal-title">本课结束，你能</div>
+  <ul>
+    <li>默写 16 条基本求导公式（含 $(\sec x)'$、$(\operatorname{arccot}x)'$ 这些易错户）</li>
+    <li>按函数类型选对求导法：<strong>分段用定义，隐函数两边导，参数做除法，幂指取对数</strong></li>
+    <li>参数方程<strong>二阶导"再除一次"</strong>：$y''=\dfrac{(y')'_t}{x'_t}$</li>
+  </ul>
+</div>
+
+<p>求导是后面所有章节的"乘法口诀"：切线、单调、极值、曲率，直到积分的逆运算，全都踩在这 16 条公式上。公式表已收进<a href="../reference/003-求导公式与求导法则速查.html">速查 003</a>，本课负责把<strong>方法和易错点</strong>练熟。</p>
+
+<h2>一、四则与链式：两台发动机</h2>
+
+<div class="keypoint">
+  <div class="kp-title">四则</div>
+  <p style="margin:0.2rem 0">$$(uv)'=u'v+uv'\qquad \left(\dfrac uv\right)'=\dfrac{u'v-uv'}{v^{2}}$$</p>
+  <p style="margin:0.2rem 0">乘法"交换着各自求"，除法"<strong>上导下不导 − 上不导下导，除以下方平方</strong>"——顺序别反。</p>
+</div>
+
+<div class="keypoint">
+  <div class="kp-title">链式法则</div>
+  <p style="margin:0.2rem 0">$$y=f[g(x)]\ \Rightarrow\ y'=f'[g(x)]\cdot g'(x)\quad\text{（由外向内，逐层相乘）}$$</p>
+  <p style="margin:0.2rem 0">0008 课的拆层能力直接复用：$\tan^3(2x^2+1)$ 拆三层，就乘三个导。</p>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 1（四则 + 化简优先）</span>求导：$f(x)=\dfrac{1+x}{\sqrt x}$。</p>
+  <details><summary>先化简再求导，再展开（夏讲 P23–P26）</summary>
+    <p>先化幂：$f(x)=x^{-\frac12}+x^{\frac12}$，故 $f'(x)=-\dfrac12x^{-\frac32}+\dfrac12x^{-\frac12}=\dfrac{x-1}{2x\sqrt x}$。</p>
+    <p>对照硬套商法则的结果一致，但计算量小一个量级——<strong>能化简先化简</strong>（根式换分数指数、除法换负指数幂）。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 2（复合 + 抽象函数）</span>求导：$y=\ln\left(x+\sqrt{x^{2}+a}\right)$；$y=f(x+\cos 2x)$。</p>
+  <details><summary>先自己拆层，再展开（夏讲 P49–P54）</summary>
+    <p>第一题：$y'=\dfrac{1+\dfrac{x}{\sqrt{x^{2}+a}}}{x+\sqrt{x^{2}+a}}$，分子通分后恰好约掉分母，$=\dfrac{1}{\sqrt{x^{2}+a}}$。</p>
+    <p>第二题：$y'=f'(x+\cos2x)\cdot(1-2\sin2x)$——抽象复合<strong>外层导数 $f'(\cdot)$ 不能丢</strong>，链式照走。</p>
+  </details>
+</div>
+
+<h2>二、六类求导法（按长相选武器）</h2>
+
+<table>
+  <tr><th>类型</th><th>方法</th><th>一句话要点</th></tr>
+  <tr><td>分段函数</td><td>分段点用<strong>定义</strong>（左右导数），区间内用公式</td><td>0019 课两步法</td></tr>
+  <tr><td>隐函数 $F(x,y)=0$</td><td>两边同时对 $x$ 求导，$y$ 当"$y(x)$"</td><td>遇到 $y$ 就链式带 $y'$</td></tr>
+  <tr><td>参数方程</td><td>$y'=\dfrac{dy/dt}{dx/dt}$；$y''=\dfrac{(y')'_t}{x'_t}$</td><td>二阶导<strong>再除一次</strong>，不是 $y''_t/x''_t$</td></tr>
+  <tr><td>幂指函数 $u(x)^{v(x)}$</td><td>化 $e^{v\ln u}$ 或两边取对数</td><td>底指都含变量，硬套幂函数公式必错</td></tr>
+  <tr><td>反函数</td><td>$\dfrac{dy}{dx}=\dfrac{1}{dx/dy}$</td><td>导数互为倒数（0008 课单调性一致）</td></tr>
+  <tr><td>复杂乘除开方混合</td><td>对数求导法：先取 $\ln$ 化乘为加</td><td>乘除链变成一串加法</td></tr>
+</table>
+
+<div class="example">
+  <p><span class="ex-tag">例 3（隐函数）</span>$e^{xy}+x^{2}y=1$，求 $y'$。</p>
+  <details><summary>先自己两边求导，再展开（秋讲练习 23）</summary>
+    <p>两边对 $x$ 求导（$xy$ 是乘积再复合）：$e^{xy}(y+xy')+2xy+x^{2}y'=0$。</p>
+    <p>整理：$y'(xe^{xy}+x^{2})=-ye^{xy}-2xy$，故 $y'=-\dfrac{ye^{xy}+2xy}{xe^{xy}+x^{2}}=-\dfrac{y(e^{xy}+2x)}{x(e^{xy}+x)}$（分子分母各提公因式后约去一个 $x$，分母里的 $x$ 别丢）。</p>
+    <p>口诀：<strong>含 $y$ 项全带 $y'$，最后把 $y'$ 当未知数解方程</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 4（参数方程）</span>$\begin{cases}x=1+\cos t\\ y=\sin^{2}t\end{cases}$，求 $y'$ 与 $y''$。</p>
+  <details><summary>先自己除，再展开（夏讲 P61）</summary>
+    <p>$y'=\dfrac{dy/dt}{dx/dt}=\dfrac{2\sin t\cos t}{-\sin t}=-2\cos t$。</p>
+    <p>$y''=\dfrac{(y')'_t}{x'_t}=\dfrac{2\sin t}{-\sin t}=-2$（$\sin t\neq0$）。</p>
+    <p>易错对照：若错算 $\dfrac{y''_t}{x''_t}=\dfrac{2\cos2t}{-\cos t}$ 就全错了——<strong>二阶导是"对 $y'$ 这个新函数再除一次"</strong>。</p>
+  </details>
+</div>
+
+<div class="example">
+  <p><span class="ex-tag">例 5（幂指 / 对数求导）</span>求 $y=x^{\sin x}\ (x&gt;0)$ 的导数。</p>
+  <details><summary>先取对数，再展开（夏讲 P63）</summary>
+    <p>取对数：$\ln y=\sin x\ln x$，两边对 $x$ 求导：$\dfrac{y'}{y}=\cos x\ln x+\dfrac{\sin x}{x}$。</p>
+    <p>回代 $y$：$y'=x^{\sin x}\left(\cos x\ln x+\dfrac{\sin x}{x}\right)$。</p>
+    <p>同款：$y=(\ln x)^x\Rightarrow y'=(\ln x)^x\left(\ln\ln x+\dfrac{1}{\ln x}\right)$（秋讲练习 28）。<strong>最后一步必须把 $y$ 乘回去</strong>——忘了乘是最常见的丢分。</p>
+  </details>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 1</span>
+  <p class="quiz-q">$\left(\dfrac{2-3x}{2+x}\right)'=$（夏讲原题）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{8}{(2+x)^{2}}$</button>
+    <button data-k="B">$\dfrac{-8}{(2+x)^{2}}$</button>
+    <button data-k="C">$\dfrac{-8}{2+x}$</button>
+    <button data-k="D">$\dfrac{7}{(2+x)^{2}}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">商法则：$\dfrac{-3(2+x)-(2-3x)\cdot1}{(2+x)^{2}}=\dfrac{-6-3x-2+3x}{(2+x)^{2}}=\dfrac{-8}{(2+x)^2}$。A 丢了负号——分子是"下导上不导 − 上导下不导"的<strong>相反顺序</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="C">
+  <span class="quiz-no">随堂测 2</span>
+  <p class="quiz-q">$(\ln\cos e^{x})'=$（夏讲速查改编）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$-e^{x}\cot(e^{x})$</button>
+    <button data-k="B">$e^{x}\tan(e^{x})$</button>
+    <button data-k="C">$-e^{x}\tan(e^{x})$</button>
+    <button data-k="D">$\tan(e^{x})$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">三层链：$\ln u\to u=\cos v\to v=e^x$。$\dfrac{-\sin(e^x)}{\cos(e^x)}\cdot e^{x}=-e^{x}\tan(e^{x})$。三个负号来源：$(\cos)'=-\sin$；两个正号来源：$(\ln)'=\frac1u$、$(e^x)'=e^x$。</div>
+</div>
+
+<div class="quiz" data-answer="A">
+  <span class="quiz-no">随堂测 3</span>
+  <p class="quiz-q">$y^{3}=x^{2}+xy+y^{2}$ 确定的隐函数，$y'=$（秋讲速查）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$\dfrac{2x+y}{3y^{2}-x-2y}$</button>
+    <button data-k="B">$\dfrac{2x+y}{3y^{2}+x+2y}$</button>
+    <button data-k="C">$\dfrac{3y^{2}}{2x+y}$</button>
+    <button data-k="D">$\dfrac{2x}{3y^{2}}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">两边求导：$3y^{2}y'=2x+y+xy'+2yy'$，把含 $y'$ 的移到一边：$y'(3y^{2}-x-2y)=2x+y$，相除得 A。<strong>含 $y$ 项（如 $xy$）求导别忘了乘积法则</strong>。</div>
+</div>
+
+<div class="quiz" data-answer="D">
+  <span class="quiz-no">随堂测 4</span>
+  <p class="quiz-q">参数方程 $\begin{cases}x=t-\sin t\\ y=1-\cos t\end{cases}$，$t=\dfrac{\pi}{2}$ 处的切线斜率是（夏讲 P62）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$0$</button>
+    <button data-k="B">$-1$</button>
+    <button data-k="C">$2$</button>
+    <button data-k="D">$1$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">$y'=\dfrac{dy/dt}{dx/dt}=\dfrac{\sin t}{1-\cos t}$，代 $t=\frac\pi2$：$\dfrac{1}{1-0}=1$。（切线为 $y=x+2-\frac{\pi}{2}$——0021 课把"斜率变切线方程"补齐。）</div>
+</div>
+
+<div class="quiz" data-answer="B">
+  <span class="quiz-no">随堂测 5</span>
+  <p class="quiz-q">$y=(\ln x)^{x}$ 的导数是（秋讲练习 28）</p>
+  <div class="quiz-opts">
+    <button data-k="A">$x(\ln x)^{x-1}\cdot\dfrac1x$</button>
+    <button data-k="B">$(\ln x)^{x}\left(\ln\ln x+\dfrac{1}{\ln x}\right)$</button>
+    <button data-k="C">$(\ln x)^{x}\cdot\dfrac{1}{\ln x}$</button>
+    <button data-k="D">$x(\ln x)^{x-1}$</button>
+  </div>
+  <div class="quiz-verdict"></div>
+  <div class="quiz-exp">幂指函数必须取对数：$\ln y=x\ln\ln x$，求导 $\dfrac{y'}{y}=\ln\ln x+x\cdot\dfrac{1}{x\ln x}=\ln\ln x+\dfrac{1}{\ln x}$，再乘回 $y$。A、D 是把幂函数公式硬套在幂指函数上——典型错误。</div>
+</div>
+
+<div class="warn">
+  <div class="warn-title">本课易错清单</div>
+  <ul style="margin:0.2rem 0 0.2rem;padding-left:1.3rem">
+    <li>商法则顺序："下导上不导"在前——负号位置别反</li>
+    <li>抽象复合 $f(\varphi(x))$ 求导：<strong>外层 $f'$ 必须保留</strong></li>
+    <li>参数方程二阶导 $y''=\dfrac{(y')'_t}{x'_t}$——<strong>不是</strong> $\dfrac{y''_t}{x''_t}$</li>
+    <li>幂指函数先取对数；对数求导最后<strong>乘回 $y$</strong></li>
+    <li>$(\tan x)'=\sec^{2}x$、$(\cot x)'=-\csc^{2}x$、$(\operatorname{arccot}x)'=-\dfrac{1}{1+x^{2}}$——符号三查</li>
+    <li>分段函数：区间内公式，<strong>分段点必回定义</strong></li>
+  </ul>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写六类求导法（分段/隐函数/参数/幂指/反函数/复杂乘除）各自的方法一句话。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">分段点用定义；隐函数两边对 $x$ 求导解出 $y'$；参数 $y'=\frac{dy/dt}{dx/dt}$（二阶再除一次）；幂指化 $e^{v\ln u}$ 或取对数；反函数 $\frac{dy}{dx}=1/\frac{dx}{dy}$；复杂乘除开方取对数化乘为加。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="recall">
+  <span class="recall-tag">回忆卡</span>
+  <p class="recall-q">默写 16 条求导公式中容易错号的六条：$\tan$、$\cot$、$\sec$、$\csc$、$\arccos$、$\operatorname{arccot}$ 的导数。</p>
+  <div class="recall-a">
+    <p style="margin:0.2rem 0">$(\tan x)'=\sec^{2}x$；$(\cot x)'=-\csc^{2}x$；$(\sec x)'=\sec x\tan x$；$(\csc x)'=-\csc x\cot x$；$\left(\arccos x\right)'=-\dfrac{1}{\sqrt{1-x^{2}}}$；$\left(\operatorname{arccot}x\right)'=-\dfrac{1}{1+x^{2}}$。</p>
+  </div>
+  <div class="recall-actions">
+    <button class="reveal-btn">先回忆，再揭晓</button>
+    <button class="good-btn">记住了</button>
+    <button class="bad-btn">没记住</button>
+  </div>
+  <div class="self-msg"></div>
+</div>
+
+<div class="spaced-review">
+  📌 <strong>间隔复习</strong>：明天重测两张回忆卡 + 打开<a href="../reference/003-求导公式与求导法则速查.html">速查 003</a> 盖住右栏默写 16 条公式——这套公式未来 20 课天天用，本周内要达到"不假思索"。
+</div>
+
+<div class="goal">
+  <div class="goal-title">推荐精读（本课的知识源头）</div>
+  <ul>
+    <li>速查：<a href="../reference/003-求导公式与求导法则速查.html">《求导公式与求导法则速查表》</a></li>
+    <li>笔记：《导数与微分》§二（含秋讲练习 20–29 速查表）</li>
+    <li>讲义：《导数【二】》夏讲 PDF（六类求导法 P49–P65）、秋讲 PDF</li>
+  </ul>
+</div>
+
+<div class="teacher-note">
+  💬 <b>卡住了就问老师。</b>可以直接问："参数方程二阶导为什么是'再除一次'"、"对数求导法的适用边界"、"$\ln(x+\sqrt{x^2+a})$ 那题怎么看出能约分"，或让它出 10 道"认类型选招"的求导题。
+</div>
+
+<nav class="footnav">
+  <a href="0019-导数定义与可导性.html" class="prev"><span class="dir">← 上一课</span>0019 导数定义与可导性</a>
+  <a href="0021-切线法线与微分.html" class="next"><span class="dir">下一课 →</span>0021 切线法线与微分</a>
+</nav>
+</main>
+</body>
+</html>
