@@ -51,6 +51,10 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Restore runner ownership after container build
+        run: |
+          test -d "$GITHUB_WORKSPACE/_site" && test ! -L "$GITHUB_WORKSPACE/_site"
+          sudo chown -R "$(id -u):$(id -g)" "$GITHUB_WORKSPACE/_site"
       - name: Add only the reviewed subtree; preserve current homepage bytes
         run: |
           test ! -e _site/blog
